@@ -14,6 +14,12 @@ def main():
     targets.pop()
     print(targets)
 
+    workbook = Workbook(location + "test.xlsx")
+    worksheet = workbook.add_worksheet()
+    worksheet.set_column('C:L', 100)
+    cell_format = workbook.add_format({'text_wrap': True})
+
+    
     for i in range(len(targets)): 
         cmd = ['cat', targets[i]]
         count = []
@@ -25,7 +31,9 @@ def main():
             result.append(value)
         
         print(result)
-        excel_make(targets[i], result, i)
+        excel_make(worksheet, cell_format, targets[i], result, i)
+
+    workbook.close()
     '''
     print(target + "\t", end='')
     
@@ -86,14 +94,7 @@ def check_target(cmd):
 
 
 
-def excel_make(target, data, i):
-    workbook = Workbook(location + "test.xlsx")
-    worksheet = workbook.add_worksheet()
-
-    worksheet.set_column('C:L', 100)
-
-    cell_format = workbook.add_format({'text_wrap': True})
-    
+def excel_make(worksheet, cell_format, target, data, i):    
     worksheet.write('B' + str(i+1), target, cell_format) # date & version
     worksheet.write('C' + str(i+1), data[0], cell_format) #core
     worksheet.write('D' + str(i+1), data[1], cell_format) #cplusplus
@@ -105,8 +106,6 @@ def excel_make(target, data, i):
     worksheet.write('J' + str(i+1), data[7], cell_format) #osx
     worksheet.write('K' + str(i+1), data[8], cell_format) #fuchsia
     worksheet.write('L' + str(i+1), data[9], cell_format) #webkit
-    
-    workbook.close()
     '''
     workbook = Workbook()
     worksheet = workbook.worksheets[0]
