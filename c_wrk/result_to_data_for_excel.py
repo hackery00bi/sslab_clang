@@ -77,8 +77,17 @@ def excel_make(data):
 
     cell_format = workbook.add_format({'text_wrap': True})
 
-    for i in range(10):
-        worksheet.write('A'+str(i+1), data[i], cell_format)
+    worksheet.write('C1', data[0], cell_format) #core
+    worksheet.write('D1', data[1], cell_format) #cplusplus
+    worksheet.write('E1', data[2], cell_format) #deadcode
+    worksheet.write('F1', data[3], cell_format) #nullalbility
+    worksheet.write('G1', data[4], cell_format) #optin
+    worksheet.write('H1', data[5], cell_format) #security
+    worksheet.write('I1', data[6], cell_format) #unix
+    worksheet.write('J1', data[7], cell_format) #osx
+    worksheet.write('K1', data[8], cell_format) #fuchsia
+    worksheet.write('L1', data[9], cell_format) #webkit
+    
     workbook.close()
     '''
     workbook = Workbook()
