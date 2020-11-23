@@ -77,7 +77,8 @@ def excel_make(data):
 
     cell_format = workbook.add_format({'text_wrap': True})
 
-    worksheet.write('A1', data[0], cell_format)
+    for i in range(10):
+        worksheet.write('A'+str(i+1), data[i], cell_format)
     workbook.close()
     '''
     workbook = Workbook()
