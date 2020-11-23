@@ -1,0 +1,170 @@
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/crypto-base64.c -o tmp/crypto-base64.o
+src/crypto-base64.c:118:14: warning: The left operand of '==' is a garbage value [core.UndefinedBinaryOperatorResult]
+                if (src[i] == '=' || i++ >= sizeof_src)
+                    ~~~~~~ ^
+src/crypto-base64.c:124:14: warning: The left operand of '==' is a garbage value [core.UndefinedBinaryOperatorResult]
+                if (src[i] == '=' || i++ >= sizeof_src)
+                    ~~~~~~ ^
+2 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/crypto-blackrock2.c -o tmp/crypto-blackrock2.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/event-timeout.c -o tmp/event-timeout.o
+In file included from src/event-timeout.c:26:
+src/event-timeout.h:44:20: warning: Dereference of null pointer (loaded from field 'prev') [core.NullDereference]
+    *(entry->prev) = entry->next;
+             ~~~~  ^
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/in-binary.c -o tmp/in-binary.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/in-filter.c -o tmp/in-filter.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/in-report.c -o tmp/in-report.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/logger.c -o tmp/logger.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/main-conf.c -o tmp/main-conf.o -DGIT=\"1.0.5\"
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/main-dedup.c -o tmp/main-dedup.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/main-initadapter.c -o tmp/main-initadapter.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/main-listscan.c -o tmp/main-listscan.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/main-ptrace.c -o tmp/main-ptrace.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/main-readrange.c -o tmp/main-readrange.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/main-src.c -o tmp/main-src.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/main-status.c -o tmp/main-status.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/main-throttle.c -o tmp/main-throttle.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/main.c -o tmp/main.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/masscan-app.c -o tmp/masscan-app.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/out-binary.c -o tmp/out-binary.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/out-certs.c -o tmp/out-certs.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/out-grepable.c -o tmp/out-grepable.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/out-json.c -o tmp/out-json.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/out-ndjson.c -o tmp/out-ndjson.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/out-null.c -o tmp/out-null.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/out-redis.c -o tmp/out-redis.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/out-text.c -o tmp/out-text.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/out-unicornscan.c -o tmp/out-unicornscan.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/out-xml.c -o tmp/out-xml.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/output.c -o tmp/output.o
+src/output.c:952:9: warning: Potential leak of memory pointed to by 'f' [unix.Malloc]
+        fprintf(stderr, "output: failed selftest\n");
+        ^~~~~~~
+src/output.c:959:9: warning: Potential leak of memory pointed to by 'f' [unix.Malloc]
+        fprintf(stderr, "output: failed selftest\n");
+        ^~~~~~~
+2 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/pixie-backtrace.c -o tmp/pixie-backtrace.o
+src/pixie-backtrace.c: In function 'pixie_backtrace_init':
+src/pixie-backtrace.c:86:5: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+     if (x == -1)
+     ^~
+src/pixie-backtrace.c:89:2: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  signal(SIGSEGV, handle_segfault);
+  ^~~~~~
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/pixie-file.c -o tmp/pixie-file.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/pixie-threads.c -o tmp/pixie-threads.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/pixie-timer.c -o tmp/pixie-timer.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-arp.c -o tmp/proto-arp.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-banner1.c -o tmp/proto-banner1.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-banout.c -o tmp/proto-banout.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-dns.c -o tmp/proto-dns.o
+src/proto-dns.c:318:5: warning: 2nd function call argument is an uninitialized value [core.CallAndMessage]
+    dns_extract_name(px, dns->rr_offset[0], max, &dns->query_name);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/proto-dns.c:376:26: warning: The right operand of '!=' is a garbage value [core.UndefinedBinaryOperatorResult]
+    if ((seqno & 0xFFFF) != dns->id)
+                         ^  ~~~~~~~
+2 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-ftp.c -o tmp/proto-ftp.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-http.c -o tmp/proto-http.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-icmp.c -o tmp/proto-icmp.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-imap4.c -o tmp/proto-imap4.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-interactive.c -o tmp/proto-interactive.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-memcached.c -o tmp/proto-memcached.o
+src/proto-memcached.c:195:25: warning: Value stored to 'state' is never read [deadcode.DeadStores]
+                        state = 0;
+                        ^       ~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-netbios.c -o tmp/proto-netbios.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-ntp.c -o tmp/proto-ntp.o
+src/proto-ntp.c:143:5: warning: Value stored to 'offset' is never read [deadcode.DeadStores]
+    offset += 4;
+    ^         ~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-pop3.c -o tmp/proto-pop3.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-preprocess.c -o tmp/proto-preprocess.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-sctp.c -o tmp/proto-sctp.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-smtp.c -o tmp/proto-smtp.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-snmp.c -o tmp/proto-snmp.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-ssh.c -o tmp/proto-ssh.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-ssl-test.c -o tmp/proto-ssl-test.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-ssl.c -o tmp/proto-ssl.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-tcp-telnet.c -o tmp/proto-tcp-telnet.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-tcp.c -o tmp/proto-tcp.o
+In file included from src/proto-tcp.c:14:
+src/event-timeout.h:44:20: warning: Dereference of null pointer (loaded from field 'prev') [core.NullDereference]
+    *(entry->prev) = entry->next;
+             ~~~~  ^
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-udp.c -o tmp/proto-udp.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-vnc.c -o tmp/proto-vnc.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-x509.c -o tmp/proto-x509.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/proto-zeroaccess.c -o tmp/proto-zeroaccess.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/rand-blackrock.c -o tmp/rand-blackrock.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/rand-lcg.c -o tmp/rand-lcg.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/rand-primegen.c -o tmp/rand-primegen.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/ranges.c -o tmp/ranges.o
+src/ranges.c:112:9: warning: Null pointer passed to 2nd parameter expecting 'nonnull' [core.NonNullParamChecker]
+        memcpy(new_list, task->list, task->count * sizeof(*new_list));
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/rawsock-arp.c -o tmp/rawsock-arp.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/rawsock-getif.c -o tmp/rawsock-getif.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/rawsock-getip.c -o tmp/rawsock-getip.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/rawsock-getmac.c -o tmp/rawsock-getmac.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/rawsock-getroute.c -o tmp/rawsock-getroute.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/rawsock-pcap.c -o tmp/rawsock-pcap.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/rawsock-pcapfile.c -o tmp/rawsock-pcapfile.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/rawsock-pfring.c -o tmp/rawsock-pfring.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/rawsock.c -o tmp/rawsock.o
+src/rawsock.c:759:13: warning: Potential leak of memory pointed to by 'adapter' [unix.Malloc]
+            LOG(0, "FAIL: %s\n", errbuf);
+            ^~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/rte-ring.c -o tmp/rte-ring.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/script-heartbleed.c -o tmp/script-heartbleed.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/script-ntp-monlist.c -o tmp/script-ntp-monlist.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/script-sslv3.c -o tmp/script-sslv3.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/script.c -o tmp/script.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/siphash24.c -o tmp/siphash24.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/smack1.c -o tmp/smack1.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/smackqueue.c -o tmp/smackqueue.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/string_s.c -o tmp/string_s.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/syn-cookie.c -o tmp/syn-cookie.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/templ-payloads.c -o tmp/templ-payloads.o
+src/templ-payloads.c:143:31: warning: The right operand of '*' is a garbage value due to array index out of bounds [core.UndefinedBinaryOperatorResult]
+    xsum -= (icmp_length & 1) * px[i - 1]; /* yea I know going off end of packet is bad so sue me */
+                              ^ ~~~~~~~~~
+src/templ-payloads.c:443:13: warning: Null pointer passed to 2nd parameter expecting 'nonnull' [core.NonNullParamChecker]
+            memcpy(new_list, payloads->list, payloads->count * sizeof(new_list[0]));
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/templ-pkt.c -o tmp/templ-pkt.o
+src/templ-pkt.c:791:18: warning: Potential memory leak [unix.Malloc]
+    tmpl->length = (unsigned)packet_size;
+    ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+src/templ-pkt.c:791:18: warning: Potential memory leak [unix.Malloc]
+    tmpl->length = (unsigned)packet_size;
+    ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+src/templ-pkt.c:791:18: warning: Potential memory leak [unix.Malloc]
+    tmpl->length = (unsigned)packet_size;
+    ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+src/templ-pkt.c:791:18: warning: Potential memory leak [unix.Malloc]
+    tmpl->length = (unsigned)packet_size;
+    ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+src/templ-pkt.c:791:18: warning: Potential memory leak [unix.Malloc]
+    tmpl->length = (unsigned)packet_size;
+    ~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~
+src/templ-pkt.c:1106:14: warning: Potential leak of memory pointed to by field 'packet' [unix.Malloc]
+    failures += tmplset->pkts[Proto_ICMP_ping].proto != Proto_ICMP_ping;
+    ~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+6 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -c src/xring.c -o tmp/xring.o
+/llvm-project/build/bin/../libexec/ccc-analyzer -g -ggdb    -Wall -O3 -o bin/masscan tmp/crypto-base64.o tmp/crypto-blackrock2.o tmp/event-timeout.o tmp/in-binary.o tmp/in-filter.o tmp/in-report.o tmp/logger.o tmp/main-conf.o tmp/main-dedup.o tmp/main-initadapter.o tmp/main-listscan.o tmp/main-ptrace.o tmp/main-readrange.o tmp/main-src.o tmp/main-status.o tmp/main-throttle.o tmp/main.o tmp/masscan-app.o tmp/out-binary.o tmp/out-certs.o tmp/out-grepable.o tmp/out-json.o tmp/out-ndjson.o tmp/out-null.o tmp/out-redis.o tmp/out-text.o tmp/out-unicornscan.o tmp/out-xml.o tmp/output.o tmp/pixie-backtrace.o tmp/pixie-file.o tmp/pixie-threads.o tmp/pixie-timer.o tmp/proto-arp.o tmp/proto-banner1.o tmp/proto-banout.o tmp/proto-dns.o tmp/proto-ftp.o tmp/proto-http.o tmp/proto-icmp.o tmp/proto-imap4.o tmp/proto-interactive.o tmp/proto-memcached.o tmp/proto-netbios.o tmp/proto-ntp.o tmp/proto-pop3.o tmp/proto-preprocess.o tmp/proto-sctp.o tmp/proto-smtp.o tmp/proto-snmp.o tmp/proto-ssh.o tmp/proto-ssl-test.o tmp/proto-ssl.o tmp/proto-tcp-telnet.o tmp/proto-tcp.o tmp/proto-udp.o tmp/proto-vnc.o tmp/proto-x509.o tmp/proto-zeroaccess.o tmp/rand-blackrock.o tmp/rand-lcg.o tmp/rand-primegen.o tmp/ranges.o tmp/rawsock-arp.o tmp/rawsock-getif.o tmp/rawsock-getip.o tmp/rawsock-getmac.o tmp/rawsock-getroute.o tmp/rawsock-pcap.o tmp/rawsock-pcapfile.o tmp/rawsock-pfring.o tmp/rawsock.o tmp/rte-ring.o tmp/script-heartbleed.o tmp/script-ntp-monlist.o tmp/script-sslv3.o tmp/script.o tmp/siphash24.o tmp/smack1.o tmp/smackqueue.o tmp/string_s.o tmp/syn-cookie.o tmp/templ-payloads.o tmp/templ-pkt.o tmp/xring.o   -lm -lrt -ldl -lpthread
+scan-build: Analysis run complete.
+scan-build: 20 bugs found.
+scan-build: Run 'scan-view /tmp/scan-build-2020-11-17-111721-30026-1' to examine bug reports.

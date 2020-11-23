@@ -1,0 +1,1261 @@
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+GIT_VERSION = 2.29.2
+    * new build flags
+    CC fuzz-commit-graph.o
+    CC fuzz-pack-headers.o
+    CC fuzz-pack-idx.o
+    CC daemon.o
+daemon.c:912:22: warning: The left operand of '==' is a garbage value [core.UndefinedBinaryOperatorResult]
+        if (addr->sa_family == AF_INET) {
+            ~~~~~~~~~~~~~~~ ^
+1 warning generated.
+    * new link flags
+    CC common-main.o
+    CC abspath.o
+In file included from abspath.c:1:
+In file included from ./cache.h:5:
+./strbuf.h:166:16: warning: Array access (via field 'buf') results in a null pointer dereference [core.NullDereference]
+                sb->buf[len] = '\0';
+                    ~~~      ^
+abspath.c:245:3: warning: Value stored to 'pfx_len' is never read [deadcode.DeadStores]
+                pfx_len = 0;
+                ^         ~
+2 warnings generated.
+    CC add-interactive.o
+add-interactive.c:1145:2: warning: Value stored to 'res' is never read [deadcode.DeadStores]
+        res = run_status(&s, ps, &files, &opts);
+        ^     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+add-interactive.c:1163:4: warning: Value stored to 'res' is never read [deadcode.DeadStores]
+                        res = util->command(&s, ps, &files, &opts);
+                        ^     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+    CC add-patch.o
+add-patch.c:577:24: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+                        char *colored_eol = memchr(colored_p, '\n',
+                                            ^~~~~~~~~~~~~~~~~~~~~~~
+add-patch.c:1628:46: warning: Value stored to 'eol' during its initialization is never read [deadcode.DeadStores]
+                        const char *p = _(help_patch_remainder), *eol = p;
+                                                                  ^~~   ~
+2 warnings generated.
+    CC advice.o
+    CC alias.o
+    CC alloc.o
+    CC apply.o
+apply.c:2493:8: warning: Dereference of null pointer [core.NullDereference]
+                    (preimage->line[i].hash != img->line[current_lno + i].hash))
+                     ^~~~~~~~~~~~~~~~~~~~~~
+apply.c:2959:3: warning: Dereference of null pointer [core.NullDereference]
+                postimage.line_allocated[postimage.nr - 1].len--;
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+    CC archive-tar.o
+    CC archive-zip.o
+    CC archive.o
+archive.c:649:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_archive_args(argc, argv, &ar, &args, name_hint, remote);
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    * new prefix flags
+    CC attr.o
+attr.c:575:17: warning: Although the value stored to 'param' is used in the enclosing expression, the value is never actually read from 'param' [deadcode.DeadStores]
+        for (cnt = 1; (param = va_arg(params, const char *)) != NULL; cnt++)
+                       ^       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+attr.c:919:11: warning: Access to field 'prev' results in a dereference of a null pointer (loaded from variable 'info') [core.NullDereference]
+        *stack = info->prev;
+                 ^~~~~~~~~~
+attr.c:927:9: warning: Access to field 'origin' results in a dereference of a null pointer [core.NullDereference]
+        while ((*stack)->origin) {
+               ^~~~~~~~~~~~~~~~
+3 warnings generated.
+    CC base85.o
+    CC bisect.o
+bisect.c:419:15: warning: Access to field 'item' results in a dereference of a null pointer (loaded from variable 'list') [core.NullDereference]
+                        list->item = best->item;
+                        ~~~~       ^
+1 warning generated.
+    CC blame.o
+blame.c:1464:10: warning: Assigned value is garbage or undefined [core.uninitialized.Assign]
+        e->next = **queue;
+                ^ ~~~~~~~
+blame.c:1480:12: warning: Assigned value is garbage or undefined [core.uninitialized.Assign]
+        dst->next = **queue;
+                  ^ ~~~~~~~
+blame.c:2828:10: warning: Access to field 'parents' results in a dereference of a null pointer (loaded from variable 'c') [core.NullDereference]
+                while (c->parents &&
+                       ^~~~~~~~~~
+3 warnings generated.
+    CC blob.o
+    CC bloom.o
+    CC branch.o
+    CC bulk-checkin.o
+    CC bundle.o
+    CC cache-tree.o
+    CC chdir-notify.o
+    CC checkout.o
+    CC color.o
+color.c:59:2: warning: Undefined or garbage value returned to caller [core.uninitialized.UndefReturn]
+        return !strncasecmp(word, match, len) && !match[len];
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC column.o
+    CC combine-diff.o
+combine-diff.c:258:13: warning: Access to field 'prev' results in a dereference of a null pointer (loaded from variable 'newend') [core.NullDereference]
+                        newend = newend->prev;
+                                 ^~~~~~~~~~~~
+combine-diff.c:266:8: warning: Access to field 'prev' results in a dereference of a null pointer (loaded from variable 'lline') [core.NullDereference]
+                        if (lline->prev)
+                            ^~~~~~~~~~~
+2 warnings generated.
+    CC commit-graph.o
+commit-graph.c:559:4: warning: Value stored to 'valid' is never read [deadcode.DeadStores]
+                        valid = 0;
+                        ^       ~
+commit-graph.c:818:3: warning: Value stored to 'pptr' is never read [deadcode.DeadStores]
+                pptr = insert_parent_or_die(r, g, edge_value, pptr);
+                ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+commit-graph.c:1946:52: warning: Access to field 'odb' results in a dereference of a null pointer (loaded from variable 'g') [core.NullDereference]
+                char *old_graph_name = get_commit_graph_filename(g->odb);
+                                                                 ^~~~~~
+3 warnings generated.
+    CC commit-reach.o
+commit-reach.c:363:2: warning: Value stored to 'next' is never read [deadcode.DeadStores]
+        next = commit_list_append(commit, next);
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+commit-reach.c:672:32: warning: Access to field 'flags' results in a dereference of a null pointer (loaded from field 'item') [core.NullDereference]
+                from->objects[i].item->flags &= ~assign_flag;
+                                 ~~~~        ^
+2 warnings generated.
+    CC commit.o
+    CC compat/obstack.o
+    CC compat/terminal.o
+compat/terminal.c:280:8: warning: Value stored to 'eol' is never read [deadcode.DeadStores]
+                for (eol = p = buf.buf; *p; p = eol + 1) {
+                     ^     ~~~~~~~~~~~
+1 warning generated.
+    CC config.o
+    CC connect.o
+    CC connected.o
+    CC convert.o
+convert.c:53:21: warning: Array access (from variable 'buf') results in a null pointer dereference [core.NullDereference]
+                unsigned char c = buf[i];
+                                  ^~~~~~
+convert.c:573:22: warning: Dereference of null pointer [core.NullDereference]
+                        unsigned char c = *src++;
+                                          ^~~~~~
+2 warnings generated.
+    CC copy.o
+    CC credential.o
+    CC csum-file.o
+    CC ctype.o
+    CC date.o
+    CC decorate.o
+    CC delta-islands.o
+    CC diff-delta.o
+    CC diff-lib.o
+In file included from diff-lib.c:14:
+./dir.h:503:52: warning: Access to field 'ce_namelen' results in a dereference of a null pointer (loaded from variable 'ce') [core.NullDereference]
+        return match_pathspec(istate, pathspec, ce->name, ce_namelen(ce), 0, seen,
+                                                          ^~~~~~~~~~~~~~
+./cache.h:239:24: note: expanded from macro 'ce_namelen'
+#define ce_namelen(ce) ((ce)->ce_namelen)
+                       ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC diff-no-index.o
+    CC diff.o
+diff.c:689:3: warning: Value stored to 'needs_reset' is never read [deadcode.DeadStores]
+                needs_reset = 1;
+                ^             ~
+diff.c:1180:4: warning: Value stored to 'last_symbol' is never read [deadcode.DeadStores]
+                        last_symbol = l->s;
+                        ^             ~~~~
+diff.c:1185:4: warning: Value stored to 'last_symbol' is never read [deadcode.DeadStores]
+                        last_symbol = l->s;
+                        ^             ~~~~
+diff.c:1231:3: warning: Value stored to 'last_symbol' is never read [deadcode.DeadStores]
+                last_symbol = l->s;
+                ^             ~~~~
+diff.c:2115:3: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+                memcpy(out->ptr + out->size, buffer->text.ptr + i, j - i);
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+5 warnings generated.
+    CC diffcore-break.o
+diffcore-break.c:291:9: warning: Access to field 'broken_pair' results in a dereference of a null pointer (loaded from variable 'pp') [core.NullDereference]
+                                if (pp->broken_pair &&
+                                    ^~~~~~~~~~~~~~~
+1 warning generated.
+    CC diffcore-delta.o
+    CC diffcore-order.o
+    CC diffcore-pickaxe.o
+diffcore-pickaxe.c:49:31: warning: Access to field 'ptr' results in a dereference of a null pointer (loaded from variable 'two') [core.NullDereference]
+                return !regexec_buf(regexp, two->ptr, two->size,
+                                            ^~~~~~~~
+1 warning generated.
+    CC diffcore-rename.o
+diffcore-rename.c:641:3: warning: Value stored to 'rename_count' is never read [deadcode.DeadStores]
+                rename_count += find_renames(mx, dst_cnt, minimum_score, 1);
+                ^               ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC dir-iterator.o
+    CC dir.o
+dir.c:2563:2: warning: Value stored to 'prevlen' is never read [deadcode.DeadStores]
+        prevlen = 0;
+        ^         ~
+1 warning generated.
+    CC editor.o
+    CC entry.o
+    CC environment.o
+    CC ewah/bitmap.o
+    CC ewah/ewah_bitmap.o
+    CC ewah/ewah_io.o
+ewah/ewah_io.c:131:2: warning: Value stored to 'len' is never read [deadcode.DeadStores]
+        len -= sizeof(uint32_t);
+        ^      ~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC ewah/ewah_rlw.o
+    CC exec-cmd.o
+    CC fetch-negotiator.o
+    CC fetch-pack.o
+    CC fmt-merge-msg.o
+In file included from fmt-merge-msg.c:2:
+In file included from ./refs.h:4:
+./cache.h:1172:2: warning: Null pointer passed to 2nd parameter expecting 'nonnull' [core.NonNullParamChecker]
+        memcpy(dst->hash, src->hash, GIT_MAX_RAWSZ);
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC fsck.o
+fsck.c:850:2: warning: Value stored to 'p' is never read [deadcode.DeadStores]
+        p += 6;
+        ^    ~
+1 warning generated.
+    CC fsmonitor.o
+    CC gettext.o
+    CC gpg-interface.o
+    CC graph.o
+    CC grep.o
+    CC hashmap.o
+    GEN command-list.h
+    CC help.o
+help.c:665:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, prefix, options, usage, 0);
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC hex.o
+    CC ident.o
+    CC json-writer.o
+    CC kwset.o
+kwset.c:466:19: warning: Access to field 'next' results in a dereference of a null pointer (loaded from field 'trie') [core.NullDereference]
+      for (curr = kwset->trie->next; curr; curr = curr->next)
+                  ^~~~~~~~~~~~~~~~~
+kwset.c:637:16: warning: Array access results in a null pointer dereference [core.NullDereference]
+        d = delta[c = (end += d)[-1]];
+                      ^~~~~~~~~~~~~~
+2 warnings generated.
+    CC levenshtein.o
+    CC line-log.o
+line-log.c:645:8: warning: Although the value stored to 'tmp' is used in the enclosing expression, the value is never actually read from 'tmp' [deadcode.DeadStores]
+        ret = tmp = prev = line_log_data_copy_one(r);
+              ^     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+line-log.c:873:25: warning: Array access (from variable 'ends') results in a null pointer dereference [core.NullDereference]
+                return (char *)data + ends[line] + 1;
+                                      ^~~~~~~~~~
+2 warnings generated.
+    CC line-range.o
+    CC linear-assignment.o
+    CC list-objects-filter-options.o
+    CC list-objects-filter.o
+    CC list-objects.o
+    CC ll-merge.o
+    CC lockfile.o
+    CC log-tree.o
+    CC ls-refs.o
+    CC mailinfo.o
+    CC mailmap.o
+    CC match-trees.o
+    CC mem-pool.o
+    CC merge-blobs.o
+    CC merge-recursive.o
+merge-recursive.c:943:4: warning: Value stored to 'update_wd' is never read [deadcode.DeadStores]
+                        update_wd = 0;
+                        ^           ~
+merge-recursive.c:969:4: warning: Value stored to 'update_wd' is never read [deadcode.DeadStores]
+                        update_wd = 0;
+                        ^           ~
+merge-recursive.c:2074:3: warning: Value stored to 'clean' is never read [deadcode.DeadStores]
+                clean = 0;
+                ^       ~
+merge-recursive.c:3302:14: warning: Access to field 'pair' results in a dereference of a null pointer (loaded from field 'ren2') [core.NullDereference]
+                        b->path = ci->ren2->pair->two->path;
+                                  ^~~~~~~~~~~~~~
+merge-recursive.c:3315:14: warning: Access to field 'pair' results in a dereference of a null pointer (loaded from field 'ren2') [core.NullDereference]
+                        b->path = ci->ren2->pair->two->path;
+                                  ^~~~~~~~~~~~~~
+5 warnings generated.
+    CC merge.o
+    CC mergesort.o
+    CC midx.o
+    CC name-hash.o
+    CC negotiator/default.o
+    CC negotiator/noop.o
+    CC negotiator/skipping.o
+    CC notes-cache.o
+    CC notes-merge.o
+    CC notes-utils.o
+    CC notes.o
+In file included from notes.c:11:
+./refs.h:385:9: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+        return strpbrk(pattern, "?*[");
+               ^~~~~~~~~~~~~~~~~~~~~~~
+notes.c:669:31: warning: Access to field 'next' results in a dereference of a null pointer (loaded from variable 'tws') [core.NullDereference]
+        struct tree_write_stack *n = tws->next;
+                                     ^~~~~~~~~
+2 warnings generated.
+    CC object.o
+    CC oid-array.o
+    CC oidmap.o
+    CC oidset.o
+    CC pack-bitmap-write.o
+    CC pack-bitmap.o
+    CC pack-check.o
+    CC pack-objects.o
+    CC pack-revindex.o
+    CC pack-write.o
+    CC packfile.o
+    CC pager.o
+    CC parse-options-cb.o
+    CC parse-options.o
+parse-options.c:746:26: warning: Dereference of null pointer (loaded from field 'opt') [core.NullDereference]
+                                if (internal_help && *ctx->opt == 'h')
+                                                     ^~~~~~~~~
+parse-options.c:863:14: warning: Dereference of null pointer (loaded from field 'opt') [core.NullDereference]
+                } else if (isascii(*ctx.opt)) {
+                           ^~~~~~~~~~~~~~~~~
+./git-compat-util.h:1015:22: note: expanded from macro 'isascii'
+#define isascii(x) (((x) & ~0x7f) == 0)
+                     ^~~
+2 warnings generated.
+    CC patch-delta.o
+    CC patch-ids.o
+    CC path.o
+    CC pathspec.o
+    CC pkt-line.o
+    CC preload-index.o
+    CC pretty.o
+In file included from pretty.c:1:
+In file included from ./cache.h:4:
+./git-compat-util.h:896:3: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+                memcpy(dst, src, st_mult(size, n));
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+pretty.c:1966:31: warning: Array access (from variable 'msg') results in a null pointer dereference [core.NullDereference]
+                for (in_body = i = 0; (ch = msg[i]); i++) {
+                                            ^~~~~~
+2 warnings generated.
+    CC prio-queue.o
+    CC progress.o
+    CC promisor-remote.o
+    CC prompt.o
+    CC protocol.o
+    CC prune-packed.o
+    CC quote.o
+    CC range-diff.o
+    CC reachable.o
+    CC read-cache.o
+    CC rebase-interactive.o
+    CC rebase.o
+    CC ref-filter.o
+ref-filter.c:1819:23: warning: Dereference of undefined pointer value [core.NullDereference]
+        if (!need_tagged || (obj->type != OBJ_TAG))
+                             ^~~~~~~~~
+ref-filter.c:2028:2: warning: Undefined or garbage value returned to caller [core.uninitialized.UndefReturn]
+        return ret;
+        ^~~~~~~~~~
+2 warnings generated.
+    CC reflog-walk.o
+    CC refs.o
+In file included from refs.c:5:
+./cache.h:1172:2: warning: Null pointer passed to 2nd parameter expecting 'nonnull' [core.NonNullParamChecker]
+        memcpy(dst->hash, src->hash, GIT_MAX_RAWSZ);
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC refs/debug.o
+    CC refs/files-backend.o
+    CC refs/iterator.o
+refs/iterator.c:13:9: warning: Access to field 'vtable' results in a dereference of a null pointer (loaded from variable 'ref_iterator') [core.NullDereference]
+        return ref_iterator->vtable->advance(ref_iterator);
+               ^~~~~~~~~~~~~~~~~~~~
+refs/iterator.c:161:25: warning: Access to field 'refname' results in a dereference of a null pointer [core.NullDereference]
+                        iter->base.refname = (*iter->current)->refname;
+                                             ^~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+    CC refs/packed-backend.o
+    CC refs/ref-cache.o
+    CC refspec.o
+    CC remote.o
+remote.c:753:5: warning: 2nd function call argument is an uninitialized value [core.CallAndMessage]
+                                string_list_append_nodup(&reversed, expn_name);
+                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+remote.c:856:15: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+        size_t len = strlen(name);
+                     ^~~~~~~~~~~~
+2 warnings generated.
+    CC replace-object.o
+    CC repo-settings.o
+    CC repository.o
+    CC rerere.o
+    CC reset.o
+    CC resolve-undo.o
+    CC revision.o
+revision.c:1128:8: warning: Access to field 'parents' results in a dereference of a null pointer (loaded from variable 'p') [core.NullDereference]
+                        if (p->parents)
+                            ^~~~~~~~~~
+revision.c:1420:31: warning: Access to field 'date' results in a dereference of a null pointer (loaded from variable 'commit') [core.NullDereference]
+                if (revs->max_age != -1 && (commit->date < revs->max_age))
+                                            ^~~~~~~~~~~~
+revision.c:1424:7: warning: Access to field 'flags' results in a dereference of a null pointer (loaded from variable 'obj') [core.NullDereference]
+                if (obj->flags & UNINTERESTING) {
+                    ^~~~~~~~~~
+revision.c:1782:7: warning: Access to field 'type' results in a dereference of a null pointer (loaded from variable 'it') [core.NullDereference]
+                if (it->type != OBJ_TAG)
+                    ^~~~~~~~
+4 warnings generated.
+    CC run-command.o
+run-command.c:1719:10: warning: Although the value stored to 'i' is used in the enclosing expression, the value is never actually read from 'i' [deadcode.DeadStores]
+        while ((i = poll(pp->pfd, pp->max_processes, output_timeout)) < 0) {
+                ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC send-pack.o
+    CC sequencer.o
+sequencer.c:1167:20: warning: Access to field 'buf' results in a dereference of a null pointer (loaded from variable 'msg') [core.NullDereference]
+        if (write_message(msg->buf, msg->len, name, 0))
+                          ^~~~~~~~
+sequencer.c:1376:30: warning: Access to field 'parents' results in a dereference of a null pointer (loaded from variable 'current_head') [core.NullDereference]
+                parents = copy_commit_list(current_head->parents);
+                                           ^~~~~~~~~~~~~~~~~~~~~
+sequencer.c:1489:27: warning: Access to field 'buf' results in a dereference of a null pointer (loaded from variable 'msg') [core.NullDereference]
+        if (commit_tree_extended(msg->buf, msg->len, &tree, parents, oid,
+                                 ^~~~~~~~
+sequencer.c:1909:3: warning: Value stored to 'reword' is never read [deadcode.DeadStores]
+                reword = 1;
+                ^        ~
+4 warnings generated.
+    CC serve.o
+    CC server-info.o
+    CC setup.o
+    CC sha1-file.o
+sha1-file.c:434:22: warning: Array access (via field 'hash') results in a null pointer dereference [core.NullDereference]
+                unsigned int val = oid->hash[i];
+                                   ^~~~~~~~~~~~
+1 warning generated.
+    CC sha1-lookup.o
+    CC sha1-name.o
+    CC shallow.o
+    CC sideband.o
+    CC sigchain.o
+    CC split-index.o
+    CC stable-qsort.o
+    CC strbuf.o
+strbuf.c:100:14: warning: Array access (via field 'buf') results in a null pointer dereference [core.NullDereference]
+                sb->buf[0] = '\0';
+                    ~~~    ^
+1 warning generated.
+    CC streaming.o
+    CC string-list.o
+    CC strvec.o
+strvec.c:20:24: warning: Array access (via field 'v') results in a null pointer dereference [core.NullDereference]
+        array->v[array->nr++] = value;
+               ~              ^
+1 warning generated.
+    CC sub-process.o
+    CC submodule-config.o
+    CC submodule.o
+    CC symlinks.o
+    CC tag.o
+    CC tempfile.o
+    CC thread-utils.o
+    CC tmp-objdir.o
+    CC trace.o
+    CC trace2.o
+    CC trace2/tr2_cfg.o
+    CC trace2/tr2_cmd_name.o
+    CC trace2/tr2_dst.o
+trace2/tr2_dst.c:290:4: warning: 1st function call argument is an uninitialized value [core.CallAndMessage]
+                        strerror(e));
+                        ^~~~~~~~~~~
+trace2/tr2_dst.c:296:10: warning: Assigned value is garbage or undefined [core.uninitialized.Assign]
+        dst->fd = fd;
+                ^ ~~
+2 warnings generated.
+    CC trace2/tr2_sid.o
+    CC trace2/tr2_sysenv.o
+    CC trace2/tr2_tbuf.o
+    CC trace2/tr2_tgt_event.o
+    CC trace2/tr2_tgt_normal.o
+    CC trace2/tr2_tgt_perf.o
+    CC trace2/tr2_tls.o
+    CC trailer.o
+    CC transport-helper.o
+    CC transport.o
+transport.c:874:6: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+        if (stat(url, &buf))
+            ^~~~~~~~~~~~~~~
+transport.c:881:9: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+        return strchr(url, ':') - url;
+               ^~~~~~~~~~~~~~~~
+2 warnings generated.
+    CC tree-diff.o
+    CC tree-walk.o
+    CC tree.o
+    CC unpack-trees.o
+unpack-trees.c:1715:4: warning: Value stored to 'ret' is never read [deadcode.DeadStores]
+                        ret = 0;
+                        ^     ~
+unpack-trees.c:2098:37: warning: Access to field 'ce_namelen' results in a dereference of a null pointer (loaded from variable 'ce') [core.NullDereference]
+        len = check_leading_path(ce->name, ce_namelen(ce));
+                                           ^~~~~~~~~~~~~~
+./cache.h:239:24: note: expanded from macro 'ce_namelen'
+#define ce_namelen(ce) ((ce)->ce_namelen)
+                       ^~~~~~~~~~~~~~~~~~
+unpack-trees.c:2138:35: warning: Access to field 'ce_flags' results in a dereference of a null pointer (loaded from variable 'ce') [core.NullDereference]
+        if (!o->skip_sparse_checkout && (ce->ce_flags & CE_NEW_SKIP_WORKTREE))
+                                         ^~~~~~~~~~~~
+3 warnings generated.
+    CC upload-pack.o
+upload-pack.c:681:10: warning: Although the value stored to 'i' is used in the enclosing expression, the value is never actually read from 'i' [deadcode.DeadStores]
+        while ((i = read_in_full(cmd.out, namebuf, hexsz + 1)) == hexsz + 1) {
+                ^   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC url.o
+    CC urlmatch.o
+    CC usage.o
+    CC userdiff.o
+    CC utf8.o
+    CC varint.o
+    CC version.o
+    CC versioncmp.o
+    CC walker.o
+    CC wildmatch.o
+    CC worktree.o
+    CC wrapper.o
+    CC write-or-die.o
+    CC ws.o
+    CC wt-status.o
+    CC xdiff-interface.o
+    CC zlib.o
+    CC unix-socket.o
+    CC sha1dc_git.o
+    CC sha1dc/sha1.o
+    CC sha1dc/ubc_check.o
+    CC sha256/block/sha256.o
+    CC compat/fopen.o
+    CC compat/strlcpy.o
+    CC compat/qsort_s.o
+    AR libgit.a
+    CC xdiff/xdiffi.o
+    CC xdiff/xemit.o
+    CC xdiff/xhistogram.o
+    CC xdiff/xmerge.o
+    CC xdiff/xpatience.o
+    CC xdiff/xprepare.o
+xdiff/xprepare.c:185:11: warning: Although the value stored to 'hsize' is used in the enclosing expression, the value is never actually read from 'hsize' [deadcode.DeadStores]
+                hbits = hsize = 0;
+                        ^       ~
+1 warning generated.
+    CC xdiff/xutils.o
+    AR xdiff/lib.a
+    LINK git-daemon
+    CC http-backend.o
+http-backend.c:417:4: warning: Value stored to 'n' is never read [deadcode.DeadStores]
+                        n = stream.total_out - cnt;
+                        ^   ~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    LINK git-http-backend
+    CC imap-send.o
+imap-send.c:762:16: warning: Although the value stored to 'arg1' is used in the enclosing expression, the value is never actually read from 'arg1' [deadcode.DeadStores]
+                        } else if ((arg1 = next_arg(&cmd))) {
+                                    ^      ~~~~~~~~~~~~~~
+1 warning generated.
+    CC http.o
+    LINK git-imap-send
+    CC sh-i18n--envsubst.o
+    LINK git-sh-i18n--envsubst
+    CC shell.o
+    LINK git-shell
+    CC http-walker.o
+http-walker.c:574:8: warning: Access to field 'base' results in a dereference of a null pointer (loaded from field 'alt') [core.NullDereference]
+                     data->alt->base);
+                     ^~~~~~~~~~~~~~~
+./git-compat-util.h:488:27: note: expanded from macro 'error'
+#define error(...) (error(__VA_ARGS__), const_error())
+                          ^~~~~~~~~~~
+1 warning generated.
+    CC http-fetch.o
+    LINK git-http-fetch
+    CC http-push.o
+    LINK git-http-push
+    CC remote-curl.o
+    LINK git-remote-http
+    LN/CP git-remote-https
+    LN/CP git-remote-ftp
+    LN/CP git-remote-ftps
+    * new script parameters
+    GEN git-bisect
+    GEN git-difftool--helper
+    GEN git-filter-branch
+    GEN git-merge-octopus
+    GEN git-merge-one-file
+    GEN git-merge-resolve
+    GEN git-mergetool
+    GEN git-quiltimport
+    GEN git-request-pull
+    GEN git-submodule
+    GEN git-web--browse
+    * new perl-specific parameters
+    GEN GIT-PERL-HEADER
+    GEN git-add--interactive
+    GEN git-archimport
+    GEN git-cvsexportcommit
+    GEN git-cvsimport
+    GEN git-cvsserver
+    GEN git-send-email
+    GEN git-svn
+    * new Python interpreter location
+    GEN git-p4
+    GEN git-instaweb
+    CC git.o
+    CC builtin/add.o
+builtin/add.c:277:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = setup_revisions(argc, argv, &rev, NULL);
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/am.o
+    CC builtin/annotate.o
+    CC builtin/apply.o
+    CC builtin/archive.o
+    CC builtin/bisect--helper.o
+In file included from builtin/bisect--helper.c:1:
+In file included from ./builtin.h:4:
+./git-compat-util.h:526:11: warning: Dereference of null pointer [core.NullDereference]
+        } while (*str++ == *prefix++);
+                 ^~~~~~
+1 warning generated.
+    CC builtin/blame.o
+    CC builtin/branch.o
+    CC builtin/bugreport.o
+builtin/bugreport.c:140:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, prefix, bugreport_options,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/bundle.o
+builtin/bundle.c:112:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options_cmd_bundle(argc, argv, prefix,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/cat-file.o
+    CC builtin/check-attr.o
+    CC builtin/check-ignore.o
+    CC builtin/check-mailmap.o
+    CC builtin/check-ref-format.o
+    CC builtin/checkout-index.o
+    CC builtin/checkout.o
+    CC builtin/clean.o
+    CC builtin/clone.o
+builtin/clone.c:1059:12: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+                else if (mkdir(work_tree, 0777))
+                         ^~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/column.o
+    CC builtin/commit-graph.o
+builtin/commit-graph.c:91:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, NULL,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+builtin/commit-graph.c:250:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, NULL,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+    CC builtin/commit-tree.o
+    CC builtin/commit.o
+builtin/commit.c:1404:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, prefix,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+builtin/commit.c:1580:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_and_validate_options(argc, argv, builtin_commit_options,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+    CC builtin/config.o
+In file included from builtin/config.c:1:
+In file included from ./builtin.h:5:
+./strbuf.h:304:20: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+        strbuf_add(sb, s, strlen(s));
+                          ^~~~~~~~~
+1 warning generated.
+    CC builtin/count-objects.o
+    CC builtin/credential-cache--daemon.o
+builtin/credential-cache--daemon.c:281:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, prefix, options, usage, 0);
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/credential-cache.o
+    CC builtin/credential-store.o
+    CC builtin/credential.o
+    CC builtin/describe.o
+    CC builtin/diff-files.o
+    CC builtin/diff-index.o
+    CC builtin/diff-tree.o
+    CC builtin/diff.o
+    CC builtin/difftool.o
+    CC builtin/env--helper.o
+    CC builtin/fast-export.o
+    CC builtin/fast-import.o
+builtin/fast-import.c:1909:2: warning: Value stored to 'num' is never read [deadcode.DeadStores]
+        num = strtoul(src, &endp, 10);
+        ^     ~~~~~~~~~~~~~~~~~~~~~~~
+builtin/fast-import.c:2033:22: warning: Access to field 'active_next_branch' results in a dereference of a null pointer (loaded from variable 'e') [core.NullDereference]
+                        active_branches = e->active_next_branch;
+                                          ^~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+    CC builtin/fetch-pack.o
+    CC builtin/fetch.o
+    CC builtin/fmt-merge-msg.o
+    CC builtin/for-each-ref.o
+    CC builtin/fsck.o
+    CC builtin/gc.o
+    CC builtin/get-tar-commit-id.o
+    CC builtin/grep.o
+    CC builtin/hash-object.o
+    GEN config-list.h
+    CC builtin/help.o
+builtin/help.c:552:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, prefix, builtin_help_options,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/index-pack.o
+builtin/index-pack.c:346:14: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+                input_fd = open(pack_name, O_RDONLY);
+                           ^~~~~~~~~~~~~~~~~~~~~~~~~
+builtin/index-pack.c:1517:3: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+                chmod(final_pack_name, 0444);
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+builtin/index-pack.c:1525:3: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+                chmod(final_index_name, 0444);
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+builtin/index-pack.c:1664:4: warning: Array access (from variable 'chain_histogram') results in a null pointer dereference [core.NullDereference]
+                        chain_histogram[obj_stat[i].delta_depth - 1]++;
+                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+builtin/index-pack.c:1686:8: warning: Array access (from variable 'chain_histogram') results in a null pointer dereference [core.NullDereference]
+                if (!chain_histogram[i])
+                     ^~~~~~~~~~~~~~~~~~
+5 warnings generated.
+    CC builtin/init-db.o
+    CC builtin/interpret-trailers.o
+    CC builtin/log.o
+    CC builtin/ls-files.o
+builtin/ls-files.c:596:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, prefix, builtin_ls_files_options,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/ls-remote.o
+    CC builtin/ls-tree.o
+    CC builtin/mailinfo.o
+    CC builtin/mailsplit.o
+    CC builtin/merge-base.o
+    CC builtin/merge-file.o
+    CC builtin/merge-index.o
+    CC builtin/merge-ours.o
+    CC builtin/merge-recursive.o
+    CC builtin/merge-tree.o
+    CC builtin/merge.o
+builtin/merge.c:212:38: warning: Array access (from variable 'use_strategies') results in a null pointer dereference [core.NullDereference]
+        use_strategies[use_strategies_nr++] = s;
+        ~~~~~~~~~~~~~~                      ^
+builtin/merge.c:886:2: warning: Value stored to 'pptr' is never read [deadcode.DeadStores]
+        pptr = commit_list_append(remoteheads->item, pptr);
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+builtin/merge.c:1472:7: warning: Array access (from variable 'use_strategies') results in a null pointer dereference [core.NullDereference]
+                if (use_strategies[i]->attr & NO_FAST_FORWARD)
+                    ^~~~~~~~~~~~~~~~~
+3 warnings generated.
+    CC builtin/mktag.o
+    CC builtin/mktree.o
+builtin/mktree.c:160:2: warning: Value stored to 'ac' is never read [deadcode.DeadStores]
+        ac = parse_options(ac, av, prefix, option, mktree_usage, 0);
+        ^    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/multi-pack-index.o
+    CC builtin/mv.o
+    CC builtin/name-rev.o
+    CC builtin/notes.o
+builtin/notes.c:1034:3: warning: Value stored to 'result' is never read [deadcode.DeadStores]
+                result = error(_("unknown subcommand: %s"), argv[0]);
+                ^        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/pack-objects.o
+builtin/pack-objects.c:1275:16: warning: Access to field 'next' results in a dereference of a null pointer (loaded from variable 'pos') [core.NullDereference]
+        list_for_each(pos, get_packed_git_mru(the_repository)) {
+        ~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./list.h:127:48: note: expanded from macro 'list_for_each'
+        for (pos = (head)->next; pos != (head); pos = pos->next)
+                                                      ^~~~~~~~~
+1 warning generated.
+    CC builtin/pack-redundant.o
+    CC builtin/pack-refs.o
+    CC builtin/patch-id.o
+    CC builtin/prune-packed.o
+    CC builtin/prune.o
+    CC builtin/pull.o
+builtin/pull.c:766:8: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+                if (!strcmp(remote, "."))
+                     ^~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/push.o
+    CC builtin/range-diff.o
+    CC builtin/read-tree.o
+    CC builtin/rebase.o
+builtin/rebase.c:552:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, prefix, options,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+builtin/rebase.c:1872:6: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+        if (strstr(options.onto_name, "...")) {
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+    CC builtin/receive-pack.o
+builtin/receive-pack.c:619:14: warning: Value stored to 'retval' during its initialization is never read [deadcode.DeadStores]
+        const char *retval = NONCE_BAD;
+                    ^~~~~~   ~~~~~~~~~
+1 warning generated.
+    CC builtin/reflog.o
+    CC builtin/remote-ext.o
+    CC builtin/remote-fd.o
+    CC builtin/remote.o
+    CC builtin/repack.o
+builtin/repack.c:339:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, prefix, builtin_repack_options,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/replace.o
+    CC builtin/rerere.o
+    CC builtin/reset.o
+builtin/reset.c:319:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, prefix, options, git_reset_usage,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/rev-list.o
+    CC builtin/rev-parse.o
+builtin/rev-parse.c:520:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, prefix, opts, usage,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/revert.o
+    CC builtin/rm.o
+builtin/rm.c:263:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, prefix, builtin_rm_options,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/send-pack.o
+    CC builtin/shortlog.o
+    CC builtin/show-branch.o
+builtin/show-branch.c:891:5: warning: 1st function call argument is an uninitialized value [core.CallAndMessage]
+                                puts(reflog_msg[i]);
+                                ^~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/show-index.o
+builtin/show-index.c:26:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, prefix, show_index_options, show_index_usage, 0);
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/show-ref.o
+builtin/show-ref.c:188:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, prefix, show_ref_options,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/sparse-checkout.o
+builtin/sparse-checkout.c:63:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, NULL,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+builtin/sparse-checkout.c:313:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, NULL,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+builtin/sparse-checkout.c:586:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, NULL,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+builtin/sparse-checkout.c:607:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, NULL,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+4 warnings generated.
+    CC builtin/stash.o
+builtin/stash.c:687:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, prefix, options,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC builtin/stripspace.o
+    CC builtin/submodule--helper.o
+builtin/submodule--helper.c:1411:39: warning: Access to field 'name' results in a dereference of a null pointer (loaded from variable 'sub') [core.NullDereference]
+        strbuf_addf(&sb, "submodule.%s.url", sub->name);
+                                             ^~~~~~~~~
+1 warning generated.
+    CC builtin/symbolic-ref.o
+    CC builtin/tag.o
+    CC builtin/unpack-file.o
+    CC builtin/unpack-objects.o
+    CC builtin/update-index.o
+In file included from builtin/update-index.c:7:
+In file included from ./cache.h:4:
+./git-compat-util.h:1075:6: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+        if (strchr(s, '-'))
+            ^~~~~~~~~~~~~~
+builtin/update-index.c:1133:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options_end(&ctx);
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+    CC builtin/update-ref.o
+    CC builtin/update-server-info.o
+    CC builtin/upload-archive.o
+    CC builtin/upload-pack.o
+    CC builtin/var.o
+    CC builtin/verify-commit.o
+    CC builtin/verify-pack.o
+    CC builtin/verify-tag.o
+    CC builtin/worktree.o
+    CC builtin/write-tree.o
+builtin/write-tree.c:38:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, cmd_prefix, write_tree_options,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    LINK git
+    BUILTIN git-add
+    BUILTIN git-am
+    BUILTIN git-annotate
+    BUILTIN git-apply
+    BUILTIN git-archive
+    BUILTIN git-bisect--helper
+    BUILTIN git-blame
+    BUILTIN git-branch
+    BUILTIN git-bugreport
+    BUILTIN git-bundle
+    BUILTIN git-cat-file
+    BUILTIN git-check-attr
+    BUILTIN git-check-ignore
+    BUILTIN git-check-mailmap
+    BUILTIN git-check-ref-format
+    BUILTIN git-checkout-index
+    BUILTIN git-checkout
+    BUILTIN git-clean
+    BUILTIN git-clone
+    BUILTIN git-column
+    BUILTIN git-commit-graph
+    BUILTIN git-commit-tree
+    BUILTIN git-commit
+    BUILTIN git-config
+    BUILTIN git-count-objects
+    BUILTIN git-credential-cache--daemon
+    BUILTIN git-credential-cache
+    BUILTIN git-credential-store
+    BUILTIN git-credential
+    BUILTIN git-describe
+    BUILTIN git-diff-files
+    BUILTIN git-diff-index
+    BUILTIN git-diff-tree
+    BUILTIN git-diff
+    BUILTIN git-difftool
+    BUILTIN git-env--helper
+    BUILTIN git-fast-export
+    BUILTIN git-fast-import
+    BUILTIN git-fetch-pack
+    BUILTIN git-fetch
+    BUILTIN git-fmt-merge-msg
+    BUILTIN git-for-each-ref
+    BUILTIN git-fsck
+    BUILTIN git-gc
+    BUILTIN git-get-tar-commit-id
+    BUILTIN git-grep
+    BUILTIN git-hash-object
+    BUILTIN git-help
+    BUILTIN git-index-pack
+    BUILTIN git-init-db
+    BUILTIN git-interpret-trailers
+    BUILTIN git-log
+    BUILTIN git-ls-files
+    BUILTIN git-ls-remote
+    BUILTIN git-ls-tree
+    BUILTIN git-mailinfo
+    BUILTIN git-mailsplit
+    BUILTIN git-merge-base
+    BUILTIN git-merge-file
+    BUILTIN git-merge-index
+    BUILTIN git-merge-ours
+    BUILTIN git-merge-recursive
+    BUILTIN git-merge-tree
+    BUILTIN git-merge
+    BUILTIN git-mktag
+    BUILTIN git-mktree
+    BUILTIN git-multi-pack-index
+    BUILTIN git-mv
+    BUILTIN git-name-rev
+    BUILTIN git-notes
+    BUILTIN git-pack-objects
+    BUILTIN git-pack-redundant
+    BUILTIN git-pack-refs
+    BUILTIN git-patch-id
+    BUILTIN git-prune-packed
+    BUILTIN git-prune
+    BUILTIN git-pull
+    BUILTIN git-push
+    BUILTIN git-range-diff
+    BUILTIN git-read-tree
+    BUILTIN git-rebase
+    BUILTIN git-receive-pack
+    BUILTIN git-reflog
+    BUILTIN git-remote-ext
+    BUILTIN git-remote-fd
+    BUILTIN git-remote
+    BUILTIN git-repack
+    BUILTIN git-replace
+    BUILTIN git-rerere
+    BUILTIN git-reset
+    BUILTIN git-rev-list
+    BUILTIN git-rev-parse
+    BUILTIN git-revert
+    BUILTIN git-rm
+    BUILTIN git-send-pack
+    BUILTIN git-shortlog
+    BUILTIN git-show-branch
+    BUILTIN git-show-index
+    BUILTIN git-show-ref
+    BUILTIN git-sparse-checkout
+    BUILTIN git-stash
+    BUILTIN git-stripspace
+    BUILTIN git-submodule--helper
+    BUILTIN git-symbolic-ref
+    BUILTIN git-tag
+    BUILTIN git-unpack-file
+    BUILTIN git-unpack-objects
+    BUILTIN git-update-index
+    BUILTIN git-update-ref
+    BUILTIN git-update-server-info
+    BUILTIN git-upload-archive
+    BUILTIN git-upload-pack
+    BUILTIN git-var
+    BUILTIN git-verify-commit
+    BUILTIN git-verify-pack
+    BUILTIN git-verify-tag
+    BUILTIN git-worktree
+    BUILTIN git-write-tree
+    BUILTIN git-cherry
+    BUILTIN git-cherry-pick
+    BUILTIN git-format-patch
+    BUILTIN git-fsck-objects
+    BUILTIN git-init
+    BUILTIN git-merge-subtree
+    BUILTIN git-restore
+    BUILTIN git-show
+    BUILTIN git-stage
+    BUILTIN git-status
+    BUILTIN git-switch
+    BUILTIN git-whatchanged
+    GEN git-mergetool--lib
+    GEN git-parse-remote
+    GEN git-rebase--preserve-merges
+    GEN git-sh-i18n
+    GEN git-sh-setup
+    SUBDIR git-gui
+GITGUI_VERSION = 0.21.0.78.g38c2a
+    * new locations or Tcl/Tk interpreter
+    GEN git-gui
+    INDEX lib/
+    * tclsh failed; using unoptimized loading
+    MSGFMT po/pt_pt.msg 550 translated.
+    MSGFMT    po/ru.msg 520 translated.
+    MSGFMT    po/ja.msg 546 translated, 1 untranslated.
+    MSGFMT    po/sv.msg 547 translated.
+    MSGFMT    po/bg.msg 565 translated.
+    MSGFMT    po/nb.msg 474 translated, 39 untranslated.
+    MSGFMT    po/fr.msg 520 translated.
+    MSGFMT    po/de.msg 579 translated.
+    MSGFMT    po/it.msg 519 translated, 1 untranslated.
+    MSGFMT po/pt_br.msg 520 translated.
+    MSGFMT    po/vi.msg 543 translated.
+    MSGFMT po/zh_cn.msg 366 translated, 7 fuzzy, 17 untranslated.
+    MSGFMT    po/hu.msg 514 translated.
+    MSGFMT    po/el.msg 381 translated, 4 fuzzy, 6 untranslated.
+    SUBDIR gitk-git
+    * new Tcl/Tk interpreter location
+    GEN gitk-wish
+Generating catalog po/pt_pt.msg
+msgfmt --statistics --tcl po/pt_pt.po -l pt_pt -d po/
+311 translated messages.
+Generating catalog po/ru.msg
+msgfmt --statistics --tcl po/ru.po -l ru -d po/
+317 translated messages.
+Generating catalog po/ja.msg
+msgfmt --statistics --tcl po/ja.po -l ja -d po/
+311 translated messages.
+Generating catalog po/ca.msg
+msgfmt --statistics --tcl po/ca.po -l ca -d po/
+307 translated messages.
+Generating catalog po/sv.msg
+msgfmt --statistics --tcl po/sv.po -l sv -d po/
+311 translated messages.
+Generating catalog po/bg.msg
+msgfmt --statistics --tcl po/bg.po -l bg -d po/
+317 translated messages.
+Generating catalog po/es.msg
+msgfmt --statistics --tcl po/es.po -l es -d po/
+184 translated messages, 46 fuzzy translations, 77 untranslated messages.
+Generating catalog po/fr.msg
+msgfmt --statistics --tcl po/fr.po -l fr -d po/
+311 translated messages.
+Generating catalog po/de.msg
+msgfmt --statistics --tcl po/de.po -l de -d po/
+307 translated messages.
+Generating catalog po/it.msg
+msgfmt --statistics --tcl po/it.po -l it -d po/
+274 translated messages, 17 fuzzy translations, 16 untranslated messages.
+Generating catalog po/pt_br.msg
+msgfmt --statistics --tcl po/pt_br.po -l pt_br -d po/
+279 translated messages, 16 fuzzy translations, 12 untranslated messages.
+Generating catalog po/vi.msg
+msgfmt --statistics --tcl po/vi.po -l vi -d po/
+307 translated messages.
+Generating catalog po/zh_cn.msg
+msgfmt --statistics --tcl po/zh_cn.po -l zh_cn -d po/
+317 translated messages.
+Generating catalog po/hu.msg
+msgfmt --statistics --tcl po/hu.po -l hu -d po/
+277 translated messages, 18 fuzzy translations, 12 untranslated messages.
+    SUBDIR templates
+    MSGFMT po/build/locale/pt_PT/LC_MESSAGES/git.mo
+2877 translated messages, 1290 fuzzy translations, 846 untranslated messages.
+    MSGFMT po/build/locale/ru/LC_MESSAGES/git.mo
+3521 translated messages, 1060 untranslated messages.
+    MSGFMT po/build/locale/tr/LC_MESSAGES/git.mo
+5013 translated messages.
+    MSGFMT po/build/locale/is/LC_MESSAGES/git.mo
+14 translated messages.
+    MSGFMT po/build/locale/ca/LC_MESSAGES/git.mo
+4112 translated messages, 813 fuzzy translations, 88 untranslated messages.
+    MSGFMT po/build/locale/sv/LC_MESSAGES/git.mo
+5013 translated messages.
+    MSGFMT po/build/locale/ko/LC_MESSAGES/git.mo
+3608 translated messages.
+    MSGFMT po/build/locale/es/LC_MESSAGES/git.mo
+4931 translated messages.
+    MSGFMT po/build/locale/fr/LC_MESSAGES/git.mo
+5013 translated messages.
+    MSGFMT po/build/locale/bg/LC_MESSAGES/git.mo
+5013 translated messages.
+    MSGFMT po/build/locale/it/LC_MESSAGES/git.mo
+5013 translated messages.
+    MSGFMT po/build/locale/vi/LC_MESSAGES/git.mo
+5013 translated messages.
+    MSGFMT po/build/locale/zh_CN/LC_MESSAGES/git.mo
+5013 translated messages.
+    MSGFMT po/build/locale/de/LC_MESSAGES/git.mo
+5013 translated messages.
+    MSGFMT po/build/locale/zh_TW/LC_MESSAGES/git.mo
+5011 translated messages, 2 fuzzy translations.
+    MSGFMT po/build/locale/el/LC_MESSAGES/git.mo
+1038 translated messages, 3325 untranslated messages.
+    GEN perl/build/lib/Git.pm
+    GEN perl/build/lib/Git/IndexInfo.pm
+    GEN perl/build/lib/Git/Packet.pm
+    GEN perl/build/lib/Git/SVN.pm
+    GEN perl/build/lib/Git/I18N.pm
+    GEN perl/build/lib/Git/LoadCPAN.pm
+    GEN perl/build/lib/Git/LoadCPAN/Error.pm
+    GEN perl/build/lib/Git/SVN/GlobSpec.pm
+    GEN perl/build/lib/Git/SVN/Fetcher.pm
+    GEN perl/build/lib/Git/SVN/Utils.pm
+    GEN perl/build/lib/Git/SVN/Prompt.pm
+    GEN perl/build/lib/Git/SVN/Ra.pm
+    GEN perl/build/lib/Git/SVN/Editor.pm
+    GEN perl/build/lib/Git/SVN/Migration.pm
+    GEN perl/build/lib/Git/SVN/Log.pm
+    GEN perl/build/lib/Git/LoadCPAN/Mail/Address.pm
+    GEN perl/build/lib/Git/SVN/Memoize/YAML.pm
+    GEN perl/build/lib/FromCPAN/Error.pm
+    GEN perl/build/lib/FromCPAN/Mail/Address.pm
+    CC t/helper/test-fake-ssh.o
+    LINK t/helper/test-fake-ssh
+    CC t/helper/test-tool.o
+    CC t/helper/test-advise.o
+    CC t/helper/test-bloom.o
+    CC t/helper/test-chmtime.o
+    CC t/helper/test-config.o
+    CC t/helper/test-ctype.o
+    CC t/helper/test-date.o
+    CC t/helper/test-delta.o
+    CC t/helper/test-dir-iterator.o
+    CC t/helper/test-drop-caches.o
+    CC t/helper/test-dump-cache-tree.o
+    CC t/helper/test-dump-fsmonitor.o
+    CC t/helper/test-dump-split-index.o
+    CC t/helper/test-dump-untracked-cache.o
+    CC t/helper/test-example-decorate.o
+    CC t/helper/test-genrandom.o
+    CC t/helper/test-genzeros.o
+    CC t/helper/test-hash-speed.o
+    CC t/helper/test-hash.o
+    CC t/helper/test-hashmap.o
+    CC t/helper/test-index-version.o
+    CC t/helper/test-json-writer.o
+    CC t/helper/test-lazy-init-name-hash.o
+t/helper/test-lazy-init-name-hash.c:209:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, prefix, options, usage, 0);
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC t/helper/test-match-trees.o
+    CC t/helper/test-mergesort.o
+    CC t/helper/test-mktemp.o
+    CC t/helper/test-oid-array.o
+    CC t/helper/test-oidmap.o
+    CC t/helper/test-online-cpus.o
+    CC t/helper/test-parse-options.o
+    CC t/helper/test-parse-pathspec-file.o
+    CC t/helper/test-path-utils.o
+t/helper/test-path-utils.c:449:19: warning: Dereference of null pointer [core.NullDereference]
+                        printf("%s\n", list.items[i].string);
+                                       ^~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC t/helper/test-pkt-line.o
+    CC t/helper/test-prio-queue.o
+    CC t/helper/test-proc-receive.o
+    CC t/helper/test-progress.o
+    CC t/helper/test-reach.o
+    CC t/helper/test-read-cache.o
+    CC t/helper/test-read-graph.o
+    CC t/helper/test-read-midx.o
+    CC t/helper/test-ref-store.o
+    CC t/helper/test-regex.o
+    CC t/helper/test-repository.o
+    CC t/helper/test-revision-walking.o
+    CC t/helper/test-run-command.o
+    CC t/helper/test-scrap-cache-tree.o
+    CC t/helper/test-serve-v2.o
+t/helper/test-serve-v2.c:25:2: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+        argc = parse_options(argc, argv, prefix, options, serve_usage,
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    CC t/helper/test-sha1.o
+    CC t/helper/test-sha256.o
+    CC t/helper/test-sigchain.o
+    CC t/helper/test-strcmp-offset.o
+    CC t/helper/test-string-list.o
+    CC t/helper/test-submodule-config.o
+    CC t/helper/test-submodule-nested-repo-config.o
+    CC t/helper/test-subprocess.o
+    CC t/helper/test-trace2.o
+    CC t/helper/test-urlmatch-normalization.o
+    CC t/helper/test-wildmatch.o
+    CC t/helper/test-windows-named-pipe.o
+    CC t/helper/test-write-cache.o
+    CC t/helper/test-xml-encode.o
+    LINK t/helper/test-tool
+    GEN bin-wrappers/git
+    GEN bin-wrappers/git-receive-pack
+    GEN bin-wrappers/git-shell
+    GEN bin-wrappers/git-upload-archive
+    GEN bin-wrappers/git-upload-pack
+    GEN bin-wrappers/git-cvsserver
+    GEN bin-wrappers/test-fake-ssh
+    GEN bin-wrappers/test-tool
+scan-build: Analysis run complete.
+scan-build: 137 bugs found.
+scan-build: Run 'scan-view /tmp/scan-build-2020-11-15-162917-10077-1' to examine bug reports.

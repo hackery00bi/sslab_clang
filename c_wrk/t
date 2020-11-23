@@ -1,0 +1,1 @@
+-enable-checker core -enable-checker cplusplus -enable-checker nullability -enable-checker optin -enable-checker security -enable-checker unix -enable-checker osx -enable-checker fuchsia -enable-checker webkit

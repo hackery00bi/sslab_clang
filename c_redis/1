@@ -1,0 +1,1862 @@
+USAGE: scan-build [options] <build command> [build options]
+
+OPTIONS:
+
+ -analyze-headers
+
+   Also analyze functions in #included files.  By default, such functions
+   are skipped unless they are called by functions within the main source file.
+
+ --force-analyze-debug-code
+
+   Tells analyzer to enable assertions in code even if they were disabled
+   during compilation to enable more precise results.
+
+ -o <output location>
+
+   Specifies the output directory for analyzer reports. Subdirectories will be
+   created as needed to represent separate "runs" of the analyzer. If this
+   option is not specified, a directory is created in /tmp (TMPDIR on Mac OS X)
+   to store the reports.
+
+ -h
+ --help
+
+   Display this message.
+
+ -k
+ --keep-going
+
+   Add a "keep on going" option to the specified build command. This option
+   currently supports make and xcodebuild. This is a convenience option; one
+   can specify this behavior directly using build options.
+
+ --keep-cc
+
+   Do not override CC and CXX make variables. Useful when running make in
+   autoconf-based (and similar) projects where configure can add extra flags
+   to those variables.
+
+ --html-title [title]
+ --html-title=[title]
+
+   Specify the title used on generated HTML pages. If not specified, a default
+   title will be used.
+
+ --show-description
+
+   Display the description of defects in the list
+
+ -sarif
+
+  By default the output of scan-build is a set of HTML files. This option
+  outputs the results in SARIF format.
+ 
+ -plist
+
+   By default the output of scan-build is a set of HTML files. This option
+   outputs the results as a set of .plist files.
+
+ -plist-html
+
+   By default the output of scan-build is a set of HTML files. This option
+   outputs the results as a set of HTML and .plist files.
+
+ --status-bugs
+
+   By default, the exit status of scan-build is the same as the executed build
+   command. Specifying this option causes the exit status of scan-build to be 1
+   if it found potential bugs and the exit status of the build itself otherwise.
+
+ --exclude <path>
+
+   Do not run static analyzer against files found in this
+   directory (You can specify this option multiple times).
+   Could be useful when project contains 3rd party libraries.
+
+ --use-cc [compiler path]
+ --use-cc=[compiler path]
+
+   scan-build analyzes a project by interposing a "fake compiler", which
+   executes a real compiler for compilation and the static analyzer for analysis.
+   Because of the current implementation of interposition, scan-build does not
+   know what compiler your project normally uses.  Instead, it simply overrides
+   the CC environment variable, and guesses your default compiler.
+
+   In the future, this interposition mechanism to be improved, but if you need
+   scan-build to use a specific compiler for *compilation* then you can use
+   this option to specify a path to that compiler.
+
+   If the given compiler is a cross compiler, you may also need to provide
+   --analyzer-target option to properly analyze the source code because static
+   analyzer runs as if the code is compiled for the host machine by default.
+
+ --use-c++ [compiler path]
+ --use-c++=[compiler path]
+
+   This is the same as "--use-cc" but for C++ code.
+
+ --analyzer-target [target triple name for analysis]
+ --analyzer-target=[target triple name for analysis]
+
+   This provides target triple information to clang static analyzer.
+   It only changes the target for analysis but doesn't change the target of a
+   real compiler given by --use-cc and --use-c++ options.
+
+ -v
+
+   Enable verbose output from scan-build. A second and third '-v' increases
+   verbosity.
+
+ -V
+ --view
+
+   View analysis results in a web browser when the build completes.
+
+ --generate-index-only <output location>
+
+   Do not perform the analysis, but only regenerate the index.html file
+   from existing report.html files. Useful for making a custom Static Analyzer
+   integration into a build system that isn't otherwise supported by scan-build.
+
+ADVANCED OPTIONS:
+
+ -no-failure-reports
+
+   Do not create a 'failures' subdirectory that includes analyzer crash reports
+   and preprocessed source files.
+
+ -stats
+
+   Generates visitation statistics for the project being analyzed.
+
+ -maxloop <loop count>
+
+   Specify the number of times a block can be visited before giving up.
+   Default is 4. Increase for more comprehensive coverage at a cost of speed.
+
+ -internal-stats
+
+   Generate internal analyzer statistics.
+
+ --use-analyzer [Xcode|path to clang]
+ --use-analyzer=[Xcode|path to clang]
+
+   scan-build uses the 'clang' executable relative to itself for static
+   analysis. One can override this behavior with this option by using the
+   'clang' packaged with Xcode (on OS X) or from the PATH.
+
+ --keep-empty
+
+   Don't remove the build results directory even if no issues were reported.
+
+ --override-compiler
+   Always resort to the ccc-analyzer even when better interposition methods
+   are available.
+
+ -analyzer-config <options>
+
+   Provide options to pass through to the analyzer's -analyzer-config flag.
+   Several options are separated with comma: 'key1=val1,key2=val2'
+
+   Available options:
+     * stable-report-filename=true or false (default)
+       Switch the page naming to:
+       report-<filename>-<function/method name>-<id>.html
+       instead of report-XXXXXX.html
+
+CONTROLLING CHECKERS:
+
+ A default group of checkers are always run unless explicitly disabled.
+ Checkers may be enabled/disabled using the following options:
+
+ -enable-checker [checker name]
+ -disable-checker [checker name]
+
+LOADING CHECKERS:
+
+ Loading external checkers using the clang plugin interface:
+
+ -load-plugin [plugin library]
+
+AVAILABLE CHECKERS:
+
+ + core.CallAndMessage           Check for logical errors for function calls and Objective-C message expressions (e.g., uninitialized arguments, null function pointers)
+ + core.DivideZero               Check for division by zero
+ + core.NonNullParamChecker      Check for null pointers passed as arguments to a function whose arguments are references or marked with the 'nonnull' attribute
+ + core.NullDereference          Check for dereferences of null pointers
+ + core.StackAddressEscape       Check that addresses to stack memory do not escape the function
+ + core.UndefinedBinaryOperatorResult
+                                 Check for undefined results of binary operators
+ + core.VLASize                  Check for declarations of VLA of undefined or zero size
+ + core.uninitialized.ArraySubscript
+                                 Check for uninitialized values used as array subscripts
+ + core.uninitialized.Assign     Check for assigning uninitialized values
+ + core.uninitialized.Branch     Check for uninitialized values used as branch conditions
+ + core.uninitialized.CapturedBlockVariable
+                                 Check for blocks that capture uninitialized values
+ + core.uninitialized.UndefReturn Check for uninitialized values being returned to the caller
+ + cplusplus.InnerPointer        Check for inner pointers of C++ containers used after re/deallocation
+ + cplusplus.Move                Find use-after-move bugs in C++
+ + cplusplus.NewDelete           Check for double-free and use-after-free problems. Traces memory managed by new/delete.
+ + cplusplus.NewDeleteLeaks      Check for memory leaks. Traces memory managed by new/delete.
+ + cplusplus.PlacementNew        Check if default placement new is provided with pointers to sufficient storage capacity
+ + cplusplus.PureVirtualCall     Check pure virtual function calls during construction/destruction
+ + deadcode.DeadStores           Check for values stored to variables that are never read afterwards
+   fuchsia.HandleChecker         A Checker that detect leaks related to Fuchsia handles
+ + nullability.NullPassedToNonnull
+                                 Warns when a null pointer is passed to a pointer which has a _Nonnull type.
+ + nullability.NullReturnedFromNonnull
+                                 Warns when a null pointer is returned from a function that has _Nonnull return type.
+   nullability.NullableDereferenced
+                                 Warns when a nullable pointer is dereferenced.
+   nullability.NullablePassedToNonnull
+                                 Warns when a nullable pointer is passed to a pointer which has a _Nonnull type.
+   nullability.NullableReturnedFromNonnull
+                                 Warns when a nullable pointer is returned from a function that has _Nonnull return type.
+   optin.cplusplus.UninitializedObject
+                                 Reports uninitialized fields after object construction
+   optin.cplusplus.VirtualCall   Check virtual function calls during construction/destruction
+   optin.mpi.MPI-Checker         Checks MPI code
+   optin.osx.OSObjectCStyleCast  Checker for C-style casts of OSObjects
+   optin.osx.cocoa.localizability.EmptyLocalizationContextChecker
+                                 Check that NSLocalizedString macros include a comment for context
+   optin.osx.cocoa.localizability.NonLocalizedStringChecker
+                                 Warns about uses of non-localized NSStrings passed to UI methods expecting localized NSStrings
+   optin.performance.GCDAntipattern
+                                 Check for performance anti-patterns when using Grand Central Dispatch
+   optin.performance.Padding     Check for excessively padded structs.
+   optin.portability.UnixAPI     Finds implementation-defined behavior in UNIX/Posix functions
+   osx.API                       Check for proper uses of various Apple APIs
+   osx.MIG                       Find violations of the Mach Interface Generator calling convention
+   osx.NumberObjectConversion    Check for erroneous conversions of objects representing numbers into numbers
+   osx.OSObjectRetainCount       Check for leaks and improper reference count management for OSObject
+   osx.ObjCProperty              Check for proper uses of Objective-C properties
+   osx.SecKeychainAPI            Check for proper uses of Secure Keychain APIs
+   osx.cocoa.AtSync              Check for nil pointers used as mutexes for @synchronized
+   osx.cocoa.AutoreleaseWrite    Warn about potentially crashing writes to autoreleasing objects from different autoreleasing pools in Objective-C
+   osx.cocoa.ClassRelease        Check for sending 'retain', 'release', or 'autorelease' directly to a Class
+   osx.cocoa.Dealloc             Warn about Objective-C classes that lack a correct implementation of -dealloc
+   osx.cocoa.IncompatibleMethodTypes
+                                 Warn about Objective-C method signatures with type incompatibilities
+   osx.cocoa.Loops               Improved modeling of loops using Cocoa collection types
+   osx.cocoa.MissingSuperCall    Warn about Objective-C methods that lack a necessary call to super
+   osx.cocoa.NSAutoreleasePool   Warn for suboptimal uses of NSAutoreleasePool in Objective-C GC mode
+   osx.cocoa.NSError             Check usage of NSError** parameters
+   osx.cocoa.NilArg              Check for prohibited nil arguments to ObjC method calls
+   osx.cocoa.NonNilReturnValue   Model the APIs that are guaranteed to return a non-nil value
+   osx.cocoa.ObjCGenerics        Check for type errors when using Objective-C generics
+   osx.cocoa.RetainCount         Check for leaks and improper reference count management
+   osx.cocoa.RunLoopAutoreleaseLeak
+                                 Check for leaked memory in autorelease pools that will never be drained
+   osx.cocoa.SelfInit            Check that 'self' is properly initialized inside an initializer method
+   osx.cocoa.SuperDealloc        Warn about improper use of '[super dealloc]' in Objective-C
+   osx.cocoa.UnusedIvars         Warn about private ivars that are never used
+   osx.cocoa.VariadicMethodTypes Check for passing non-Objective-C types to variadic collection initialization methods that expect only Objective-C types
+   osx.coreFoundation.CFError    Check usage of CFErrorRef* parameters
+   osx.coreFoundation.CFNumber   Check for proper uses of CFNumber APIs
+   osx.coreFoundation.CFRetainRelease
+                                 Check for null arguments to CFRetain/CFRelease/CFMakeCollectable
+   osx.coreFoundation.containers.OutOfBounds
+                                 Checks for index out-of-bounds when using 'CFArray' API
+   osx.coreFoundation.containers.PointerSizedValues
+                                 Warns if 'CFArray', 'CFDictionary', 'CFSet' are created with non-pointer-size values
+   security.FloatLoopCounter     Warn on using a floating point value as a loop counter (CERT: FLP30-C, FLP30-CPP)
+   security.insecureAPI.DeprecatedOrUnsafeBufferHandling
+                                 Warn on uses of unsecure or deprecated buffer manipulating functions
+ + security.insecureAPI.UncheckedReturn
+                                 Warn on uses of functions whose return values must be always checked
+   security.insecureAPI.bcmp     Warn on uses of the 'bcmp' function
+   security.insecureAPI.bcopy    Warn on uses of the 'bcopy' function
+   security.insecureAPI.bzero    Warn on uses of the 'bzero' function
+   security.insecureAPI.decodeValueOfObjCType
+                                 Warn on uses of the '-decodeValueOfObjCType:at:' method
+ + security.insecureAPI.getpw    Warn on uses of the 'getpw' function
+ + security.insecureAPI.gets     Warn on uses of the 'gets' function
+ + security.insecureAPI.mkstemp  Warn when 'mkstemp' is passed fewer than 6 X's in the format string
+ + security.insecureAPI.mktemp   Warn on uses of the 'mktemp' function
+   security.insecureAPI.rand     Warn on uses of the 'rand', 'random', and related functions
+   security.insecureAPI.strcpy   Warn on uses of the 'strcpy' and 'strcat' functions
+ + security.insecureAPI.vfork    Warn on uses of the 'vfork' function
+ + unix.API                      Check calls to various UNIX/Posix functions
+ + unix.Malloc                   Check for memory leaks, double free, and use-after-free problems. Traces memory managed by malloc()/free().
+ + unix.MallocSizeof             Check for dubious malloc arguments involving sizeof
+ + unix.MismatchedDeallocator    Check for mismatched deallocators.
+ + unix.Vfork                    Check for proper usage of vfork
+ + unix.cstring.BadSizeArg       Check the size argument passed into C string functions for common erroneous patterns
+ + unix.cstring.NullArg          Check for null pointers being passed as arguments to C string functions
+   valist.CopyToSelf             Check for va_lists which are copied onto itself.
+   valist.Uninitialized          Check for usages of uninitialized (or already released) va_lists.
+   valist.Unterminated           Check for va_lists which are not released by a va_end call.
+   webkit.NoUncountedMemberChecker
+                                 Check for no uncounted member variables.
+   webkit.RefCntblBaseVirtualDtor Check for any ref-countable base class having virtual destructor.
+
+NOTE: "+" indicates that an analysis is enabled by default.
+
+BUILD OPTIONS
+
+ You can specify any build option acceptable to the build command.
+
+EXAMPLE
+
+ scan-build -o /tmp/myhtmldir make -j4
+
+The above example causes analysis reports to be deposited into a subdirectory
+of "/tmp/myhtmldir" and to run "make" with the "-j4" option. A different
+subdirectory is created each time scan-build analyzes a project. The analyzer
+should support most parallel builds, but not distributed builds.
+
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+cd src && make all
+make[1]: Entering directory '/tmp/02_c_redis/redis/src'
+    [34mCC[0m [33mMakefile.dep[0m
+rm -rf redis-server redis-sentinel redis-cli redis-benchmark redis-check-rdb redis-check-aof *.o *.gcda *.gcno *.gcov redis.info lcov-html Makefile.dep dict-benchmark
+rm -f adlist.d quicklist.d ae.d anet.d dict.d server.d sds.d zmalloc.d lzf_c.d lzf_d.d pqsort.d zipmap.d sha1.d ziplist.d release.d networking.d util.d object.d db.d replication.d rdb.d t_string.d t_list.d t_set.d t_zset.d t_hash.d config.d aof.d pubsub.d multi.d debug.d sort.d intset.d syncio.d cluster.d crc16.d endianconv.d slowlog.d scripting.d bio.d rio.d rand.d memtest.d crcspeed.d crc64.d bitops.d sentinel.d notify.d setproctitle.d blocked.d hyperloglog.d latency.d sparkline.d redis-check-rdb.d redis-check-aof.d geo.d lazyfree.d module.d evict.d expire.d geohash.d geohash_helper.d childinfo.d defrag.d siphash.d rax.d t_stream.d listpack.d localtime.d lolwut.d lolwut5.d lolwut6.d acl.d gopher.d tracking.d connection.d tls.d sha256.d timeout.d setcpuaffinity.d anet.d adlist.d dict.d redis-cli.d zmalloc.d release.d ae.d crcspeed.d crc64.d siphash.d crc16.d ae.d anet.d redis-benchmark.d adlist.d dict.d zmalloc.d siphash.d
+(cd ../deps && make distclean)
+make[2]: Entering directory '/tmp/02_c_redis/redis/deps'
+(cd hiredis && make clean) > /dev/null || true
+(cd linenoise && make clean) > /dev/null || true
+(cd lua && make clean) > /dev/null || true
+(cd jemalloc && [ -f Makefile ] && make distclean) > /dev/null || true
+(rm -f .make-*)
+make[2]: Leaving directory '/tmp/02_c_redis/redis/deps'
+(rm -f .make-*)
+echo STD=-std=c11 -pedantic -DREDIS_STATIC='' >> .make-settings
+echo WARN=-Wall -W -Wno-missing-field-initializers >> .make-settings
+echo OPT=-O2 >> .make-settings
+echo MALLOC=jemalloc >> .make-settings
+echo BUILD_TLS= >> .make-settings
+echo USE_SYSTEMD= >> .make-settings
+echo CFLAGS= >> .make-settings
+echo LDFLAGS= >> .make-settings
+echo REDIS_CFLAGS= >> .make-settings
+echo REDIS_LDFLAGS= >> .make-settings
+echo PREV_FINAL_CFLAGS=-std=c11 -pedantic -DREDIS_STATIC='' -Wall -W -Wno-missing-field-initializers -O2 -g -ggdb   -I../deps/hiredis -I../deps/linenoise -I../deps/lua/src -DUSE_JEMALLOC -I../deps/jemalloc/include >> .make-settings
+echo PREV_FINAL_LDFLAGS=  -g -ggdb -rdynamic >> .make-settings
+(cd ../deps && make hiredis linenoise lua jemalloc)
+make[2]: Entering directory '/tmp/02_c_redis/redis/deps'
+(cd hiredis && make clean) > /dev/null || true
+(cd linenoise && make clean) > /dev/null || true
+(cd lua && make clean) > /dev/null || true
+(cd jemalloc && [ -f Makefile ] && make distclean) > /dev/null || true
+(rm -f .make-*)
+(echo "" > .make-cflags)
+(echo "" > .make-ldflags)
+[32;1mMAKE[0m [37;1mhiredis[0m
+cd hiredis && make static 
+make[3]: Entering directory '/tmp/02_c_redis/redis/deps/hiredis'
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -pedantic -c -O3 -fPIC   -Wall -W -Wstrict-prototypes -Wwrite-strings -Wno-missing-field-initializers -g -ggdb net.c
+net.c:399:10: warning: Although the value stored to 'rv' is used in the enclosing expression, the value is never actually read from 'rv' [deadcode.DeadStores]
+    if ((rv = getaddrinfo(c->tcp.host,_port,&hints,&servinfo)) != 0) {
+         ^    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+net.c:546:43: warning: Result of 'malloc' is converted to a pointer of type 'struct sockadr', which is incompatible with sizeof operand type 'struct sockaddr_un' [unix.MallocSizeof]
+    sa = (struct sockaddr_un*)(c->saddr = malloc(sizeof(struct sockaddr_un)));
+                                          ^~~~~~ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -pedantic -c -O3 -fPIC   -Wall -W -Wstrict-prototypes -Wwrite-strings -Wno-missing-field-initializers -g -ggdb hiredis.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -pedantic -c -O3 -fPIC   -Wall -W -Wstrict-prototypes -Wwrite-strings -Wno-missing-field-initializers -g -ggdb sds.c
+sds.c:221:17: warning: Argument to realloc() is offset by 12 bytes from the start of memory allocated by malloc() [unix.Malloc]
+        newsh = s_realloc(sh, hdrlen+newlen+1);
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./sdsalloc.h:41:19: note: expanded from macro 's_realloc'
+#define s_realloc realloc
+                  ^
+sds.c:221:17: warning: Argument to realloc() is offset by 14 bytes from the start of memory allocated by malloc() [unix.Malloc]
+        newsh = s_realloc(sh, hdrlen+newlen+1);
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./sdsalloc.h:41:19: note: expanded from macro 's_realloc'
+#define s_realloc realloc
+                  ^
+sds.c:221:17: warning: Argument to realloc() is offset by 8 bytes from the start of memory allocated by malloc() [unix.Malloc]
+        newsh = s_realloc(sh, hdrlen+newlen+1);
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./sdsalloc.h:41:19: note: expanded from macro 's_realloc'
+#define s_realloc realloc
+                  ^
+sds.c:233:9: warning: Argument to free() is offset by 12 bytes from the start of memory allocated by malloc() [unix.Malloc]
+        s_free(sh);
+        ^~~~~~~~~~
+./sdsalloc.h:42:16: note: expanded from macro 's_free'
+#define s_free free
+               ^
+sds.c:233:9: warning: Argument to free() is offset by 14 bytes from the start of memory allocated by malloc() [unix.Malloc]
+        s_free(sh);
+        ^~~~~~~~~~
+./sdsalloc.h:42:16: note: expanded from macro 's_free'
+#define s_free free
+               ^
+sds.c:233:9: warning: Argument to free() is offset by 16 bytes from the start of memory allocated by malloc() [unix.Malloc]
+        s_free(sh);
+        ^~~~~~~~~~
+./sdsalloc.h:42:16: note: expanded from macro 's_free'
+#define s_free free
+               ^
+sds.c:233:9: warning: Argument to free() is offset by 17 bytes from the start of memory allocated by malloc() [unix.Malloc]
+        s_free(sh);
+        ^~~~~~~~~~
+./sdsalloc.h:42:16: note: expanded from macro 's_free'
+#define s_free free
+               ^
+sds.c:233:9: warning: Argument to free() is offset by 8 bytes from the start of memory allocated by malloc() [unix.Malloc]
+        s_free(sh);
+        ^~~~~~~~~~
+./sdsalloc.h:42:16: note: expanded from macro 's_free'
+#define s_free free
+               ^
+sds.c:696:10: warning: Although the value stored to 'start' is used in the enclosing expression, the value is never actually read from 'start' [deadcode.DeadStores]
+    sp = start = s;
+         ^       ~
+sds.c:1035:21: warning: Potential memory leak [unix.Malloc]
+                    s_free(vector);
+                    ^~~~~~
+./sdsalloc.h:42:16: note: expanded from macro 's_free'
+#define s_free free
+               ^~~~
+sds.c:1101:27: warning: Potential memory leak [unix.Malloc]
+    for (j = 0; j < argc; j++) {
+                          ^
+sds.c:1101:27: warning: Potential memory leak [unix.Malloc]
+    for (j = 0; j < argc; j++) {
+                          ^
+sds.c:1101:27: warning: Potential memory leak [unix.Malloc]
+    for (j = 0; j < argc; j++) {
+                          ^
+13 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -pedantic -c -O3 -fPIC   -Wall -W -Wstrict-prototypes -Wwrite-strings -Wno-missing-field-initializers -g -ggdb async.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -pedantic -c -O3 -fPIC   -Wall -W -Wstrict-prototypes -Wwrite-strings -Wno-missing-field-initializers -g -ggdb read.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -pedantic -c -O3 -fPIC   -Wall -W -Wstrict-prototypes -Wwrite-strings -Wno-missing-field-initializers -g -ggdb sockcompat.c
+ar rcs libhiredis.a net.o hiredis.o sds.o async.o read.o sockcompat.o
+make[3]: Leaving directory '/tmp/02_c_redis/redis/deps/hiredis'
+[32;1mMAKE[0m [37;1mlinenoise[0m
+cd linenoise && make
+make[3]: Entering directory '/tmp/02_c_redis/redis/deps/linenoise'
+/llvm-project/build/bin/../libexec/ccc-analyzer  -Wall -Os -g  -c linenoise.c
+make[3]: Leaving directory '/tmp/02_c_redis/redis/deps/linenoise'
+[32;1mMAKE[0m [37;1mlua[0m
+cd lua/src && make all CFLAGS="-O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC='' " MYLDFLAGS="" AR="ar rcu"
+make[3]: Entering directory '/tmp/02_c_redis/redis/deps/lua/src'
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lapi.o lapi.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lcode.o lcode.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o ldebug.o ldebug.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o ldo.o ldo.c
+ldo.c: In function 'f_parser':
+ldo.c:496:7: warning: unused variable 'c' [-Wunused-variable]
+   int c = luaZ_lookahead(p->z);
+       ^
+ldo.c:496:7: warning: Value stored to 'c' during its initialization is never read [deadcode.DeadStores]
+  int c = luaZ_lookahead(p->z);
+      ^   ~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o ldump.o ldump.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lfunc.o lfunc.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lgc.o lgc.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o llex.o llex.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lmem.o lmem.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lobject.o lobject.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lopcodes.o lopcodes.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lparser.o lparser.c
+lparser.c:986:32: warning: Access to field 'nactvar' results in a dereference of a null pointer (loaded from variable 'bl') [core.NullDereference]
+    luaK_codeABC(fs, OP_CLOSE, bl->nactvar, 0, 0);
+                               ^~~~~~~~~~~
+lparser.c:1229:13: warning: The left operand of '==' is a garbage value [core.UndefinedBinaryOperatorResult]
+  if (v.v.k == VCALL)  /* stat -> func */
+      ~~~~~ ^
+2 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lstate.o lstate.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lstring.o lstring.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o ltable.o ltable.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o ltm.o ltm.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lundump.o lundump.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lvm.o lvm.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lzio.o lzio.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o strbuf.o strbuf.c
+In file included from strbuf.c:30:
+./strbuf.h:142:23: warning: Array access (via field 'buf') results in a null pointer dereference [core.NullDereference]
+    s->buf[s->length] = 0;
+       ~~~            ^
+strbuf.c:53:12: warning: Access to field 'buf' results in a dereference of a null pointer (loaded from variable 's') [core.NullDereference]
+    s->buf = NULL;
+    ~      ^
+2 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o fpconv.o fpconv.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lauxlib.o lauxlib.c
+lauxlib.c: In function 'luaL_loadfile':
+lauxlib.c:577:4: warning: this 'while' clause does not guard... [-Wmisleading-indentation]
+    while ((c = getc(lf.f)) != EOF && c != LUA_SIGNATURE[0]) ;
+    ^~~~~
+lauxlib.c:578:5: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'while'
+     lf.extraline = 0;
+     ^~
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lbaselib.o lbaselib.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o ldblib.o ldblib.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o liolib.o liolib.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lmathlib.o lmathlib.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o loslib.o loslib.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o ltablib.o ltablib.c
+ltablib.c: In function 'addfield':
+ltablib.c:137:3: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+   if (!lua_isstring(L, -1))
+   ^~
+ltablib.c:140:5: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+     luaL_addvalue(b);
+     ^~~~~~~~~~~~~
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lstrlib.o lstrlib.c
+lstrlib.c:322:43: warning: Dereference of null pointer (loaded from variable 's') [core.NullDereference]
+    else if (s<ms->src_end && singlematch(uchar(*s), p, ep))
+                                          ^~~~~~~~~
+lstrlib.c:24:41: note: expanded from macro 'uchar'
+#define uchar(c)        ((unsigned char)(c))
+                                        ^~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o loadlib.o loadlib.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o linit.o linit.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lua_cjson.o lua_cjson.c
+lua_cjson.c:1022:23: warning: Array access (from variable 'ch2token') results in a null pointer dereference [core.NullDereference]
+        token->type = ch2token[ch];
+                      ^~~~~~~~~~~~
+lua_cjson.c:1229:9: warning: 2nd function call argument is an uninitialized value [core.CallAndMessage]
+        lua_pushlstring(l, token->value.string, token->string_len);
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+lua_cjson.c:1232:9: warning: 2nd function call argument is an uninitialized value [core.CallAndMessage]
+        lua_pushnumber(l, token->value.number);
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+lua_cjson.c:1235:9: warning: 2nd function call argument is an uninitialized value [core.CallAndMessage]
+        lua_pushboolean(l, token->value.boolean);
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+4 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lua_struct.o lua_struct.c
+lua_struct.c:200:7: warning: Assigned value is garbage or undefined [core.uninitialized.Assign]
+      char temp = b[i];
+      ^~~~~~~~~   ~~~~
+lua_struct.c:285:48: warning: The result of the left shift is undefined because the right operand is negative [core.UndefinedBinaryOperatorResult]
+    Uinttype mask = (Uinttype)(~((Uinttype)0)) << (size*8 - 1);
+                                               ^  ~~~~~~~~~~~~
+lua_struct.c:327:9: warning: 2nd function call argument is an uninitialized value [core.CallAndMessage]
+        lua_pushnumber(L, f); n++;
+        ^~~~~~~~~~~~~~~~~~~~
+lua_struct.c:334:9: warning: 2nd function call argument is an uninitialized value [core.CallAndMessage]
+        lua_pushnumber(L, d); n++;
+        ^~~~~~~~~~~~~~~~~~~~
+4 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lua_cmsgpack.o lua_cmsgpack.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lua_bit.o lua_bit.c
+lua_bit.c:117:17: warning: The result of the right shift is undefined due to shifting by '32', which is greater or equal to the width of type 'UBits' [core.UndefinedBinaryOperatorResult]
+BIT_SH(bit_rol, brol)
+~~~~~~~~~~~~~~~~^~~~~
+lua_bit.c:113:59: note: expanded from macro 'BIT_SH'
+    UBits b = barg(L, 1); UBits n = barg(L, 2) & 31; BRET(fn(b, n)) }
+                                                     ~~~~~^~~~~~~~~
+lua_bit.c:109:36: note: expanded from macro 'brol'
+#define brol(b, n)  ((b << n) | (b >> (32-n)))
+                                   ^
+lua_bit.c:94:56: note: expanded from macro 'BRET'
+#define BRET(b)  lua_pushnumber(L, (lua_Number)(SBits)(b)); return 1;
+                                                       ^
+lua_bit.c:118:17: warning: The result of the left shift is undefined due to shifting by '32', which is greater or equal to the width of type 'UBits' [core.UndefinedBinaryOperatorResult]
+BIT_SH(bit_ror, bror)
+~~~~~~~~~~~~~~~~^~~~~
+lua_bit.c:113:59: note: expanded from macro 'BIT_SH'
+    UBits b = barg(L, 1); UBits n = barg(L, 2) & 31; BRET(fn(b, n)) }
+                                                     ~~~~~^~~~~~~~~
+lua_bit.c:110:25: note: expanded from macro 'bror'
+#define bror(b, n)  ((b << (32-n)) | (b >> n))
+                        ^
+lua_bit.c:94:56: note: expanded from macro 'BRET'
+#define BRET(b)  lua_pushnumber(L, (lua_Number)(SBits)(b)); return 1;
+                                                       ^
+2 warnings generated.
+ar rcu liblua.a lapi.o lcode.o ldebug.o ldo.o ldump.o lfunc.o lgc.o llex.o lmem.o lobject.o lopcodes.o lparser.o lstate.o lstring.o ltable.o ltm.o lundump.o lvm.o lzio.o strbuf.o fpconv.o lauxlib.o lbaselib.o ldblib.o liolib.o lmathlib.o loslib.o ltablib.o lstrlib.o loadlib.o linit.o lua_cjson.o lua_struct.o lua_cmsgpack.o lua_bit.o	# DLL needs all object files
+ar: `u' modifier ignored since `D' is the default (see `U')
+ranlib liblua.a
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o lua.o lua.c
+lua.c:245:34: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+  if (strcmp(fname, "-") == 0 && strcmp(argv[n-1], "--") != 0) 
+                                 ^~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -o lua  lua.o liblua.a -lm 
+liblua.a(loslib.o): In function `os_tmpname':
+loslib.c:(.text+0x290): warning: the use of `tmpnam' is dangerous, better use `mkstemp'
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o luac.o luac.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O2 -Wall -DLUA_ANSI -DENABLE_CJSON_GLOBAL -DREDIS_STATIC=''    -c -o print.o print.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -o luac  luac.o print.o liblua.a -lm 
+make[3]: Leaving directory '/tmp/02_c_redis/redis/deps/lua/src'
+[32;1mMAKE[0m [37;1mjemalloc[0m
+cd jemalloc && ./configure --with-version=5.1.0-0-g0 --with-lg-quantum=3 --with-jemalloc-prefix=je_ --enable-cc-silence CFLAGS="-std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops " LDFLAGS=""
+configure: WARNING: unrecognized options: --enable-cc-silence
+checking for xsltproc... false
+checking for gcc... /llvm-project/build/bin/../libexec/ccc-analyzer
+checking whether the C compiler works... yes
+checking for C compiler default output file name... a.out
+checking for suffix of executables... 
+checking whether we are cross compiling... no
+checking for suffix of object files... o
+checking whether we are using the GNU C compiler... yes
+checking whether /llvm-project/build/bin/../libexec/ccc-analyzer accepts -g... yes
+checking for /llvm-project/build/bin/../libexec/ccc-analyzer option to accept ISO C89... none needed
+checking whether compiler is cray... no
+checking whether compiler supports -std=gnu11... yes
+checking whether compiler supports -Wall... yes
+checking whether compiler supports -Wshorten-64-to-32... no
+checking whether compiler supports -Wsign-compare... yes
+checking whether compiler supports -Wundef... yes
+checking whether compiler supports -Wno-format-zero-length... yes
+checking whether compiler supports -pipe... yes
+checking whether compiler supports -g3... yes
+checking how to run the C preprocessor... /llvm-project/build/bin/../libexec/ccc-analyzer -E
+checking whether we are using the GNU C++ compiler... yes
+checking whether /llvm-project/build/bin/../libexec/c++-analyzer accepts -g... yes
+checking whether /llvm-project/build/bin/../libexec/c++-analyzer supports C++14 features by default... yes
+checking whether compiler supports -Wall... yes
+checking whether compiler supports -g3... yes
+checking whether libstdc++ linkage is compilable... yes
+checking for grep that handles long lines and -e... /bin/grep
+checking for egrep... /bin/grep -E
+checking for ANSI C header files... yes
+checking for sys/types.h... yes
+checking for sys/stat.h... yes
+checking for stdlib.h... yes
+checking for string.h... yes
+checking for memory.h... yes
+checking for strings.h... yes
+checking for inttypes.h... yes
+checking for stdint.h... yes
+checking for unistd.h... yes
+checking whether byte ordering is bigendian... no
+checking size of void *... 8
+checking size of int... 4
+checking size of long... 8
+checking size of long long... 8
+checking size of intmax_t... 8
+checking build system type... x86_64-pc-linux-gnu
+checking host system type... x86_64-pc-linux-gnu
+checking whether pause instruction is compilable... yes
+checking number of significant virtual address bits... 48
+checking for ar... ar
+checking for nm... nm
+checking for gawk... no
+checking for mawk... mawk
+checking malloc.h usability... yes
+checking malloc.h presence... yes
+checking for malloc.h... yes
+checking whether malloc_usable_size definition can use const argument... no
+checking for library containing log... -lm
+checking whether __attribute__ syntax is compilable... yes
+checking whether compiler supports -fvisibility=hidden... yes
+checking whether compiler supports -fvisibility=hidden... yes
+checking whether compiler supports -Werror... yes
+checking whether compiler supports -herror_on_warning... no
+checking whether tls_model attribute is compilable... yes
+checking whether compiler supports -Werror... yes
+checking whether compiler supports -herror_on_warning... no
+checking whether alloc_size attribute is compilable... yes
+checking whether compiler supports -Werror... yes
+checking whether compiler supports -herror_on_warning... no
+checking whether format(gnu_printf, ...) attribute is compilable... yes
+checking whether compiler supports -Werror... yes
+checking whether compiler supports -herror_on_warning... no
+checking whether format(printf, ...) attribute is compilable... yes
+checking for a BSD-compatible install... /usr/bin/install -c
+checking for ranlib... ranlib
+checking for ld... /usr/bin/ld
+checking for autoconf... /usr/bin/autoconf
+checking for memalign... yes
+checking for valloc... yes
+checking whether compiler supports -O3... yes
+checking whether compiler supports -O3... yes
+checking whether compiler supports -funroll-loops... yes
+checking configured backtracing method... N/A
+checking for sbrk... yes
+checking whether utrace(2) is compilable... no
+checking whether a program using __builtin_unreachable is compilable... yes
+checking whether a program using __builtin_ffsl is compilable... yes
+checking LG_PAGE... 12
+checking pthread.h usability... yes
+checking pthread.h presence... yes
+checking for pthread.h... yes
+checking for pthread_create in -lpthread... yes
+checking dlfcn.h usability... yes
+checking dlfcn.h presence... yes
+checking for dlfcn.h... yes
+checking for dlsym... no
+checking for dlsym in -ldl... yes
+checking whether pthread_atfork(3) is compilable... yes
+checking whether pthread_setname_np(3) is compilable... yes
+checking for library containing clock_gettime... none required
+checking whether clock_gettime(CLOCK_MONOTONIC_COARSE, ...) is compilable... yes
+checking whether clock_gettime(CLOCK_MONOTONIC, ...) is compilable... yes
+checking whether mach_absolute_time() is compilable... no
+checking whether compiler supports -Werror... yes
+checking whether syscall(2) is compilable... yes
+checking for secure_getenv... yes
+checking for sched_getcpu... yes
+checking for sched_setaffinity... yes
+checking for issetugid... no
+checking for _malloc_thread_cleanup... no
+checking for _pthread_mutex_init_calloc_cb... no
+checking for TLS... yes
+checking whether C11 atomics is compilable... no
+checking whether GCC __atomic atomics is compilable... yes
+checking whether GCC __sync atomics is compilable... yes
+checking whether Darwin OSAtomic*() is compilable... no
+checking whether madvise(2) is compilable... yes
+checking whether madvise(..., MADV_FREE) is compilable... yes
+checking whether madvise(..., MADV_DONTNEED) is compilable... yes
+checking whether madvise(..., MADV_DO[NT]DUMP) is compilable... yes
+checking whether madvise(..., MADV_[NO]HUGEPAGE) is compilable... yes
+checking whether to force 32-bit __sync_{add,sub}_and_fetch()... no
+checking whether to force 64-bit __sync_{add,sub}_and_fetch()... no
+checking for __builtin_clz... yes
+checking whether Darwin os_unfair_lock_*() is compilable... no
+checking whether Darwin OSSpin*() is compilable... no
+checking whether glibc malloc hook is compilable... yes
+checking whether glibc memalign hook is compilable... yes
+checking whether pthreads adaptive mutexes is compilable... yes
+checking whether compiler supports -D_GNU_SOURCE... yes
+checking whether compiler supports -Werror... yes
+checking whether compiler supports -herror_on_warning... no
+checking whether strerror_r returns char with gnu source is compilable... yes
+checking for stdbool.h that conforms to C99... yes
+checking for _Bool... yes
+configure: creating ./config.status
+config.status: creating Makefile
+config.status: creating jemalloc.pc
+config.status: creating doc/html.xsl
+config.status: creating doc/manpages.xsl
+config.status: creating doc/jemalloc.xml
+config.status: creating include/jemalloc/jemalloc_macros.h
+config.status: creating include/jemalloc/jemalloc_protos.h
+config.status: creating include/jemalloc/jemalloc_typedefs.h
+config.status: creating include/jemalloc/internal/jemalloc_preamble.h
+config.status: creating test/test.sh
+config.status: creating test/include/test/jemalloc_test.h
+config.status: creating config.stamp
+config.status: creating bin/jemalloc-config
+config.status: creating bin/jemalloc.sh
+config.status: creating bin/jeprof
+config.status: creating include/jemalloc/jemalloc_defs.h
+config.status: creating include/jemalloc/internal/jemalloc_internal_defs.h
+config.status: creating test/include/test/jemalloc_test_defs.h
+config.status: executing include/jemalloc/internal/public_symbols.txt commands
+config.status: executing include/jemalloc/internal/private_symbols.awk commands
+config.status: executing include/jemalloc/internal/private_symbols_jet.awk commands
+config.status: executing include/jemalloc/internal/public_namespace.h commands
+config.status: executing include/jemalloc/internal/public_unnamespace.h commands
+config.status: executing include/jemalloc/internal/size_classes.h commands
+config.status: executing include/jemalloc/jemalloc_protos_jet.h commands
+config.status: executing include/jemalloc/jemalloc_rename.h commands
+config.status: executing include/jemalloc/jemalloc_mangle.h commands
+config.status: executing include/jemalloc/jemalloc_mangle_jet.h commands
+config.status: executing include/jemalloc/jemalloc.h commands
+configure: WARNING: unrecognized options: --enable-cc-silence
+===============================================================================
+jemalloc version   : 5.1.0-0-g0
+library revision   : 2
+
+CONFIG             : --with-version=5.1.0-0-g0 --with-lg-quantum=3 --with-jemalloc-prefix=je_ --enable-cc-silence 'CFLAGS=-std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops ' LDFLAGS= CC=/llvm-project/build/bin/../libexec/ccc-analyzer CXX=/llvm-project/build/bin/../libexec/c++-analyzer
+CC                 : /llvm-project/build/bin/../libexec/ccc-analyzer
+CONFIGURE_CFLAGS   : -std=gnu11 -Wall -Wsign-compare -Wundef -Wno-format-zero-length -pipe -g3 -fvisibility=hidden -O3 -funroll-loops
+SPECIFIED_CFLAGS   : -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops 
+EXTRA_CFLAGS       : 
+CPPFLAGS           : -D_GNU_SOURCE -D_REENTRANT
+CXX                : /llvm-project/build/bin/../libexec/c++-analyzer
+CONFIGURE_CXXFLAGS : -Wall -g3 -fvisibility=hidden -O3
+SPECIFIED_CXXFLAGS : 
+EXTRA_CXXFLAGS     : 
+LDFLAGS            : 
+EXTRA_LDFLAGS      : 
+DSO_LDFLAGS        : -shared -Wl,-soname,$(@F)
+LIBS               : -lm -lstdc++ -lpthread -ldl
+RPATH_EXTRA        : 
+
+XSLTPROC           : false
+XSLROOT            : 
+
+PREFIX             : /usr/local
+BINDIR             : /usr/local/bin
+DATADIR            : /usr/local/share
+INCLUDEDIR         : /usr/local/include
+LIBDIR             : /usr/local/lib
+MANDIR             : /usr/local/share/man
+
+srcroot            : 
+abs_srcroot        : /tmp/02_c_redis/redis/deps/jemalloc/
+objroot            : 
+abs_objroot        : /tmp/02_c_redis/redis/deps/jemalloc/
+
+JEMALLOC_PREFIX    : je_
+JEMALLOC_PRIVATE_NAMESPACE
+                   : je_
+install_suffix     : 
+malloc_conf        : 
+autogen            : 0
+debug              : 0
+stats              : 1
+prof               : 0
+prof-libunwind     : 0
+prof-libgcc        : 0
+prof-gcc           : 0
+fill               : 1
+utrace             : 0
+xmalloc            : 0
+log                : 0
+lazy_lock          : 0
+cache-oblivious    : 1
+cxx                : 1
+===============================================================================
+cd jemalloc && make CFLAGS="-std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops " LDFLAGS="" lib/libjemalloc.a
+make[3]: Entering directory '/tmp/02_c_redis/redis/deps/jemalloc'
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/jemalloc.sym.o src/jemalloc.c
+In file included from src/jemalloc.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/jemalloc.c:11:
+include/jemalloc/internal/log.h:99:2: warning: Value stored to 'dst_offset' is never read [deadcode.DeadStores]
+        dst_offset += malloc_snprintf(buf + dst_offset,
+        ^             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+nm -a src/jemalloc.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/jemalloc.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/arena.sym.o src/arena.c
+In file included from src/arena.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/arena.c:989:4: warning: Value stored to 'usize' is never read [deadcode.DeadStores]
+                        usize = sz_index2size(alloc_ctx.szind);
+                        ^       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+nm -a src/arena.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/arena.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/background_thread.sym.o src/background_thread.c
+In file included from src/background_thread.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/background_thread.c:234:3: warning: Value stored to 'ret' is never read [deadcode.DeadStores]
+                ret = pthread_cond_wait(&info->cond, &info->mtx.lock);
+                ^     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/background_thread.c:257:3: warning: Value stored to 'ret' is never read [deadcode.DeadStores]
+                ret = pthread_cond_timedwait(&info->cond, &info->mtx.lock, &ts);
+                ^     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/background_thread.c:396:7: warning: Branch condition evaluates to a garbage value [core.uninitialized.Branch]
+                if (created_threads[i]) {
+                    ^~~~~~~~~~~~~~~~~~
+src/background_thread.c:466:7: warning: Branch condition evaluates to a garbage value [core.uninitialized.Branch]
+                if (created_threads[i]) {
+                    ^~~~~~~~~~~~~~~~~~
+src/background_thread.c:768:7: warning: Value stored to 'ret' during its initialization is never read [deadcode.DeadStores]
+                int ret = pthread_cond_init(&info->cond, NULL);
+                    ^~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+6 warnings generated.
+nm -a src/background_thread.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/background_thread.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/base.sym.o src/base.c
+In file included from src/base.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+nm -a src/base.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/base.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/bin.sym.o src/bin.c
+In file included from src/bin.c:2:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+nm -a src/bin.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/bin.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/bitmap.sym.o src/bitmap.c
+In file included from src/bitmap.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+nm -a src/bitmap.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/bitmap.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/ckh.sym.o src/ckh.c
+In file included from src/ckh.c:42:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+nm -a src/ckh.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/ckh.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/ctl.sym.o src/ctl.c
+In file included from src/ctl.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/ctl.c:942:34: warning: The left operand of '!=' is a garbage value [core.UndefinedBinaryOperatorResult]
+                bool initialized = (tarenas[i] != NULL);
+                                    ~~~~~~~~~~ ^
+src/ctl.c:2614:9: warning: Value stored to 'lg_sample' during its initialization is never read [deadcode.DeadStores]
+        size_t lg_sample = lg_prof_sample;
+               ^~~~~~~~~   ~~~~~~~~~~~~~~
+3 warnings generated.
+nm -a src/ctl.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/ctl.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/div.sym.o src/div.c
+nm -a src/div.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/div.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/extent.sym.o src/extent.c
+In file included from src/extent.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:86:
+include/jemalloc/internal/extent_inlines.h:183:35: warning: The left operand of '&' is a garbage value [core.UndefinedBinaryOperatorResult]
+        extent->e_bits = (extent->e_bits & ~EXTENT_BITS_ARENA_MASK) |
+                          ~~~~~~~~~~~~~~ ^
+In file included from src/extent.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/extent.c:348:9: warning: Value stored to 'npages' during its initialization is never read [deadcode.DeadStores]
+        size_t npages = size >> LG_PAGE;
+               ^~~~~~   ~~~~~~~~~~~~~~~
+src/extent.c:1040:18: warning: The left operand of '!=' is a garbage value [core.UndefinedBinaryOperatorResult]
+                if (to_salvage != NULL) {
+                    ~~~~~~~~~~ ^
+src/extent.c:1044:10: warning: Value stored to 'leak' during its initialization is never read [deadcode.DeadStores]
+                        void *leak = extent_base_get(to_leak);
+                              ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+src/extent.c:1322:18: warning: The left operand of '!=' is a garbage value [core.UndefinedBinaryOperatorResult]
+                if (to_salvage != NULL) {
+                    ~~~~~~~~~~ ^
+src/extent.c:1557:17: warning: Dereference of null pointer (loaded from variable 'coalesced') [core.NullDereference]
+                                        *coalesced = true;
+                                         ~~~~~~~~~ ^
+src/extent.c:1578:17: warning: Dereference of null pointer (loaded from variable 'coalesced') [core.NullDereference]
+                                        *coalesced = true;
+                                         ~~~~~~~~~ ^
+src/extent.c:1587:14: warning: Dereference of null pointer (loaded from variable 'coalesced') [core.NullDereference]
+                *coalesced = false;
+                 ~~~~~~~~~ ^
+src/extent.c:1631:12: warning: Branch condition evaluates to a garbage value [core.uninitialized.Branch]
+                } while (coalesced &&
+                         ^~~~~~~~~
+10 warnings generated.
+nm -a src/extent.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/extent.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/extent_dss.sym.o src/extent_dss.c
+In file included from src/extent_dss.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:86:
+include/jemalloc/internal/extent_inlines.h:183:35: warning: The left operand of '&' is a garbage value [core.UndefinedBinaryOperatorResult]
+        extent->e_bits = (extent->e_bits & ~EXTENT_BITS_ARENA_MASK) |
+                          ~~~~~~~~~~~~~~ ^
+In file included from src/extent_dss.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+nm -a src/extent_dss.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/extent_dss.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/extent_mmap.sym.o src/extent_mmap.c
+In file included from src/extent_mmap.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+nm -a src/extent_mmap.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/extent_mmap.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/hash.sym.o src/hash.c
+In file included from src/hash.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+nm -a src/hash.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/hash.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/hooks.sym.o src/hooks.c
+nm -a src/hooks.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/hooks.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/large.sym.o src/large.c
+In file included from src/large.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+nm -a src/large.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/large.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/log.sym.o src/log.c
+In file included from src/log.c:2:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/log.c:4:
+include/jemalloc/internal/log.h:99:2: warning: Value stored to 'dst_offset' is never read [deadcode.DeadStores]
+        dst_offset += malloc_snprintf(buf + dst_offset,
+        ^             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+nm -a src/log.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/log.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/malloc_io.sym.o src/malloc_io.c
+In file included from src/malloc_io.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+nm -a src/malloc_io.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/malloc_io.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/mutex.sym.o src/mutex.c
+In file included from src/mutex.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+nm -a src/mutex.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/mutex.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/mutex_pool.sym.o src/mutex_pool.c
+In file included from src/mutex_pool.c:4:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+nm -a src/mutex_pool.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/mutex_pool.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/nstime.sym.o src/nstime.c
+In file included from src/nstime.c:2:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+nm -a src/nstime.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/nstime.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/pages.sym.o src/pages.c
+In file included from src/pages.c:6:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+nm -a src/pages.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/pages.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/prng.sym.o src/prng.c
+In file included from src/prng.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+nm -a src/prng.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/prng.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/prof.sym.o src/prof.c
+In file included from src/prof.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/prof.c:171:1: warning: The left operand of '!=' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, tctx_tree_, prof_tctx_tree_t, prof_tctx_t,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:568:21: note: expanded from macro 'rb_gen'
+    if (pathp->node != node) {                                          \
+        ~~~~~~~~~~~ ^
+src/prof.c:171:1: warning: Access to field 'node' results in a dereference of a null pointer (loaded from variable 'nodep') [core.NullDereference]
+rb_gen(static UNUSED, tctx_tree_, prof_tctx_tree_t, prof_tctx_t,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:584:14: note: expanded from macro 'rb_gen'
+        nodep->node = pathp->node;                                      \
+        ~~~~~       ^
+src/prof.c:171:1: warning: Dereference of undefined pointer value [core.NullDereference]
+rb_gen(static UNUSED, tctx_tree_, prof_tctx_tree_t, prof_tctx_t,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:626:2: note: expanded from macro 'rb_gen'
+        rbtn_left_set(a_type, a_field, pathp[-1].node, NULL);           \
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:55:32: note: expanded from macro 'rbtn_left_set'
+    (a_node)->a_field.rbn_left = a_left;                                \
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+src/prof.c:171:1: warning: The left operand of '<' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, tctx_tree_, prof_tctx_tree_t, prof_tctx_t,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:674:21: note: expanded from macro 'rb_gen'
+                if (pathp[-1].cmp < 0) {                                \
+                    ~~~~~~~~~~~~~ ^
+src/prof.c:171:1: warning: The left operand of '<' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, tctx_tree_, prof_tctx_tree_t, prof_tctx_t,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:809:25: note: expanded from macro 'rb_gen'
+                    if (pathp[-1].cmp < 0) {                            \
+                        ~~~~~~~~~~~~~ ^
+src/prof.c:186:1: warning: The left operand of '!=' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, gctx_tree_, prof_gctx_tree_t, prof_gctx_t, dump_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:568:21: note: expanded from macro 'rb_gen'
+    if (pathp->node != node) {                                          \
+        ~~~~~~~~~~~ ^
+src/prof.c:186:1: warning: Access to field 'node' results in a dereference of a null pointer (loaded from variable 'nodep') [core.NullDereference]
+rb_gen(static UNUSED, gctx_tree_, prof_gctx_tree_t, prof_gctx_t, dump_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:584:14: note: expanded from macro 'rb_gen'
+        nodep->node = pathp->node;                                      \
+        ~~~~~       ^
+src/prof.c:186:1: warning: Dereference of undefined pointer value [core.NullDereference]
+rb_gen(static UNUSED, gctx_tree_, prof_gctx_tree_t, prof_gctx_t, dump_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:626:2: note: expanded from macro 'rb_gen'
+        rbtn_left_set(a_type, a_field, pathp[-1].node, NULL);           \
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:55:32: note: expanded from macro 'rbtn_left_set'
+    (a_node)->a_field.rbn_left = a_left;                                \
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+src/prof.c:186:1: warning: The left operand of '<' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, gctx_tree_, prof_gctx_tree_t, prof_gctx_t, dump_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:674:21: note: expanded from macro 'rb_gen'
+                if (pathp[-1].cmp < 0) {                                \
+                    ~~~~~~~~~~~~~ ^
+src/prof.c:186:1: warning: The left operand of '<' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, gctx_tree_, prof_gctx_tree_t, prof_gctx_t, dump_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:809:25: note: expanded from macro 'rb_gen'
+                    if (pathp[-1].cmp < 0) {                            \
+                        ~~~~~~~~~~~~~ ^
+src/prof.c:205:1: warning: The left operand of '!=' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, tdata_tree_, prof_tdata_tree_t, prof_tdata_t, tdata_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:568:21: note: expanded from macro 'rb_gen'
+    if (pathp->node != node) {                                          \
+        ~~~~~~~~~~~ ^
+src/prof.c:205:1: warning: Access to field 'node' results in a dereference of a null pointer (loaded from variable 'nodep') [core.NullDereference]
+rb_gen(static UNUSED, tdata_tree_, prof_tdata_tree_t, prof_tdata_t, tdata_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:584:14: note: expanded from macro 'rb_gen'
+        nodep->node = pathp->node;                                      \
+        ~~~~~       ^
+src/prof.c:205:1: warning: Dereference of undefined pointer value [core.NullDereference]
+rb_gen(static UNUSED, tdata_tree_, prof_tdata_tree_t, prof_tdata_t, tdata_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:626:2: note: expanded from macro 'rb_gen'
+        rbtn_left_set(a_type, a_field, pathp[-1].node, NULL);           \
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:55:32: note: expanded from macro 'rbtn_left_set'
+    (a_node)->a_field.rbn_left = a_left;                                \
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+src/prof.c:205:1: warning: The left operand of '<' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, tdata_tree_, prof_tdata_tree_t, prof_tdata_t, tdata_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:674:21: note: expanded from macro 'rb_gen'
+                if (pathp[-1].cmp < 0) {                                \
+                    ~~~~~~~~~~~~~ ^
+src/prof.c:205:1: warning: The left operand of '<' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, tdata_tree_, prof_tdata_tree_t, prof_tdata_t, tdata_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:809:25: note: expanded from macro 'rb_gen'
+                    if (pathp[-1].cmp < 0) {                            \
+                        ~~~~~~~~~~~~~ ^
+16 warnings generated.
+nm -a src/prof.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/prof.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/rtree.sym.o src/rtree.c
+In file included from src/rtree.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+nm -a src/rtree.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/rtree.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/stats.sym.o src/stats.c
+In file included from src/stats.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/stats.c:7:
+include/jemalloc/internal/emitter.h:123:3: warning: Value stored to 'written' is never read [deadcode.DeadStores]
+                written = malloc_snprintf(out_fmt, out_size,
+                ^         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/emitter.h:126:3: warning: Value stored to 'written' is never read [deadcode.DeadStores]
+                written = malloc_snprintf(out_fmt, out_size,
+                ^         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/emitter.h:129:3: warning: Value stored to 'written' is never read [deadcode.DeadStores]
+                written = malloc_snprintf(out_fmt, out_size,
+                ^         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/emitter.h:181:3: warning: Value stored to 'str_written' is never read [deadcode.DeadStores]
+                str_written = malloc_snprintf(buf, BUF_SIZE, "\"%s\"",
+                ^             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/stats.c:1204:13: warning: Although the value stored to 'j' is used in the enclosing expression, the value is never actually read from 'j' [deadcode.DeadStores]
+                        for (i = j = 0; i < narenas; i++) {
+                                 ^   ~
+6 warnings generated.
+nm -a src/stats.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/stats.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/sz.sym.o src/sz.c
+nm -a src/sz.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/sz.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/tcache.sym.o src/tcache.c
+In file included from src/tcache.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/tcache.c:217:10: warning: Value stored to 'ptr' during its initialization is never read [deadcode.DeadStores]
+                        void *ptr = *(tbin->avail - 1 - i);
+                              ^~~   ~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+nm -a src/tcache.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/tcache.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/ticker.sym.o src/ticker.c
+In file included from src/ticker.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+nm -a src/ticker.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/ticker.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/tsd.sym.o src/tsd.c
+In file included from src/tsd.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+nm -a src/tsd.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/tsd.sym
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -DJEMALLOC_NO_PRIVATE_NAMESPACE -o src/witness.sym.o src/witness.c
+In file included from src/witness.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+nm -a src/witness.sym.o | mawk -f include/jemalloc/internal/private_symbols.awk > src/witness.sym
+/bin/sh include/jemalloc/internal/private_namespace.sh src/jemalloc.sym src/arena.sym src/background_thread.sym src/base.sym src/bin.sym src/bitmap.sym src/ckh.sym src/ctl.sym src/div.sym src/extent.sym src/extent_dss.sym src/extent_mmap.sym src/hash.sym src/hooks.sym src/large.sym src/log.sym src/malloc_io.sym src/mutex.sym src/mutex_pool.sym src/nstime.sym src/pages.sym src/prng.sym src/prof.sym src/rtree.sym src/stats.sym src/sz.sym src/tcache.sym src/ticker.sym src/tsd.sym src/witness.sym > include/jemalloc/internal/private_namespace.gen.h
+cp include/jemalloc/internal/private_namespace.gen.h include/jemalloc/internal/private_namespace.gen.h
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/jemalloc.o src/jemalloc.c
+In file included from src/jemalloc.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/jemalloc.c:11:
+include/jemalloc/internal/log.h:99:2: warning: Value stored to 'dst_offset' is never read [deadcode.DeadStores]
+        dst_offset += malloc_snprintf(buf + dst_offset,
+        ^             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/arena.o src/arena.c
+In file included from src/arena.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/arena.c:989:4: warning: Value stored to 'usize' is never read [deadcode.DeadStores]
+                        usize = sz_index2size(alloc_ctx.szind);
+                        ^       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/background_thread.o src/background_thread.c
+In file included from src/background_thread.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/background_thread.c:234:3: warning: Value stored to 'ret' is never read [deadcode.DeadStores]
+                ret = pthread_cond_wait(&info->cond, &info->mtx.lock);
+                ^     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/background_thread.c:257:3: warning: Value stored to 'ret' is never read [deadcode.DeadStores]
+                ret = pthread_cond_timedwait(&info->cond, &info->mtx.lock, &ts);
+                ^     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/background_thread.c:396:7: warning: Branch condition evaluates to a garbage value [core.uninitialized.Branch]
+                if (created_threads[i]) {
+                    ^~~~~~~~~~~~~~~~~~
+src/background_thread.c:466:7: warning: Branch condition evaluates to a garbage value [core.uninitialized.Branch]
+                if (created_threads[i]) {
+                    ^~~~~~~~~~~~~~~~~~
+src/background_thread.c:768:7: warning: Value stored to 'ret' during its initialization is never read [deadcode.DeadStores]
+                int ret = pthread_cond_init(&info->cond, NULL);
+                    ^~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+6 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/base.o src/base.c
+In file included from src/base.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/bin.o src/bin.c
+In file included from src/bin.c:2:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/bitmap.o src/bitmap.c
+In file included from src/bitmap.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/ckh.o src/ckh.c
+In file included from src/ckh.c:42:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/ctl.o src/ctl.c
+In file included from src/ctl.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/ctl.c:942:34: warning: The left operand of '!=' is a garbage value [core.UndefinedBinaryOperatorResult]
+                bool initialized = (tarenas[i] != NULL);
+                                    ~~~~~~~~~~ ^
+src/ctl.c:2614:9: warning: Value stored to 'lg_sample' during its initialization is never read [deadcode.DeadStores]
+        size_t lg_sample = lg_prof_sample;
+               ^~~~~~~~~   ~~~~~~~~~~~~~~
+3 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/div.o src/div.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/extent.o src/extent.c
+In file included from src/extent.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:86:
+include/jemalloc/internal/extent_inlines.h:183:35: warning: The left operand of '&' is a garbage value [core.UndefinedBinaryOperatorResult]
+        extent->e_bits = (extent->e_bits & ~EXTENT_BITS_ARENA_MASK) |
+                          ~~~~~~~~~~~~~~ ^
+In file included from src/extent.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/extent.c:348:9: warning: Value stored to 'npages' during its initialization is never read [deadcode.DeadStores]
+        size_t npages = size >> LG_PAGE;
+               ^~~~~~   ~~~~~~~~~~~~~~~
+src/extent.c:1040:18: warning: The left operand of '!=' is a garbage value [core.UndefinedBinaryOperatorResult]
+                if (to_salvage != NULL) {
+                    ~~~~~~~~~~ ^
+src/extent.c:1044:10: warning: Value stored to 'leak' during its initialization is never read [deadcode.DeadStores]
+                        void *leak = extent_base_get(to_leak);
+                              ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+src/extent.c:1322:18: warning: The left operand of '!=' is a garbage value [core.UndefinedBinaryOperatorResult]
+                if (to_salvage != NULL) {
+                    ~~~~~~~~~~ ^
+src/extent.c:1557:17: warning: Dereference of null pointer (loaded from variable 'coalesced') [core.NullDereference]
+                                        *coalesced = true;
+                                         ~~~~~~~~~ ^
+src/extent.c:1578:17: warning: Dereference of null pointer (loaded from variable 'coalesced') [core.NullDereference]
+                                        *coalesced = true;
+                                         ~~~~~~~~~ ^
+src/extent.c:1587:14: warning: Dereference of null pointer (loaded from variable 'coalesced') [core.NullDereference]
+                *coalesced = false;
+                 ~~~~~~~~~ ^
+src/extent.c:1631:12: warning: Branch condition evaluates to a garbage value [core.uninitialized.Branch]
+                } while (coalesced &&
+                         ^~~~~~~~~
+10 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/extent_dss.o src/extent_dss.c
+In file included from src/extent_dss.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:86:
+include/jemalloc/internal/extent_inlines.h:183:35: warning: The left operand of '&' is a garbage value [core.UndefinedBinaryOperatorResult]
+        extent->e_bits = (extent->e_bits & ~EXTENT_BITS_ARENA_MASK) |
+                          ~~~~~~~~~~~~~~ ^
+In file included from src/extent_dss.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/extent_mmap.o src/extent_mmap.c
+In file included from src/extent_mmap.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/hash.o src/hash.c
+In file included from src/hash.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/hooks.o src/hooks.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/large.o src/large.c
+In file included from src/large.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/log.o src/log.c
+In file included from src/log.c:2:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/log.c:4:
+include/jemalloc/internal/log.h:99:2: warning: Value stored to 'dst_offset' is never read [deadcode.DeadStores]
+        dst_offset += malloc_snprintf(buf + dst_offset,
+        ^             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/malloc_io.o src/malloc_io.c
+In file included from src/malloc_io.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/mutex.o src/mutex.c
+In file included from src/mutex.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/mutex_pool.o src/mutex_pool.c
+In file included from src/mutex_pool.c:4:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/nstime.o src/nstime.c
+In file included from src/nstime.c:2:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/pages.o src/pages.c
+In file included from src/pages.c:6:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/prng.o src/prng.c
+In file included from src/prng.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/prof.o src/prof.c
+In file included from src/prof.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/prof.c:171:1: warning: The left operand of '!=' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, tctx_tree_, prof_tctx_tree_t, prof_tctx_t,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:568:21: note: expanded from macro 'rb_gen'
+    if (pathp->node != node) {                                          \
+        ~~~~~~~~~~~ ^
+src/prof.c:171:1: warning: Access to field 'node' results in a dereference of a null pointer (loaded from variable 'nodep') [core.NullDereference]
+rb_gen(static UNUSED, tctx_tree_, prof_tctx_tree_t, prof_tctx_t,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:584:14: note: expanded from macro 'rb_gen'
+        nodep->node = pathp->node;                                      \
+        ~~~~~       ^
+src/prof.c:171:1: warning: Dereference of undefined pointer value [core.NullDereference]
+rb_gen(static UNUSED, tctx_tree_, prof_tctx_tree_t, prof_tctx_t,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:626:2: note: expanded from macro 'rb_gen'
+        rbtn_left_set(a_type, a_field, pathp[-1].node, NULL);           \
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:55:32: note: expanded from macro 'rbtn_left_set'
+    (a_node)->a_field.rbn_left = a_left;                                \
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+src/prof.c:171:1: warning: The left operand of '<' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, tctx_tree_, prof_tctx_tree_t, prof_tctx_t,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:674:21: note: expanded from macro 'rb_gen'
+                if (pathp[-1].cmp < 0) {                                \
+                    ~~~~~~~~~~~~~ ^
+src/prof.c:171:1: warning: The left operand of '<' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, tctx_tree_, prof_tctx_tree_t, prof_tctx_t,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:809:25: note: expanded from macro 'rb_gen'
+                    if (pathp[-1].cmp < 0) {                            \
+                        ~~~~~~~~~~~~~ ^
+src/prof.c:186:1: warning: The left operand of '!=' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, gctx_tree_, prof_gctx_tree_t, prof_gctx_t, dump_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:568:21: note: expanded from macro 'rb_gen'
+    if (pathp->node != node) {                                          \
+        ~~~~~~~~~~~ ^
+src/prof.c:186:1: warning: Access to field 'node' results in a dereference of a null pointer (loaded from variable 'nodep') [core.NullDereference]
+rb_gen(static UNUSED, gctx_tree_, prof_gctx_tree_t, prof_gctx_t, dump_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:584:14: note: expanded from macro 'rb_gen'
+        nodep->node = pathp->node;                                      \
+        ~~~~~       ^
+src/prof.c:186:1: warning: Dereference of undefined pointer value [core.NullDereference]
+rb_gen(static UNUSED, gctx_tree_, prof_gctx_tree_t, prof_gctx_t, dump_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:626:2: note: expanded from macro 'rb_gen'
+        rbtn_left_set(a_type, a_field, pathp[-1].node, NULL);           \
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:55:32: note: expanded from macro 'rbtn_left_set'
+    (a_node)->a_field.rbn_left = a_left;                                \
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+src/prof.c:186:1: warning: The left operand of '<' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, gctx_tree_, prof_gctx_tree_t, prof_gctx_t, dump_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:674:21: note: expanded from macro 'rb_gen'
+                if (pathp[-1].cmp < 0) {                                \
+                    ~~~~~~~~~~~~~ ^
+src/prof.c:186:1: warning: The left operand of '<' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, gctx_tree_, prof_gctx_tree_t, prof_gctx_t, dump_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:809:25: note: expanded from macro 'rb_gen'
+                    if (pathp[-1].cmp < 0) {                            \
+                        ~~~~~~~~~~~~~ ^
+src/prof.c:205:1: warning: The left operand of '!=' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, tdata_tree_, prof_tdata_tree_t, prof_tdata_t, tdata_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:568:21: note: expanded from macro 'rb_gen'
+    if (pathp->node != node) {                                          \
+        ~~~~~~~~~~~ ^
+src/prof.c:205:1: warning: Access to field 'node' results in a dereference of a null pointer (loaded from variable 'nodep') [core.NullDereference]
+rb_gen(static UNUSED, tdata_tree_, prof_tdata_tree_t, prof_tdata_t, tdata_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:584:14: note: expanded from macro 'rb_gen'
+        nodep->node = pathp->node;                                      \
+        ~~~~~       ^
+src/prof.c:205:1: warning: Dereference of undefined pointer value [core.NullDereference]
+rb_gen(static UNUSED, tdata_tree_, prof_tdata_tree_t, prof_tdata_t, tdata_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:626:2: note: expanded from macro 'rb_gen'
+        rbtn_left_set(a_type, a_field, pathp[-1].node, NULL);           \
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:55:32: note: expanded from macro 'rbtn_left_set'
+    (a_node)->a_field.rbn_left = a_left;                                \
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~
+src/prof.c:205:1: warning: The left operand of '<' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, tdata_tree_, prof_tdata_tree_t, prof_tdata_t, tdata_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:674:21: note: expanded from macro 'rb_gen'
+                if (pathp[-1].cmp < 0) {                                \
+                    ~~~~~~~~~~~~~ ^
+src/prof.c:205:1: warning: The left operand of '<' is a garbage value [core.UndefinedBinaryOperatorResult]
+rb_gen(static UNUSED, tdata_tree_, prof_tdata_tree_t, prof_tdata_t, tdata_link,
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/rb.h:809:25: note: expanded from macro 'rb_gen'
+                    if (pathp[-1].cmp < 0) {                            \
+                        ~~~~~~~~~~~~~ ^
+16 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/rtree.o src/rtree.c
+In file included from src/rtree.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/stats.o src/stats.c
+In file included from src/stats.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from src/stats.c:7:
+include/jemalloc/internal/emitter.h:123:3: warning: Value stored to 'written' is never read [deadcode.DeadStores]
+                written = malloc_snprintf(out_fmt, out_size,
+                ^         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/emitter.h:126:3: warning: Value stored to 'written' is never read [deadcode.DeadStores]
+                written = malloc_snprintf(out_fmt, out_size,
+                ^         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/emitter.h:129:3: warning: Value stored to 'written' is never read [deadcode.DeadStores]
+                written = malloc_snprintf(out_fmt, out_size,
+                ^         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+include/jemalloc/internal/emitter.h:181:3: warning: Value stored to 'str_written' is never read [deadcode.DeadStores]
+                str_written = malloc_snprintf(buf, BUF_SIZE, "\"%s\"",
+                ^             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/stats.c:1204:13: warning: Although the value stored to 'j' is used in the enclosing expression, the value is never actually read from 'j' [deadcode.DeadStores]
+                        for (i = j = 0; i < narenas; i++) {
+                                 ^   ~
+6 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/sz.o src/sz.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/tcache.o src/tcache.c
+In file included from src/tcache.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+src/tcache.c:217:10: warning: Value stored to 'ptr' during its initialization is never read [deadcode.DeadStores]
+                        void *ptr = *(tbin->avail - 1 - i);
+                              ^~~   ~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/ticker.o src/ticker.c
+In file included from src/ticker.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/tsd.o src/tsd.c
+In file included from src/tsd.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=gnu99 -Wall -pipe -g3 -O3 -funroll-loops  -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/witness.o src/witness.c
+In file included from src/witness.c:3:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/c++-analyzer -Wall -g3 -fvisibility=hidden -O3 -c -D_GNU_SOURCE -D_REENTRANT -Iinclude -Iinclude -o src/jemalloc_cpp.o src/jemalloc_cpp.cpp
+In file included from src/jemalloc_cpp.cpp:10:
+In file included from include/jemalloc/internal/jemalloc_internal_includes.h:91:
+include/jemalloc/internal/prof_inlines_b.h:196:15: warning: Value stored to 'tctx' during its initialization is never read [deadcode.DeadStores]
+        prof_tctx_t *tctx = prof_tctx_get(tsd_tsdn(tsd), ptr, alloc_ctx);
+                     ^~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+ar crus lib/libjemalloc.a src/jemalloc.o src/arena.o src/background_thread.o src/base.o src/bin.o src/bitmap.o src/ckh.o src/ctl.o src/div.o src/extent.o src/extent_dss.o src/extent_mmap.o src/hash.o src/hooks.o src/large.o src/log.o src/malloc_io.o src/mutex.o src/mutex_pool.o src/nstime.o src/pages.o src/prng.o src/prof.o src/rtree.o src/stats.o src/sz.o src/tcache.o src/ticker.o src/tsd.o src/witness.o src/jemalloc_cpp.o
+ar: `u' modifier ignored since `D' is the default (see `U')
+make[3]: Leaving directory '/tmp/02_c_redis/redis/deps/jemalloc'
+make[2]: Leaving directory '/tmp/02_c_redis/redis/deps'
+    [34mCC[0m [33madlist.o[0m
+    [34mCC[0m [33mquicklist.o[0m
+quicklist.c:516:25: warning: Access to field 'zl' results in a dereference of a null pointer (loaded from field 'tail') [core.NullDereference]
+            ziplistPush(quicklist->tail->zl, value, sz, ZIPLIST_TAIL);
+                        ^~~~~~~~~~~~~~~~~~~
+quicklist.c:729:34: warning: Access to field 'zl' results in a dereference of a null pointer (loaded from variable 'keep') [core.NullDereference]
+        keep->count = ziplistLen(keep->zl);
+                                 ^~~~~~~~
+quicklist.c:1166:20: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+        iter->zi = nextFn(iter->current->zl, iter->zi);
+                   ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+    [34mCC[0m [33mae.o[0m
+    [34mCC[0m [33manet.o[0m
+anet.c:598:22: warning: The left operand of '==' is a garbage value [core.UndefinedBinaryOperatorResult]
+    if (sa.ss_family == AF_INET) {
+        ~~~~~~~~~~~~ ^
+anet.c:654:22: warning: The left operand of '==' is a garbage value [core.UndefinedBinaryOperatorResult]
+    if (sa.ss_family == AF_INET) {
+        ~~~~~~~~~~~~ ^
+2 warnings generated.
+    [34mCC[0m [33mdict.o[0m
+dict.c:649:27: warning: Access to field 'next' results in a dereference of a null pointer (loaded from variable 'he') [core.NullDereference]
+    while(listele--) he = he->next;
+                          ^~~~~~~~
+1 warning generated.
+    [34mCC[0m [33mserver.o[0m
+    [34mCC[0m [33msds.o[0m
+sds.c:712:10: warning: Although the value stored to 'start' is used in the enclosing expression, the value is never actually read from 'start' [deadcode.DeadStores]
+    sp = start = s;
+         ^       ~
+1 warning generated.
+    [34mCC[0m [33mzmalloc.o[0m
+    [34mCC[0m [33mlzf_c.o[0m
+    [34mCC[0m [33mlzf_d.o[0m
+    [34mCC[0m [33mpqsort.o[0m
+    [34mCC[0m [33mzipmap.o[0m
+    [34mCC[0m [33msha1.o[0m
+sha1.c:108:5: warning: Value stored to 'a' is never read [deadcode.DeadStores]
+    a = b = c = d = e = 0;
+    ^   ~~~~~~~~~~~~~~~~~
+sha1.c:108:9: warning: Although the value stored to 'b' is used in the enclosing expression, the value is never actually read from 'b' [deadcode.DeadStores]
+    a = b = c = d = e = 0;
+        ^   ~~~~~~~~~~~~~
+sha1.c:108:13: warning: Although the value stored to 'c' is used in the enclosing expression, the value is never actually read from 'c' [deadcode.DeadStores]
+    a = b = c = d = e = 0;
+            ^   ~~~~~~~~~
+sha1.c:108:17: warning: Although the value stored to 'd' is used in the enclosing expression, the value is never actually read from 'd' [deadcode.DeadStores]
+    a = b = c = d = e = 0;
+                ^   ~~~~~
+sha1.c:108:21: warning: Although the value stored to 'e' is used in the enclosing expression, the value is never actually read from 'e' [deadcode.DeadStores]
+    a = b = c = d = e = 0;
+                    ^   ~
+5 warnings generated.
+    [34mCC[0m [33mziplist.o[0m
+    [34mCC[0m [33mrelease.o[0m
+    [34mCC[0m [33mnetworking.o[0m
+networking.c:1399:13: warning: Value stored to 'nwritten' is never read [deadcode.DeadStores]
+            nwritten = 0;
+            ^          ~
+networking.c:2706:38: warning: Access to field 'ptr' results in a dereference of a null pointer [core.NullDereference]
+    c->cmd = lookupCommandOrOriginal(c->argv[0]->ptr);
+                                     ^~~~~~~~~~~~~~~
+2 warnings generated.
+    [34mCC[0m [33mutil.o[0m
+    [34mCC[0m [33mobject.o[0m
+    [34mCC[0m [33mdb.o[0m
+    [34mCC[0m [33mreplication.o[0m
+replication.c:1467:28: warning: Array access (from variable 'backup') results in a null pointer dereference [core.NullDereference]
+            server.db[i] = backup[i];
+                           ^~~~~~~~~
+replication.c:1473:25: warning: Dereference of null pointer [core.NullDereference]
+            dictRelease(backup[i].dict);
+                        ^~~~~~~~~~~~~~
+2 warnings generated.
+    [34mCC[0m [33mrdb.o[0m
+rdb.c:1018:18: warning: The left expression of the compound assignment is an uninitialized value. The computed value will also be garbage [core.uninitialized.Assign]
+        io.bytes += retval;
+        ~~~~~~~~ ^
+rdb.c:1150:14: warning: The left expression of the compound assignment is an uninitialized value. The computed value will also be garbage [core.uninitialized.Assign]
+    io.bytes += retval;
+    ~~~~~~~~ ^
+rdb.c:1894:32: warning: Access to field 'pel' results in a dereference of a null pointer (loaded from variable 'cgroup') [core.NullDereference]
+                if (!raxInsert(cgroup->pel,rawid,sizeof(rawid),nack,NULL))
+                               ^~~~~~~~~~~
+rdb.c:1942:48: warning: Access to field 'pel' results in a dereference of a null pointer (loaded from variable 'cgroup') [core.NullDereference]
+                    streamNACK *nack = raxFind(cgroup->pel,rawid,sizeof(rawid));
+                                               ^~~~~~~~~~~
+4 warnings generated.
+    [34mCC[0m [33mt_string.o[0m
+    [34mCC[0m [33mt_list.o[0m
+    [34mCC[0m [33mt_set.o[0m
+    [34mCC[0m [33mt_zset.o[0m
+t_zset.c:167:31: warning: Dereference of undefined pointer value [core.NullDereference]
+        x->level[i].forward = update[i]->level[i].forward;
+                              ^~~~~~~~~~~~~~~~~~~~~~~~~~~
+t_zset.c:180:30: warning: The left operand of '==' is a garbage value [core.UndefinedBinaryOperatorResult]
+    x->backward = (update[0] == zsl->header) ? NULL : update[0];
+                   ~~~~~~~~~ ^
+t_zset.c:1128:13: warning: Although the value stored to 'sptr' is used in the enclosing expression, the value is never actually read from 'sptr' [deadcode.DeadStores]
+    while ((sptr = ziplistNext(zl,eptr)) != NULL) {
+            ^      ~~~~~~~~~~~~~~~~~~~~
+t_zset.c:1632:15: warning: Assigned value is garbage or undefined [core.uninitialized.Assign]
+        score = newscore;
+              ^ ~~~~~~~~
+4 warnings generated.
+    [34mCC[0m [33mt_hash.o[0m
+    [34mCC[0m [33mconfig.o[0m
+config.c:1219:17: warning: Array access (via field 'lines') results in a null pointer dereference [core.NullDereference]
+        sdsfree(state->lines[linenum]);
+                ^~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    [34mCC[0m [33maof.o[0m
+    [34mCC[0m [33mpubsub.o[0m
+    [34mCC[0m [33mmulti.o[0m
+    [34mCC[0m [33mdebug.o[0m
+debug.c:538:13: warning: Value stored to 'nextra' is never read [deadcode.DeadStores]
+            nextra += used;
+            ^         ~~~~
+debug.c:539:13: warning: Value stored to 'remaining' is never read [deadcode.DeadStores]
+            remaining -= used;
+            ^            ~~~~
+2 warnings generated.
+    [34mCC[0m [33msort.o[0m
+sort.c:320:14: warning: Value stored to 'vectorlen' is never read [deadcode.DeadStores]
+    default: vectorlen = 0; serverPanic("Bad SORT type"); /* Avoid GCC warning */
+             ^           ~
+1 warning generated.
+    [34mCC[0m [33mintset.o[0m
+    [34mCC[0m [33msyncio.o[0m
+    [34mCC[0m [33mcluster.o[0m
+    [34mCC[0m [33mcrc16.o[0m
+    [34mCC[0m [33mendianconv.o[0m
+    [34mCC[0m [33mslowlog.o[0m
+    [34mCC[0m [33mscripting.o[0m
+    [34mCC[0m [33mbio.o[0m
+    [34mCC[0m [33mrio.o[0m
+    [34mCC[0m [33mrand.o[0m
+    [34mCC[0m [33mmemtest.o[0m
+    [34mCC[0m [33mcrcspeed.o[0m
+    [34mCC[0m [33mcrc64.o[0m
+    [34mCC[0m [33mbitops.o[0m
+bitops.c:316:40: warning: The result of the left shift is undefined due to shifting by '64', which is greater or equal to the width of type 'uint64_t' [core.UndefinedBinaryOperatorResult]
+        uint64_t mask = ((uint64_t)-1) << bits;
+                                       ^  ~~~~
+1 warning generated.
+    [34mCC[0m [33msentinel.o[0m
+sentinel.c:1723:14: warning: Although the value stored to 'slave' is used in the enclosing expression, the value is never actually read from 'slave' [deadcode.DeadStores]
+        if ((slave = createSentinelRedisInstance(NULL,SRI_SLAVE,argv[2],
+             ^       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+    [34mCC[0m [33mnotify.o[0m
+    [34mCC[0m [33msetproctitle.o[0m
+    [34mCC[0m [33mblocked.o[0m
+    [34mCC[0m [33mhyperloglog.o[0m
+    [34mCC[0m [33mlatency.o[0m
+    [34mCC[0m [33msparkline.o[0m
+    [34mCC[0m [33mredis-check-rdb.o[0m
+redis-check-rdb.c:256:18: warning: Although the value stored to 'db_size' is used in the enclosing expression, the value is never actually read from 'db_size' [deadcode.DeadStores]
+            if ((db_size = rdbLoadLen(&rdb,NULL)) == RDB_LENERR)
+                 ^         ~~~~~~~~~~~~~~~~~~~~~
+redis-check-rdb.c:258:18: warning: Although the value stored to 'expires_size' is used in the enclosing expression, the value is never actually read from 'expires_size' [deadcode.DeadStores]
+            if ((expires_size = rdbLoadLen(&rdb,NULL)) == RDB_LENERR)
+                 ^              ~~~~~~~~~~~~~~~~~~~~~
+redis-check-rdb.c:282:18: warning: Although the value stored to 'when_opcode' is used in the enclosing expression, the value is never actually read from 'when_opcode' [deadcode.DeadStores]
+            if ((when_opcode = rdbLoadLen(&rdb,NULL)) == RDB_LENERR) goto eoferr;
+                 ^             ~~~~~~~~~~~~~~~~~~~~~
+redis-check-rdb.c:283:18: warning: Although the value stored to 'when' is used in the enclosing expression, the value is never actually read from 'when' [deadcode.DeadStores]
+            if ((when = rdbLoadLen(&rdb,NULL)) == RDB_LENERR) goto eoferr;
+                 ^      ~~~~~~~~~~~~~~~~~~~~~
+4 warnings generated.
+    [34mCC[0m [33mredis-check-aof.o[0m
+    [34mCC[0m [33mgeo.o[0m
+    [34mCC[0m [33mlazyfree.o[0m
+    [34mCC[0m [33mmodule.o[0m
+    [34mCC[0m [33mevict.o[0m
+    [34mCC[0m [33mexpire.o[0m
+    [34mCC[0m [33mgeohash.o[0m
+    [34mCC[0m [33mgeohash_helper.o[0m
+    [34mCC[0m [33mchildinfo.o[0m
+    [34mCC[0m [33mdefrag.o[0m
+defrag.c:62:9: warning: Value stored to 'size' is never read [deadcode.DeadStores]
+        size = zmalloc_size(ptr);
+        ^      ~~~~~~~~~~~~~~~~~
+defrag.c:1113:17: warning: Value stored to 'quit' is never read [deadcode.DeadStores]
+                quit = 1; /* time is up, we didn't finish all the work */
+                ^      ~
+2 warnings generated.
+    [34mCC[0m [33msiphash.o[0m
+    [34mCC[0m [33mrax.o[0m
+rax.c:892:9: warning: Access to field 'size' results in a dereference of a null pointer (loaded from variable 'h') [core.NullDereference]
+    if (h->size == 0) {
+        ^~~~~~~
+1 warning generated.
+    [34mCC[0m [33mt_stream.o[0m
+t_stream.c:175:15: warning: The right operand of '>' is a garbage value [core.UndefinedBinaryOperatorResult]
+    if (a->ms > b->ms) return 1;
+              ^ ~~~~~
+t_stream.c:1864:21: warning: Access to field 'last_id' results in a dereference of a null pointer (loaded from variable 'cg') [core.NullDereference]
+        cg->last_id = id;
+        ~~          ^
+2 warnings generated.
+    [34mCC[0m [33mlistpack.o[0m
+listpack.c:696:9: warning: Value stored to 'dst' is never read [deadcode.DeadStores]
+        dst += backlen_size;
+        ^      ~~~~~~~~~~~~
+1 warning generated.
+    [34mCC[0m [33mlocaltime.o[0m
+    [34mCC[0m [33mlolwut.o[0m
+    [34mCC[0m [33mlolwut5.o[0m
+    [34mCC[0m [33mlolwut6.o[0m
+    [34mCC[0m [33macl.o[0m
+acl.c:492:29: warning: The left operand of '>' is a garbage value [core.UndefinedBinaryOperatorResult]
+        if ((additive && on > off) || (!additive && off > on)) {
+                         ~~ ^
+acl.c:492:57: warning: The left operand of '>' is a garbage value [core.UndefinedBinaryOperatorResult]
+        if ((additive && on > off) || (!additive && off > on)) {
+                                                    ~~~ ^
+2 warnings generated.
+    [34mCC[0m [33mgopher.o[0m
+    [34mCC[0m [33mtracking.o[0m
+    [34mCC[0m [33mconnection.o[0m
+    [34mCC[0m [33mtls.o[0m
+    [34mCC[0m [33msha256.o[0m
+    [34mCC[0m [33mtimeout.o[0m
+    [34mCC[0m [33msetcpuaffinity.o[0m
+    [34;1mLINK[0m [37;1mredis-server[0m
+    [34;1mINSTALL[0m [37;1mredis-sentinel[0m
+    [34mCC[0m [33mredis-cli.o[0m
+In file included from redis-cli.c:49:
+In file included from ../deps/hiredis/hiredis.h:44:
+../deps/hiredis/sds.h:90:27: warning: Array access (from variable 's') results in a null pointer dereference [core.NullDereference]
+    unsigned char flags = s[-1];
+                          ^~~~~
+redis-cli.c:2828:53: warning: Null pointer passed to 2nd parameter expecting 'nonnull' [core.NonNullParamChecker]
+                if (!strcmp(n->replicate, name) && !strcmp(n->ip, ip)) {
+                                                    ^~~~~~~~~~~~~~~~~
+redis-cli.c:2868:31: warning: Division by zero [core.DivideZero]
+        int rand_idx = rand() % offending_len;
+                       ~~~~~~~^~~~~~~~~~~~~~~
+redis-cli.c:3880:21: warning: Value stored to 'link_status' is never read [deadcode.DeadStores]
+            case 7: link_status = token; break;
+                    ^             ~~~~~
+redis-cli.c:4444:18: warning: Division by zero [core.DivideZero]
+    idx = rand() % master_count;
+          ~~~~~~~^~~~~~~~~~~~~~
+5 warnings generated.
+    [34;1mLINK[0m [37;1mredis-cli[0m
+    [34mCC[0m [33mredis-benchmark.o[0m
+    [34;1mLINK[0m [37;1mredis-benchmark[0m
+    [34;1mINSTALL[0m [37;1mredis-check-rdb[0m
+    [34;1mINSTALL[0m [37;1mredis-check-aof[0m
+
+Hint: It's a good idea to run 'make test' ;)
+
+make[1]: Leaving directory '/tmp/02_c_redis/redis/src'
+scan-build: Analysis run complete.
+scan-build: 222 bugs found.
+scan-build: Run 'scan-view /tmp/scan-build-2020-11-15-153844-3794-1' to examine bug reports.

@@ -1,0 +1,14 @@
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+make: *** No targets specified and no makefile found.  Stop.
+scan-build: Analysis run complete.
+scan-build: Removing directory '/tmp/scan-build-2020-11-18-170152-9846-1' because it contains no reports.
+scan-build: No bugs found.
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+/bin/bash /tmp/real/cpp_swoole-src/swoole-src/libtool --mode=compile /llvm-project/build/bin/../libexec/c++-analyzer  -I. -I/tmp/real/cpp_swoole-src/swoole-src -DPHP_ATOM_INC -I/tmp/real/cpp_swoole-src/swoole-src/include -I/tmp/real/cpp_swoole-src/swoole-src/main -I/tmp/real/cpp_swoole-src/swoole-src -I/usr/include/php/20170718 -I/usr/include/php/20170718/main -I/usr/include/php/20170718/TSRM -I/usr/include/php/20170718/Zend -I/usr/include/php/20170718/ext -I/usr/include/php/20170718/ext/date/lib -I/tmp/real/cpp_swoole-src/swoole-src -I/tmp/real/cpp_swoole-src/swoole-src/include -I/tmp/real/cpp_swoole-src/swoole-src/ext-src -I/tmp/real/cpp_swoole-src/swoole-src/thirdparty/hiredis  -DHAVE_CONFIG_H  -g -O2 -Wall -Wno-unused-function -Wno-deprecated -Wno-deprecated-declarations -std=c++11   -c /tmp/real/cpp_swoole-src/swoole-src/ext-src/php_swoole.cc -o ext-src/php_swoole.lo 
+libtool: compile: unable to infer tagged configuration
+libtool:   error: specify a tag with '--tag'
+Makefile:194: recipe for target 'ext-src/php_swoole.lo' failed
+make: *** [ext-src/php_swoole.lo] Error 1
+scan-build: Analysis run complete.
+scan-build: Removing directory '/tmp/scan-build-2020-11-19-021148-9112-1' because it contains no reports.
+scan-build: No bugs found.

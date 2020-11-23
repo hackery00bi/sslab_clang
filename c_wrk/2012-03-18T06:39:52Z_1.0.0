@@ -1,0 +1,37 @@
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -Wall -O2 -pthread -c -o obj/wrk.o src/wrk.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -Wall -O2 -pthread -c -o obj/aprintf.o src/aprintf.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -Wall -O2 -pthread -c -o obj/stats.o src/stats.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -Wall -O2 -pthread -c -o obj/units.o src/units.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -Wall -O2 -pthread -c -o obj/ae.o src/ae.c
+In file included from src/ae.c:42:0:
+src/config.h:8:0: warning: "_POSIX_C_SOURCE" redefined
+ #define _POSIX_C_SOURCE 200809L
+ 
+In file included from /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:33:0,
+                 from /usr/include/stdio.h:27,
+                 from src/ae.c:33:
+/usr/include/features.h:294:0: note: this is the location of the previous definition
+ # define _POSIX_C_SOURCE 199506L
+ 
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -Wall -O2 -pthread -c -o obj/zmalloc.o src/zmalloc.c
+In file included from src/zmalloc.c:35:0:
+src/config.h:8:0: warning: "_POSIX_C_SOURCE" redefined
+ #define _POSIX_C_SOURCE 200809L
+ 
+In file included from /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:33:0,
+                 from /usr/include/stdio.h:27,
+                 from src/zmalloc.c:31:
+/usr/include/features.h:294:0: note: this is the location of the previous definition
+ # define _POSIX_C_SOURCE 199506L
+ 
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -Wall -O2 -pthread -c -o obj/http_parser.o src/http_parser.c
+src/http_parser.c:1950:3: warning: Value stored to 'uf' is never read [deadcode.DeadStores]
+  uf = old_uf = UF_MAX;
+  ^    ~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -Wall -O2 -pthread -c -o obj/tinymt64.o src/tinymt64.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -pthread -o wrk obj/wrk.o obj/aprintf.o obj/stats.o obj/units.o obj/ae.o obj/zmalloc.o obj/http_parser.o obj/tinymt64.o -lm
+scan-build: Analysis run complete.
+scan-build: 1 bug found.
+scan-build: Run 'scan-view /tmp/scan-build-2020-11-20-011446-7359-1' to examine bug reports.

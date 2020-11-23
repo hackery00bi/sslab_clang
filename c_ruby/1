@@ -1,0 +1,3957 @@
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+	BASERUBY = /usr/bin/ruby --disable=gems
+	CC = /llvm-project/build/bin/../libexec/ccc-analyzer
+	LD = ld
+	LDSHARED = /llvm-project/build/bin/../libexec/ccc-analyzer -shared
+	CFLAGS = -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable -std=gnu99 
+	XCFLAGS = -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fno-strict-overflow -fvisibility=hidden -fexcess-precision=standard -DRUBY_EXPORT -fPIE -DCANONICALIZATION_FOR_MATHN -I. -I.ext/include/x86_64-linux -I./include -I. -I./enc/unicode/12.1.0
+	CPPFLAGS =   
+	DLDFLAGS = -Wl,--compress-debug-sections=zlib -fstack-protector-strong -pie  
+	SOLIBS = -lz -lpthread -lrt -lrt -ldl -lcrypt -lm 
+	LANG = 
+	LC_ALL = 
+	LC_CTYPE = 
+	MFLAGS = 
+gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
+Copyright (C) 2017 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+compiling ./main.c
+compiling dmydln.c
+generating id.h
+id.h updated
+generating miniprelude.c
+miniprelude.c updated
+compiling miniinit.c
+In file included from miniinit.c:51:
+In file included from ./mini_builtin.c:1:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from miniinit.c:51:
+In file included from ./mini_builtin.c:1:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling dmyext.c
+/usr/bin/ruby --disable=gems ./tool/gen_dummy_probes.rb ./probes.d > probes.dmyh
+making dummy probes.h
+compiling array.c
+make: *** Deleting file 'array.o'
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from array.c:19:
+In file included from ./transient_heap.h:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+scan-build: Analysis run complete.
+scan-build: 0 bugs found.
+scan-build: The analyzer encountered problems on some source files.
+scan-build: Preprocessed versions of these sources were deposited in '/tmp/scan-build-2020-11-17-110533-20144-1/failures'.
+scan-build: Please consider submitting a bug report using these files:
+scan-build:   http://clang-analyzer.llvm.org/filing_bugs.html
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+	BASERUBY = /usr/bin/ruby --disable=gems
+	CC = /llvm-project/build/bin/../libexec/ccc-analyzer
+	LD = ld
+	LDSHARED = /llvm-project/build/bin/../libexec/ccc-analyzer -shared
+	CFLAGS = -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable -std=gnu99 
+	XCFLAGS = -D_FORTIFY_SOURCE=2 -fstack-protector-strong -fno-strict-overflow -fvisibility=hidden -fexcess-precision=standard -DRUBY_EXPORT -fPIE -DCANONICALIZATION_FOR_MATHN -I. -I.ext/include/x86_64-linux -I./include -I. -I./enc/unicode/12.1.0
+	CPPFLAGS =   
+	DLDFLAGS = -Wl,--compress-debug-sections=zlib -fstack-protector-strong -pie  
+	SOLIBS = -lz -lpthread -lrt -lrt -ldl -lcrypt -lm 
+	LANG = 
+	LC_ALL = 
+	LC_CTYPE = 
+	MFLAGS = 
+gcc (Ubuntu 7.5.0-3ubuntu1~18.04) 7.5.0
+Copyright (C) 2017 Free Software Foundation, Inc.
+This is free software; see the source for copying conditions.  There is NO
+warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+compiling ./main.c
+compiling dmydln.c
+generating id.h
+id.h updated
+generating miniprelude.c
+miniprelude.c updated
+compiling miniinit.c
+In file included from miniinit.c:51:
+In file included from ./mini_builtin.c:1:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from miniinit.c:51:
+In file included from ./mini_builtin.c:1:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling dmyext.c
+/usr/bin/ruby --disable=gems ./tool/gen_dummy_probes.rb ./probes.d > probes.dmyh
+making dummy probes.h
+compiling array.c
+In file included from array.c:19:
+In file included from ./transient_heap.h:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from array.c:19:
+In file included from ./transient_heap.h:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+making ast.rbinc
+compiling ast.c
+In file included from ast.c:5:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from ast.c:5:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling bignum.c
+In file included from bignum.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from bignum.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling class.c
+In file included from class.c:26:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from class.c:26:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling compar.c
+In file included from compar.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from compar.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+generating opt_sc.inc
+generating optunifs.inc
+generating insns.inc
+generating insns_info.inc
+generating optinsn.inc
+compiling compile.c
+In file included from compile.c:15:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from compile.c:15:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling complex.c
+In file included from complex.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from complex.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling cont.c
+In file included from cont.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from cont.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling debug.c
+In file included from debug.c:17:
+In file included from ./eval_intern.h:5:
+In file included from ./vm_core.h:78:
+In file included from ./method.h:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from debug.c:17:
+In file included from ./eval_intern.h:5:
+In file included from ./vm_core.h:78:
+In file included from ./method.h:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling debug_counter.c
+In file included from debug_counter.c:11:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from debug_counter.c:11:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling dir.c
+In file included from dir.c:16:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from dir.c:16:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling dln_find.c
+dln_find.c:255:2: warning: Value stored to 'fspace' is never read [deadcode.DeadStores]
+        fspace -= i;
+        ^         ~
+1 warning generated.
+compiling encoding.c
+In file included from encoding.c:13:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from encoding.c:13:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling enum.c
+In file included from enum.c:13:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from enum.c:13:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling enumerator.c
+In file included from enumerator.c:16:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from enumerator.c:16:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+generating known_errors.inc
+known_errors.inc updated
+making warning.rbinc
+compiling error.c
+In file included from error.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from error.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling eval.c
+In file included from eval.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from eval.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling file.c
+In file included from file.c:39:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from file.c:39:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+making gc.rbinc
+compiling gc.c
+In file included from gc.c:24:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from gc.c:24:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling hash.c
+In file included from hash.c:17:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from hash.c:17:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+making prelude.rbinc
+compiling inits.c
+In file included from inits.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from inits.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+making io.rbinc
+compiling io.c
+In file included from io.c:17:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from io.c:17:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+generating node_name.inc
+compiling iseq.c
+In file included from iseq.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from iseq.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling load.c
+In file included from load.c:7:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from load.c:7:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling marshal.c
+In file included from marshal.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from marshal.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling math.c
+In file included from math.c:15:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from math.c:15:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+making mjit_config.h
+compiling mjit.c
+In file included from mjit.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from mjit.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+generating mjit_compile.inc
+compiling mjit_compile.c
+In file included from mjit_compile.c:13:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from mjit_compile.c:13:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling node.c
+In file included from node.c:13:
+In file included from ./vm_core.h:78:
+In file included from ./method.h:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from node.c:13:
+In file included from ./vm_core.h:78:
+In file included from ./method.h:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling numeric.c
+In file included from numeric.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from numeric.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling object.c
+In file included from object.c:17:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from object.c:17:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+making pack.rbinc
+compiling pack.c
+In file included from pack.c:13:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from pack.c:13:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+generating parse.c
+copying lex.c
+compiling parse.c
+In file included from parse.y:26:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from parse.y:26:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling proc.c
+In file included from proc.c:12:
+In file included from ./eval_intern.h:5:
+In file included from ./vm_core.h:78:
+In file included from ./method.h:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from proc.c:12:
+In file included from ./eval_intern.h:5:
+In file included from ./vm_core.h:78:
+In file included from ./method.h:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling process.c
+In file included from process.c:16:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from process.c:16:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling random.c
+In file included from random.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from random.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling range.c
+In file included from range.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from range.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling rational.c
+In file included from rational.c:8:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from rational.c:8:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling re.c
+In file included from re.c:15:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from re.c:15:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling regcomp.c
+regcomp.c:177:7: warning: The left operand of '!=' is a garbage value [core.UndefinedBinaryOperatorResult]
+  if (IS_NOT_NULL(uslist->us))
+      ^           ~~~~~~~~~~
+./regint.h:299:53: note: expanded from macro 'IS_NOT_NULL'
+#define IS_NOT_NULL(p)                (((void*)(p)) != (void*)0)
+                                                ~   ^
+regcomp.c:1271:9: warning: Dereference of null pointer [core.NullDereference]
+    if (NTYPE(node->target) == NT_ALT) {
+        ^~~~~~~~~~~~~~~~~~~
+./regparse.h:69:33: note: expanded from macro 'NTYPE'
+#define NTYPE(node)             ((node)->u.base.type)
+                                ^~~~~~~~~~~~~~~~~~~~~
+regcomp.c:2050:7: warning: The left operand of '<' is a garbage value [core.UndefinedBinaryOperatorResult]
+      BIT_STATUS_ON_AT_SIMPLE(env->capture_history, map[i].new_val);
+      ^                                             ~~~~~~~~~~~~~~
+./regint.h:368:11: note: expanded from macro 'BIT_STATUS_ON_AT_SIMPLE'
+  if ((n) < (int )BIT_STATUS_BITS_NUM)\
+       ~  ^
+regcomp.c:2069:17: warning: The right operand of '<' is a garbage value [core.UndefinedBinaryOperatorResult]
+  for (i = 0; i < uslist->num; i++) {
+                ^ ~~~~~~~~~~~
+regcomp.c:3499:2: warning: Value stored to 'r' is never read [deadcode.DeadStores]
+        r = len;
+        ^   ~~~
+regcomp.c:3581:3: warning: Value stored to 'r' is never read [deadcode.DeadStores]
+  r = 0;
+  ^   ~
+regcomp.c:5630:9: warning: The left operand of '!=' is a garbage value [core.UndefinedBinaryOperatorResult]
+    if (IS_NOT_NULL(reg->p))                xfree(reg->p);
+        ^           ~~~~~~
+./regint.h:299:53: note: expanded from macro 'IS_NOT_NULL'
+#define IS_NOT_NULL(p)                (((void*)(p)) != (void*)0)
+                                                ~   ^
+7 warnings generated.
+compiling regenc.c
+compiling regerror.c
+compiling regexec.c
+regexec.c:1663:3: warning: Result of 'malloc' is converted to a pointer of type 'char', which is incompatible with sizeof operand type 'OnigStackIndex' [unix.MallocSizeof]
+  STACK_INIT(alloca_base, xmalloc_base, n, INIT_MATCH_STACK_SIZE);
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+regexec.c:481:26: note: expanded from macro 'STACK_INIT'
+    alloc_addr = (char* )xmalloc(sizeof(OnigStackIndex) * (ptr_num));\
+                  ~~~~~  ^~~~~~~ ~~~~~~~~~~~~~~~~~~~~~~
+./regint.h:143:22: note: expanded from macro 'xmalloc'
+# define xmalloc     malloc
+                     ^~~~~~
+1 warning generated.
+compiling regparse.c
+regparse.c:2003:5: warning: Value stored to 'bsr1' is never read [deadcode.DeadStores]
+    bsr1 = dest->bs;
+    ^      ~~~~~~~~
+regparse.c:2043:10: warning: Access to field 'flags' results in a dereference of a null pointer (loaded from variable 'dest') [core.NullDereference]
+  not1 = IS_NCCLASS_NOT(dest);
+         ^~~~~~~~~~~~~~~~~~~~
+./regint.h:796:33: note: expanded from macro 'IS_NCCLASS_NOT'
+#define IS_NCCLASS_NOT(nd)      IS_NCCLASS_FLAG_ON(nd, FLAG_NCCLASS_NOT)
+                                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./regint.h:789:39: note: expanded from macro 'IS_NCCLASS_FLAG_ON'
+#define IS_NCCLASS_FLAG_ON(cc,flag) ((NCCLASS_FLAGS(cc) & (flag)) != 0)
+                                      ^~~~~~~~~~~~~~~~~
+./regint.h:786:37: note: expanded from macro 'NCCLASS_FLAGS'
+#define NCCLASS_FLAGS(cc)           ((cc)->flags)
+                                    ^~~~~~~~~~~~~
+regparse.c:2061:5: warning: Value stored to 'bsr1' is never read [deadcode.DeadStores]
+    bsr1 = dest->bs;
+    ^      ~~~~~~~~
+regparse.c:5310:6: warning: Potential leak of memory pointed to by 'target' [unix.Malloc]
+            CHECK_NULL_RETURN_MEMERR(*np);
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./regint.h:301:62: note: expanded from macro 'CHECK_NULL_RETURN_MEMERR'
+#define CHECK_NULL_RETURN_MEMERR(p)   if (IS_NULL(p)) return ONIGERR_MEMORY
+                                                             ^~~~~~~~~~~~~~
+./include/ruby/onigmo.h:629:65: note: expanded from macro 'ONIGERR_MEMORY'
+#define ONIGERR_MEMORY                                         -5
+                                                                ^
+regparse.c:6512:9: warning: Dereference of null pointer (loaded from variable 'headp') [core.NullDereference]
+        *headp = node;
+         ~~~~~ ^
+regparse.c:6517:9: warning: Dereference of null pointer (loaded from variable 'headp') [core.NullDereference]
+        *headp = node_new_list(node, NULL);
+         ~~~~~ ^
+regparse.c:6552:25: warning: Potential leak of memory pointed to by 'node' [unix.Malloc]
+      if (r < 0) return r;
+                        ^
+regparse.c:6559:14: warning: Dereference of null pointer (loaded from variable 'headp') [core.NullDereference]
+      *headp = onig_node_new_alt(node, NULL);
+       ~~~~~ ^
+regparse.c:6563:9: warning: Potential leak of memory pointed to by 'node' [unix.Malloc]
+    if (tok->type != (enum TokenSyms )term)
+        ^~~
+9 warnings generated.
+compiling regsyntax.c
+compiling ruby.c
+In file included from ruby.c:21:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from ruby.c:21:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling safe.c
+In file included from safe.c:15:
+In file included from ./vm_core.h:78:
+In file included from ./method.h:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from safe.c:15:
+In file included from ./vm_core.h:78:
+In file included from ./method.h:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling signal.c
+In file included from signal.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from signal.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling sprintf.c
+In file included from sprintf.c:16:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from sprintf.c:16:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling st.c
+In file included from st.c:107:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from st.c:107:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling strftime.c
+In file included from strftime.c:53:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from strftime.c:53:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling string.c
+In file included from string.c:16:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from string.c:16:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling struct.c
+In file included from struct.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from struct.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+generating id.c
+id.c updated
+compiling symbol.c
+In file included from symbol.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from symbol.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling thread.c
+In file included from thread.c:68:
+In file included from ./eval_intern.h:5:
+In file included from ./vm_core.h:78:
+In file included from ./method.h:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from thread.c:68:
+In file included from ./eval_intern.h:5:
+In file included from ./vm_core.h:78:
+In file included from ./method.h:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling time.c
+In file included from time.c:15:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from time.c:15:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling transcode.c
+In file included from transcode.c:13:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from transcode.c:13:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling transient_heap.c
+In file included from transient_heap.c:13:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from transient_heap.c:13:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling util.c
+In file included from util.c:16:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from util.c:16:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling variable.c
+In file included from variable.c:17:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from variable.c:17:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+./revision.h updated
+compiling version.c
+In file included from version.c:14:
+In file included from ./vm_core.h:78:
+In file included from ./method.h:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from version.c:14:
+In file included from ./vm_core.h:78:
+In file included from ./method.h:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+generating vm.inc
+generating vm_call_iseq_optimized.inc
+generating vmtc.inc
+compiling vm.c
+In file included from vm.c:11:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from vm.c:11:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling vm_backtrace.c
+In file included from vm_backtrace.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from vm_backtrace.c:14:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling vm_dump.c
+In file included from vm_dump.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from vm_dump.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+making trace_point.rbinc
+compiling vm_trace.c
+In file included from vm_trace.c:24:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from vm_trace.c:24:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+assembling coroutine/amd64/Context.S
+compiling enc/ascii.c
+compiling enc/us_ascii.c
+compiling enc/unicode.c
+enc/unicode.c:557:16: warning: The right operand of '<' is a garbage value [core.UndefinedBinaryOperatorResult]
+        for (i = 0; i < ncs[0]; i++) {
+                      ^ ~~~~~~
+1 warning generated.
+compiling enc/utf_8.c
+generating enc/trans/newline.c ...
+converter for universal_newline
+converter for crlf_newline
+converter for cr_newline
+done.  (0.02user 0.00system 0.00elapsed)
+compiling enc/trans/newline.c
+compiling ./missing/setproctitle.c
+compiling ./missing/strlcat.c
+compiling ./missing/strlcpy.c
+compiling addr2line.c
+addr2line.c:457:6: warning: Value stored to 'a' is never read [deadcode.DeadStores]
+            a = *(unsigned char *)p++;
+            ^   ~~~~~~~~~~~~~~~~~~~~~
+addr2line.c:530:1: warning: Potential memory leak [unix.Malloc]
+}
+^
+addr2line.c:530:1: warning: Potential memory leak [unix.Malloc]
+addr2line.c:563:14: warning: Potential leak of memory pointed to by 'o1' [unix.Malloc]
+    o2->path = o1->path;
+    ~~~~~~~~~^~~~~~~~~~
+addr2line.c:563:14: warning: Potential leak of memory pointed to by 'o1' [unix.Malloc]
+    o2->path = o1->path;
+    ~~~~~~~~~^~~~~~~~~~
+addr2line.c:1763:9: warning: Value stored to 'i' is never read [deadcode.DeadStores]
+        i = 0;
+        ^   ~
+addr2line.c:2363:2: warning: Value stored to 'num' is never read [deadcode.DeadStores]
+        num = 0;
+        ^     ~
+7 warnings generated.
+compiling dmyenc.c
+linking miniruby
+/bin/mkdir -p enc/jis
++ cp enc/jis/props.h.blt enc/jis/props.h
+generating encdb.h
+encdb.h updated
+./tool/ifchange "--timestamp=.rbconfig.time" rbconfig.rb rbconfig.tmp
+rbconfig.rb updated
+generating enc.mk
+making srcs under enc
+make[1]: Entering directory '/tmp/real/c_ruby/ruby'
+generating table from enc/trans/big5.c
+generating enc/trans/big5.c ...
+converter from Big5 to UTF-8
+converter from UTF-8 to Big5
+converter from CP950 to UTF-8
+converter from UTF-8 to CP950
+converter from Big5-HKSCS to UTF-8
+converter from UTF-8 to Big5-HKSCS
+converter from CP951 to UTF-8
+converter from UTF-8 to CP951
+converter from Big5-UAO to UTF-8
+converter from UTF-8 to Big5-UAO
+done.  (2.78user 0.03system 2.79elapsed)
+generating table from enc/trans/cesu_8.c
+generating enc/trans/cesu_8.c ...
+converter for from_CESU_8
+converter for to_CESU_8
+done.  (0.02user 0.00system 0.01elapsed)
+generating table from enc/trans/chinese.c
+generating enc/trans/chinese.c ...
+load mapsrc enc/trans/GB/GB2312%UCS.src
+converter from GB2312 to UTF-8
+load mapsrc enc/trans/GB/GB12345%UCS.src
+converter from GB12345 to UTF-8
+load mapsrc enc/trans/GB/UCS%GB2312.src
+converter from UTF-8 to GB2312
+load mapsrc enc/trans/GB/UCS%GB12345.src
+converter from UTF-8 to GB12345
+done.  (0.60user 0.02system 0.59elapsed)
+generating table from enc/trans/ebcdic.c
+generating enc/trans/ebcdic.c ...
+converter from IBM037 to ISO-8859-1
+converter from ISO-8859-1 to IBM037
+done.  (0.03user 0.00system 0.01elapsed)
+generating table from enc/trans/emoji.c
+generating enc/trans/emoji.c ...
+converter from UTF8-DoCoMo to UTF8-KDDI
+converter from UTF8-DoCoMo to UTF8-SoftBank
+converter from UTF8-DoCoMo to UTF-8
+converter from UTF8-KDDI to UTF8-DoCoMo
+converter from UTF8-KDDI to UTF8-SoftBank
+converter from UTF8-KDDI to UTF-8
+converter from UTF8-SoftBank to UTF8-DoCoMo
+converter from UTF8-SoftBank to UTF8-KDDI
+converter from UTF8-SoftBank to UTF-8
+converter from UTF-8 to UTF8-DoCoMo
+converter from UTF-8 to UTF8-KDDI
+converter from UTF-8 to UTF8-SoftBank
+done.  (0.17user 0.00system 0.15elapsed)
+generating table from enc/trans/emoji_iso2022_kddi.c
+generating enc/trans/emoji_iso2022_kddi.c ...
+converter for iso2022jp_kddi_decoder
+converter for iso2022jp_kddi_decoder_jisx0208_rest
+converter for iso2022jp_kddi_encoder
+load mapsrc enc/trans/EMOJI/EMOJI_ISO-2022-JP-KDDI%UCS.src
+load mapsrc enc/trans/JIS/JISX0208VDC@NEC%UCS.src
+load mapsrc enc/trans/CP/CP932VDC@NEC_IBM%UCS.src
+load mapsrc enc/trans/CP/CP932VDC@IBM%UCS.src
+load mapsrc enc/trans/JIS/JISX0208@MS%UCS.src
+converter from stateless-ISO-2022-JP-KDDI to UTF8-KDDI
+load mapsrc enc/trans/EMOJI/UCS%EMOJI_ISO-2022-JP-KDDI.src
+load mapsrc enc/trans/EMOJI/UCS%EMOJI_ISO-2022-JP-KDDI-UNDOC.src
+load mapsrc enc/trans/JIS/UCS%JISX0208VDC@NEC.src
+load mapsrc enc/trans/CP/UCS%CP932VDC@NEC_IBM.src
+load mapsrc enc/trans/CP/UCS%CP932VDC@IBM.src
+load mapsrc enc/trans/JIS/UCS%JISX0208@MS.src
+converter from UTF8-KDDI to stateless-ISO-2022-JP-KDDI
+done.  (0.36user 0.00system 0.34elapsed)
+generating table from enc/trans/emoji_sjis_docomo.c
+generating enc/trans/emoji_sjis_docomo.c ...
+load mapsrc enc/trans/JIS/JISX0201-KANA%UCS.src
+load mapsrc enc/trans/EMOJI/EMOJI_SHIFT_JIS-DOCOMO%UCS.src
+load mapsrc enc/trans/JIS/JISX0208VDC@NEC%UCS.src
+load mapsrc enc/trans/CP/CP932VDC@NEC_IBM%UCS.src
+load mapsrc enc/trans/CP/CP932VDC@IBM%UCS.src
+load mapsrc enc/trans/CP/CP932UDA%UCS.src
+load mapsrc enc/trans/JIS/JISX0208@MS%UCS.src
+converter from SJIS-DOCOMO to UTF8-DOCOMO
+load mapsrc enc/trans/JIS/UCS%JISX0201-KANA.src
+load mapsrc enc/trans/EMOJI/UCS%EMOJI_SHIFT_JIS-DOCOMO.src
+load mapsrc enc/trans/JIS/UCS%JISX0208VDC@NEC.src
+load mapsrc enc/trans/CP/UCS%CP932VDC@NEC_IBM.src
+load mapsrc enc/trans/CP/UCS%CP932VDC@IBM.src
+load mapsrc enc/trans/CP/UCS%CP932UDA.src
+load mapsrc enc/trans/JIS/UCS%JISX0208@MS.src
+converter from UTF8-DOCOMO to SJIS-DOCOMO
+done.  (0.39user 0.01system 0.38elapsed)
+generating table from enc/trans/emoji_sjis_kddi.c
+generating enc/trans/emoji_sjis_kddi.c ...
+load mapsrc enc/trans/JIS/JISX0201-KANA%UCS.src
+load mapsrc enc/trans/EMOJI/EMOJI_SHIFT_JIS-KDDI%UCS.src
+load mapsrc enc/trans/JIS/JISX0208VDC@NEC%UCS.src
+load mapsrc enc/trans/CP/CP932VDC@NEC_IBM%UCS.src
+load mapsrc enc/trans/CP/CP932VDC@IBM%UCS.src
+load mapsrc enc/trans/CP/CP932UDA%UCS.src
+load mapsrc enc/trans/JIS/JISX0208@MS%UCS.src
+converter from SJIS-KDDI to UTF8-KDDI
+load mapsrc enc/trans/JIS/UCS%JISX0201-KANA.src
+load mapsrc enc/trans/EMOJI/UCS%EMOJI_SHIFT_JIS-KDDI.src
+load mapsrc enc/trans/EMOJI/UCS%EMOJI_SHIFT_JIS-KDDI-UNDOC.src
+load mapsrc enc/trans/JIS/UCS%JISX0208VDC@NEC.src
+load mapsrc enc/trans/CP/UCS%CP932VDC@NEC_IBM.src
+load mapsrc enc/trans/CP/UCS%CP932VDC@IBM.src
+load mapsrc enc/trans/CP/UCS%CP932UDA.src
+load mapsrc enc/trans/JIS/UCS%JISX0208@MS.src
+converter from UTF8-KDDI to SJIS-KDDI
+done.  (0.41user 0.01system 0.40elapsed)
+generating table from enc/trans/emoji_sjis_softbank.c
+generating enc/trans/emoji_sjis_softbank.c ...
+load mapsrc enc/trans/JIS/JISX0201-KANA%UCS.src
+load mapsrc enc/trans/EMOJI/EMOJI_SHIFT_JIS-SOFTBANK%UCS.src
+load mapsrc enc/trans/JIS/JISX0208VDC@NEC%UCS.src
+load mapsrc enc/trans/CP/CP932VDC@NEC_IBM%UCS.src
+load mapsrc enc/trans/CP/CP932VDC@IBM%UCS.src
+load mapsrc enc/trans/CP/CP932UDA%UCS.src
+load mapsrc enc/trans/JIS/JISX0208@MS%UCS.src
+converter from SJIS-SoftBank to UTF8-SoftBank
+load mapsrc enc/trans/JIS/UCS%JISX0201-KANA.src
+load mapsrc enc/trans/EMOJI/UCS%EMOJI_SHIFT_JIS-SOFTBANK.src
+load mapsrc enc/trans/JIS/UCS%JISX0208VDC@NEC.src
+load mapsrc enc/trans/CP/UCS%CP932VDC@NEC_IBM.src
+load mapsrc enc/trans/CP/UCS%CP932VDC@IBM.src
+load mapsrc enc/trans/CP/UCS%CP932UDA.src
+load mapsrc enc/trans/JIS/UCS%JISX0208@MS.src
+converter from UTF8-SoftBank to SJIS-SoftBank
+done.  (0.40user 0.00system 0.38elapsed)
+generating table from enc/trans/escape.c
+generating enc/trans/escape.c ...
+converter for amp_escape
+converter for xml_text_escape
+converter for xml_attr_content_escape
+converter for escape_xml_attr_quote
+done.  (0.03user 0.00system 0.00elapsed)
+generating table from enc/trans/gb18030.c
+generating enc/trans/gb18030.c ...
+converter from GB18030 to UTF-8
+converter from UTF-8 to GB18030
+done.  (1.73user 0.03system 1.74elapsed)
+generating table from enc/trans/gbk.c
+generating enc/trans/gbk.c ...
+converter from GBK to UTF-8
+converter from UTF-8 to GBK
+done.  (0.67user 0.00system 0.65elapsed)
+generating table from enc/trans/iso2022.c
+generating enc/trans/iso2022.c ...
+converter for iso2022jp_decoder
+converter for iso2022jp_decoder_jisx0208_rest
+converter for iso2022jp_encoder
+converter for stateless_iso2022jp_to_eucjp
+converter for eucjp_to_stateless_iso2022jp
+converter for cp50221_decoder
+converter for cp50221_encoder
+done.  (0.03user 0.00system 0.01elapsed)
+generating table from enc/trans/japanese.c
+generating enc/trans/japanese.c ...
+converter for eucjp2sjis
+converter for sjis2eucjp
+done.  (0.02user 0.00system 0.00elapsed)
+generating table from enc/trans/japanese_euc.c
+generating enc/trans/japanese_euc.c ...
+load mapsrc enc/trans/JIS/JISX0208@1990%UCS.src
+load mapsrc enc/trans/JIS/JISX0201-KANA%UCS.src
+load mapsrc enc/trans/JIS/JISX0212%UCS.src
+converter from EUC-JP to UTF-8
+load mapsrc enc/trans/JIS/JISX0208VDC@NEC%UCS.src
+load mapsrc enc/trans/JIS/JISX0208UDC%UCS.src
+load mapsrc enc/trans/JIS/JISX0208@MS%UCS.src
+load mapsrc enc/trans/JIS/JISX0201-KANA%UCS.src
+load mapsrc enc/trans/JIS/JISX0212VDC@IBM%UCS.src
+load mapsrc enc/trans/JIS/JISX0212UDC%UCS.src
+load mapsrc enc/trans/JIS/JISX0212@MS%UCS.src
+converter from eucJP-ms to UTF-8
+load mapsrc enc/trans/JIS/JISX0208VDC@NEC%UCS.src
+load mapsrc enc/trans/CP/CP932VDC@NEC_IBM%UCS.src
+load mapsrc enc/trans/JIS/JISX0208@MS%UCS.src
+load mapsrc enc/trans/JIS/JISX0201-KANA%UCS.src
+converter from CP51932 to UTF-8
+load mapsrc enc/trans/JIS/JISX0208@1990%UCS.src
+load mapsrc enc/trans/JIS/JISX0213-1%UCS@BMP.src
+load mapsrc enc/trans/JIS/JISX0213-1%UCS@SIP.src
+load mapsrc enc/trans/JIS/JISX0201-KANA%UCS.src
+load mapsrc enc/trans/JIS/JISX0213-2%UCS@BMP.src
+load mapsrc enc/trans/JIS/JISX0213-2%UCS@SIP.src
+converter from EUC-JIS-2004 to UTF-8
+load mapsrc enc/trans/JIS/UCS%JISX0208@1990.src
+load mapsrc enc/trans/JIS/UCS%JISX0201-KANA.src
+load mapsrc enc/trans/JIS/UCS%JISX0212.src
+converter from UTF-8 to EUC-JP
+load mapsrc enc/trans/JIS/UCS%JISX0208@MS.src
+load mapsrc enc/trans/JIS/UCS%JISX0208VDC@NEC.src
+load mapsrc enc/trans/JIS/UCS%JISX0208UDC.src
+load mapsrc enc/trans/JIS/UCS%JISX0201-KANA.src
+load mapsrc enc/trans/JIS/UCS%JISX0212VDC@IBM.src
+load mapsrc enc/trans/JIS/UCS%JISX0212UDC.src
+load mapsrc enc/trans/JIS/UCS%JISX0212@MS.src
+converter from UTF-8 to eucJP-ms
+load mapsrc enc/trans/JIS/UCS%JISX0208@MS.src
+load mapsrc enc/trans/JIS/UCS%JISX0208VDC@NEC.src
+load mapsrc enc/trans/CP/UCS%CP932VDC@NEC_IBM.src
+load mapsrc enc/trans/JIS/UCS%JISX0201-KANA.src
+converter from UTF-8 to CP51932
+load mapsrc enc/trans/JIS/UCS%JISX0208@1990.src
+load mapsrc enc/trans/JIS/UCS@BMP%JISX0213-1.src
+load mapsrc enc/trans/JIS/UCS@SIP%JISX0213-1.src
+load mapsrc enc/trans/JIS/UCS%JISX0201-KANA.src
+load mapsrc enc/trans/JIS/UCS@BMP%JISX0213-2.src
+load mapsrc enc/trans/JIS/UCS@SIP%JISX0213-2.src
+converter from UTF-8 to EUC-JIS-2004
+done.  (1.67user 0.02system 1.67elapsed)
+generating table from enc/trans/japanese_sjis.c
+generating enc/trans/japanese_sjis.c ...
+load mapsrc enc/trans/JIS/JISX0201-KANA%UCS.src
+load mapsrc enc/trans/JIS/JISX0208@1990%UCS.src
+converter from Shift_JIS to UTF-8
+load mapsrc enc/trans/JIS/JISX0201-KANA%UCS.src
+load mapsrc enc/trans/JIS/JISX0208VDC@NEC%UCS.src
+load mapsrc enc/trans/CP/CP932VDC@NEC_IBM%UCS.src
+load mapsrc enc/trans/CP/CP932VDC@IBM%UCS.src
+load mapsrc enc/trans/CP/CP932UDA%UCS.src
+load mapsrc enc/trans/JIS/JISX0208@MS%UCS.src
+converter from Windows-31J to UTF-8
+load mapsrc enc/trans/JIS/UCS%JISX0201-KANA.src
+load mapsrc enc/trans/JIS/UCS%JISX0208@1990.src
+converter from UTF-8 to Shift_JIS
+load mapsrc enc/trans/JIS/UCS%JISX0201-KANA.src
+load mapsrc enc/trans/JIS/UCS%JISX0208@MS.src
+load mapsrc enc/trans/JIS/UCS%JISX0208VDC@NEC.src
+load mapsrc enc/trans/CP/UCS%CP932VDC@IBM.src
+load mapsrc enc/trans/CP/UCS%CP932VDC@NEC_IBM.src
+load mapsrc enc/trans/CP/UCS%CP932UDA.src
+converter from UTF-8 to Windows-31J
+done.  (0.61user 0.02system 0.61elapsed)
+generating table from enc/trans/korean.c
+generating enc/trans/korean.c ...
+converter from UTF-8 to EUC-KR
+converter from EUC-KR to UTF-8
+converter from UTF-8 to CP949
+converter from CP949 to UTF-8
+done.  (0.83user 0.02system 0.83elapsed)
+generating table from enc/trans/single_byte.c
+generating enc/trans/single_byte.c ...
+converter from US-ASCII to UTF-8
+converter from UTF-8 to US-ASCII
+converter from ASCII-8BIT to UTF-8
+converter from UTF-8 to ASCII-8BIT
+converter from ISO-8859-1 to UTF-8
+converter from UTF-8 to ISO-8859-1
+converter from ISO-8859-2 to UTF-8
+converter from UTF-8 to ISO-8859-2
+converter from ISO-8859-3 to UTF-8
+converter from UTF-8 to ISO-8859-3
+converter from ISO-8859-4 to UTF-8
+converter from UTF-8 to ISO-8859-4
+converter from ISO-8859-5 to UTF-8
+converter from UTF-8 to ISO-8859-5
+converter from ISO-8859-6 to UTF-8
+converter from UTF-8 to ISO-8859-6
+converter from ISO-8859-7 to UTF-8
+converter from UTF-8 to ISO-8859-7
+converter from ISO-8859-8 to UTF-8
+converter from UTF-8 to ISO-8859-8
+converter from ISO-8859-9 to UTF-8
+converter from UTF-8 to ISO-8859-9
+converter from ISO-8859-10 to UTF-8
+converter from UTF-8 to ISO-8859-10
+converter from ISO-8859-11 to UTF-8
+converter from UTF-8 to ISO-8859-11
+converter from ISO-8859-13 to UTF-8
+converter from UTF-8 to ISO-8859-13
+converter from ISO-8859-14 to UTF-8
+converter from UTF-8 to ISO-8859-14
+converter from ISO-8859-15 to UTF-8
+converter from UTF-8 to ISO-8859-15
+converter from ISO-8859-16 to UTF-8
+converter from UTF-8 to ISO-8859-16
+converter from WINDOWS-874 to UTF-8
+converter from UTF-8 to WINDOWS-874
+converter from WINDOWS-1250 to UTF-8
+converter from UTF-8 to WINDOWS-1250
+converter from WINDOWS-1251 to UTF-8
+converter from UTF-8 to WINDOWS-1251
+converter from WINDOWS-1252 to UTF-8
+converter from UTF-8 to WINDOWS-1252
+converter from WINDOWS-1253 to UTF-8
+converter from UTF-8 to WINDOWS-1253
+converter from WINDOWS-1254 to UTF-8
+converter from UTF-8 to WINDOWS-1254
+converter from WINDOWS-1255 to UTF-8
+converter from UTF-8 to WINDOWS-1255
+converter from WINDOWS-1256 to UTF-8
+converter from UTF-8 to WINDOWS-1256
+converter from WINDOWS-1257 to UTF-8
+converter from UTF-8 to WINDOWS-1257
+converter from IBM437 to UTF-8
+converter from UTF-8 to IBM437
+converter from IBM775 to UTF-8
+converter from UTF-8 to IBM775
+converter from IBM737 to UTF-8
+converter from UTF-8 to IBM737
+converter from IBM852 to UTF-8
+converter from UTF-8 to IBM852
+converter from IBM855 to UTF-8
+converter from UTF-8 to IBM855
+converter from IBM857 to UTF-8
+converter from UTF-8 to IBM857
+converter from IBM860 to UTF-8
+converter from UTF-8 to IBM860
+converter from IBM861 to UTF-8
+converter from UTF-8 to IBM861
+converter from IBM862 to UTF-8
+converter from UTF-8 to IBM862
+converter from IBM863 to UTF-8
+converter from UTF-8 to IBM863
+converter from IBM865 to UTF-8
+converter from UTF-8 to IBM865
+converter from IBM866 to UTF-8
+converter from UTF-8 to IBM866
+converter from IBM869 to UTF-8
+converter from UTF-8 to IBM869
+converter from MACCROATIAN to UTF-8
+converter from UTF-8 to MACCROATIAN
+converter from MACCYRILLIC to UTF-8
+converter from UTF-8 to MACCYRILLIC
+converter from MACGREEK to UTF-8
+converter from UTF-8 to MACGREEK
+converter from MACICELAND to UTF-8
+converter from UTF-8 to MACICELAND
+converter from MACROMAN to UTF-8
+converter from UTF-8 to MACROMAN
+converter from MACROMANIA to UTF-8
+converter from UTF-8 to MACROMANIA
+converter from MACTURKISH to UTF-8
+converter from UTF-8 to MACTURKISH
+converter from MACUKRAINE to UTF-8
+converter from UTF-8 to MACUKRAINE
+converter from KOI8-U to UTF-8
+converter from UTF-8 to KOI8-U
+converter from KOI8-R to UTF-8
+converter from UTF-8 to KOI8-R
+converter from TIS-620 to UTF-8
+converter from UTF-8 to TIS-620
+converter from CP850 to UTF-8
+converter from UTF-8 to CP850
+converter from CP852 to UTF-8
+converter from UTF-8 to CP852
+converter from CP855 to UTF-8
+converter from UTF-8 to CP855
+done.  (0.30user 0.02system 0.29elapsed)
+generating table from enc/trans/utf8_mac.c
+generating enc/trans/utf8_mac.c ...
+converter from UTF-8 to UTF8-MAC
+converter for from_UTF8_MAC
+converter for from_utf8_mac_nfc2
+done.  (0.81user 0.02system 0.81elapsed)
+generating table from enc/trans/utf_16_32.c
+generating enc/trans/utf_16_32.c ...
+converter for from_UTF_16LE
+converter for from_UTF_32LE
+converter for from_UTF_16BE
+converter for from_UTF_32BE
+converter for from_UTF_16
+converter for from_UTF_32
+converter for from_UTF_8
+done.  (0.04user 0.00system 0.01elapsed)
+make[1]: Leaving directory '/tmp/real/c_ruby/ruby'
+generating transdb.h
+transdb.h updated
+compiling dln.c
+In file included from dln.c:25:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from dln.c:25:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling localeinit.c
+In file included from localeinit.c:13:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from localeinit.c:13:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+creating verconf.h
+verconf.h updated
+compiling loadpath.c
+compiling builtin.c
+In file included from builtin.c:1:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from builtin.c:1:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+linking static-library libruby-static.a
+generating makefiles ext/configure-ext.mk
+ext/configure-ext.mk updated
+make[1]: Entering directory '/tmp/real/c_ruby/ruby'
+configuring readline
+configuring fcntl
+configuring fiddle
+libffi_version: 3.2.1
+configuring strscan
+configuring zlib
+configuring sdbm
+configuring rubyvm
+configuring ripper
+configuring cgi/escape
+configuring dbm
+configuring pathname
+configuring objspace
+configuring nkf
+configuring etc
+configuring rbconfig/sizeof
+configuring -test-/arith_seq/extract
+configuring -test-/array/resize
+configuring -test-/bignum
+configuring -test-/bug-14834
+configuring -test-/bug-3571
+configuring -test-/bug-5832
+configuring -test-/bug_reporter
+configuring -test-/class
+configuring -test-/cxxanyargs
+configuring -test-/debug
+configuring -test-/dln/empty
+configuring -test-/enumerator_kw
+configuring -test-/exception
+configuring -test-/fatal
+configuring -test-/file
+configuring -test-/float
+configuring -test-/funcall
+configuring -test-/gvl/call_without_gvl
+configuring -test-/hash
+configuring -test-/integer
+configuring -test-/iseq_load
+configuring -test-/iter
+configuring -test-/load/dot.dot
+configuring -test-/load/protect
+configuring -test-/marshal/compat
+configuring -test-/marshal/internal_ivar
+configuring -test-/marshal/usr
+configuring -test-/memory_status
+configuring -test-/method
+configuring -test-/notimplement
+configuring -test-/num2int
+configuring -test-/path_to_class
+configuring -test-/popen_deadlock
+configuring -test-/postponed_job
+configuring -test-/printf
+configuring -test-/proc
+configuring -test-/rational
+configuring -test-/rb_call_super_kw
+configuring -test-/recursion
+configuring -test-/regexp
+configuring -test-/scan_args
+configuring -test-/st/foreach
+configuring -test-/st/numhash
+configuring -test-/st/update
+configuring -test-/string
+configuring -test-/struct
+configuring -test-/symbol
+configuring -test-/thread_fd_close
+configuring -test-/time
+configuring -test-/tracepoint
+configuring -test-/typeddata
+configuring -test-/vm
+configuring -test-/wait_for_single_fd
+configuring continuation
+configuring coverage
+configuring gdbm
+configuring monitor
+configuring date
+configuring stringio
+configuring json
+configuring json/generator
+configuring json/parser
+configuring openssl
+configuring syslog
+configuring fiber
+configuring socket
+configuring pty
+configuring bigdecimal
+configuring io/console
+configuring io/nonblock
+configuring io/wait
+configuring digest
+configuring digest/bubblebabble
+configuring digest/md5
+configuring digest/rmd160
+configuring digest/sha1
+configuring digest/sha2
+configuring racc/cparse
+configuring psych
+make[1]: Leaving directory '/tmp/real/c_ruby/ruby'
+generating makefile exts.mk
+exts.mk updated
+make[1]: Entering directory '/tmp/real/c_ruby/ruby'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/readline'
+compiling readline.c
+readline.c:329:9: warning: Value stored to 'ignoring' is never read [deadcode.DeadStores]
+        ignoring = 0;
+        ^          ~
+1 warning generated.
+linking shared-object readline.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/readline'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/fcntl'
+compiling fcntl.c
+linking shared-object fcntl.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/fcntl'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/fiddle'
+compiling closure.c
+compiling conversions.c
+compiling fiddle.c
+compiling function.c
+compiling handle.c
+compiling pointer.c
+linking shared-object fiddle.so
+installing default fiddle libraries
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/fiddle'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/strscan'
+compiling strscan.c
+linking shared-object strscan.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/strscan'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/zlib'
+compiling zlib.c
+linking shared-object zlib.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/zlib'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/sdbm'
+compiling _sdbm.c
+compiling init.c
+linking shared-object sdbm.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/sdbm'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/rubyvm'
+installing default libraries
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/rubyvm'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/ripper'
+extracting ripper.y from ../.././parse.y
+compiling compiler ripper.y
+generating eventids1.c from ../.././parse.y
+generating eventids2table.c from ../.././ext/ripper/eventids2.c
+compiling ripper.c
+In file included from ripper.y:26:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from ripper.y:26:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+linking shared-object ripper.so
+installing default ripper libraries
+checking ../.././parse.y and ../.././ext/ripper/eventids2.c
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/ripper'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/cgi/escape'
+compiling escape.c
+linking shared-object cgi/escape.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/cgi/escape'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/pathname'
+compiling pathname.c
+linking shared-object pathname.so
+installing default pathname libraries
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/pathname'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/objspace'
+compiling object_tracing.c
+In file included from object_tracing.c:16:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from object_tracing.c:16:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling objspace.c
+In file included from objspace.c:16:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from objspace.c:16:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling objspace_dump.c
+In file included from objspace_dump.c:16:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from objspace_dump.c:16:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+linking shared-object objspace.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/objspace'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/nkf'
+compiling nkf.c
+In file included from nkf.c:62:
+./nkf-utf8/nkf.c:3453:3: warning: Value stored to 'c4' is never read [deadcode.DeadStores]
+                c4 = EOF;
+                ^    ~~~
+./nkf-utf8/nkf.c:6048:12: warning: Although the value stored to 'c1' is used in the enclosing expression, the value is never actually read from 'c1' [deadcode.DeadStores]
+                    if ((c1 = (*i_getc)(f)) == EOF) {
+                         ^    ~~~~~~~~~~~~
+./nkf-utf8/nkf.c:6337:2: warning: Value stored to 'c3' is never read [deadcode.DeadStores]
+        c3 = 0;
+        ^    ~
+3 warnings generated.
+linking shared-object nkf.so
+installing default nkf libraries
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/nkf'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/etc'
+generating constant definitions
+compiling etc.c
+linking shared-object etc.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/etc'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/rbconfig/sizeof'
+sizes.c updated
+compiling sizes.c
+sizes.c:175:17: error: GNU decimal type extension not supported
+    DEFINE_SIZE(_Decimal32);
+                ^
+sizes.c:178:17: error: GNU decimal type extension not supported
+    DEFINE_SIZE(_Decimal64);
+                ^
+sizes.c:181:17: error: GNU decimal type extension not supported
+    DEFINE_SIZE(_Decimal128);
+                ^
+sizes.c:190:17: error: use of undeclared identifier '__float80'
+    DEFINE_SIZE(__float80);
+                ^
+4 errors generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+2 warnings generated.
+limits.c updated
+compiling limits.c
+linking shared-object rbconfig/sizeof.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/rbconfig/sizeof'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/arith_seq/extract'
+compiling extract.c
+linking shared-object -test-/arith_seq/extract.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/arith_seq/extract'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/array/resize'
+compiling resize.c
+linking shared-object -test-/array/resize.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/array/resize'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/bignum'
+compiling intpack.c
+In file included from intpack.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from intpack.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling div.c
+In file included from div.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from div.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling bigzero.c
+In file included from bigzero.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from bigzero.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling str2big.c
+In file included from str2big.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from str2big.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling big2str.c
+In file included from big2str.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from big2str.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling mul.c
+In file included from mul.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from mul.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling init.c
+linking shared-object -test-/bignum.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/bignum'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/bug-14834'
+compiling bug-14384.c
+linking shared-object -test-/bug_14834.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/bug-14834'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/bug-3571'
+compiling bug.c
+linking shared-object -test-/bug_3571.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/bug-3571'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/bug-5832'
+compiling bug.c
+linking shared-object -test-/bug_5832.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/bug-5832'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/bug_reporter'
+compiling bug_reporter.c
+linking shared-object -test-/bug_reporter.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/bug_reporter'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/class'
+compiling class2name.c
+compiling init.c
+linking shared-object -test-/class.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/class'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/cxxanyargs'
+compiling cxxanyargs.cpp
+linking shared-object -test-/cxxanyargs.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/cxxanyargs'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/debug'
+compiling profile_frames.c
+compiling inspector.c
+compiling init.c
+linking shared-object -test-/debug.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/debug'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/dln/empty'
+compiling empty.c
+linking shared-object -test-/dln/empty.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/dln/empty'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/enumerator_kw'
+compiling enumerator_kw.c
+linking shared-object -test-/enumerator_kw.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/enumerator_kw'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/exception'
+compiling ensured.c
+compiling enc_raise.c
+compiling dataerror.c
+compiling init.c
+linking shared-object -test-/exception.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/exception'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/fatal'
+compiling rb_fatal.c
+linking shared-object -test-/fatal/rb_fatal.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/fatal'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/file'
+compiling stat.c
+compiling fs.c
+compiling init.c
+linking shared-object -test-/file.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/file'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/float'
+compiling nextafter.c
+compiling init.c
+linking shared-object -test-/float.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/float'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/funcall'
+compiling funcall.c
+linking shared-object -test-/funcall.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/funcall'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/gvl/call_without_gvl'
+compiling call_without_gvl.c
+linking shared-object -test-/gvl/call_without_gvl.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/gvl/call_without_gvl'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/hash'
+compiling delete.c
+compiling init.c
+linking shared-object -test-/hash.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/hash'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/integer'
+compiling my_integer.c
+compiling init.c
+compiling core_ext.c
+In file included from core_ext.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from core_ext.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+linking shared-object -test-/integer.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/integer'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/iseq_load'
+compiling iseq_load.c
+linking shared-object -test-/iseq_load.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/iseq_load'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/iter'
+compiling yield.c
+compiling break.c
+compiling init.c
+linking shared-object -test-/iter.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/iter'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/load/dot.dot'
+compiling dot.dot.c
+linking shared-object -test-/load/dot.dot.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/load/dot.dot'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/load/protect'
+compiling protect.c
+linking shared-object -test-/load/protect.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/load/protect'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/marshal/compat'
+compiling usrcompat.c
+linking shared-object -test-/marshal/compat.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/marshal/compat'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/marshal/internal_ivar'
+compiling internal_ivar.c
+linking shared-object -test-/marshal/internal_ivar.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/marshal/internal_ivar'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/marshal/usr'
+compiling usrmarshal.c
+linking shared-object -test-/marshal/usr.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/marshal/usr'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/method'
+compiling arity.c
+compiling init.c
+linking shared-object -test-/method.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/method'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/notimplement'
+compiling bug.c
+linking shared-object -test-/notimplement.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/notimplement'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/num2int'
+compiling num2int.c
+linking shared-object -test-/num2int.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/num2int'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/path_to_class'
+compiling path_to_class.c
+linking shared-object -test-/path_to_class.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/path_to_class'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/popen_deadlock'
+compiling infinite_loop_dlsym.c
+linking shared-object -test-/popen_deadlock/infinite_loop_dlsym.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/popen_deadlock'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/postponed_job'
+compiling postponed_job.c
+linking shared-object -test-/postponed_job.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/postponed_job'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/printf'
+compiling printf.c
+linking shared-object -test-/printf.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/printf'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/proc'
+compiling receiver.c
+compiling super.c
+compiling init.c
+linking shared-object -test-/proc.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/proc'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/rational'
+compiling rat.c
+In file included from rat.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from rat.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+linking shared-object -test-/rational.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/rational'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/rb_call_super_kw'
+compiling rb_call_super_kw.c
+linking shared-object -test-/rb_call_super_kw.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/rb_call_super_kw'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/recursion'
+compiling recursion.c
+linking shared-object -test-/recursion.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/recursion'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/regexp'
+compiling parse_depth_limit.c
+compiling init.c
+linking shared-object -test-/regexp.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/regexp'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/scan_args'
+compiling scan_args.c
+linking shared-object -test-/scan_args.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/scan_args'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/st/foreach'
+compiling foreach.c
+linking shared-object -test-/st/foreach.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/st/foreach'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/st/numhash'
+compiling numhash.c
+linking shared-object -test-/st/numhash.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/st/numhash'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/st/update'
+compiling update.c
+linking shared-object -test-/st/update.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/st/update'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/string'
+compiling nofree.c
+compiling rb_str_dup.c
+compiling normalize.c
+In file included from normalize.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from normalize.c:1:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling new.c
+compiling ellipsize.c
+compiling modify.c
+compiling coderange.c
+compiling capacity.c
+In file included from capacity.c:2:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from capacity.c:2:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling enc_str_buf_cat.c
+compiling cstr.c
+In file included from cstr.c:2:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from cstr.c:2:
+../../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling enc_associate.c
+compiling qsort.c
+compiling fstring.c
+compiling set_len.c
+compiling init.c
+linking shared-object -test-/string.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/string'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/struct'
+compiling duplicate.c
+compiling member.c
+compiling init.c
+compiling len.c
+linking shared-object -test-/struct.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/struct'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/symbol'
+compiling type.c
+compiling init.c
+linking shared-object -test-/symbol.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/symbol'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/thread_fd_close'
+compiling thread_fd_close.c
+linking shared-object -test-/thread_fd_close.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/thread_fd_close'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/time'
+compiling new.c
+compiling init.c
+compiling leap_second.c
+linking shared-object -test-/time.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/time'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/tracepoint'
+compiling gc_hook.c
+compiling tracepoint.c
+linking shared-object -test-/tracepoint.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/tracepoint'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/typeddata'
+compiling typeddata.c
+linking shared-object -test-/typeddata.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/typeddata'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/vm'
+compiling at_exit.c
+linking shared-object -test-/vm/at_exit.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/vm'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/-test-/wait_for_single_fd'
+compiling wait_for_single_fd.c
+linking shared-object -test-/wait_for_single_fd.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/-test-/wait_for_single_fd'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/continuation'
+compiling continuation.c
+linking shared-object continuation.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/continuation'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/coverage'
+compiling coverage.c
+In file included from coverage.c:12:
+In file included from ../../vm_core.h:78:
+In file included from ../../method.h:14:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from coverage.c:12:
+In file included from ../../vm_core.h:78:
+In file included from ../../method.h:14:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+linking shared-object coverage.so
+installing default coverage libraries
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/coverage'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/monitor'
+compiling monitor.c
+linking shared-object monitor.so
+installing default monitor libraries
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/monitor'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/date'
+compiling date_core.c
+compiling date_parse.c
+compiling date_strftime.c
+date_strftime.c:162:2: warning: Value stored to 'tp' is never read [deadcode.DeadStores]
+        tp = tbuf;
+        ^    ~~~~
+date_strftime.c:600:6: warning: Value stored to 'colons' is never read [deadcode.DeadStores]
+            colons = 0;
+            ^        ~
+2 warnings generated.
+compiling date_strptime.c
+linking shared-object date_core.so
+installing default date_core libraries
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/date'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/stringio'
+compiling stringio.c
+stringio.c:1219:22: warning: Although the value stored to 'n' is used in the enclosing expression, the value is never actually read from 'n' [deadcode.DeadStores]
+    if (ptr->pos >= (n = RSTRING_LEN(ptr->string))) {
+                     ^   ~~~~~~~~~~~~~~~~~~~~~~~~
+stringio.c:1746:5: warning: Value stored to 'argc' is never read [deadcode.DeadStores]
+    argc = rb_scan_args(argc, argv, "11:", &ext_enc, &int_enc, &opt);
+    ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+linking shared-object stringio.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/stringio'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/json'
+installing default libraries
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/json'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/json/generator'
+compiling generator.c
+generator.c:167:17: warning: Value stored to 'source' is never read [deadcode.DeadStores]
+                source -= (extraBytesToRead+1); /* return to the illegal value itself */
+                ^         ~~~~~~~~~~~~~~~~~~~~
+generator.c:212:13: warning: Value stored to 'source' is never read [deadcode.DeadStores]
+            source -= (extraBytesToRead+1); /* return to the start */
+            ^         ~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+linking shared-object json/ext/generator.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/json/generator'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/json/parser'
+compiling parser.c
+parser.rl:447:13: warning: Value stored to 'unescape' is never read [deadcode.DeadStores]
+            unescape = (char *) "?";
+            ^          ~~~~~~~~~~~~
+1 warning generated.
+linking shared-object json/ext/parser.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/json/parser'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/openssl'
+compiling openssl_missing.c
+compiling ossl.c
+compiling ossl_asn1.c
+compiling ossl_bio.c
+compiling ossl_bn.c
+compiling ossl_cipher.c
+compiling ossl_config.c
+compiling ossl_digest.c
+compiling ossl_engine.c
+compiling ossl_hmac.c
+compiling ossl_kdf.c
+compiling ossl_ns_spki.c
+compiling ossl_ocsp.c
+compiling ossl_pkcs12.c
+compiling ossl_pkcs7.c
+compiling ossl_pkey.c
+compiling ossl_pkey_dh.c
+compiling ossl_pkey_dsa.c
+compiling ossl_pkey_ec.c
+compiling ossl_pkey_rsa.c
+compiling ossl_rand.c
+compiling ossl_ssl.c
+compiling ossl_ssl_session.c
+compiling ossl_x509.c
+compiling ossl_x509attr.c
+compiling ossl_x509cert.c
+compiling ossl_x509crl.c
+compiling ossl_x509ext.c
+compiling ossl_x509name.c
+compiling ossl_x509req.c
+compiling ossl_x509revoked.c
+compiling ossl_x509store.c
+linking shared-object openssl.so
+installing default openssl libraries
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/openssl'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/syslog'
+compiling syslog.c
+linking shared-object syslog.so
+installing default syslog libraries
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/syslog'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/fiber'
+compiling fiber.c
+linking shared-object fiber.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/fiber'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/socket'
+generating constant definitions
+compiling init.c
+In file included from init.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from init.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling constants.c
+In file included from constants.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from constants.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling basicsocket.c
+In file included from basicsocket.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from basicsocket.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling socket.c
+In file included from socket.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from socket.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling ipsocket.c
+In file included from ipsocket.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from ipsocket.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling tcpsocket.c
+In file included from tcpsocket.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from tcpsocket.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling tcpserver.c
+In file included from tcpserver.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from tcpserver.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling sockssocket.c
+In file included from sockssocket.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from sockssocket.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling udpsocket.c
+In file included from udpsocket.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from udpsocket.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling unixsocket.c
+In file included from unixsocket.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from unixsocket.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling unixserver.c
+In file included from unixserver.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from unixserver.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling option.c
+In file included from option.c:1:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from option.c:1:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling ancdata.c
+In file included from ancdata.c:1:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from ancdata.c:1:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling raddrinfo.c
+In file included from raddrinfo.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from raddrinfo.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+compiling ifaddr.c
+In file included from ifaddr.c:1:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from ifaddr.c:1:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+linking shared-object socket.so
+installing default socket libraries
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/socket'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/pty'
+compiling pty.c
+In file included from pty.c:39:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from pty.c:39:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+linking shared-object pty.so
+installing default pty libraries
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/pty'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/bigdecimal'
+compiling bigdecimal.c
+bigdecimal.c:185:9: warning: Access to field 'sign' results in a dereference of a null pointer (loaded from variable 'p') [core.NullDereference]
+    if (VpIsNaN(p)) {
+        ^~~~~~~~~~
+./bigdecimal.h:372:26: note: expanded from macro 'VpIsNaN'
+#define VpIsNaN(a)      ((a)->sign==VP_SIGN_NaN)
+                         ^~~~~~~~~
+bigdecimal.c:3581:5: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+    memset(p, 0, mb);
+    ^~~~~~~~~~~~~~~~
+bigdecimal.c:4762:11: warning: Although the value stored to 'right_word' is used in the enclosing expression, the value is never actually read from 'right_word' [deadcode.DeadStores]
+        *c_pos = right_word = left_word + 1;    /* Set resulting precision */
+                 ^            ~~~~~~~~~~~~~
+bigdecimal.c:4890:2: warning: Value stored to 'MxIndC' is never read [deadcode.DeadStores]
+        MxIndC = MxIndAB;
+        ^        ~~~~~~~
+bigdecimal.c:4901:5: warning: Value stored to 'carry' is never read [deadcode.DeadStores]
+    carry = 0;
+    ^       ~
+bigdecimal.c:5101:2: warning: Value stored to 'borrow1' is never read [deadcode.DeadStores]
+        borrow1 = borrow2 = 0;
+        ^         ~~~~~~~~~~~
+6 warnings generated.
+linking shared-object bigdecimal.so
+installing default bigdecimal libraries
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/bigdecimal'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/io/console'
+compiling console.c
+console.c:1439:3: warning: Value stored to 'con' is never read [deadcode.DeadStores]
+                con = 0;
+                ^     ~
+1 warning generated.
+linking shared-object io/console.so
+installing default console libraries
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/io/console'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/io/nonblock'
+compiling nonblock.c
+linking shared-object io/nonblock.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/io/nonblock'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/io/wait'
+compiling wait.c
+linking shared-object io/wait.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/io/wait'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/digest'
+compiling digest.c
+linking shared-object digest.so
+installing digest libraries
+installing default digest libraries
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/digest'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/digest/bubblebabble'
+compiling bubblebabble.c
+linking shared-object digest/bubblebabble.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/digest/bubblebabble'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/digest/md5'
+compiling md5init.c
+linking shared-object digest/md5.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/digest/md5'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/digest/rmd160'
+compiling rmd160init.c
+linking shared-object digest/rmd160.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/digest/rmd160'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/digest/sha1'
+compiling sha1init.c
+linking shared-object digest/sha1.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/digest/sha1'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/digest/sha2'
+compiling sha2init.c
+linking shared-object digest/sha2.so
+installing default sha2 libraries
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/digest/sha2'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/racc/cparse'
+compiling cparse.c
+linking shared-object racc/cparse.so
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/racc/cparse'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby/ext/psych'
+compiling ../.././ext/psych/yaml/api.c
+compiling ../.././ext/psych/yaml/dumper.c
+compiling ../.././ext/psych/yaml/emitter.c
+compiling ../.././ext/psych/yaml/loader.c
+compiling ../.././ext/psych/yaml/parser.c
+compiling psych.c
+compiling psych_emitter.c
+compiling psych_parser.c
+compiling psych_to_ruby.c
+compiling psych_yaml_tree.c
+compiling ../.././ext/psych/yaml/reader.c
+compiling ../.././ext/psych/yaml/scanner.c
+compiling ../.././ext/psych/yaml/writer.c
+linking shared-object psych.so
+installing default psych libraries
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby/ext/psych'
+make[2]: Entering directory '/tmp/real/c_ruby/ruby'
+linking ruby
+make[2]: Leaving directory '/tmp/real/c_ruby/ruby'
+make[1]: Leaving directory '/tmp/real/c_ruby/ruby'
+make[1]: Entering directory '/tmp/real/c_ruby/ruby'
+*** Following extensions are not compiled:
+dbm:
+	Could not be configured. It will not be installed.
+	Check ext/dbm/mkmf.log for more details.
+gdbm:
+	Could not be configured. It will not be installed.
+	Check ext/gdbm/mkmf.log for more details.
+*** Fix the problems, then remove these directories and try again if you want.
+make[1]: Leaving directory '/tmp/real/c_ruby/ruby'
+making enc
+make[1]: Entering directory '/tmp/real/c_ruby/ruby'
+compiling ./enc/encdb.c
+In file included from ./enc/encdb.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.
+warning: unknown warning option '-Wno-cast-function-type'; did you mean '-Wno-bad-function-cast'? [-Wunknown-warning-option]
+warning: unknown warning option '-Wno-packed-bitfield-compat'; did you mean '-Wno-keyword-compat'? [-Wunknown-warning-option]
+In file included from ./enc/encdb.c:12:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings and 1 error generated.
+linking encoding encdb.so
+compiling ./enc/big5.c
+linking encoding big5.so
+compiling ./enc/cesu_8.c
+linking encoding cesu_8.so
+compiling ./enc/cp949.c
+linking encoding cp949.so
+compiling ./enc/emacs_mule.c
+linking encoding emacs_mule.so
+compiling ./enc/euc_jp.c
+./enc/euc_jp.c:384:5: warning: Value stored to 'len' is never read [deadcode.DeadStores]
+    len = mbc_enc_len(p, end, enc);
+    ^     ~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+linking encoding euc_jp.so
+compiling ./enc/euc_kr.c
+linking encoding euc_kr.so
+compiling ./enc/euc_tw.c
+linking encoding euc_tw.so
+compiling ./enc/gb2312.c
+linking encoding gb2312.so
+compiling ./enc/gb18030.c
+linking encoding gb18030.so
+compiling ./enc/gbk.c
+linking encoding gbk.so
+compiling ./enc/iso_8859_1.c
+linking encoding iso_8859_1.so
+compiling ./enc/iso_8859_2.c
+linking encoding iso_8859_2.so
+compiling ./enc/iso_8859_3.c
+linking encoding iso_8859_3.so
+compiling ./enc/iso_8859_4.c
+linking encoding iso_8859_4.so
+compiling ./enc/iso_8859_5.c
+linking encoding iso_8859_5.so
+compiling ./enc/iso_8859_6.c
+linking encoding iso_8859_6.so
+compiling ./enc/iso_8859_7.c
+linking encoding iso_8859_7.so
+compiling ./enc/iso_8859_8.c
+linking encoding iso_8859_8.so
+compiling ./enc/iso_8859_9.c
+linking encoding iso_8859_9.so
+compiling ./enc/iso_8859_10.c
+linking encoding iso_8859_10.so
+compiling ./enc/iso_8859_11.c
+linking encoding iso_8859_11.so
+compiling ./enc/iso_8859_13.c
+linking encoding iso_8859_13.so
+compiling ./enc/iso_8859_14.c
+linking encoding iso_8859_14.so
+compiling ./enc/iso_8859_15.c
+linking encoding iso_8859_15.so
+compiling ./enc/iso_8859_16.c
+linking encoding iso_8859_16.so
+compiling ./enc/koi8_r.c
+linking encoding koi8_r.so
+compiling ./enc/koi8_u.c
+linking encoding koi8_u.so
+compiling ./enc/shift_jis.c
+linking encoding shift_jis.so
+compiling ./enc/utf_16be.c
+linking encoding utf_16be.so
+compiling ./enc/utf_16le.c
+linking encoding utf_16le.so
+compiling ./enc/utf_32be.c
+linking encoding utf_32be.so
+compiling ./enc/utf_32le.c
+linking encoding utf_32le.so
+compiling ./enc/windows_31j.c
+linking encoding windows_31j.so
+compiling ./enc/windows_1250.c
+linking encoding windows_1250.so
+compiling ./enc/windows_1251.c
+linking encoding windows_1251.so
+compiling ./enc/windows_1252.c
+linking encoding windows_1252.so
+compiling ./enc/windows_1253.c
+linking encoding windows_1253.so
+compiling ./enc/windows_1254.c
+linking encoding windows_1254.so
+compiling ./enc/windows_1257.c
+linking encoding windows_1257.so
+make[1]: Leaving directory '/tmp/real/c_ruby/ruby'
+making trans
+make[1]: Entering directory '/tmp/real/c_ruby/ruby'
+compiling ./enc/trans/transdb.c
+linking transcoder transdb.so
+compiling ./enc/trans/big5.c
+linking transcoder big5.so
+compiling ./enc/trans/cesu_8.c
+linking transcoder cesu_8.so
+compiling ./enc/trans/chinese.c
+linking transcoder chinese.so
+compiling ./enc/trans/ebcdic.c
+linking transcoder ebcdic.so
+compiling ./enc/trans/emoji.c
+linking transcoder emoji.so
+compiling ./enc/trans/emoji_iso2022_kddi.c
+linking transcoder emoji_iso2022_kddi.so
+compiling ./enc/trans/emoji_sjis_docomo.c
+linking transcoder emoji_sjis_docomo.so
+compiling ./enc/trans/emoji_sjis_kddi.c
+linking transcoder emoji_sjis_kddi.so
+compiling ./enc/trans/emoji_sjis_softbank.c
+linking transcoder emoji_sjis_softbank.so
+compiling ./enc/trans/escape.c
+linking transcoder escape.so
+compiling ./enc/trans/gb18030.c
+linking transcoder gb18030.so
+compiling ./enc/trans/gbk.c
+linking transcoder gbk.so
+compiling ./enc/trans/iso2022.c
+linking transcoder iso2022.so
+compiling ./enc/trans/japanese.c
+linking transcoder japanese.so
+compiling ./enc/trans/japanese_euc.c
+linking transcoder japanese_euc.so
+compiling ./enc/trans/japanese_sjis.c
+linking transcoder japanese_sjis.so
+compiling ./enc/trans/korean.c
+linking transcoder korean.so
+compiling ./enc/trans/single_byte.c
+linking transcoder single_byte.so
+compiling ./enc/trans/utf8_mac.c
+linking transcoder utf8_mac.so
+compiling ./enc/trans/utf_16_32.c
+linking transcoder utf_16_32.so
+make[1]: Leaving directory '/tmp/real/c_ruby/ruby'
+making encs
+make[1]: Entering directory '/tmp/real/c_ruby/ruby'
+make[1]: Nothing to be done for 'encs'.
+make[1]: Leaving directory '/tmp/real/c_ruby/ruby'
+building rb_mjit_header.h
+rb_mjit_header.h updated
+building .ext/include/x86_64-linux/rb_mjit_min_header-2.7.2.h
+./miniruby -I./lib -I. -I.ext/common  ./tool/transform_mjit_header.rb "/llvm-project/build/bin/../libexec/ccc-analyzer  -O3 -ggdb3 -Wall -Wextra -Wdeprecated-declarations -Wduplicated-cond -Wimplicit-function-declaration -Wimplicit-int -Wmisleading-indentation -Wpointer-arith -Wwrite-strings -Wimplicit-fallthrough=0 -Wmissing-noreturn -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -Wsuggest-attribute=format -Wsuggest-attribute=noreturn -Wunused-variable -std=gnu99 " rb_mjit_header.h .ext/include/x86_64-linux/rb_mjit_min_header-2.7.2.h
+
+Transforming external functions to static:
+transform_mjit_header: making external definition of 'rb_vm_lvar_exposed' static inline
+transform_mjit_header: making external definition of 'Init_vm_stack_canary' static inline
+transform_mjit_header: making external definition of 'rb_vm_opt_struct_aset' static inline
+transform_mjit_header: making external definition of 'rb_vm_opt_struct_aref' static inline
+transform_mjit_header: making external definition of 'rb_eql_opt' static inline
+transform_mjit_header: changing definition of 'rb_equal_opt' to declaration
+transform_mjit_header: changing definition of 'rb_vm_search_method_slowpath' to declaration
+transform_mjit_header: making external definition of 'rb_vm_rewrite_cref' static inline
+transform_mjit_header: making external definition of 'rb_vm_block_ep_update' static inline
+transform_mjit_header: making external definition of 'rb_vm_cref_new_toplevel' static inline
+transform_mjit_header: making external definition of 'rb_vm_frame_block_handler' static inline
+transform_mjit_header: making external definition of 'rb_vm_cframe_empty_keyword_p' static inline
+transform_mjit_header: making external definition of 'rb_vm_cframe_keyword_p' static inline
+transform_mjit_header: making external definition of 'rb_vm_ep_local_ep' static inline
+transform_mjit_header: making declaration of 'rb_vm_lvar_exposed' static inline
+transform_mjit_header: making declaration of 'rb_vm_rewrite_cref' static inline
+transform_mjit_header: making declaration of 'rb_vm_frame_block_handler' static inline
+transform_mjit_header: making declaration of 'rb_vm_block_ep_update' static inline
+transform_mjit_header: making declaration of 'rb_vm_ep_local_ep' static inline
+transform_mjit_header: making declaration of 'Init_vm_stack_canary' static inline
+transform_mjit_header: making declaration of 'rb_eql_opt' static inline
+transform_mjit_header: making external definition of 'rb_scan_args_set' static inline
+transform_mjit_header: making declaration of 'rb_scan_args_set' static inline
+transform_mjit_header: SKIPPED to transform getlogin_r
+transform_mjit_header: SKIPPED to transform pread64
+transform_mjit_header: SKIPPED to transform pread
+transform_mjit_header: SKIPPED to transform read
+transform_mjit_header: SKIPPED to transform bsearch
+transform_mjit_header: SKIPPED to transform fread_unlocked
+transform_mjit_header: SKIPPED to transform fgets_unlocked
+transform_mjit_header: SKIPPED to transform fread
+transform_mjit_header: SKIPPED to transform fgets
+transform_mjit_header: SKIPPED to transform vdprintf
+transform_mjit_header: SKIPPED to transform dprintf
+transform_mjit_header: SKIPPED to transform vfprintf
+transform_mjit_header: SKIPPED to transform vprintf
+transform_mjit_header: SKIPPED to transform printf
+transform_mjit_header: SKIPPED to transform fprintf
+transform_mjit_header: SKIPPED to transform getline
+transform_mjit_header: SKIPPED to transform putchar_unlocked
+transform_mjit_header: SKIPPED to transform putc_unlocked
+transform_mjit_header: SKIPPED to transform fputc_unlocked
+transform_mjit_header: SKIPPED to transform putchar
+transform_mjit_header: SKIPPED to transform getchar_unlocked
+transform_mjit_header: SKIPPED to transform getc_unlocked
+transform_mjit_header: SKIPPED to transform fgetc_unlocked
+transform_mjit_header: SKIPPED to transform getchar
+ln -sf ../../../.ext/include/x86_64-linux/rb_mjit_min_header-2.7.2.h include/ruby-2.7.0/x86_64-linux/rb_mjit_min_header-2.7.2.h
+Generating RDoc documentation
+Parsing sources...
+  0% [ 1/1141]  /tmp/real/c_ruby/ruby/doc/NEWS-1.8.7
+  0% [ 2/1141]  /tmp/real/c_ruby/ruby/doc/NEWS-1.9.1
+  0% [ 3/1141]  /tmp/real/c_ruby/ruby/doc/NEWS-1.9.2
+  0% [ 4/1141]  /tmp/real/c_ruby/ruby/doc/NEWS-1.9.3
+  0% [ 5/1141]  /tmp/real/c_ruby/ruby/doc/NEWS-2.0.0
+  0% [ 6/1141]  /tmp/real/c_ruby/ruby/doc/NEWS-2.1.0
+  0% [ 7/1141]  /tmp/real/c_ruby/ruby/doc/NEWS-2.2.0
+  0% [ 8/1141]  /tmp/real/c_ruby/ruby/doc/NEWS-2.3.0
+  0% [ 9/1141]  /tmp/real/c_ruby/ruby/doc/NEWS-2.4.0
+  0% [10/1141]  /tmp/real/c_ruby/ruby/doc/NEWS-2.5.0
+  0% [11/1141]  /tmp/real/c_ruby/ruby/doc/NEWS-2.6.0
+  1% [12/1141]  /tmp/real/c_ruby/ruby/doc/bug_triaging.rdoc
+  1% [13/1141]  /tmp/real/c_ruby/ruby/doc/contributing.rdoc
+  1% [14/1141]  /tmp/real/c_ruby/ruby/doc/contributors.rdoc
+  1% [15/1141]  /tmp/real/c_ruby/ruby/doc/dtrace_probes.rdoc
+  1% [16/1141]  /tmp/real/c_ruby/ruby/doc/extension.ja.rdoc
+  1% [17/1141]  /tmp/real/c_ruby/ruby/doc/extension.rdoc
+  1% [18/1141]  /tmp/real/c_ruby/ruby/doc/globals.rdoc
+  1% [19/1141]  /tmp/real/c_ruby/ruby/doc/keywords.rdoc
+  1% [20/1141]  /tmp/real/c_ruby/ruby/doc/maintainers.rdoc
+  1% [21/1141]  /tmp/real/c_ruby/ruby/doc/marshal.rdoc
+  1% [22/1141]  /tmp/real/c_ruby/ruby/doc/regexp.rdoc
+  2% [23/1141]  /tmp/real/c_ruby/ruby/doc/security.rdoc
+  2% [24/1141]  /tmp/real/c_ruby/ruby/doc/signals.rdoc
+  2% [25/1141]  /tmp/real/c_ruby/ruby/doc/standard_library.rdoc
+  2% [26/1141]  /tmp/real/c_ruby/ruby/doc/syntax.rdoc
+  2% [27/1141]  /tmp/real/c_ruby/ruby/doc/syntax/assignment.rdoc
+  2% [28/1141]  /tmp/real/c_ruby/ruby/doc/syntax/calling_methods.rdoc
+  2% [29/1141]  /tmp/real/c_ruby/ruby/doc/syntax/comments.rdoc
+  2% [30/1141]  /tmp/real/c_ruby/ruby/doc/syntax/control_expressions.rdoc
+  2% [31/1141]  /tmp/real/c_ruby/ruby/doc/syntax/exceptions.rdoc
+  2% [32/1141]  /tmp/real/c_ruby/ruby/doc/syntax/literals.rdoc
+  2% [33/1141]  /tmp/real/c_ruby/ruby/doc/syntax/methods.rdoc
+  2% [34/1141]  /tmp/real/c_ruby/ruby/doc/syntax/miscellaneous.rdoc
+  3% [35/1141]  /tmp/real/c_ruby/ruby/doc/syntax/modules_and_classes.rdoc
+  3% [36/1141]  /tmp/real/c_ruby/ruby/doc/syntax/precedence.rdoc
+  3% [37/1141]  /tmp/real/c_ruby/ruby/doc/syntax/refinements.rdoc
+  3% [38/1141]  CONTRIBUTING.md
+  3% [39/1141]  COPYING
+  3% [40/1141]  COPYING.ja
+  3% [41/1141]  LEGAL
+  3% [42/1141]  NEWS
+  3% [43/1141]  README.ja.md
+  3% [44/1141]  README.md
+  3% [45/1141]  addr2line.c
+  4% [46/1141]  array.c
+  4% [47/1141]  ast.c
+  4% [48/1141]  ast.rb
+  4% [49/1141]  bignum.c
+  4% [50/1141]  builtin.c
+  4% [51/1141]  class.c
+  4% [52/1141]  compar.c
+  4% [53/1141]  compile.c
+  4% [54/1141]  complex.c
+  4% [55/1141]  cont.c
+  4% [56/1141]  debug.c
+  4% [57/1141]  debug_counter.c
+  5% [58/1141]  dir.c
+  5% [59/1141]  dln.c
+  5% [60/1141]  dln_find.c
+  5% [61/1141]  dmydln.c
+  5% [62/1141]  dmyenc.c
+  5% [63/1141]  dmyext.c
+  5% [64/1141]  doc/NEWS-1.8.7
+  5% [65/1141]  doc/NEWS-1.9.1
+  5% [66/1141]  doc/NEWS-1.9.2
+  5% [67/1141]  doc/NEWS-1.9.3
+  5% [68/1141]  doc/NEWS-2.0.0
+  6% [69/1141]  doc/NEWS-2.1.0
+  6% [70/1141]  doc/NEWS-2.2.0
+  6% [71/1141]  doc/NEWS-2.3.0
+  6% [72/1141]  doc/NEWS-2.4.0
+  6% [73/1141]  doc/NEWS-2.5.0
+  6% [74/1141]  doc/NEWS-2.6.0
+  6% [75/1141]  doc/bug_triaging.rdoc
+  6% [76/1141]  doc/contributing.rdoc
+  6% [77/1141]  doc/contributors.rdoc
+  6% [78/1141]  doc/dtrace_probes.rdoc
+  6% [79/1141]  doc/extension.ja.rdoc
+  7% [80/1141]  doc/extension.rdoc
+  7% [81/1141]  doc/globals.rdoc
+  7% [82/1141]  doc/keywords.rdoc
+  7% [83/1141]  doc/maintainers.rdoc
+  7% [84/1141]  doc/marshal.rdoc
+  7% [85/1141]  doc/regexp.rdoc
+  7% [86/1141]  doc/security.rdoc
+  7% [87/1141]  doc/signals.rdoc
+  7% [88/1141]  doc/standard_library.rdoc
+  7% [89/1141]  doc/syntax.rdoc
+  7% [90/1141]  doc/syntax/assignment.rdoc
+  7% [91/1141]  doc/syntax/calling_methods.rdoc
+  8% [92/1141]  doc/syntax/comments.rdoc
+  8% [93/1141]  doc/syntax/control_expressions.rdoc
+  8% [94/1141]  doc/syntax/exceptions.rdoc
+  8% [95/1141]  doc/syntax/literals.rdoc
+  8% [96/1141]  doc/syntax/methods.rdoc
+  8% [97/1141]  doc/syntax/miscellaneous.rdoc
+  8% [98/1141]  doc/syntax/modules_and_classes.rdoc
+  8% [99/1141]  doc/syntax/precedence.rdoc
+  8% [100/1141]  doc/syntax/refinements.rdoc
+  8% [101/1141]  encoding.c
+  8% [102/1141]  enum.c
+  9% [103/1141]  enumerator.c
+  9% [104/1141]  error.c
+  9% [105/1141]  eval.c
+  9% [106/1141]  eval_error.c
+  9% [107/1141]  eval_jump.c
+  9% [108/1141]  ext/bigdecimal/bigdecimal.c
+  9% [109/1141]  ext/bigdecimal/lib/bigdecimal.rb
+  9% [110/1141]  ext/bigdecimal/lib/bigdecimal/jacobian.rb
+  9% [111/1141]  ext/bigdecimal/lib/bigdecimal/ludcmp.rb
+  9% [112/1141]  ext/bigdecimal/lib/bigdecimal/math.rb
+  9% [113/1141]  ext/bigdecimal/lib/bigdecimal/newton.rb
+  9% [114/1141]  ext/bigdecimal/lib/bigdecimal/util.rb
+ 10% [115/1141]  ext/continuation/continuation.c
+ 10% [116/1141]  ext/coverage/coverage.c
+ 10% [117/1141]  ext/date/date_core.c
+ 10% [118/1141]  ext/dbm/dbm.c
+ 10% [119/1141]  ext/digest/bubblebabble/bubblebabble.c
+ 10% [120/1141]  ext/digest/digest.c
+ 10% [121/1141]  ext/digest/lib/digest.rb
+ 10% [122/1141]  ext/digest/md5/md5init.c
+ 10% [123/1141]  ext/digest/rmd160/rmd160init.c
+ 10% [124/1141]  ext/digest/sha1/sha1init.c
+ 10% [125/1141]  ext/digest/sha2/sha2init.c
+ 11% [126/1141]  ext/etc/etc.c
+ 11% [127/1141]  ext/fcntl/fcntl.c
+ 11% [128/1141]  ext/fiber/fiber.c
+ 11% [129/1141]  ext/fiddle/closure.c
+ 11% [130/1141]  ext/fiddle/conversions.c
+ 11% [131/1141]  ext/fiddle/fiddle.c
+ 11% [132/1141]  ext/fiddle/function.c
+ 11% [133/1141]  ext/fiddle/handle.c
+ 11% [134/1141]  ext/fiddle/lib/fiddle.rb
+ 11% [135/1141]  ext/fiddle/lib/fiddle/closure.rb
+ 11% [136/1141]  ext/fiddle/lib/fiddle/cparser.rb
+ 12% [137/1141]  ext/fiddle/lib/fiddle/function.rb
+ 12% [138/1141]  ext/fiddle/lib/fiddle/import.rb
+ 12% [139/1141]  ext/fiddle/lib/fiddle/pack.rb
+ 12% [140/1141]  ext/fiddle/lib/fiddle/struct.rb
+ 12% [141/1141]  ext/fiddle/lib/fiddle/types.rb
+ 12% [142/1141]  ext/fiddle/lib/fiddle/value.rb
+ 12% [143/1141]  ext/fiddle/pointer.c
+ 12% [144/1141]  ext/gdbm/gdbm.c
+ 12% [145/1141]  ext/io/console/console.c
+ 12% [146/1141]  ext/io/nonblock/nonblock.c
+ 12% [147/1141]  ext/io/wait/wait.c
+ 12% [148/1141]  ext/json/generator/generator.c
+ 13% [149/1141]  ext/json/lib/json.rb
+ 13% [150/1141]  ext/json/lib/json/add/bigdecimal.rb
+ 13% [151/1141]  ext/json/lib/json/add/complex.rb
+ 13% [152/1141]  ext/json/lib/json/add/core.rb
+ 13% [153/1141]  ext/json/lib/json/add/date.rb
+ 13% [154/1141]  ext/json/lib/json/add/date_time.rb
+ 13% [155/1141]  ext/json/lib/json/add/exception.rb
+ 13% [156/1141]  ext/json/lib/json/add/ostruct.rb
+ 13% [157/1141]  ext/json/lib/json/add/range.rb
+ 13% [158/1141]  ext/json/lib/json/add/rational.rb
+ 13% [159/1141]  ext/json/lib/json/add/regexp.rb
+ 14% [160/1141]  ext/json/lib/json/add/set.rb
+ 14% [161/1141]  ext/json/lib/json/add/struct.rb
+ 14% [162/1141]  ext/json/lib/json/add/symbol.rb
+ 14% [163/1141]  ext/json/lib/json/add/time.rb
+ 14% [164/1141]  ext/json/lib/json/common.rb
+ 14% [165/1141]  ext/json/lib/json/ext.rb
+ 14% [166/1141]  ext/json/lib/json/generic_object.rb
+ 14% [167/1141]  ext/json/lib/json/version.rb
+ 14% [168/1141]  ext/json/parser/parser.c
+ 14% [169/1141]  ext/nkf/lib/kconv.rb
+ 14% [170/1141]  ext/nkf/nkf.c
+ 14% [171/1141]  ext/objspace/object_tracing.c
+ 15% [172/1141]  ext/objspace/objspace.c
+ 15% [173/1141]  ext/objspace/objspace_dump.c
+ 15% [174/1141]  ext/openssl/lib/openssl.rb
+ 15% [175/1141]  ext/openssl/lib/openssl/bn.rb
+ 15% [176/1141]  ext/openssl/lib/openssl/buffering.rb
+ 15% [177/1141]  ext/openssl/lib/openssl/cipher.rb
+ 15% [178/1141]  ext/openssl/lib/openssl/config.rb
+ 15% [179/1141]  ext/openssl/lib/openssl/digest.rb
+ 15% [180/1141]  ext/openssl/lib/openssl/pkcs5.rb
+ 15% [181/1141]  ext/openssl/lib/openssl/pkey.rb
+ 15% [182/1141]  ext/openssl/lib/openssl/ssl.rb
+ 16% [183/1141]  ext/openssl/lib/openssl/x509.rb
+ 16% [184/1141]  ext/openssl/ossl.c
+ 16% [185/1141]  ext/openssl/ossl_asn1.c
+ 16% [186/1141]  ext/openssl/ossl_bio.c
+ 16% [187/1141]  ext/openssl/ossl_bn.c
+ 16% [188/1141]  ext/openssl/ossl_cipher.c
+ 16% [189/1141]  ext/openssl/ossl_config.c
+ 16% [190/1141]  ext/openssl/ossl_digest.c
+ 16% [191/1141]  ext/openssl/ossl_engine.c
+ 16% [192/1141]  ext/openssl/ossl_hmac.c
+ 16% [193/1141]  ext/openssl/ossl_kdf.c
+ 17% [194/1141]  ext/openssl/ossl_ns_spki.c
+ 17% [195/1141]  ext/openssl/ossl_ocsp.c
+ 17% [196/1141]  ext/openssl/ossl_pkcs12.c
+ 17% [197/1141]  ext/openssl/ossl_pkcs7.c
+ 17% [198/1141]  ext/openssl/ossl_pkey.c
+ 17% [199/1141]  ext/openssl/ossl_pkey_dh.c
+ 17% [200/1141]  ext/openssl/ossl_pkey_dsa.c
+ 17% [201/1141]  ext/openssl/ossl_pkey_ec.c
+ 17% [202/1141]  ext/openssl/ossl_pkey_rsa.c
+ 17% [203/1141]  ext/openssl/ossl_rand.c
+ 17% [204/1141]  ext/openssl/ossl_ssl.c
+ 17% [205/1141]  ext/openssl/ossl_ssl_session.c
+ 18% [206/1141]  ext/openssl/ossl_x509.c
+ 18% [207/1141]  ext/openssl/ossl_x509attr.c
+ 18% [208/1141]  ext/openssl/ossl_x509cert.c
+ 18% [209/1141]  ext/openssl/ossl_x509crl.c
+ 18% [210/1141]  ext/openssl/ossl_x509ext.c
+ 18% [211/1141]  ext/openssl/ossl_x509name.c
+ 18% [212/1141]  ext/openssl/ossl_x509req.c
+ 18% [213/1141]  ext/openssl/ossl_x509revoked.c
+ 18% [214/1141]  ext/openssl/ossl_x509store.c
+ 18% [215/1141]  ext/pathname/lib/pathname.rb
+ 18% [216/1141]  ext/pathname/pathname.c
+ 19% [217/1141]  ext/psych/lib/psych.rb
+ 19% [218/1141]  ext/psych/lib/psych/class_loader.rb
+ 19% [219/1141]  ext/psych/lib/psych/coder.rb
+ 19% [220/1141]  ext/psych/lib/psych/core_ext.rb
+ 19% [221/1141]  ext/psych/lib/psych/exception.rb
+ 19% [222/1141]  ext/psych/lib/psych/handler.rb
+ 19% [223/1141]  ext/psych/lib/psych/handlers/document_stream.rb
+ 19% [224/1141]  ext/psych/lib/psych/handlers/recorder.rb
+ 19% [225/1141]  ext/psych/lib/psych/json/ruby_events.rb
+ 19% [226/1141]  ext/psych/lib/psych/json/stream.rb
+ 19% [227/1141]  ext/psych/lib/psych/json/tree_builder.rb
+ 19% [228/1141]  ext/psych/lib/psych/json/yaml_events.rb
+ 20% [229/1141]  ext/psych/lib/psych/nodes.rb
+ 20% [230/1141]  ext/psych/lib/psych/nodes/alias.rb
+ 20% [231/1141]  ext/psych/lib/psych/nodes/document.rb
+ 20% [232/1141]  ext/psych/lib/psych/nodes/mapping.rb
+ 20% [233/1141]  ext/psych/lib/psych/nodes/node.rb
+ 20% [234/1141]  ext/psych/lib/psych/nodes/scalar.rb
+ 20% [235/1141]  ext/psych/lib/psych/nodes/sequence.rb
+ 20% [236/1141]  ext/psych/lib/psych/nodes/stream.rb
+ 20% [237/1141]  ext/psych/lib/psych/omap.rb
+ 20% [238/1141]  ext/psych/lib/psych/parser.rb
+ 20% [239/1141]  ext/psych/lib/psych/scalar_scanner.rb
+ 21% [240/1141]  ext/psych/lib/psych/set.rb
+ 21% [241/1141]  ext/psych/lib/psych/stream.rb
+ 21% [242/1141]  ext/psych/lib/psych/streaming.rb
+ 21% [243/1141]  ext/psych/lib/psych/syntax_error.rb
+ 21% [244/1141]  ext/psych/lib/psych/tree_builder.rb
+ 21% [245/1141]  ext/psych/lib/psych/versions.rb
+ 21% [246/1141]  ext/psych/lib/psych/visitors.rb
+ 21% [247/1141]  ext/psych/lib/psych/visitors/depth_first.rb
+ 21% [248/1141]  ext/psych/lib/psych/visitors/emitter.rb
+ 21% [249/1141]  ext/psych/lib/psych/visitors/json_tree.rb
+ 21% [250/1141]  ext/psych/lib/psych/visitors/to_ruby.rb
+ 21% [251/1141]  ext/psych/lib/psych/visitors/visitor.rb
+ 22% [252/1141]  ext/psych/lib/psych/visitors/yaml_tree.rb
+ 22% [253/1141]  ext/psych/lib/psych/y.rb
+ 22% [254/1141]  ext/psych/psych.c
+ 22% [255/1141]  ext/psych/psych_emitter.c
+ 22% [256/1141]  ext/psych/psych_parser.c
+ 22% [257/1141]  ext/psych/psych_to_ruby.c
+ 22% [258/1141]  ext/psych/psych_yaml_tree.c
+ 22% [259/1141]  ext/pty/lib/expect.rb
+ 22% [260/1141]  ext/pty/pty.c
+ 22% [261/1141]  ext/racc/cparse/cparse.c
+ 22% [262/1141]  ext/readline/readline.c
+ 23% [263/1141]  ext/ripper/lib/ripper.rb
+ 23% [264/1141]  ext/ripper/lib/ripper/core.rb
+ 23% [265/1141]  ext/ripper/lib/ripper/filter.rb
+ 23% [266/1141]  ext/ripper/lib/ripper/lexer.rb
+ 23% [267/1141]  ext/ripper/lib/ripper/sexp.rb
+ 23% [268/1141]  ext/sdbm/init.c
+ 23% [269/1141]  ext/socket/ancdata.c
+ 23% [270/1141]  ext/socket/basicsocket.c
+ 23% [271/1141]  ext/socket/constants.c
+ 23% [272/1141]  ext/socket/constdefs.c
+ 23% [273/1141]  ext/socket/ifaddr.c
+ 24% [274/1141]  ext/socket/init.c
+ 24% [275/1141]  ext/socket/ipsocket.c
+ 24% [276/1141]  ext/socket/lib/socket.rb
+ 24% [277/1141]  ext/socket/option.c
+ 24% [278/1141]  ext/socket/raddrinfo.c
+ 24% [279/1141]  ext/socket/socket.c
+ 24% [280/1141]  ext/socket/sockssocket.c
+ 24% [281/1141]  ext/socket/tcpserver.c
+ 24% [282/1141]  ext/socket/tcpsocket.c
+ 24% [283/1141]  ext/socket/udpsocket.c
+ 24% [284/1141]  ext/socket/unixserver.c
+ 24% [285/1141]  ext/socket/unixsocket.c
+ 25% [286/1141]  ext/stringio/stringio.c
+ 25% [287/1141]  ext/strscan/strscan.c
+ 25% [288/1141]  ext/syslog/lib/syslog/logger.rb
+ 25% [289/1141]  ext/syslog/syslog.c
+ 25% [290/1141]  ext/win32ole/lib/win32ole.rb
+ 25% [291/1141]  ext/win32ole/lib/win32ole/property.rb
+ 25% [292/1141]  ext/win32ole/win32ole.c
+ 25% [293/1141]  ext/win32ole/win32ole_error.c
+ 25% [294/1141]  ext/win32ole/win32ole_event.c
+ 25% [295/1141]  ext/win32ole/win32ole_method.c
+ 25% [296/1141]  ext/win32ole/win32ole_param.c
+ 26% [297/1141]  ext/win32ole/win32ole_record.c
+ 26% [298/1141]  ext/win32ole/win32ole_type.c
+ 26% [299/1141]  ext/win32ole/win32ole_typelib.c
+ 26% [300/1141]  ext/win32ole/win32ole_variable.c
+ 26% [301/1141]  ext/win32ole/win32ole_variant.c
+ 26% [302/1141]  ext/win32ole/win32ole_variant_m.c
+ 26% [303/1141]  ext/zlib/zlib.c
+ 26% [304/1141]  file.c
+ 26% [305/1141]  gc.c
+ 26% [306/1141]  gc.rb
+ 26% [307/1141]  goruby.c
+ 26% [308/1141]  hash.c
+ 27% [309/1141]  id.c
+ 27% [310/1141]  id_table.c
+ 27% [311/1141]  inits.c
+ 27% [312/1141]  io.c
+ 27% [313/1141]  io.rb
+ 27% [314/1141]  iseq.c
+ 27% [315/1141]  lex.c
+ 27% [316/1141]  lib/English.rb
+ 27% [317/1141]  lib/abbrev.rb
+ 27% [318/1141]  lib/base64.rb
+ 27% [319/1141]  lib/benchmark.rb
+ 28% [320/1141]  lib/bundler.rb
+ 28% [321/1141]  lib/bundler/build_metadata.rb
+ 28% [322/1141]  lib/bundler/capistrano.rb
+ 28% [323/1141]  lib/bundler/cli.rb
+ 28% [324/1141]  lib/bundler/cli/add.rb
+ 28% [325/1141]  lib/bundler/cli/binstubs.rb
+ 28% [326/1141]  lib/bundler/cli/cache.rb
+ 28% [327/1141]  lib/bundler/cli/check.rb
+ 28% [328/1141]  lib/bundler/cli/clean.rb
+ 28% [329/1141]  lib/bundler/cli/common.rb
+ 28% [330/1141]  lib/bundler/cli/config.rb
+ 29% [331/1141]  lib/bundler/cli/console.rb
+ 29% [332/1141]  lib/bundler/cli/doctor.rb
+ 29% [333/1141]  lib/bundler/cli/exec.rb
+ 29% [334/1141]  lib/bundler/cli/gem.rb
+ 29% [335/1141]  lib/bundler/cli/info.rb
+ 29% [336/1141]  lib/bundler/cli/init.rb
+ 29% [337/1141]  lib/bundler/cli/inject.rb
+ 29% [338/1141]  lib/bundler/cli/install.rb
+ 29% [339/1141]  lib/bundler/cli/issue.rb
+ 29% [340/1141]  lib/bundler/cli/list.rb
+ 29% [341/1141]  lib/bundler/cli/lock.rb
+ 29% [342/1141]  lib/bundler/cli/open.rb
+ 30% [343/1141]  lib/bundler/cli/outdated.rb
+ 30% [344/1141]  lib/bundler/cli/package.rb
+ 30% [345/1141]  lib/bundler/cli/platform.rb
+ 30% [346/1141]  lib/bundler/cli/plugin.rb
+ 30% [347/1141]  lib/bundler/cli/pristine.rb
+ 30% [348/1141]  lib/bundler/cli/remove.rb
+ 30% [349/1141]  lib/bundler/cli/show.rb
+ 30% [350/1141]  lib/bundler/cli/update.rb
+ 30% [351/1141]  lib/bundler/cli/viz.rb
+ 30% [352/1141]  lib/bundler/compact_index_client.rb
+ 30% [353/1141]  lib/bundler/compact_index_client/cache.rb
+ 31% [354/1141]  lib/bundler/compact_index_client/updater.rb
+ 31% [355/1141]  lib/bundler/constants.rb
+ 31% [356/1141]  lib/bundler/current_ruby.rb
+ 31% [357/1141]  lib/bundler/definition.rb
+ 31% [358/1141]  lib/bundler/dep_proxy.rb
+ 31% [359/1141]  lib/bundler/dependency.rb
+ 31% [360/1141]  lib/bundler/deployment.rb
+ 31% [361/1141]  lib/bundler/deprecate.rb
+ 31% [362/1141]  lib/bundler/dsl.rb
+ 31% [363/1141]  lib/bundler/endpoint_specification.rb
+ 31% [364/1141]  lib/bundler/env.rb
+ 31% [365/1141]  lib/bundler/environment_preserver.rb
+ 32% [366/1141]  lib/bundler/errors.rb
+ 32% [367/1141]  lib/bundler/feature_flag.rb
+ 32% [368/1141]  lib/bundler/fetcher.rb
+ 32% [369/1141]  lib/bundler/fetcher/base.rb
+ 32% [370/1141]  lib/bundler/fetcher/compact_index.rb
+ 32% [371/1141]  lib/bundler/fetcher/dependency.rb
+ 32% [372/1141]  lib/bundler/fetcher/downloader.rb
+ 32% [373/1141]  lib/bundler/fetcher/index.rb
+ 32% [374/1141]  lib/bundler/friendly_errors.rb
+ 32% [375/1141]  lib/bundler/gem_helper.rb
+ 32% [376/1141]  lib/bundler/gem_helpers.rb
+ 33% [377/1141]  lib/bundler/gem_remote_fetcher.rb
+ 33% [378/1141]  lib/bundler/gem_tasks.rb
+ 33% [379/1141]  lib/bundler/gem_version_promoter.rb
+ 33% [380/1141]  lib/bundler/gemdeps.rb
+ 33% [381/1141]  lib/bundler/graph.rb
+ 33% [382/1141]  lib/bundler/index.rb
+ 33% [383/1141]  lib/bundler/injector.rb
+ 33% [384/1141]  lib/bundler/inline.rb
+ 33% [385/1141]  lib/bundler/installer.rb
+ 33% [386/1141]  lib/bundler/installer/gem_installer.rb
+ 33% [387/1141]  lib/bundler/installer/parallel_installer.rb
+ 34% [388/1141]  lib/bundler/installer/standalone.rb
+ 34% [389/1141]  lib/bundler/lazy_specification.rb
+ 34% [390/1141]  lib/bundler/lockfile_generator.rb
+ 34% [391/1141]  lib/bundler/lockfile_parser.rb
+ 34% [392/1141]  lib/bundler/match_platform.rb
+ 34% [393/1141]  lib/bundler/mirror.rb
+ 34% [394/1141]  lib/bundler/plugin.rb
+ 34% [395/1141]  lib/bundler/plugin/api.rb
+ 34% [396/1141]  lib/bundler/plugin/api/source.rb
+ 34% [397/1141]  lib/bundler/plugin/dsl.rb
+ 34% [398/1141]  lib/bundler/plugin/events.rb
+ 34% [399/1141]  lib/bundler/plugin/index.rb
+ 35% [400/1141]  lib/bundler/plugin/installer.rb
+ 35% [401/1141]  lib/bundler/plugin/installer/git.rb
+ 35% [402/1141]  lib/bundler/plugin/installer/rubygems.rb
+ 35% [403/1141]  lib/bundler/plugin/source_list.rb
+ 35% [404/1141]  lib/bundler/process_lock.rb
+ 35% [405/1141]  lib/bundler/psyched_yaml.rb
+ 35% [406/1141]  lib/bundler/remote_specification.rb
+ 35% [407/1141]  lib/bundler/resolver.rb
+ 35% [408/1141]  lib/bundler/resolver/spec_group.rb
+ 35% [409/1141]  lib/bundler/retry.rb
+ 35% [410/1141]  lib/bundler/ruby_dsl.rb
+ 36% [411/1141]  lib/bundler/ruby_version.rb
+ 36% [412/1141]  lib/bundler/rubygems_ext.rb
+ 36% [413/1141]  lib/bundler/rubygems_gem_installer.rb
+ 36% [414/1141]  lib/bundler/rubygems_integration.rb
+ 36% [415/1141]  lib/bundler/runtime.rb
+ 36% [416/1141]  lib/bundler/settings.rb
+ 36% [417/1141]  lib/bundler/settings/validator.rb
+ 36% [418/1141]  lib/bundler/setup.rb
+ 36% [419/1141]  lib/bundler/shared_helpers.rb
+ 36% [420/1141]  lib/bundler/similarity_detector.rb
+ 36% [421/1141]  lib/bundler/source.rb
+ 36% [422/1141]  lib/bundler/source/gemspec.rb
+ 37% [423/1141]  lib/bundler/source/git.rb
+ 37% [424/1141]  lib/bundler/source/git/git_proxy.rb
+ 37% [425/1141]  lib/bundler/source/metadata.rb
+ 37% [426/1141]  lib/bundler/source/path.rb
+ 37% [427/1141]  lib/bundler/source/path/installer.rb
+ 37% [428/1141]  lib/bundler/source/rubygems.rb
+ 37% [429/1141]  lib/bundler/source/rubygems/remote.rb
+ 37% [430/1141]  lib/bundler/source_list.rb
+ 37% [431/1141]  lib/bundler/spec_set.rb
+ 37% [432/1141]  lib/bundler/stub_specification.rb
+ 37% [433/1141]  lib/bundler/ui.rb
+ 38% [434/1141]  lib/bundler/ui/rg_proxy.rb
+ 38% [435/1141]  lib/bundler/ui/shell.rb
+ 38% [436/1141]  lib/bundler/ui/silent.rb
+ 38% [437/1141]  lib/bundler/uri_credentials_filter.rb
+ 38% [438/1141]  lib/bundler/vendor/connection_pool/lib/connection_pool.rb
+ 38% [439/1141]  lib/bundler/vendor/connection_pool/lib/connection_pool/monotonic_time.rb
+ 38% [440/1141]  lib/bundler/vendor/connection_pool/lib/connection_pool/timed_stack.rb
+ 38% [441/1141]  lib/bundler/vendor/connection_pool/lib/connection_pool/version.rb
+ 38% [442/1141]  lib/bundler/vendor/fileutils/lib/fileutils.rb
+ 38% [443/1141]  lib/bundler/vendor/fileutils/lib/fileutils/version.rb
+ 38% [444/1141]  lib/bundler/vendor/molinillo/lib/molinillo.rb
+ 39% [445/1141]  lib/bundler/vendor/molinillo/lib/molinillo/compatibility.rb
+ 39% [446/1141]  lib/bundler/vendor/molinillo/lib/molinillo/delegates/resolution_state.rb
+ 39% [447/1141]  lib/bundler/vendor/molinillo/lib/molinillo/delegates/specification_provider.rb
+ 39% [448/1141]  lib/bundler/vendor/molinillo/lib/molinillo/dependency_graph.rb
+ 39% [449/1141]  lib/bundler/vendor/molinillo/lib/molinillo/dependency_graph/action.rb
+ 39% [450/1141]  lib/bundler/vendor/molinillo/lib/molinillo/dependency_graph/add_edge_no_circular.rb
+ 39% [451/1141]  lib/bundler/vendor/molinillo/lib/molinillo/dependency_graph/add_vertex.rb
+ 39% [452/1141]  lib/bundler/vendor/molinillo/lib/molinillo/dependency_graph/delete_edge.rb
+ 39% [453/1141]  lib/bundler/vendor/molinillo/lib/molinillo/dependency_graph/detach_vertex_named.rb
+ 39% [454/1141]  lib/bundler/vendor/molinillo/lib/molinillo/dependency_graph/log.rb
+ 39% [455/1141]  lib/bundler/vendor/molinillo/lib/molinillo/dependency_graph/set_payload.rb
+ 39% [456/1141]  lib/bundler/vendor/molinillo/lib/molinillo/dependency_graph/tag.rb
+ 40% [457/1141]  lib/bundler/vendor/molinillo/lib/molinillo/dependency_graph/vertex.rb
+ 40% [458/1141]  lib/bundler/vendor/molinillo/lib/molinillo/errors.rb
+ 40% [459/1141]  lib/bundler/vendor/molinillo/lib/molinillo/gem_metadata.rb
+ 40% [460/1141]  lib/bundler/vendor/molinillo/lib/molinillo/modules/specification_provider.rb
+ 40% [461/1141]  lib/bundler/vendor/molinillo/lib/molinillo/modules/ui.rb
+ 40% [462/1141]  lib/bundler/vendor/molinillo/lib/molinillo/resolution.rb
+ 40% [463/1141]  lib/bundler/vendor/molinillo/lib/molinillo/resolver.rb
+ 40% [464/1141]  lib/bundler/vendor/molinillo/lib/molinillo/state.rb
+ 40% [465/1141]  lib/bundler/vendor/net-http-persistent/lib/net/http/persistent.rb
+ 40% [466/1141]  lib/bundler/vendor/net-http-persistent/lib/net/http/persistent/connection.rb
+ 40% [467/1141]  lib/bundler/vendor/net-http-persistent/lib/net/http/persistent/pool.rb
+ 41% [468/1141]  lib/bundler/vendor/net-http-persistent/lib/net/http/persistent/timed_stack_multi.rb
+ 41% [469/1141]  lib/bundler/vendor/thor/lib/thor.rb
+ 41% [470/1141]  lib/bundler/vendor/thor/lib/thor/actions.rb
+ 41% [471/1141]  lib/bundler/vendor/thor/lib/thor/actions/create_file.rb
+ 41% [472/1141]  lib/bundler/vendor/thor/lib/thor/actions/create_link.rb
+ 41% [473/1141]  lib/bundler/vendor/thor/lib/thor/actions/directory.rb
+ 41% [474/1141]  lib/bundler/vendor/thor/lib/thor/actions/empty_directory.rb
+ 41% [475/1141]  lib/bundler/vendor/thor/lib/thor/actions/file_manipulation.rb
+ 41% [476/1141]  lib/bundler/vendor/thor/lib/thor/actions/inject_into_file.rb
+ 41% [477/1141]  lib/bundler/vendor/thor/lib/thor/base.rb
+ 41% [478/1141]  lib/bundler/vendor/thor/lib/thor/command.rb
+ 41% [479/1141]  lib/bundler/vendor/thor/lib/thor/core_ext/hash_with_indifferent_access.rb
+ 42% [480/1141]  lib/bundler/vendor/thor/lib/thor/core_ext/io_binary_read.rb
+ 42% [481/1141]  lib/bundler/vendor/thor/lib/thor/core_ext/ordered_hash.rb
+ 42% [482/1141]  lib/bundler/vendor/thor/lib/thor/error.rb
+ 42% [483/1141]  lib/bundler/vendor/thor/lib/thor/group.rb
+ 42% [484/1141]  lib/bundler/vendor/thor/lib/thor/invocation.rb
+ 42% [485/1141]  lib/bundler/vendor/thor/lib/thor/line_editor.rb
+ 42% [486/1141]  lib/bundler/vendor/thor/lib/thor/line_editor/basic.rb
+ 42% [487/1141]  lib/bundler/vendor/thor/lib/thor/line_editor/readline.rb
+ 42% [488/1141]  lib/bundler/vendor/thor/lib/thor/nested_context.rb
+ 42% [489/1141]  lib/bundler/vendor/thor/lib/thor/parser.rb
+ 42% [490/1141]  lib/bundler/vendor/thor/lib/thor/parser/argument.rb
+ 43% [491/1141]  lib/bundler/vendor/thor/lib/thor/parser/arguments.rb
+ 43% [492/1141]  lib/bundler/vendor/thor/lib/thor/parser/option.rb
+ 43% [493/1141]  lib/bundler/vendor/thor/lib/thor/parser/options.rb
+ 43% [494/1141]  lib/bundler/vendor/thor/lib/thor/rake_compat.rb
+ 43% [495/1141]  lib/bundler/vendor/thor/lib/thor/runner.rb
+ 43% [496/1141]  lib/bundler/vendor/thor/lib/thor/shell.rb
+ 43% [497/1141]  lib/bundler/vendor/thor/lib/thor/shell/basic.rb
+ 43% [498/1141]  lib/bundler/vendor/thor/lib/thor/shell/color.rb
+ 43% [499/1141]  lib/bundler/vendor/thor/lib/thor/shell/html.rb
+ 43% [500/1141]  lib/bundler/vendor/thor/lib/thor/util.rb
+ 43% [501/1141]  lib/bundler/vendor/thor/lib/thor/version.rb
+ 43% [502/1141]  lib/bundler/vendor/uri/lib/uri.rb
+ 44% [503/1141]  lib/bundler/vendor/uri/lib/uri/common.rb
+ 44% [504/1141]  lib/bundler/vendor/uri/lib/uri/file.rb
+ 44% [505/1141]  lib/bundler/vendor/uri/lib/uri/ftp.rb
+ 44% [506/1141]  lib/bundler/vendor/uri/lib/uri/generic.rb
+ 44% [507/1141]  lib/bundler/vendor/uri/lib/uri/http.rb
+ 44% [508/1141]  lib/bundler/vendor/uri/lib/uri/https.rb
+ 44% [509/1141]  lib/bundler/vendor/uri/lib/uri/ldap.rb
+ 44% [510/1141]  lib/bundler/vendor/uri/lib/uri/ldaps.rb
+ 44% [511/1141]  lib/bundler/vendor/uri/lib/uri/mailto.rb
+ 44% [512/1141]  lib/bundler/vendor/uri/lib/uri/rfc2396_parser.rb
+ 44% [513/1141]  lib/bundler/vendor/uri/lib/uri/rfc3986_parser.rb
+ 45% [514/1141]  lib/bundler/vendor/uri/lib/uri/version.rb
+ 45% [515/1141]  lib/bundler/vendored_fileutils.rb
+ 45% [516/1141]  lib/bundler/vendored_molinillo.rb
+ 45% [517/1141]  lib/bundler/vendored_persistent.rb
+ 45% [518/1141]  lib/bundler/vendored_thor.rb
+ 45% [519/1141]  lib/bundler/vendored_uri.rb
+ 45% [520/1141]  lib/bundler/version.rb
+ 45% [521/1141]  lib/bundler/version_ranges.rb
+ 45% [522/1141]  lib/bundler/vlad.rb
+ 45% [523/1141]  lib/bundler/worker.rb
+ 45% [524/1141]  lib/bundler/yaml_serializer.rb
+ 46% [525/1141]  lib/cgi.rb
+ 46% [526/1141]  lib/cgi/cookie.rb
+ 46% [527/1141]  lib/cgi/core.rb
+ 46% [528/1141]  lib/cgi/html.rb
+ 46% [529/1141]  lib/cgi/session.rb
+ 46% [530/1141]  lib/cgi/session/pstore.rb
+ 46% [531/1141]  lib/cgi/util.rb
+ 46% [532/1141]  lib/cgi/version.rb
+ 46% [533/1141]  lib/csv.rb
+ 46% [534/1141]  lib/csv/core_ext/array.rb
+ 46% [535/1141]  lib/csv/core_ext/string.rb
+ 46% [536/1141]  lib/csv/delete_suffix.rb
+ 47% [537/1141]  lib/csv/fields_converter.rb
+ 47% [538/1141]  lib/csv/match_p.rb
+ 47% [539/1141]  lib/csv/parser.rb
+ 47% [540/1141]  lib/csv/row.rb
+ 47% [541/1141]  lib/csv/table.rb
+ 47% [542/1141]  lib/csv/version.rb
+ 47% [543/1141]  lib/csv/writer.rb
+ 47% [544/1141]  lib/debug.rb
+ 47% [545/1141]  lib/delegate.rb
+ 47% [546/1141]  lib/did_you_mean.rb
+ 47% [547/1141]  lib/drb.rb
+ 48% [548/1141]  lib/drb/acl.rb
+ 48% [549/1141]  lib/drb/drb.rb
+ 48% [550/1141]  lib/drb/eq.rb
+ 48% [551/1141]  lib/drb/extserv.rb
+ 48% [552/1141]  lib/drb/extservm.rb
+ 48% [553/1141]  lib/drb/gw.rb
+ 48% [554/1141]  lib/drb/invokemethod.rb
+ 48% [555/1141]  lib/drb/observer.rb
+ 48% [556/1141]  lib/drb/ssl.rb
+ 48% [557/1141]  lib/drb/timeridconv.rb
+ 48% [558/1141]  lib/drb/unix.rb
+ 48% [559/1141]  lib/drb/weakidconv.rb
+ 49% [560/1141]  lib/erb.rb
+ 49% [561/1141]  lib/fileutils.rb
+ 49% [562/1141]  lib/find.rb
+ 49% [563/1141]  lib/forwardable.rb
+ 49% [564/1141]  lib/forwardable/impl.rb
+ 49% [565/1141]  lib/forwardable/version.rb
+ 49% [566/1141]  lib/getoptlong.rb
+ 49% [567/1141]  lib/ipaddr.rb
+ 49% [568/1141]  lib/irb.rb
+ 49% [569/1141]  lib/irb/cmd/chws.rb
+ 49% [570/1141]  lib/irb/cmd/fork.rb
+ 50% [571/1141]  lib/irb/cmd/help.rb
+ 50% [572/1141]  lib/irb/cmd/info.rb
+ 50% [573/1141]  lib/irb/cmd/load.rb
+ 50% [574/1141]  lib/irb/cmd/nop.rb
+ 50% [575/1141]  lib/irb/cmd/pushws.rb
+ 50% [576/1141]  lib/irb/cmd/subirb.rb
+ 50% [577/1141]  lib/irb/color.rb
+ 50% [578/1141]  lib/irb/completion.rb
+ 50% [579/1141]  lib/irb/context.rb
+ 50% [580/1141]  lib/irb/easter-egg.rb
+ 50% [581/1141]  lib/irb/ext/change-ws.rb
+ 51% [582/1141]  lib/irb/ext/history.rb
+ 51% [583/1141]  lib/irb/ext/loader.rb
+ 51% [584/1141]  lib/irb/ext/multi-irb.rb
+ 51% [585/1141]  lib/irb/ext/save-history.rb
+ 51% [586/1141]  lib/irb/ext/tracer.rb
+ 51% [587/1141]  lib/irb/ext/use-loader.rb
+ 51% [588/1141]  lib/irb/ext/workspaces.rb
+ 51% [589/1141]  lib/irb/extend-command.rb
+ 51% [590/1141]  lib/irb/frame.rb
+ 51% [591/1141]  lib/irb/help.rb
+ 51% [592/1141]  lib/irb/init.rb
+ 51% [593/1141]  lib/irb/input-method.rb
+ 52% [594/1141]  lib/irb/inspector.rb
+ 52% [595/1141]  lib/irb/lc/error.rb
+ 52% [596/1141]  lib/irb/lc/ja/encoding_aliases.rb
+ 52% [597/1141]  lib/irb/lc/ja/error.rb
+ 52% [598/1141]  lib/irb/locale.rb
+ 52% [599/1141]  lib/irb/magic-file.rb
+ 52% [600/1141]  lib/irb/notifier.rb
+ 52% [601/1141]  lib/irb/output-method.rb
+ 52% [602/1141]  lib/irb/ruby-lex.rb
+ 52% [603/1141]  lib/irb/src_encoding.rb
+ 52% [604/1141]  lib/irb/version.rb
+ 53% [605/1141]  lib/irb/workspace.rb
+ 53% [606/1141]  lib/irb/ws-for-case-2.rb
+ 53% [607/1141]  lib/irb/xmp.rb
+ 53% [608/1141]  lib/logger.rb
+ 53% [609/1141]  lib/matrix.rb
+ 53% [610/1141]  lib/matrix/eigenvalue_decomposition.rb
+ 53% [611/1141]  lib/matrix/lup_decomposition.rb
+ 53% [612/1141]  lib/matrix/version.rb
+ 53% [613/1141]  lib/mkmf.rb
+ 53% [614/1141]  lib/mutex_m.rb
+ 53% [615/1141]  lib/net/ftp.rb
+ 53% [616/1141]  lib/net/http.rb
+ 54% [617/1141]  lib/net/http/backward.rb
+ 54% [618/1141]  lib/net/http/exceptions.rb
+ 54% [619/1141]  lib/net/http/generic_request.rb
+ 54% [620/1141]  lib/net/http/header.rb
+ 54% [621/1141]  lib/net/http/proxy_delta.rb
+ 54% [622/1141]  lib/net/http/request.rb
+ 54% [623/1141]  lib/net/http/requests.rb
+ 54% [624/1141]  lib/net/http/response.rb
+ 54% [625/1141]  lib/net/http/responses.rb
+ 54% [626/1141]  lib/net/http/status.rb
+ 54% [627/1141]  lib/net/https.rb
+ 55% [628/1141]  lib/net/imap.rb
+ 55% [629/1141]  lib/net/pop.rb
+ 55% [630/1141]  lib/net/pop/version.rb
+ 55% [631/1141]  lib/net/protocol.rb
+ 55% [632/1141]  lib/net/smtp.rb
+ 55% [633/1141]  lib/net/smtp/version.rb
+ 55% [634/1141]  lib/observer.rb
+ 55% [635/1141]  lib/open-uri.rb
+ 55% [636/1141]  lib/open3.rb
+ 55% [637/1141]  lib/optionparser.rb
+ 55% [638/1141]  lib/optparse.rb
+ 56% [639/1141]  lib/optparse/ac.rb
+ 56% [640/1141]  lib/optparse/date.rb
+ 56% [641/1141]  lib/optparse/kwargs.rb
+ 56% [642/1141]  lib/optparse/shellwords.rb
+ 56% [643/1141]  lib/optparse/time.rb
+ 56% [644/1141]  lib/optparse/uri.rb
+ 56% [645/1141]  lib/optparse/version.rb
+ 56% [646/1141]  lib/ostruct.rb
+ 56% [647/1141]  lib/pp.rb
+ 56% [648/1141]  lib/prettyprint.rb
+ 56% [649/1141]  lib/prime.rb
+ 56% [650/1141]  lib/pstore.rb
+ 57% [651/1141]  lib/racc.rb
+ 57% [652/1141]  lib/racc/compat.rb
+ 57% [653/1141]  lib/racc/debugflags.rb
+ 57% [654/1141]  lib/racc/exception.rb
+ 57% [655/1141]  lib/racc/grammar.rb
+ 57% [656/1141]  lib/racc/grammarfileparser.rb
+ 57% [657/1141]  lib/racc/info.rb
+ 57% [658/1141]  lib/racc/iset.rb
+ 57% [659/1141]  lib/racc/logfilegenerator.rb
+ 57% [660/1141]  lib/racc/parser-text.rb
+ 57% [661/1141]  lib/racc/parser.rb
+ 58% [662/1141]  lib/racc/parserfilegenerator.rb
+ 58% [663/1141]  lib/racc/pre-setup
+ 58% [664/1141]  lib/racc/rdoc/grammar.en.rdoc
+ 58% [665/1141]  lib/racc/sourcetext.rb
+ 58% [666/1141]  lib/racc/state.rb
+ 58% [667/1141]  lib/racc/statetransitiontable.rb
+ 58% [668/1141]  lib/racc/static.rb
+ 58% [669/1141]  lib/rdoc.rb
+ 58% [670/1141]  lib/rdoc/alias.rb
+ 58% [671/1141]  lib/rdoc/anon_class.rb
+ 58% [672/1141]  lib/rdoc/any_method.rb
+ 58% [673/1141]  lib/rdoc/attr.rb
+ 59% [674/1141]  lib/rdoc/class_module.rb
+ 59% [675/1141]  lib/rdoc/code_object.rb
+ 59% [676/1141]  lib/rdoc/code_objects.rb
+ 59% [677/1141]  lib/rdoc/comment.rb
+ 59% [678/1141]  lib/rdoc/constant.rb
+ 59% [679/1141]  lib/rdoc/context.rb
+ 59% [680/1141]  lib/rdoc/cross_reference.rb
+ 59% [681/1141]  lib/rdoc/encoding.rb
+ 59% [682/1141]  lib/rdoc/erb_partial.rb
+ 59% [683/1141]  lib/rdoc/erbio.rb
+ 59% [684/1141]  lib/rdoc/extend.rb
+ 60% [685/1141]  lib/rdoc/generator.rb
+ 60% [686/1141]  lib/rdoc/ghost_method.rb
+ 60% [687/1141]  lib/rdoc/i18n.rb
+ 60% [688/1141]  lib/rdoc/include.rb
+ 60% [689/1141]  lib/rdoc/known_classes.rb
+ 60% [690/1141]  lib/rdoc/markdown.rb
+ 60% [691/1141]  lib/rdoc/markup.rb
+ 60% [692/1141]  lib/rdoc/meta_method.rb
+ 60% [693/1141]  lib/rdoc/method_attr.rb
+ 60% [694/1141]  lib/rdoc/mixin.rb
+ 60% [695/1141]  lib/rdoc/normal_class.rb
+ 60% [696/1141]  lib/rdoc/normal_module.rb
+ 61% [697/1141]  lib/rdoc/options.rb
+ 61% [698/1141]  lib/rdoc/parser.rb
+ 61% [699/1141]  lib/rdoc/parser/c.rb
+ 61% [700/1141]  lib/rdoc/parser/changelog.rb
+ 61% [701/1141]  lib/rdoc/parser/markdown.rb
+ 61% [702/1141]  lib/rdoc/parser/rd.rb
+ 61% [703/1141]  lib/rdoc/parser/ripper_state_lex.rb
+ 61% [704/1141]  lib/rdoc/parser/ruby.rb
+ 61% [705/1141]  lib/rdoc/parser/ruby_tools.rb
+ 61% [706/1141]  lib/rdoc/parser/simple.rb
+ 61% [707/1141]  lib/rdoc/parser/text.rb
+ 62% [708/1141]  lib/rdoc/rd.rb
+ 62% [709/1141]  lib/rdoc/rdoc.rb
+ 62% [710/1141]  lib/rdoc/require.rb
+ 62% [711/1141]  lib/rdoc/ri.rb
+ 62% [712/1141]  lib/rdoc/rubygems_hook.rb
+ 62% [713/1141]  lib/rdoc/servlet.rb
+ 62% [714/1141]  lib/rdoc/single_class.rb
+ 62% [715/1141]  lib/rdoc/stats.rb
+ 62% [716/1141]  lib/rdoc/store.rb
+ 62% [717/1141]  lib/rdoc/task.rb
+ 62% [718/1141]  lib/rdoc/text.rb
+ 63% [719/1141]  lib/rdoc/token_stream.rb
+ 63% [720/1141]  lib/rdoc/tom_doc.rb
+ 63% [721/1141]  lib/rdoc/top_level.rb
+ 63% [722/1141]  lib/rdoc/version.rb
+ 63% [723/1141]  lib/readline.rb
+ 63% [724/1141]  lib/reline.rb
+ 63% [725/1141]  lib/resolv-replace.rb
+ 63% [726/1141]  lib/resolv.rb
+ 63% [727/1141]  lib/rexml/attlistdecl.rb
+ 63% [728/1141]  lib/rexml/attribute.rb
+ 63% [729/1141]  lib/rexml/cdata.rb
+ 63% [730/1141]  lib/rexml/child.rb
+ 64% [731/1141]  lib/rexml/comment.rb
+ 64% [732/1141]  lib/rexml/doctype.rb
+ 64% [733/1141]  lib/rexml/document.rb
+ 64% [734/1141]  lib/rexml/dtd/attlistdecl.rb
+ 64% [735/1141]  lib/rexml/dtd/dtd.rb
+ 64% [736/1141]  lib/rexml/dtd/elementdecl.rb
+ 64% [737/1141]  lib/rexml/dtd/entitydecl.rb
+ 64% [738/1141]  lib/rexml/dtd/notationdecl.rb
+ 64% [739/1141]  lib/rexml/element.rb
+ 64% [740/1141]  lib/rexml/encoding.rb
+ 64% [741/1141]  lib/rexml/entity.rb
+ 65% [742/1141]  lib/rexml/formatters/default.rb
+ 65% [743/1141]  lib/rexml/formatters/pretty.rb
+ 65% [744/1141]  lib/rexml/formatters/transitive.rb
+ 65% [745/1141]  lib/rexml/functions.rb
+ 65% [746/1141]  lib/rexml/instruction.rb
+ 65% [747/1141]  lib/rexml/light/node.rb
+ 65% [748/1141]  lib/rexml/namespace.rb
+ 65% [749/1141]  lib/rexml/node.rb
+ 65% [750/1141]  lib/rexml/output.rb
+ 65% [751/1141]  lib/rexml/parent.rb
+ 65% [752/1141]  lib/rexml/parseexception.rb
+ 65% [753/1141]  lib/rexml/parsers/baseparser.rb
+ 66% [754/1141]  lib/rexml/parsers/lightparser.rb
+ 66% [755/1141]  lib/rexml/parsers/pullparser.rb
+ 66% [756/1141]  lib/rexml/parsers/sax2parser.rb
+ 66% [757/1141]  lib/rexml/parsers/streamparser.rb
+ 66% [758/1141]  lib/rexml/parsers/treeparser.rb
+ 66% [759/1141]  lib/rexml/parsers/ultralightparser.rb
+ 66% [760/1141]  lib/rexml/parsers/xpathparser.rb
+ 66% [761/1141]  lib/rexml/quickpath.rb
+ 66% [762/1141]  lib/rexml/rexml.rb
+ 66% [763/1141]  lib/rexml/sax2listener.rb
+ 66% [764/1141]  lib/rexml/security.rb
+ 67% [765/1141]  lib/rexml/source.rb
+ 67% [766/1141]  lib/rexml/streamlistener.rb
+ 67% [767/1141]  lib/rexml/text.rb
+ 67% [768/1141]  lib/rexml/undefinednamespaceexception.rb
+ 67% [769/1141]  lib/rexml/validation/relaxng.rb
+ 67% [770/1141]  lib/rexml/validation/validation.rb
+ 67% [771/1141]  lib/rexml/validation/validationexception.rb
+ 67% [772/1141]  lib/rexml/xmldecl.rb
+ 67% [773/1141]  lib/rexml/xmltokens.rb
+ 67% [774/1141]  lib/rexml/xpath.rb
+ 67% [775/1141]  lib/rexml/xpath_parser.rb
+ 68% [776/1141]  lib/rinda/rinda.rb
+ 68% [777/1141]  lib/rinda/ring.rb
+ 68% [778/1141]  lib/rinda/tuplespace.rb
+ 68% [779/1141]  lib/rss.rb
+ 68% [780/1141]  lib/rss/0.9.rb
+ 68% [781/1141]  lib/rss/1.0.rb
+ 68% [782/1141]  lib/rss/2.0.rb
+ 68% [783/1141]  lib/rss/atom.rb
+ 68% [784/1141]  lib/rss/content.rb
+ 68% [785/1141]  lib/rss/content/1.0.rb
+ 68% [786/1141]  lib/rss/content/2.0.rb
+ 68% [787/1141]  lib/rss/converter.rb
+ 69% [788/1141]  lib/rss/dublincore.rb
+ 69% [789/1141]  lib/rss/dublincore/1.0.rb
+ 69% [790/1141]  lib/rss/dublincore/2.0.rb
+ 69% [791/1141]  lib/rss/dublincore/atom.rb
+ 69% [792/1141]  lib/rss/image.rb
+ 69% [793/1141]  lib/rss/itunes.rb
+ 69% [794/1141]  lib/rss/maker.rb
+ 69% [795/1141]  lib/rss/maker/0.9.rb
+ 69% [796/1141]  lib/rss/maker/1.0.rb
+ 69% [797/1141]  lib/rss/maker/2.0.rb
+ 69% [798/1141]  lib/rss/maker/atom.rb
+ 70% [799/1141]  lib/rss/maker/base.rb
+ 70% [800/1141]  lib/rss/maker/content.rb
+ 70% [801/1141]  lib/rss/maker/dublincore.rb
+ 70% [802/1141]  lib/rss/maker/entry.rb
+ 70% [803/1141]  lib/rss/maker/feed.rb
+ 70% [804/1141]  lib/rss/maker/image.rb
+ 70% [805/1141]  lib/rss/maker/itunes.rb
+ 70% [806/1141]  lib/rss/maker/slash.rb
+ 70% [807/1141]  lib/rss/maker/syndication.rb
+ 70% [808/1141]  lib/rss/maker/taxonomy.rb
+ 70% [809/1141]  lib/rss/maker/trackback.rb
+ 70% [810/1141]  lib/rss/parser.rb
+ 71% [811/1141]  lib/rss/rexmlparser.rb
+ 71% [812/1141]  lib/rss/rss.rb
+ 71% [813/1141]  lib/rss/slash.rb
+ 71% [814/1141]  lib/rss/syndication.rb
+ 71% [815/1141]  lib/rss/taxonomy.rb
+ 71% [816/1141]  lib/rss/trackback.rb
+ 71% [817/1141]  lib/rss/utils.rb
+ 71% [818/1141]  lib/rss/version.rb
+ 71% [819/1141]  lib/rss/xml-stylesheet.rb
+ 71% [820/1141]  lib/rss/xml.rb
+ 71% [821/1141]  lib/rss/xmlparser.rb
+ 72% [822/1141]  lib/rss/xmlscanner.rb
+ 72% [823/1141]  lib/rubygems.rb
+ 72% [824/1141]  lib/rubygems/available_set.rb
+ 72% [825/1141]  lib/rubygems/basic_specification.rb
+ 72% [826/1141]  lib/rubygems/bundler_version_finder.rb
+ 72% [827/1141]  lib/rubygems/command.rb
+ 72% [828/1141]  lib/rubygems/command_manager.rb
+ 72% [829/1141]  lib/rubygems/commands/build_command.rb
+ 72% [830/1141]  lib/rubygems/commands/cert_command.rb
+ 72% [831/1141]  lib/rubygems/commands/check_command.rb
+ 72% [832/1141]  lib/rubygems/commands/cleanup_command.rb
+ 73% [833/1141]  lib/rubygems/commands/contents_command.rb
+ 73% [834/1141]  lib/rubygems/commands/dependency_command.rb
+ 73% [835/1141]  lib/rubygems/commands/environment_command.rb
+ 73% [836/1141]  lib/rubygems/commands/fetch_command.rb
+ 73% [837/1141]  lib/rubygems/commands/generate_index_command.rb
+ 73% [838/1141]  lib/rubygems/commands/help_command.rb
+ 73% [839/1141]  lib/rubygems/commands/info_command.rb
+ 73% [840/1141]  lib/rubygems/commands/install_command.rb
+ 73% [841/1141]  lib/rubygems/commands/list_command.rb
+ 73% [842/1141]  lib/rubygems/commands/lock_command.rb
+ 73% [843/1141]  lib/rubygems/commands/mirror_command.rb
+ 73% [844/1141]  lib/rubygems/commands/open_command.rb
+ 74% [845/1141]  lib/rubygems/commands/outdated_command.rb
+ 74% [846/1141]  lib/rubygems/commands/owner_command.rb
+ 74% [847/1141]  lib/rubygems/commands/pristine_command.rb
+ 74% [848/1141]  lib/rubygems/commands/push_command.rb
+ 74% [849/1141]  lib/rubygems/commands/query_command.rb
+ 74% [850/1141]  lib/rubygems/commands/rdoc_command.rb
+ 74% [851/1141]  lib/rubygems/commands/search_command.rb
+ 74% [852/1141]  lib/rubygems/commands/server_command.rb
+ 74% [853/1141]  lib/rubygems/commands/setup_command.rb
+ 74% [854/1141]  lib/rubygems/commands/signin_command.rb
+ 74% [855/1141]  lib/rubygems/commands/signout_command.rb
+ 75% [856/1141]  lib/rubygems/commands/sources_command.rb
+ 75% [857/1141]  lib/rubygems/commands/specification_command.rb
+ 75% [858/1141]  lib/rubygems/commands/stale_command.rb
+ 75% [859/1141]  lib/rubygems/commands/uninstall_command.rb
+ 75% [860/1141]  lib/rubygems/commands/unpack_command.rb
+ 75% [861/1141]  lib/rubygems/commands/update_command.rb
+ 75% [862/1141]  lib/rubygems/commands/which_command.rb
+ 75% [863/1141]  lib/rubygems/commands/yank_command.rb
+ 75% [864/1141]  lib/rubygems/compatibility.rb
+ 75% [865/1141]  lib/rubygems/config_file.rb
+ 75% [866/1141]  lib/rubygems/core_ext/kernel_gem.rb
+ 75% [867/1141]  lib/rubygems/core_ext/kernel_require.rb
+ 76% [868/1141]  lib/rubygems/core_ext/kernel_warn.rb
+ 76% [869/1141]  lib/rubygems/defaults.rb
+ 76% [870/1141]  lib/rubygems/dependency.rb
+ 76% [871/1141]  lib/rubygems/dependency_installer.rb
+ 76% [872/1141]  lib/rubygems/dependency_list.rb
+ 76% [873/1141]  lib/rubygems/deprecate.rb
+ 76% [874/1141]  lib/rubygems/doctor.rb
+ 76% [875/1141]  lib/rubygems/errors.rb
+ 76% [876/1141]  lib/rubygems/exceptions.rb
+ 76% [877/1141]  lib/rubygems/ext.rb
+ 76% [878/1141]  lib/rubygems/ext/build_error.rb
+ 77% [879/1141]  lib/rubygems/ext/builder.rb
+ 77% [880/1141]  lib/rubygems/ext/cmake_builder.rb
+ 77% [881/1141]  lib/rubygems/ext/configure_builder.rb
+ 77% [882/1141]  lib/rubygems/ext/ext_conf_builder.rb
+ 77% [883/1141]  lib/rubygems/ext/rake_builder.rb
+ 77% [884/1141]  lib/rubygems/gem_runner.rb
+ 77% [885/1141]  lib/rubygems/gemcutter_utilities.rb
+ 77% [886/1141]  lib/rubygems/indexer.rb
+ 77% [887/1141]  lib/rubygems/install_default_message.rb
+ 77% [888/1141]  lib/rubygems/install_message.rb
+ 77% [889/1141]  lib/rubygems/install_update_options.rb
+ 78% [890/1141]  lib/rubygems/installer.rb
+ 78% [891/1141]  lib/rubygems/installer_test_case.rb
+ 78% [892/1141]  lib/rubygems/local_remote_options.rb
+ 78% [893/1141]  lib/rubygems/mock_gem_ui.rb
+ 78% [894/1141]  lib/rubygems/name_tuple.rb
+ 78% [895/1141]  lib/rubygems/package.rb
+ 78% [896/1141]  lib/rubygems/package/digest_io.rb
+ 78% [897/1141]  lib/rubygems/package/file_source.rb
+ 78% [898/1141]  lib/rubygems/package/io_source.rb
+ 78% [899/1141]  lib/rubygems/package/old.rb
+ 78% [900/1141]  lib/rubygems/package/source.rb
+ 78% [901/1141]  lib/rubygems/package/tar_header.rb
+ 79% [902/1141]  lib/rubygems/package/tar_reader.rb
+ 79% [903/1141]  lib/rubygems/package/tar_reader/entry.rb
+ 79% [904/1141]  lib/rubygems/package/tar_test_case.rb
+ 79% [905/1141]  lib/rubygems/package/tar_writer.rb
+ 79% [906/1141]  lib/rubygems/package_task.rb
+ 79% [907/1141]  lib/rubygems/path_support.rb
+ 79% [908/1141]  lib/rubygems/platform.rb
+ 79% [909/1141]  lib/rubygems/psych_additions.rb
+ 79% [910/1141]  lib/rubygems/psych_tree.rb
+ 79% [911/1141]  lib/rubygems/rdoc.rb
+ 79% [912/1141]  lib/rubygems/remote_fetcher.rb
+ 80% [913/1141]  lib/rubygems/request.rb
+ 80% [914/1141]  lib/rubygems/request/connection_pools.rb
+ 80% [915/1141]  lib/rubygems/request/http_pool.rb
+ 80% [916/1141]  lib/rubygems/request/https_pool.rb
+ 80% [917/1141]  lib/rubygems/request_set.rb
+ 80% [918/1141]  lib/rubygems/request_set/gem_dependency_api.rb
+ 80% [919/1141]  lib/rubygems/request_set/lockfile.rb
+ 80% [920/1141]  lib/rubygems/request_set/lockfile/parser.rb
+ 80% [921/1141]  lib/rubygems/request_set/lockfile/tokenizer.rb
+ 80% [922/1141]  lib/rubygems/requirement.rb
+ 80% [923/1141]  lib/rubygems/resolver.rb
+ 80% [924/1141]  lib/rubygems/resolver/activation_request.rb
+ 81% [925/1141]  lib/rubygems/resolver/api_set.rb
+ 81% [926/1141]  lib/rubygems/resolver/api_specification.rb
+ 81% [927/1141]  lib/rubygems/resolver/best_set.rb
+ 81% [928/1141]  lib/rubygems/resolver/composed_set.rb
+ 81% [929/1141]  lib/rubygems/resolver/conflict.rb
+ 81% [930/1141]  lib/rubygems/resolver/current_set.rb
+ 81% [931/1141]  lib/rubygems/resolver/dependency_request.rb
+ 81% [932/1141]  lib/rubygems/resolver/git_set.rb
+ 81% [933/1141]  lib/rubygems/resolver/git_specification.rb
+ 81% [934/1141]  lib/rubygems/resolver/index_set.rb
+ 81% [935/1141]  lib/rubygems/resolver/index_specification.rb
+ 82% [936/1141]  lib/rubygems/resolver/installed_specification.rb
+ 82% [937/1141]  lib/rubygems/resolver/installer_set.rb
+ 82% [938/1141]  lib/rubygems/resolver/local_specification.rb
+ 82% [939/1141]  lib/rubygems/resolver/lock_set.rb
+ 82% [940/1141]  lib/rubygems/resolver/lock_specification.rb
+ 82% [941/1141]  lib/rubygems/resolver/molinillo.rb
+ 82% [942/1141]  lib/rubygems/resolver/molinillo/lib/molinillo.rb
+ 82% [943/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/delegates/resolution_state.rb
+ 82% [944/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/delegates/specification_provider.rb
+ 82% [945/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/dependency_graph.rb
+ 82% [946/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/dependency_graph/action.rb
+ 82% [947/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/dependency_graph/add_edge_no_circular.rb
+ 83% [948/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/dependency_graph/add_vertex.rb
+ 83% [949/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/dependency_graph/delete_edge.rb
+ 83% [950/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/dependency_graph/detach_vertex_named.rb
+ 83% [951/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/dependency_graph/log.rb
+ 83% [952/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/dependency_graph/set_payload.rb
+ 83% [953/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/dependency_graph/tag.rb
+ 83% [954/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/dependency_graph/vertex.rb
+ 83% [955/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/errors.rb
+ 83% [956/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/gem_metadata.rb
+ 83% [957/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/modules/specification_provider.rb
+ 83% [958/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/modules/ui.rb
+ 84% [959/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/resolution.rb
+ 84% [960/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/resolver.rb
+ 84% [961/1141]  lib/rubygems/resolver/molinillo/lib/molinillo/state.rb
+ 84% [962/1141]  lib/rubygems/resolver/requirement_list.rb
+ 84% [963/1141]  lib/rubygems/resolver/set.rb
+ 84% [964/1141]  lib/rubygems/resolver/source_set.rb
+ 84% [965/1141]  lib/rubygems/resolver/spec_specification.rb
+ 84% [966/1141]  lib/rubygems/resolver/specification.rb
+ 84% [967/1141]  lib/rubygems/resolver/stats.rb
+ 84% [968/1141]  lib/rubygems/resolver/vendor_set.rb
+ 84% [969/1141]  lib/rubygems/resolver/vendor_specification.rb
+ 85% [970/1141]  lib/rubygems/s3_uri_signer.rb
+ 85% [971/1141]  lib/rubygems/safe_yaml.rb
+ 85% [972/1141]  lib/rubygems/security.rb
+ 85% [973/1141]  lib/rubygems/security/policies.rb
+ 85% [974/1141]  lib/rubygems/security/policy.rb
+ 85% [975/1141]  lib/rubygems/security/signer.rb
+ 85% [976/1141]  lib/rubygems/security/trust_dir.rb
+ 85% [977/1141]  lib/rubygems/security_option.rb
+ 85% [978/1141]  lib/rubygems/server.rb
+ 85% [979/1141]  lib/rubygems/source.rb
+ 85% [980/1141]  lib/rubygems/source/git.rb
+ 85% [981/1141]  lib/rubygems/source/installed.rb
+ 86% [982/1141]  lib/rubygems/source/local.rb
+ 86% [983/1141]  lib/rubygems/source/lock.rb
+ 86% [984/1141]  lib/rubygems/source/specific_file.rb
+ 86% [985/1141]  lib/rubygems/source/vendor.rb
+ 86% [986/1141]  lib/rubygems/source_list.rb
+ 86% [987/1141]  lib/rubygems/source_local.rb
+ 86% [988/1141]  lib/rubygems/source_specific_file.rb
+ 86% [989/1141]  lib/rubygems/spec_fetcher.rb
+ 86% [990/1141]  lib/rubygems/specification.rb
+ 86% [991/1141]  lib/rubygems/specification_policy.rb
+ 86% [992/1141]  lib/rubygems/stub_specification.rb
+ 87% [993/1141]  lib/rubygems/syck_hack.rb
+ 87% [994/1141]  lib/rubygems/test_case.rb
+ 87% [995/1141]  lib/rubygems/test_utilities.rb
+ 87% [996/1141]  lib/rubygems/text.rb
+ 87% [997/1141]  lib/rubygems/uninstaller.rb
+ 87% [998/1141]  lib/rubygems/uri_formatter.rb
+ 87% [999/1141]  lib/rubygems/uri_parser.rb
+ 87% [1000/1141]  lib/rubygems/uri_parsing.rb
+ 87% [1001/1141]  lib/rubygems/user_interaction.rb
+ 87% [1002/1141]  lib/rubygems/util.rb
+ 87% [1003/1141]  lib/rubygems/util/licenses.rb
+ 87% [1004/1141]  lib/rubygems/util/list.rb
+ 88% [1005/1141]  lib/rubygems/validator.rb
+ 88% [1006/1141]  lib/rubygems/version.rb
+ 88% [1007/1141]  lib/rubygems/version_option.rb
+ 88% [1008/1141]  lib/securerandom.rb
+ 88% [1009/1141]  lib/set.rb
+ 88% [1010/1141]  lib/shellwords.rb
+ 88% [1011/1141]  lib/singleton.rb
+ 88% [1012/1141]  lib/tempfile.rb
+ 88% [1013/1141]  lib/time.rb
+ 88% [1014/1141]  lib/timeout.rb
+ 88% [1015/1141]  lib/tmpdir.rb
+ 89% [1016/1141]  lib/tracer.rb
+ 89% [1017/1141]  lib/tsort.rb
+ 89% [1018/1141]  lib/un.rb
+ 89% [1019/1141]  lib/unicode_normalize/normalize.rb
+ 89% [1020/1141]  lib/unicode_normalize/tables.rb
+ 89% [1021/1141]  lib/uri.rb
+ 89% [1022/1141]  lib/uri/common.rb
+ 89% [1023/1141]  lib/uri/file.rb
+ 89% [1024/1141]  lib/uri/ftp.rb
+ 89% [1025/1141]  lib/uri/generic.rb
+ 89% [1026/1141]  lib/uri/http.rb
+ 90% [1027/1141]  lib/uri/https.rb
+ 90% [1028/1141]  lib/uri/ldap.rb
+ 90% [1029/1141]  lib/uri/ldaps.rb
+ 90% [1030/1141]  lib/uri/mailto.rb
+ 90% [1031/1141]  lib/uri/rfc2396_parser.rb
+ 90% [1032/1141]  lib/uri/rfc3986_parser.rb
+ 90% [1033/1141]  lib/uri/version.rb
+ 90% [1034/1141]  lib/weakref.rb
+ 90% [1035/1141]  lib/webrick.rb
+ 90% [1036/1141]  lib/webrick/accesslog.rb
+ 90% [1037/1141]  lib/webrick/cgi.rb
+ 90% [1038/1141]  lib/webrick/compat.rb
+ 91% [1039/1141]  lib/webrick/config.rb
+ 91% [1040/1141]  lib/webrick/cookie.rb
+ 91% [1041/1141]  lib/webrick/htmlutils.rb
+ 91% [1042/1141]  lib/webrick/httpauth.rb
+ 91% [1043/1141]  lib/webrick/httpauth/authenticator.rb
+ 91% [1044/1141]  lib/webrick/httpauth/basicauth.rb
+ 91% [1045/1141]  lib/webrick/httpauth/digestauth.rb
+ 91% [1046/1141]  lib/webrick/httpauth/htdigest.rb
+ 91% [1047/1141]  lib/webrick/httpauth/htgroup.rb
+ 91% [1048/1141]  lib/webrick/httpauth/htpasswd.rb
+ 91% [1049/1141]  lib/webrick/httpauth/userdb.rb
+ 92% [1050/1141]  lib/webrick/httpproxy.rb
+ 92% [1051/1141]  lib/webrick/httprequest.rb
+ 92% [1052/1141]  lib/webrick/httpresponse.rb
+ 92% [1053/1141]  lib/webrick/https.rb
+ 92% [1054/1141]  lib/webrick/httpserver.rb
+ 92% [1055/1141]  lib/webrick/httpservlet.rb
+ 92% [1056/1141]  lib/webrick/httpservlet/abstract.rb
+ 92% [1057/1141]  lib/webrick/httpservlet/cgi_runner.rb
+ 92% [1058/1141]  lib/webrick/httpservlet/cgihandler.rb
+ 92% [1059/1141]  lib/webrick/httpservlet/erbhandler.rb
+ 92% [1060/1141]  lib/webrick/httpservlet/filehandler.rb
+ 92% [1061/1141]  lib/webrick/httpservlet/prochandler.rb
+ 93% [1062/1141]  lib/webrick/httpstatus.rb
+ 93% [1063/1141]  lib/webrick/httputils.rb
+ 93% [1064/1141]  lib/webrick/httpversion.rb
+ 93% [1065/1141]  lib/webrick/log.rb
+ 93% [1066/1141]  lib/webrick/server.rb
+ 93% [1067/1141]  lib/webrick/ssl.rb
+ 93% [1068/1141]  lib/webrick/utils.rb
+ 93% [1069/1141]  lib/webrick/version.rb
+ 93% [1070/1141]  lib/yaml.rb
+ 93% [1071/1141]  lib/yaml/dbm.rb
+ 93% [1072/1141]  lib/yaml/store.rb
+ 94% [1073/1141]  load.c
+ 94% [1074/1141]  loadpath.c
+ 94% [1075/1141]  localeinit.c
+ 94% [1076/1141]  main.c
+ 94% [1077/1141]  marshal.c
+ 94% [1078/1141]  math.c
+ 94% [1079/1141]  mini_builtin.c
+ 94% [1080/1141]  miniinit.c
+ 94% [1081/1141]  miniprelude.c
+ 94% [1082/1141]  mjit.c
+ 94% [1083/1141]  mjit_compile.c
+ 95% [1084/1141]  mjit_worker.c
+ 95% [1085/1141]  node.c
+ 95% [1086/1141]  numeric.c
+ 95% [1087/1141]  object.c
+ 95% [1088/1141]  pack.c
+ 95% [1089/1141]  pack.rb
+ 95% [1090/1141]  parse.c
+ 95% [1091/1141]  parse.y
+ 95% [1092/1141]  prelude.rb
+ 95% [1093/1141]  proc.c
+ 95% [1094/1141]  process.c
+ 95% [1095/1141]  random.c
+ 96% [1096/1141]  range.c
+ 96% [1097/1141]  rational.c
+ 96% [1098/1141]  rbconfig.rb
+ 96% [1099/1141]  re.c
+ 96% [1100/1141]  regcomp.c
+ 96% [1101/1141]  regenc.c
+ 96% [1102/1141]  regerror.c
+ 96% [1103/1141]  regexec.c
+ 96% [1104/1141]  regparse.c
+ 96% [1105/1141]  regsyntax.c
+ 96% [1106/1141]  ruby-runner.c
+ 97% [1107/1141]  ruby.c
+ 97% [1108/1141]  rubystub.c
+ 97% [1109/1141]  safe.c
+ 97% [1110/1141]  signal.c
+ 97% [1111/1141]  siphash.c
+ 97% [1112/1141]  sparc.c
+ 97% [1113/1141]  sprintf.c
+ 97% [1114/1141]  st.c
+ 97% [1115/1141]  strftime.c
+ 97% [1116/1141]  string.c
+ 97% [1117/1141]  struct.c
+ 97% [1118/1141]  symbol.c
+ 98% [1119/1141]  thread.c
+ 98% [1120/1141]  thread_pthread.c
+ 98% [1121/1141]  thread_sync.c
+ 98% [1122/1141]  thread_win32.c
+ 98% [1123/1141]  time.c
+ 98% [1124/1141]  trace_point.rb
+ 98% [1125/1141]  transcode.c
+ 98% [1126/1141]  transient_heap.c
+ 98% [1127/1141]  util.c
+ 98% [1128/1141]  variable.c
+ 98% [1129/1141]  version.c
+ 99% [1130/1141]  vm.c
+ 99% [1131/1141]  vm_args.c
+ 99% [1132/1141]  vm_backtrace.c
+ 99% [1133/1141]  vm_dump.c
+ 99% [1134/1141]  vm_eval.c
+ 99% [1135/1141]  vm_exec.c
+ 99% [1136/1141]  vm_insnhelper.c
+ 99% [1137/1141]  vm_method.c
+ 99% [1138/1141]  vm_trace.c
+ 99% [1139/1141]  vsnprintf.c
+ 99% [1140/1141]  warning.rb
+100% [1141/1141]  win32/README.win32
+
+Generating RI format into /tmp/real/c_ruby/ruby/.ext/rdoc...
+
+
+  Files:       1141
+
+  Classes:     1614 ( 758 undocumented)
+  Modules:      327 ( 134 undocumented)
+  Constants:   2436 ( 727 undocumented)
+  Attributes:  1489 ( 559 undocumented)
+  Methods:    13029 (3996 undocumented)
+
+  Total:      18895 (6174 undocumented)
+   67.32% documented
+
+  Elapsed: 21.4s
+
+scan-build: Analysis run complete.
+scan-build: 45 bugs found.
+scan-build: Run 'scan-view /tmp/scan-build-2020-11-17-110701-27545-1' to examine bug reports.
+scan-build: The analyzer encountered problems on some source files.
+scan-build: Preprocessed versions of these sources were deposited in '/tmp/scan-build-2020-11-17-110701-27545-1/failures'.
+scan-build: Please consider submitting a bug report using these files:
+scan-build:   http://clang-analyzer.llvm.org/filing_bugs.html

@@ -1,0 +1,17 @@
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -Wall -O2 -c -o obj/wrk.o src/wrk.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -Wall -O2 -c -o obj/aprintf.o src/aprintf.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -Wall -O2 -c -o obj/stats.o src/stats.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -Wall -O2 -c -o obj/units.o src/units.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -Wall -O2 -c -o obj/ae.o src/ae.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -Wall -O2 -c -o obj/zmalloc.o src/zmalloc.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -Wall -O2 -c -o obj/http_parser.o src/http_parser.c
+src/http_parser.c:1950:3: warning: Value stored to 'uf' is never read [deadcode.DeadStores]
+  uf = old_uf = UF_MAX;
+  ^    ~~~~~~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -std=c99 -Wall -O2 -c -o obj/tinymt64.o src/tinymt64.c
+/llvm-project/build/bin/../libexec/ccc-analyzer  -o wrk obj/wrk.o obj/aprintf.o obj/stats.o obj/units.o obj/ae.o obj/zmalloc.o obj/http_parser.o obj/tinymt64.o -lpthread -lm
+scan-build: Analysis run complete.
+scan-build: 1 bug found.
+scan-build: Run 'scan-view /tmp/scan-build-2020-11-20-011311-6667-1' to examine bug reports.

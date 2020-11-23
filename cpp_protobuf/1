@@ -1,0 +1,1018 @@
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+make  all-recursive
+make[1]: Entering directory '/tmp/real/cpp_protobuf/protobuf'
+Making all in .
+make[2]: Entering directory '/tmp/real/cpp_protobuf/protobuf'
+make[2]: Leaving directory '/tmp/real/cpp_protobuf/protobuf'
+Making all in src
+make[2]: Entering directory '/tmp/real/cpp_protobuf/protobuf/src'
+  CXX      google/protobuf/stubs/bytestream.lo
+  CXX      google/protobuf/stubs/common.lo
+  CXX      google/protobuf/stubs/int128.lo
+  CXX      google/protobuf/io/io_win32.lo
+  CXX      google/protobuf/stubs/status.lo
+  CXX      google/protobuf/stubs/statusor.lo
+  CXX      google/protobuf/stubs/stringpiece.lo
+  CXX      google/protobuf/stubs/stringprintf.lo
+google/protobuf/stubs/stringprintf.cc:166:10: warning: 2nd function call argument is an uninitialized value [core.CallAndMessage]
+  return StringPrintf(format,
+         ^~~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/stringprintf.cc:166:10: warning: 3rd function call argument is an uninitialized value [core.CallAndMessage]
+  return StringPrintf(format,
+         ^~~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/stringprintf.cc:166:10: warning: 4th function call argument is an uninitialized value [core.CallAndMessage]
+  return StringPrintf(format,
+         ^~~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/stringprintf.cc:166:10: warning: 5th function call argument is an uninitialized value [core.CallAndMessage]
+  return StringPrintf(format,
+         ^~~~~~~~~~~~~~~~~~~~
+4 warnings generated.
+  CXX      google/protobuf/stubs/structurally_valid.lo
+  CXX      google/protobuf/stubs/strutil.lo
+google/protobuf/stubs/strutil.cc:366:23: warning: Value stored to 'hex_start' during its initialization is never read [deadcode.DeadStores]
+          const char *hex_start = p;
+                      ^~~~~~~~~   ~
+google/protobuf/stubs/strutil.cc:1260:7: warning: Value stored to 'snprintf_result' during its initialization is never read [deadcode.DeadStores]
+  int snprintf_result =
+      ^~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1275:9: warning: Value stored to 'snprintf_result' during its initialization is never read [deadcode.DeadStores]
+    int snprintf_result =
+        ^~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1378:7: warning: Value stored to 'snprintf_result' during its initialization is never read [deadcode.DeadStores]
+  int snprintf_result =
+      ^~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1387:9: warning: Value stored to 'snprintf_result' during its initialization is never read [deadcode.DeadStores]
+    int snprintf_result =
+        ^~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1476:9: warning: Value stored to 'out' during its initialization is never read [deadcode.DeadStores]
+  char *out = Append2(begin, a, b);
+        ^~~   ~~~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1486:3: warning: Value stored to 'out' is never read [deadcode.DeadStores]
+  out = Append1(out, c);
+  ^     ~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1496:9: warning: Value stored to 'out' during its initialization is never read [deadcode.DeadStores]
+  char *out = Append4(begin, a, b, c, d);
+        ^~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1507:3: warning: Value stored to 'out' is never read [deadcode.DeadStores]
+  out = Append1(out, e);
+  ^     ~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1519:3: warning: Value stored to 'out' is never read [deadcode.DeadStores]
+  out = Append2(out, e, f);
+  ^     ~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1533:3: warning: Value stored to 'out' is never read [deadcode.DeadStores]
+  out = Append1(out, g);
+  ^     ~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1546:3: warning: Value stored to 'out' is never read [deadcode.DeadStores]
+  out = Append4(out, e, f, g, h);
+  ^     ~~~~~~~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1560:3: warning: Value stored to 'out' is never read [deadcode.DeadStores]
+  out = Append1(out, i);
+  ^     ~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1584:9: warning: Value stored to 'out' during its initialization is never read [deadcode.DeadStores]
+  char *out = Append2(begin + old_size, a, b);
+        ^~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1597:3: warning: Value stored to 'out' is never read [deadcode.DeadStores]
+  out = Append1(out, c);
+  ^     ~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1610:9: warning: Value stored to 'out' during its initialization is never read [deadcode.DeadStores]
+  char *out = Append4(begin + old_size, a, b, c, d);
+        ^~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:2137:14: warning: Although the value stored to 'szdest' is used in the enclosing expression, the value is never actually read from 'szdest' [deadcode.DeadStores]
+        if ((szdest -= 2) < 0) return 0;
+             ^         ~
+google/protobuf/stubs/strutil.cc:2156:14: warning: Although the value stored to 'szdest' is used in the enclosing expression, the value is never actually read from 'szdest' [deadcode.DeadStores]
+        if ((szdest -= 1) < 0) return 0;
+             ^         ~
+google/protobuf/stubs/strutil.cc:2166:12: warning: Although the value stored to 'szdest' is used in the enclosing expression, the value is never actually read from 'szdest' [deadcode.DeadStores]
+      if ((szdest -= 4) < 0) return 0;
+           ^         ~
+19 warnings generated.
+  CXX      google/protobuf/stubs/time.lo
+  CXX      google/protobuf/any_lite.lo
+  CXX      google/protobuf/arena.lo
+  CXX      google/protobuf/arenastring.lo
+  CXX      google/protobuf/extension_set.lo
+  CXX      google/protobuf/generated_enum_util.lo
+  CXX      google/protobuf/generated_message_util.lo
+  CXX      google/protobuf/generated_message_table_driven_lite.lo
+  CXX      google/protobuf/implicit_weak_message.lo
+  CXX      google/protobuf/map.lo
+  CXX      google/protobuf/message_lite.lo
+In file included from /usr/include/string.h:494:0,
+                 from ./google/protobuf/stubs/port.h:39,
+                 from ./google/protobuf/stubs/macros.h:34,
+                 from ./google/protobuf/stubs/common.h:46,
+                 from ./google/protobuf/message_lite.h:45,
+                 from google/protobuf/message_lite.cc:36:
+In function 'void* memcpy(void*, const void*, size_t)',
+    inlined from 'google::protobuf::uint8* google::protobuf::io::EpsCopyOutputStream::WriteRaw(const void*, int, google::protobuf::uint8*)' at ./google/protobuf/io/coded_stream.h:699:16,
+    inlined from 'virtual google::protobuf::uint8* google::protobuf::internal::ImplicitWeakMessage::_InternalSerialize(google::protobuf::uint8*, google::protobuf::io::EpsCopyOutputStream*) const' at ./google/protobuf/implicit_weak_message.h:86:35,
+    inlined from 'bool google::protobuf::MessageLite::SerializePartialToZeroCopyStream(google::protobuf::io::ZeroCopyOutputStream*) const' at google/protobuf/message_lite.cc:419:30:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:34:71: warning: 'void* __builtin___memcpy_chk(void*, const void*, long unsigned int, long unsigned int)': specified size between 18446744071562067968 and 18446744073709551615 exceeds maximum object size 9223372036854775807 [-Wstringop-overflow=]
+   return __builtin___memcpy_chk (__dest, __src, __len, __bos0 (__dest));
+                                                                       ^
+  CXX      google/protobuf/parse_context.lo
+  CXX      google/protobuf/repeated_field.lo
+google/protobuf/repeated_field.cc:115:3: warning: Access to field 'allocated_size' results in a dereference of a null pointer (loaded from field 'rep_') [core.NullDereference]
+  ++rep_->allocated_size;
+  ^~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/wire_format_lite.lo
+  CXX      google/protobuf/io/coded_stream.lo
+  CXX      google/protobuf/io/strtod.lo
+  CXX      google/protobuf/io/zero_copy_stream.lo
+  CXX      google/protobuf/io/zero_copy_stream_impl.lo
+  CXX      google/protobuf/io/zero_copy_stream_impl_lite.lo
+  CXXLD    libprotobuf-lite.la
+ar: `u' modifier ignored since `D' is the default (see `U')
+  CXX      google/protobuf/any.pb.lo
+In file included from google/protobuf/any.pb.cc:4:
+In file included from ./google/protobuf/any.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/api.pb.lo
+In file included from google/protobuf/api.pb.cc:4:
+In file included from ./google/protobuf/api.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/any.lo
+  CXX      google/protobuf/descriptor.lo
+google/protobuf/descriptor.cc:3589:3: warning: Called C++ object pointer is null [core.CallAndMessage]
+  mutex_->AssertHeld();
+  ^~~~~~~~~~~~~~~~~~~~
+google/protobuf/descriptor.cc:6613:8: warning: Called C++ object pointer is null [core.CallAndMessage]
+  if (!field->is_repeated() &&
+       ^~~~~~~~~~~~~~~~~~~~
+google/protobuf/descriptor.cc:7419:3: warning: Access to field 'lazily_build_dependencies_' results in a dereference of a null pointer (loaded from field 'pool_') [core.NullDereference]
+  GOOGLE_CHECK(file->pool_->lazily_build_dependencies_);
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/stubs/logging.h:154:25: note: expanded from macro 'GOOGLE_CHECK'
+  GOOGLE_LOG_IF(FATAL, !(EXPRESSION)) << "CHECK failed: " #EXPRESSION ": "
+  ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+./google/protobuf/stubs/logging.h:151:5: note: expanded from macro 'GOOGLE_LOG_IF'
+  !(CONDITION) ? (void)0 : GOOGLE_LOG(LEVEL)
+    ^~~~~~~~~
+google/protobuf/descriptor.cc:7419:16: warning: Access to field 'pool_' results in a dereference of a null pointer (loaded from variable 'file') [core.NullDereference]
+  GOOGLE_CHECK(file->pool_->lazily_build_dependencies_);
+               ^~~~~~~~~~~
+./google/protobuf/stubs/logging.h:154:26: note: expanded from macro 'GOOGLE_CHECK'
+  GOOGLE_LOG_IF(FATAL, !(EXPRESSION)) << "CHECK failed: " #EXPRESSION ": "
+                         ^~~~~~~~~~
+./google/protobuf/stubs/logging.h:151:5: note: expanded from macro 'GOOGLE_LOG_IF'
+  !(CONDITION) ? (void)0 : GOOGLE_LOG(LEVEL)
+    ^~~~~~~~~
+4 warnings generated.
+  CXX      google/protobuf/descriptor_database.lo
+  CXX      google/protobuf/descriptor.pb.lo
+In file included from google/protobuf/descriptor.pb.cc:4:
+In file included from ./google/protobuf/descriptor.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/duration.pb.lo
+In file included from google/protobuf/duration.pb.cc:4:
+In file included from ./google/protobuf/duration.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/dynamic_message.lo
+In file included from google/protobuf/dynamic_message.cc:80:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+  CXX      google/protobuf/empty.pb.lo
+In file included from google/protobuf/empty.pb.cc:4:
+In file included from ./google/protobuf/empty.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/extension_set_heavy.lo
+  CXX      google/protobuf/field_mask.pb.lo
+In file included from google/protobuf/field_mask.pb.cc:4:
+In file included from ./google/protobuf/field_mask.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/generated_message_reflection.lo
+In file included from google/protobuf/generated_message_reflection.cc:46:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+  CXX      google/protobuf/generated_message_table_driven.lo
+  CXX      google/protobuf/map_field.lo
+In file included from google/protobuf/map_field.cc:31:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+  CXX      google/protobuf/message.lo
+In file included from google/protobuf/message.cc:46:
+In file included from ./google/protobuf/reflection_internal.h:34:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+  CXX      google/protobuf/reflection_ops.lo
+In file included from google/protobuf/reflection_ops.cc:43:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+  CXX      google/protobuf/service.lo
+  CXX      google/protobuf/source_context.pb.lo
+In file included from google/protobuf/source_context.pb.cc:4:
+In file included from ./google/protobuf/source_context.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/struct.pb.lo
+In file included from google/protobuf/struct.pb.cc:4:
+In file included from ./google/protobuf/struct.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+In file included from google/protobuf/struct.pb.cc:4:
+In file included from ./google/protobuf/struct.pb.h:35:
+In file included from ./google/protobuf/map_field_inl.h:38:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+4 warnings generated.
+  CXX      google/protobuf/stubs/substitute.lo
+google/protobuf/stubs/substitute.cc:123:19: warning: Dereference of null pointer [core.NullDereference]
+        *target++ = '$';
+        ~~~~~~~~~~^~~~~
+google/protobuf/stubs/substitute.cc:127:17: warning: Dereference of null pointer [core.NullDereference]
+      *target++ = format[i];
+      ~~~~~~~~~~^~~~~~~~~~~
+2 warnings generated.
+  CXX      google/protobuf/text_format.lo
+In file included from google/protobuf/text_format.cc:55:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+google/protobuf/text_format.cc:1428:5: warning: Called C++ object pointer is null [core.CallAndMessage]
+    error_collector->AddError(
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~
+4 warnings generated.
+  CXX      google/protobuf/timestamp.pb.lo
+In file included from google/protobuf/timestamp.pb.cc:4:
+In file included from ./google/protobuf/timestamp.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/type.pb.lo
+In file included from google/protobuf/type.pb.cc:4:
+In file included from ./google/protobuf/type.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/unknown_field_set.lo
+  CXX      google/protobuf/wire_format.lo
+In file included from google/protobuf/wire_format.cc:51:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+  CXX      google/protobuf/wrappers.pb.lo
+In file included from google/protobuf/wrappers.pb.cc:4:
+In file included from ./google/protobuf/wrappers.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/io/gzip_stream.lo
+  CXX      google/protobuf/io/printer.lo
+  CXX      google/protobuf/io/tokenizer.lo
+  CXX      google/protobuf/compiler/importer.lo
+  CXX      google/protobuf/compiler/parser.lo
+  CXX      google/protobuf/util/delimited_message_util.lo
+  CXX      google/protobuf/util/field_comparator.lo
+  CXX      google/protobuf/util/field_mask_util.lo
+  CXX      google/protobuf/util/internal/datapiece.lo
+In file included from google/protobuf/util/internal/datapiece.cc:36:
+In file included from ./google/protobuf/struct.pb.h:35:
+In file included from ./google/protobuf/map_field_inl.h:38:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+  CXX      google/protobuf/util/internal/default_value_objectwriter.lo
+  CXX      google/protobuf/util/internal/error_listener.lo
+  CXX      google/protobuf/util/internal/field_mask_utility.lo
+  CXX      google/protobuf/util/internal/json_escaping.lo
+  CXX      google/protobuf/util/internal/json_objectwriter.lo
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+make  all-recursive
+make[1]: Entering directory '/tmp/real/cpp_protobuf/protobuf'
+Making all in .
+make[2]: Entering directory '/tmp/real/cpp_protobuf/protobuf'
+make[2]: Nothing to be done for 'all-am'.
+make[2]: Leaving directory '/tmp/real/cpp_protobuf/protobuf'
+Making all in src
+make[2]: Entering directory '/tmp/real/cpp_protobuf/protobuf/src'
+  CXX      google/protobuf/stubs/bytestream.lo
+  CXX      google/protobuf/stubs/common.lo
+  CXX      google/protobuf/stubs/int128.lo
+  CXX      google/protobuf/io/io_win32.lo
+  CXX      google/protobuf/stubs/status.lo
+  CXX      google/protobuf/stubs/statusor.lo
+  CXX      google/protobuf/stubs/stringpiece.lo
+  CXX      google/protobuf/stubs/stringprintf.lo
+google/protobuf/stubs/stringprintf.cc:166:10: warning: 2nd function call argument is an uninitialized value [core.CallAndMessage]
+  return StringPrintf(format,
+         ^~~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/stringprintf.cc:166:10: warning: 3rd function call argument is an uninitialized value [core.CallAndMessage]
+  return StringPrintf(format,
+         ^~~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/stringprintf.cc:166:10: warning: 4th function call argument is an uninitialized value [core.CallAndMessage]
+  return StringPrintf(format,
+         ^~~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/stringprintf.cc:166:10: warning: 5th function call argument is an uninitialized value [core.CallAndMessage]
+  return StringPrintf(format,
+         ^~~~~~~~~~~~~~~~~~~~
+4 warnings generated.
+  CXX      google/protobuf/stubs/structurally_valid.lo
+  CXX      google/protobuf/stubs/strutil.lo
+google/protobuf/stubs/strutil.cc:366:23: warning: Value stored to 'hex_start' during its initialization is never read [deadcode.DeadStores]
+          const char *hex_start = p;
+                      ^~~~~~~~~   ~
+google/protobuf/stubs/strutil.cc:1260:7: warning: Value stored to 'snprintf_result' during its initialization is never read [deadcode.DeadStores]
+  int snprintf_result =
+      ^~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1275:9: warning: Value stored to 'snprintf_result' during its initialization is never read [deadcode.DeadStores]
+    int snprintf_result =
+        ^~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1378:7: warning: Value stored to 'snprintf_result' during its initialization is never read [deadcode.DeadStores]
+  int snprintf_result =
+      ^~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1387:9: warning: Value stored to 'snprintf_result' during its initialization is never read [deadcode.DeadStores]
+    int snprintf_result =
+        ^~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1476:9: warning: Value stored to 'out' during its initialization is never read [deadcode.DeadStores]
+  char *out = Append2(begin, a, b);
+        ^~~   ~~~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1486:3: warning: Value stored to 'out' is never read [deadcode.DeadStores]
+  out = Append1(out, c);
+  ^     ~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1496:9: warning: Value stored to 'out' during its initialization is never read [deadcode.DeadStores]
+  char *out = Append4(begin, a, b, c, d);
+        ^~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1507:3: warning: Value stored to 'out' is never read [deadcode.DeadStores]
+  out = Append1(out, e);
+  ^     ~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1519:3: warning: Value stored to 'out' is never read [deadcode.DeadStores]
+  out = Append2(out, e, f);
+  ^     ~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1533:3: warning: Value stored to 'out' is never read [deadcode.DeadStores]
+  out = Append1(out, g);
+  ^     ~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1546:3: warning: Value stored to 'out' is never read [deadcode.DeadStores]
+  out = Append4(out, e, f, g, h);
+  ^     ~~~~~~~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1560:3: warning: Value stored to 'out' is never read [deadcode.DeadStores]
+  out = Append1(out, i);
+  ^     ~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1584:9: warning: Value stored to 'out' during its initialization is never read [deadcode.DeadStores]
+  char *out = Append2(begin + old_size, a, b);
+        ^~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1597:3: warning: Value stored to 'out' is never read [deadcode.DeadStores]
+  out = Append1(out, c);
+  ^     ~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:1610:9: warning: Value stored to 'out' during its initialization is never read [deadcode.DeadStores]
+  char *out = Append4(begin + old_size, a, b, c, d);
+        ^~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+google/protobuf/stubs/strutil.cc:2137:14: warning: Although the value stored to 'szdest' is used in the enclosing expression, the value is never actually read from 'szdest' [deadcode.DeadStores]
+        if ((szdest -= 2) < 0) return 0;
+             ^         ~
+google/protobuf/stubs/strutil.cc:2156:14: warning: Although the value stored to 'szdest' is used in the enclosing expression, the value is never actually read from 'szdest' [deadcode.DeadStores]
+        if ((szdest -= 1) < 0) return 0;
+             ^         ~
+google/protobuf/stubs/strutil.cc:2166:12: warning: Although the value stored to 'szdest' is used in the enclosing expression, the value is never actually read from 'szdest' [deadcode.DeadStores]
+      if ((szdest -= 4) < 0) return 0;
+           ^         ~
+19 warnings generated.
+  CXX      google/protobuf/stubs/time.lo
+  CXX      google/protobuf/any_lite.lo
+  CXX      google/protobuf/arena.lo
+  CXX      google/protobuf/arenastring.lo
+  CXX      google/protobuf/extension_set.lo
+  CXX      google/protobuf/generated_enum_util.lo
+  CXX      google/protobuf/generated_message_util.lo
+  CXX      google/protobuf/generated_message_table_driven_lite.lo
+  CXX      google/protobuf/implicit_weak_message.lo
+  CXX      google/protobuf/map.lo
+  CXX      google/protobuf/message_lite.lo
+In file included from /usr/include/string.h:494:0,
+                 from ./google/protobuf/stubs/port.h:39,
+                 from ./google/protobuf/stubs/macros.h:34,
+                 from ./google/protobuf/stubs/common.h:46,
+                 from ./google/protobuf/message_lite.h:45,
+                 from google/protobuf/message_lite.cc:36:
+In function 'void* memcpy(void*, const void*, size_t)',
+    inlined from 'google::protobuf::uint8* google::protobuf::io::EpsCopyOutputStream::WriteRaw(const void*, int, google::protobuf::uint8*)' at ./google/protobuf/io/coded_stream.h:699:16,
+    inlined from 'virtual google::protobuf::uint8* google::protobuf::internal::ImplicitWeakMessage::_InternalSerialize(google::protobuf::uint8*, google::protobuf::io::EpsCopyOutputStream*) const' at ./google/protobuf/implicit_weak_message.h:86:35,
+    inlined from 'bool google::protobuf::MessageLite::SerializePartialToZeroCopyStream(google::protobuf::io::ZeroCopyOutputStream*) const' at google/protobuf/message_lite.cc:419:30:
+/usr/include/x86_64-linux-gnu/bits/string_fortified.h:34:71: warning: 'void* __builtin___memcpy_chk(void*, const void*, long unsigned int, long unsigned int)': specified size between 18446744071562067968 and 18446744073709551615 exceeds maximum object size 9223372036854775807 [-Wstringop-overflow=]
+   return __builtin___memcpy_chk (__dest, __src, __len, __bos0 (__dest));
+                                                                       ^
+  CXX      google/protobuf/parse_context.lo
+  CXX      google/protobuf/repeated_field.lo
+google/protobuf/repeated_field.cc:115:3: warning: Access to field 'allocated_size' results in a dereference of a null pointer (loaded from field 'rep_') [core.NullDereference]
+  ++rep_->allocated_size;
+  ^~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/wire_format_lite.lo
+  CXX      google/protobuf/io/coded_stream.lo
+  CXX      google/protobuf/io/strtod.lo
+  CXX      google/protobuf/io/zero_copy_stream.lo
+  CXX      google/protobuf/io/zero_copy_stream_impl.lo
+  CXX      google/protobuf/io/zero_copy_stream_impl_lite.lo
+  CXXLD    libprotobuf-lite.la
+ar: `u' modifier ignored since `D' is the default (see `U')
+  CXX      google/protobuf/any.pb.lo
+In file included from google/protobuf/any.pb.cc:4:
+In file included from ./google/protobuf/any.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/api.pb.lo
+In file included from google/protobuf/api.pb.cc:4:
+In file included from ./google/protobuf/api.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/any.lo
+  CXX      google/protobuf/descriptor.lo
+google/protobuf/descriptor.cc:3589:3: warning: Called C++ object pointer is null [core.CallAndMessage]
+  mutex_->AssertHeld();
+  ^~~~~~~~~~~~~~~~~~~~
+google/protobuf/descriptor.cc:6613:8: warning: Called C++ object pointer is null [core.CallAndMessage]
+  if (!field->is_repeated() &&
+       ^~~~~~~~~~~~~~~~~~~~
+google/protobuf/descriptor.cc:7419:3: warning: Access to field 'lazily_build_dependencies_' results in a dereference of a null pointer (loaded from field 'pool_') [core.NullDereference]
+  GOOGLE_CHECK(file->pool_->lazily_build_dependencies_);
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/stubs/logging.h:154:25: note: expanded from macro 'GOOGLE_CHECK'
+  GOOGLE_LOG_IF(FATAL, !(EXPRESSION)) << "CHECK failed: " #EXPRESSION ": "
+  ~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+./google/protobuf/stubs/logging.h:151:5: note: expanded from macro 'GOOGLE_LOG_IF'
+  !(CONDITION) ? (void)0 : GOOGLE_LOG(LEVEL)
+    ^~~~~~~~~
+google/protobuf/descriptor.cc:7419:16: warning: Access to field 'pool_' results in a dereference of a null pointer (loaded from variable 'file') [core.NullDereference]
+  GOOGLE_CHECK(file->pool_->lazily_build_dependencies_);
+               ^~~~~~~~~~~
+./google/protobuf/stubs/logging.h:154:26: note: expanded from macro 'GOOGLE_CHECK'
+  GOOGLE_LOG_IF(FATAL, !(EXPRESSION)) << "CHECK failed: " #EXPRESSION ": "
+                         ^~~~~~~~~~
+./google/protobuf/stubs/logging.h:151:5: note: expanded from macro 'GOOGLE_LOG_IF'
+  !(CONDITION) ? (void)0 : GOOGLE_LOG(LEVEL)
+    ^~~~~~~~~
+4 warnings generated.
+  CXX      google/protobuf/descriptor_database.lo
+  CXX      google/protobuf/descriptor.pb.lo
+In file included from google/protobuf/descriptor.pb.cc:4:
+In file included from ./google/protobuf/descriptor.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/duration.pb.lo
+In file included from google/protobuf/duration.pb.cc:4:
+In file included from ./google/protobuf/duration.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/dynamic_message.lo
+In file included from google/protobuf/dynamic_message.cc:80:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+  CXX      google/protobuf/empty.pb.lo
+In file included from google/protobuf/empty.pb.cc:4:
+In file included from ./google/protobuf/empty.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/extension_set_heavy.lo
+  CXX      google/protobuf/field_mask.pb.lo
+In file included from google/protobuf/field_mask.pb.cc:4:
+In file included from ./google/protobuf/field_mask.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/generated_message_reflection.lo
+In file included from google/protobuf/generated_message_reflection.cc:46:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+  CXX      google/protobuf/generated_message_table_driven.lo
+  CXX      google/protobuf/map_field.lo
+In file included from google/protobuf/map_field.cc:31:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+  CXX      google/protobuf/message.lo
+In file included from google/protobuf/message.cc:46:
+In file included from ./google/protobuf/reflection_internal.h:34:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+  CXX      google/protobuf/reflection_ops.lo
+In file included from google/protobuf/reflection_ops.cc:43:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+  CXX      google/protobuf/service.lo
+  CXX      google/protobuf/source_context.pb.lo
+In file included from google/protobuf/source_context.pb.cc:4:
+In file included from ./google/protobuf/source_context.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/struct.pb.lo
+In file included from google/protobuf/struct.pb.cc:4:
+In file included from ./google/protobuf/struct.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+In file included from google/protobuf/struct.pb.cc:4:
+In file included from ./google/protobuf/struct.pb.h:35:
+In file included from ./google/protobuf/map_field_inl.h:38:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+4 warnings generated.
+  CXX      google/protobuf/stubs/substitute.lo
+google/protobuf/stubs/substitute.cc:123:19: warning: Dereference of null pointer [core.NullDereference]
+        *target++ = '$';
+        ~~~~~~~~~~^~~~~
+google/protobuf/stubs/substitute.cc:127:17: warning: Dereference of null pointer [core.NullDereference]
+      *target++ = format[i];
+      ~~~~~~~~~~^~~~~~~~~~~
+2 warnings generated.
+  CXX      google/protobuf/text_format.lo
+In file included from google/protobuf/text_format.cc:55:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+google/protobuf/text_format.cc:1428:5: warning: Called C++ object pointer is null [core.CallAndMessage]
+    error_collector->AddError(
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~
+4 warnings generated.
+  CXX      google/protobuf/timestamp.pb.lo
+In file included from google/protobuf/timestamp.pb.cc:4:
+In file included from ./google/protobuf/timestamp.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/type.pb.lo
+In file included from google/protobuf/type.pb.cc:4:
+In file included from ./google/protobuf/type.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/unknown_field_set.lo
+  CXX      google/protobuf/wire_format.lo
+In file included from google/protobuf/wire_format.cc:51:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+  CXX      google/protobuf/wrappers.pb.lo
+In file included from google/protobuf/wrappers.pb.cc:4:
+In file included from ./google/protobuf/wrappers.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/io/gzip_stream.lo
+  CXX      google/protobuf/io/printer.lo
+  CXX      google/protobuf/io/tokenizer.lo
+  CXX      google/protobuf/compiler/importer.lo
+  CXX      google/protobuf/compiler/parser.lo
+  CXX      google/protobuf/util/delimited_message_util.lo
+  CXX      google/protobuf/util/field_comparator.lo
+  CXX      google/protobuf/util/field_mask_util.lo
+  CXX      google/protobuf/util/internal/datapiece.lo
+In file included from google/protobuf/util/internal/datapiece.cc:36:
+In file included from ./google/protobuf/struct.pb.h:35:
+In file included from ./google/protobuf/map_field_inl.h:38:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+  CXX      google/protobuf/util/internal/default_value_objectwriter.lo
+  CXX      google/protobuf/util/internal/error_listener.lo
+  CXX      google/protobuf/util/internal/field_mask_utility.lo
+  CXX      google/protobuf/util/internal/json_escaping.lo
+  CXX      google/protobuf/util/internal/json_objectwriter.lo
+  CXX      google/protobuf/util/internal/json_stream_parser.lo
+  CXX      google/protobuf/util/internal/object_writer.lo
+  CXX      google/protobuf/util/internal/protostream_objectsource.lo
+  CXX      google/protobuf/util/internal/protostream_objectwriter.lo
+  CXX      google/protobuf/util/internal/proto_writer.lo
+  CXX      google/protobuf/util/internal/type_info.lo
+  CXX      google/protobuf/util/internal/type_info_test_helper.lo
+  CXX      google/protobuf/util/internal/utility.lo
+  CXX      google/protobuf/util/json_util.lo
+  CXX      google/protobuf/util/message_differencer.lo
+In file included from google/protobuf/util/message_differencer.cc:50:
+./google/protobuf/map_field.h:287:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:291:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt64Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+./google/protobuf/map_field.h:295:14: warning: Value stored to 'value' during its initialization is never read [deadcode.DeadStores]
+        auto value = map_key.GetUInt32Value();
+             ^~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~
+google/protobuf/util/message_differencer.cc:749:21: warning: Called C++ object pointer is null [core.CallAndMessage]
+        int count = field1->is_repeated()
+                    ^~~~~~~~~~~~~~~~~~~~~
+google/protobuf/util/message_differencer.cc:836:9: warning: Called C++ object pointer is null [core.CallAndMessage]
+    if (field1->is_repeated()) {
+        ^~~~~~~~~~~~~~~~~~~~~
+google/protobuf/util/message_differencer.cc:1176:5: warning: Called C++ object pointer is null [core.CallAndMessage]
+    reporter_->ReportDeleted(message1, message2, *parent_fields);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+6 warnings generated.
+  CXX      google/protobuf/util/time_util.lo
+  CXX      google/protobuf/util/type_resolver_util.lo
+  CXXLD    libprotobuf.la
+ar: `u' modifier ignored since `D' is the default (see `U')
+  CXX      google/protobuf/compiler/code_generator.lo
+  CXX      google/protobuf/compiler/command_line_interface.lo
+  CXX      google/protobuf/compiler/plugin.lo
+  CXX      google/protobuf/compiler/plugin.pb.lo
+In file included from google/protobuf/compiler/plugin.pb.cc:4:
+In file included from ./google/protobuf/compiler/plugin.pb.h:26:
+In file included from ./google/protobuf/generated_message_table_driven.h:34:
+In file included from ./google/protobuf/map.h:55:
+In file included from ./google/protobuf/generated_enum_util.h:36:
+In file included from ./google/protobuf/message_lite.h:49:
+./google/protobuf/metadata_lite.h:92:14: warning: Called function pointer is null (null dereference) [core.CallAndMessage]
+      return default_instance();
+             ^~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/compiler/subprocess.lo
+google/protobuf/compiler/subprocess.cc:316:5: warning: Potential memory leak [unix.Malloc]
+    GOOGLE_LOG(FATAL) << "fork: " << strerror(errno);
+    ^~~~~~~~~~~~~~~~~
+./google/protobuf/stubs/logging.h:147:47: note: expanded from macro 'GOOGLE_LOG'
+  ::google::protobuf::internal::LogFinisher() = \
+                                              ^
+google/protobuf/compiler/subprocess.cc:329:9: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+        execvp(argv[0], argv);
+        ^~~~~~~~~~~~~~~~~~~~~
+google/protobuf/compiler/subprocess.cc:332:9: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+        execv(argv[0], argv);
+        ^~~~~~~~~~~~~~~~~~~~
+google/protobuf/compiler/subprocess.cc:339:5: warning: Value stored to 'ignored' is never read [deadcode.DeadStores]
+    ignored = write(STDERR_FILENO, argv[0], strlen(argv[0]));
+    ^         ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+4 warnings generated.
+  CXX      google/protobuf/compiler/zip_writer.lo
+  CXX      google/protobuf/compiler/cpp/cpp_enum.lo
+  CXX      google/protobuf/compiler/cpp/cpp_enum_field.lo
+  CXX      google/protobuf/compiler/cpp/cpp_extension.lo
+  CXX      google/protobuf/compiler/cpp/cpp_field.lo
+  CXX      google/protobuf/compiler/cpp/cpp_file.lo
+  CXX      google/protobuf/compiler/cpp/cpp_generator.lo
+  CXX      google/protobuf/compiler/cpp/cpp_helpers.lo
+  CXX      google/protobuf/compiler/cpp/cpp_map_field.lo
+  CXX      google/protobuf/compiler/cpp/cpp_message.lo
+google/protobuf/compiler/cpp/cpp_message.cc:798:32: warning: The result of the left shift is undefined because the right operand is negative [core.UndefinedBinaryOperatorResult]
+               strings::Hex(1u << (has_bit_index % 32), strings::ZERO_PAD_8));
+                               ^  ~~~~~~~~~~~~~~~~~~~~
+google/protobuf/compiler/cpp/cpp_message.cc:934:34: warning: The result of the left shift is undefined because the right operand is negative [core.UndefinedBinaryOperatorResult]
+                 strings::Hex(1u << (has_bit_index % 32), strings::ZERO_PAD_8));
+                                 ^  ~~~~~~~~~~~~~~~~~~~~
+google/protobuf/compiler/cpp/cpp_message.cc:1573:5: warning: Value stored to 'need_to_emit_cached_size' is never read [deadcode.DeadStores]
+    need_to_emit_cached_size = false;
+    ^                          ~~~~~
+google/protobuf/compiler/cpp/cpp_message.cc:1968:53: warning: The result of the left shift is undefined because the right operand is negative [core.UndefinedBinaryOperatorResult]
+          FieldName(field), has_bit_index / 32, (1u << (has_bit_index % 32)));
+                                                    ^  ~~~~~~~~~~~~~~~~~~~~
+4 warnings generated.
+  CXX      google/protobuf/compiler/cpp/cpp_message_field.lo
+  CXX      google/protobuf/compiler/cpp/cpp_padding_optimizer.lo
+  CXX      google/protobuf/compiler/cpp/cpp_primitive_field.lo
+  CXX      google/protobuf/compiler/cpp/cpp_service.lo
+  CXX      google/protobuf/compiler/cpp/cpp_string_field.lo
+  CXX      google/protobuf/compiler/java/java_context.lo
+  CXX      google/protobuf/compiler/java/java_enum.lo
+  CXX      google/protobuf/compiler/java/java_enum_lite.lo
+  CXX      google/protobuf/compiler/java/java_enum_field.lo
+  CXX      google/protobuf/compiler/java/java_enum_field_lite.lo
+  CXX      google/protobuf/compiler/java/java_extension.lo
+  CXX      google/protobuf/compiler/java/java_extension_lite.lo
+  CXX      google/protobuf/compiler/java/java_field.lo
+  CXX      google/protobuf/compiler/java/java_file.lo
+  CXX      google/protobuf/compiler/java/java_generator.lo
+  CXX      google/protobuf/compiler/java/java_generator_factory.lo
+  CXX      google/protobuf/compiler/java/java_helpers.lo
+  CXX      google/protobuf/compiler/java/java_map_field.lo
+  CXX      google/protobuf/compiler/java/java_map_field_lite.lo
+  CXX      google/protobuf/compiler/java/java_message.lo
+  CXX      google/protobuf/compiler/java/java_message_lite.lo
+  CXX      google/protobuf/compiler/java/java_message_builder.lo
+  CXX      google/protobuf/compiler/java/java_message_builder_lite.lo
+  CXX      google/protobuf/compiler/java/java_message_field.lo
+  CXX      google/protobuf/compiler/java/java_message_field_lite.lo
+  CXX      google/protobuf/compiler/java/java_name_resolver.lo
+  CXX      google/protobuf/compiler/java/java_primitive_field.lo
+  CXX      google/protobuf/compiler/java/java_primitive_field_lite.lo
+  CXX      google/protobuf/compiler/java/java_shared_code_generator.lo
+  CXX      google/protobuf/compiler/java/java_service.lo
+  CXX      google/protobuf/compiler/java/java_string_field.lo
+  CXX      google/protobuf/compiler/java/java_string_field_lite.lo
+  CXX      google/protobuf/compiler/java/java_doc_comment.lo
+  CXX      google/protobuf/compiler/js/js_generator.lo
+  CXX      google/protobuf/compiler/js/well_known_types_embed.lo
+  CXX      google/protobuf/compiler/objectivec/objectivec_enum.lo
+  CXX      google/protobuf/compiler/objectivec/objectivec_enum_field.lo
+  CXX      google/protobuf/compiler/objectivec/objectivec_extension.lo
+  CXX      google/protobuf/compiler/objectivec/objectivec_field.lo
+  CXX      google/protobuf/compiler/objectivec/objectivec_file.lo
+  CXX      google/protobuf/compiler/objectivec/objectivec_generator.lo
+  CXX      google/protobuf/compiler/objectivec/objectivec_helpers.lo
+google/protobuf/compiler/objectivec/objectivec_helpers.cc:125:7: warning: Value stored to 'last_char_was_number' is never read [deadcode.DeadStores]
+      last_char_was_number = last_char_was_lower = last_char_was_upper = false;
+      ^                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+google/protobuf/compiler/objectivec/objectivec_helpers.cc:134:30: warning: Although the value stored to 'last_char_was_lower' is used in the enclosing expression, the value is never actually read from 'last_char_was_lower' [deadcode.DeadStores]
+      last_char_was_number = last_char_was_lower = last_char_was_upper = false;
+                             ^                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+google/protobuf/compiler/objectivec/objectivec_helpers.cc:142:52: warning: Although the value stored to 'last_char_was_upper' is used in the enclosing expression, the value is never actually read from 'last_char_was_upper' [deadcode.DeadStores]
+      last_char_was_number = last_char_was_lower = last_char_was_upper = false;
+                                                   ^                     ~~~~~
+3 warnings generated.
+  CXX      google/protobuf/compiler/objectivec/objectivec_map_field.lo
+  CXX      google/protobuf/compiler/objectivec/objectivec_message.lo
+  CXX      google/protobuf/compiler/objectivec/objectivec_message_field.lo
+  CXX      google/protobuf/compiler/objectivec/objectivec_oneof.lo
+  CXX      google/protobuf/compiler/objectivec/objectivec_primitive_field.lo
+  CXX      google/protobuf/compiler/php/php_generator.lo
+google/protobuf/compiler/php/php_generator.cc:603:13: warning: 'std::__cxx11::string google::protobuf::compiler::php::{anonymous}::BinaryToHex(const string&)' defined but not used [-Wunused-function]
+ std::string BinaryToHex(const std::string& binary) {
+             ^~~~~~~~~~~
+  CXX      google/protobuf/compiler/python/python_generator.lo
+  CXX      google/protobuf/compiler/ruby/ruby_generator.lo
+  CXX      google/protobuf/compiler/csharp/csharp_doc_comment.lo
+  CXX      google/protobuf/compiler/csharp/csharp_enum.lo
+  CXX      google/protobuf/compiler/csharp/csharp_enum_field.lo
+  CXX      google/protobuf/compiler/csharp/csharp_field_base.lo
+google/protobuf/compiler/csharp/csharp_field_base.cc:68:32: warning: 1st function call argument is an uninitialized value [core.CallAndMessage]
+    tag_bytes += ", " + StrCat(tag_array[i]);
+                               ^~~~~~~~~~~~
+1 warning generated.
+  CXX      google/protobuf/compiler/csharp/csharp_generator.lo
+  CXX      google/protobuf/compiler/csharp/csharp_helpers.lo
+google/protobuf/compiler/csharp/csharp_helpers.cc:484:7: warning: Value stored to 'src' is never read [deadcode.DeadStores]
+      src += 2;
+      ^      ~
+google/protobuf/compiler/csharp/csharp_helpers.cc:491:7: warning: Value stored to 'src' is never read [deadcode.DeadStores]
+      src += 1;
+      ^      ~
+2 warnings generated.
+  CXX      google/protobuf/compiler/csharp/csharp_map_field.lo
+  CXX      google/protobuf/compiler/csharp/csharp_message.lo
+  CXX      google/protobuf/compiler/csharp/csharp_message_field.lo
+  CXX      google/protobuf/compiler/csharp/csharp_primitive_field.lo
+  CXX      google/protobuf/compiler/csharp/csharp_reflection_class.lo
+  CXX      google/protobuf/compiler/csharp/csharp_repeated_enum_field.lo
+  CXX      google/protobuf/compiler/csharp/csharp_repeated_message_field.lo
+  CXX      google/protobuf/compiler/csharp/csharp_repeated_primitive_field.lo
+  CXX      google/protobuf/compiler/csharp/csharp_source_generator_base.lo
+  CXX      google/protobuf/compiler/csharp/csharp_wrapper_field.lo
+  CXXLD    libprotoc.la
+ar: `u' modifier ignored since `D' is the default (see `U')
+  CXX      google/protobuf/compiler/main.o
+  CXXLD    protoc
+make[2]: Leaving directory '/tmp/real/cpp_protobuf/protobuf/src'
+make[1]: Leaving directory '/tmp/real/cpp_protobuf/protobuf'
+scan-build: Analysis run complete.
+scan-build: 180 bugs found.
+scan-build: Run 'scan-view /tmp/scan-build-2020-11-19-021548-26271-1' to examine bug reports.

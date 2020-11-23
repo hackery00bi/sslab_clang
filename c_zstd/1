@@ -1,0 +1,75 @@
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+make[1]: Entering directory '/tmp/real/c_zstd/zstd/lib'
+make[1]: Nothing to be done for 'lib-release'.
+make[1]: Leaving directory '/tmp/real/c_zstd/zstd/lib'
+make[1]: Entering directory '/tmp/real/c_zstd/zstd/programs'
+/llvm-project/build/bin/../libexec/ccc-analyzer -O3 -DBACKTRACE_ENABLE=0  -DXXH_NAMESPACE=ZSTD_ -DZSTD_MULTITHREAD -DZSTD_GZCOMPRESS -DZSTD_GZDECOMPRESS -DZSTD_LZMACOMPRESS -DZSTD_LZMADECOMPRESS  -DZSTD_LEGACY_SUPPORT=5  -c -o dibio.o dibio.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O3 -DBACKTRACE_ENABLE=0  -DXXH_NAMESPACE=ZSTD_ -DZSTD_MULTITHREAD -DZSTD_GZCOMPRESS -DZSTD_GZDECOMPRESS -DZSTD_LZMACOMPRESS -DZSTD_LZMADECOMPRESS  -DZSTD_LEGACY_SUPPORT=5  -c -o timefn.o timefn.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O3 -DBACKTRACE_ENABLE=0  -DXXH_NAMESPACE=ZSTD_ -DZSTD_MULTITHREAD -DZSTD_GZCOMPRESS -DZSTD_GZDECOMPRESS -DZSTD_LZMACOMPRESS -DZSTD_LZMADECOMPRESS  -DZSTD_LEGACY_SUPPORT=5  -c -o fileio.o fileio.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O3 -DBACKTRACE_ENABLE=0  -DXXH_NAMESPACE=ZSTD_ -DZSTD_MULTITHREAD -DZSTD_GZCOMPRESS -DZSTD_GZDECOMPRESS -DZSTD_LZMACOMPRESS -DZSTD_LZMADECOMPRESS  -DZSTD_LEGACY_SUPPORT=5  -c -o benchzstd.o benchzstd.c
+benchzstd.c:363:115: warning: The result of the '/' expression is undefined [core.UndefinedBinaryOperatorResult]
+            U32 const nbBlocksforThisFile = (adv->mode == BMK_decodeOnly) ? 1 : (U32)((remaining + (blockSize-1)) / blockSize);
+                                                                                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~
+1 warning generated.
+/llvm-project/build/bin/../libexec/ccc-analyzer -O3 -DBACKTRACE_ENABLE=0  -DXXH_NAMESPACE=ZSTD_ -DZSTD_MULTITHREAD -DZSTD_GZCOMPRESS -DZSTD_GZDECOMPRESS -DZSTD_LZMACOMPRESS -DZSTD_LZMADECOMPRESS  -DZSTD_LEGACY_SUPPORT=5  -c -o zstdcli.o zstdcli.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O3 -DBACKTRACE_ENABLE=0  -DXXH_NAMESPACE=ZSTD_ -DZSTD_MULTITHREAD -DZSTD_GZCOMPRESS -DZSTD_GZDECOMPRESS -DZSTD_LZMACOMPRESS -DZSTD_LZMADECOMPRESS  -DZSTD_LEGACY_SUPPORT=5  -c -o datagen.o datagen.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O3 -DBACKTRACE_ENABLE=0  -DXXH_NAMESPACE=ZSTD_ -DZSTD_MULTITHREAD -DZSTD_GZCOMPRESS -DZSTD_GZDECOMPRESS -DZSTD_LZMACOMPRESS -DZSTD_LZMADECOMPRESS  -DZSTD_LEGACY_SUPPORT=5  -c -o util.o util.c
+/llvm-project/build/bin/../libexec/ccc-analyzer -O3 -DBACKTRACE_ENABLE=0  -DXXH_NAMESPACE=ZSTD_ -DZSTD_MULTITHREAD -DZSTD_GZCOMPRESS -DZSTD_GZDECOMPRESS -DZSTD_LZMACOMPRESS -DZSTD_LZMADECOMPRESS  -DZSTD_LEGACY_SUPPORT=5  -c -o benchfn.o benchfn.c
+==> building with threading support
+==> building zstd with .gz compression support
+==> building zstd with .xz/.lzma compression support
+==> no liblz4, building zstd without .lz4 support
+/llvm-project/build/bin/../libexec/ccc-analyzer -DXXH_NAMESPACE=ZSTD_ -DZSTD_MULTITHREAD -DZSTD_GZCOMPRESS -DZSTD_GZDECOMPRESS -DZSTD_LZMACOMPRESS -DZSTD_LZMADECOMPRESS  -DZSTD_LEGACY_SUPPORT=5 -O3 -DBACKTRACE_ENABLE=0  -pthread -lz -llzma   ../lib/common/debug.c ../lib/common/entropy_common.c ../lib/common/error_private.c ../lib/common/fse_decompress.c ../lib/common/pool.c ../lib/common/threading.c ../lib/common/xxhash.c ../lib/common/zstd_common.c ../lib/compress/fse_compress.c ../lib/compress/hist.c ../lib/compress/huf_compress.c ../lib/compress/zstd_compress.c ../lib/compress/zstd_compress_literals.c ../lib/compress/zstd_compress_sequences.c ../lib/compress/zstd_compress_superblock.c ../lib/compress/zstd_double_fast.c ../lib/compress/zstd_fast.c ../lib/compress/zstd_lazy.c ../lib/compress/zstd_ldm.c ../lib/compress/zstd_opt.c ../lib/compress/zstdmt_compress.c ../lib/decompress/huf_decompress.c ../lib/decompress/zstd_ddict.c ../lib/decompress/zstd_decompress.c ../lib/decompress/zstd_decompress_block.c ../lib/dictBuilder/cover.c ../lib/dictBuilder/divsufsort.c ../lib/dictBuilder/fastcover.c ../lib/dictBuilder/zdict.c ../lib/legacy/zstd_v05.c ../lib/legacy/zstd_v06.c ../lib/legacy/zstd_v07.c dibio.o timefn.o fileio.o benchzstd.o zstdcli.o datagen.o util.o benchfn.o -o zstd -pthread -lz -llzma  
+../lib/compress/fse_compress.c:250:13: warning: Assigned value is garbage or undefined [core.uninitialized.Assign]
+        {   int count = normalizedCounter[symbol++];
+            ^~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+../lib/dictBuilder/cover.c:418:5: warning: Assigned value is garbage or undefined [core.uninitialized.Assign]
+    U32 newDmer = ctx->dmerAt[activeSegment.end];
+    ^~~~~~~~~~~   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+../lib/dictBuilder/divsufsort.c:1229:11: warning: Assigned value is garbage or undefined [core.uninitialized.Assign]
+        a = stack[--ssize].b, b = stack[ssize].c;
+          ^ ~~~~~~~~~~~~~~~~
+1 warning generated.
+../lib/legacy/zstd_v05.c:3366:13: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+            memcpy(op, litPtr, lastLLSize);
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../lib/legacy/zstd_v05.c:3698:22: warning: The left operand of '>' is a garbage value [core.UndefinedBinaryOperatorResult]
+    if (litlengthLog > LLFSEv05Log) return ERROR(dictionary_corrupted);
+        ~~~~~~~~~~~~ ^
+2 warnings generated.
+../lib/legacy/zstd_v06.c:537:57: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+static void ZSTDv06_copy8(void* dst, const void* src) { memcpy(dst, src, 8); }
+                                                        ^~~~~~~~~~~~~~~~~~~
+../lib/legacy/zstd_v06.c:3389:13: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+            memmove(oLitEnd, match, sequence.matchLength);
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../lib/legacy/zstd_v06.c:3394:13: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+            memmove(oLitEnd, match, length1);
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../lib/legacy/zstd_v06.c:3411:17: warning: Array access (from variable 'match') results in a null pointer dereference [core.NullDereference]
+        op[0] = match[0];
+                ^~~~~~~~
+../lib/legacy/zstd_v06.c:3505:13: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+            memcpy(op, litPtr, lastLLSize);
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+5 warnings generated.
+../lib/legacy/zstd_v07.c:2771:57: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+static void ZSTDv07_copy8(void* dst, const void* src) { memcpy(dst, src, 8); }
+                                                        ^~~~~~~~~~~~~~~~~~~
+../lib/legacy/zstd_v07.c:3616:13: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+            memmove(oLitEnd, match, sequence.matchLength);
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../lib/legacy/zstd_v07.c:3621:13: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+            memmove(oLitEnd, match, length1);
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+../lib/legacy/zstd_v07.c:3638:17: warning: Array access (from variable 'match') results in a null pointer dereference [core.NullDereference]
+        op[0] = match[0];
+                ^~~~~~~~
+4 warnings generated.
+make[1]: Leaving directory '/tmp/real/c_zstd/zstd/programs'
+cp programs/zstd .
+scan-build: Analysis run complete.
+scan-build: 15 bugs found.
+scan-build: Run 'scan-view /tmp/scan-build-2020-11-17-112538-31217-1' to examine bug reports.

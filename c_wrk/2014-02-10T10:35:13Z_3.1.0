@@ -1,0 +1,848 @@
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+Building LuaJIT...
+make[1]: Entering directory '/tmp/real/c_wrk/wrk6/deps/luajit/src'
+HOSTCC    host/minilua.o
+HOSTLINK  host/minilua
+DYNASM    host/buildvm_arch.h
+HOSTCC    host/buildvm.o
+In file included from host/buildvm.c:59:0:
+./../dynasm/dasm_x86.h: In function 'dasm_put':
+./../dynasm/dasm_x86.h:207:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  if (*p++ == 1 && *p == DASM_DISP) mrm = n; continue;
+  ^~
+./../dynasm/dasm_x86.h:207:45: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  if (*p++ == 1 && *p == DASM_DISP) mrm = n; continue;
+                                             ^~~~~~~~
+HOSTCC    host/buildvm_asm.o
+HOSTCC    host/buildvm_peobj.o
+HOSTCC    host/buildvm_lib.o
+host/buildvm_lib.c:44:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memcpy(optr, p, n);
+  ^~~~~~
+host/buildvm_lib.c:61:12: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+      n += sprintf(line+n, "%d,", *p);
+           ^~~~~~~
+host/buildvm_lib.c:92:3: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+  strcpy(modname, p);
+  ^~~~~~
+host/buildvm_lib.c:140:5: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+    strcpy(funcname, p);
+    ^~~~~~
+host/buildvm_lib.c:167:3: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+  strcpy(p, name);
+  ^~~~~~
+host/buildvm_lib.c:196:5: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    memcpy(dst, src, n);
+    ^~~~~~
+6 warnings generated.
+HOSTCC    host/buildvm_fold.o
+host/buildvm_fold.c:22:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(htab, 0xff, (sz+1)*sizeof(uint32_t));
+  ^~~~~~
+1 warning generated.
+HOSTLINK  host/buildvm
+BUILDVM   lj_vm.s
+ASM       lj_vm.o
+CC        lj_gc.o
+BUILDVM   lj_ffdef.h
+CC        lj_err.o
+CC        lj_char.o
+BUILDVM   lj_bcdef.h
+CC        lj_bc.o
+CC        lj_obj.o
+CC        lj_str.o
+lj_str.c:76:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(newhash, 0, (newmask+1)*sizeof(GCRef));
+  ^~~~~~
+lj_str.c:152:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memcpy(strdatawr(s), str, len);
+  ^~~~~~
+lj_str.c:180:20: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    return (size_t)lua_number2str(s, n);
+                   ^~~~~~~~~~~~~~~~~~~~
+./luaconf.h:108:30: note: expanded from macro 'lua_number2str'
+#define lua_number2str(s, n)    sprintf((s), LUA_NUMBER_FMT, (n))
+                                ^~~~~~~
+3 warnings generated.
+CC        lj_tab.o
+lj_tab.c:179:7: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+      memcpy(array, karray, asize*sizeof(TValue));
+      ^~~~~~
+1 warning generated.
+CC        lj_func.o
+CC        lj_udata.o
+CC        lj_meta.o
+CC        lj_debug.o
+lj_debug.c:328:5: warning: Call to function 'strncpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'strncpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    strncpy(out, src+1, LUA_IDSIZE);  /* Remove first char. */
+    ^~~~~~~
+lj_debug.c:337:5: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+    strcpy(out, src);
+    ^~~~~~
+lj_debug.c:342:5: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+    strcpy(out, "[string \""); out += 9;
+    ^~~~~~
+lj_debug.c:345:7: warning: Call to function 'strncpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'strncpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+      strncpy(out, src, len); out += len;
+      ^~~~~~~
+lj_debug.c:346:7: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+      strcpy(out, "..."); out += 3;
+      ^~~~~~
+lj_debug.c:348:7: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+      strcpy(out, src); out += len;
+      ^~~~~~
+lj_debug.c:350:5: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+    strcpy(out, "\"]");
+    ^~~~~~
+7 warnings generated.
+CC        lj_state.o
+lj_state.c:188:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(GG, 0, sizeof(GG_State));
+  ^~~~~~
+1 warning generated.
+CC        lj_dispatch.o
+scan-build: Analysis run complete.
+scan-build: 19 bugs found.
+scan-build: Run 'scan-view /tmp/scan-build-2020-11-20-010034-2989-1' to examine bug reports.
+scan-build: The analyzer encountered problems on some source files.
+scan-build: Preprocessed versions of these sources were deposited in '/tmp/scan-build-2020-11-20-010034-2989-1/failures'.
+scan-build: Please consider submitting a bug report using these files:
+scan-build:   http://clang-analyzer.llvm.org/filing_bugs.html
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+Building LuaJIT...
+make[1]: Entering directory '/tmp/real/c_wrk/wrk3/deps/luajit/src'
+HOSTCC    host/minilua.o
+host/minilua.c:697:1: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+sprintf(buff,"%p",va_arg(argp,void*));
+^~~~~~~
+host/minilua.c:732:1: warning: Call to function 'strncpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'strncpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+strncpy(out,source+1,bufflen);
+^~~~~~~
+host/minilua.c:741:1: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+strcpy(out,"");
+^~~~~~
+host/minilua.c:744:1: warning: Call to function 'strcat' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcat'. CWE-119 [security.insecureAPI.strcpy]
+strcat(out,"...");
+^~~~~~
+host/minilua.c:746:1: warning: Call to function 'strcat' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcat'. CWE-119 [security.insecureAPI.strcpy]
+strcat(out,source);
+^~~~~~
+host/minilua.c:752:1: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+strcpy(out,"[string \"");
+^~~~~~
+host/minilua.c:754:1: warning: Call to function 'strncat' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'strncat_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+strncat(out,source,len);
+^~~~~~~
+host/minilua.c:755:1: warning: Call to function 'strcat' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcat'. CWE-119 [security.insecureAPI.strcpy]
+strcat(out,"...");
+^~~~~~
+host/minilua.c:758:1: warning: Call to function 'strcat' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcat'. CWE-119 [security.insecureAPI.strcpy]
+strcat(out,source);
+^~~~~~
+host/minilua.c:759:1: warning: Call to function 'strcat' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcat'. CWE-119 [security.insecureAPI.strcpy]
+strcat(out,"\"]");
+^~~~~~
+host/minilua.c:1294:1: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+memcpy(ts+1,str,l*sizeof(char));
+^~~~~~
+host/minilua.c:1351:1: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+memcpy(a,&n,sizeof(a));
+^~~~~~
+host/minilua.c:4348:10: warning: The left operand of '==' is a garbage value [core.UndefinedBinaryOperatorResult]
+if(nv.v.k==VLOCAL)
+   ~~~~~~^
+host/minilua.c:4590:9: warning: The left operand of '==' is a garbage value [core.UndefinedBinaryOperatorResult]
+if(v.v.k==VCALL)
+   ~~~~~^
+host/minilua.c:4703:1: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+lua_number2str(s,n);
+^~~~~~~~~~~~~~~~~~~
+host/minilua.c:144:28: note: expanded from macro 'lua_number2str'
+#define lua_number2str(s,n)sprintf((s),"%.14g",(n))
+                           ^~~~~~~
+host/minilua.c:4904:1: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+memcpy(buffer+tl,svalue(top-i),l);
+^~~~~~
+host/minilua.c:6101:1: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+memcpy(B->p,s,vl);
+^~~~~~
+host/minilua.c:6761:4: warning: Call to function 'fscanf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'fscanf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+if(fscanf(f,"%lf",&d)==1){
+   ^~~~~~
+host/minilua.c:7567:1: warning: Call to function 'strncpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'strncpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+strncpy(form,strfrmt,p-strfrmt+1);
+^~~~~~~
+host/minilua.c:7575:1: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+strcpy(form+l-1,"l");
+^~~~~~
+host/minilua.c:7600:1: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+sprintf(buff,form,(int)luaL_checknumber(L,arg));
+^~~~~~~
+host/minilua.c:7605:1: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+sprintf(buff,form,(long)luaL_checknumber(L,arg));
+^~~~~~~
+host/minilua.c:7610:1: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+sprintf(buff,form,(unsigned long)luaL_checknumber(L,arg));
+^~~~~~~
+host/minilua.c:7615:1: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+sprintf(buff,form,(double)luaL_checknumber(L,arg));
+^~~~~~~
+host/minilua.c:7631:1: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+sprintf(buff,form,s);
+^~~~~~~
+25 warnings generated.
+HOSTLINK  host/minilua
+DYNASM    host/buildvm_arch.h
+HOSTCC    host/buildvm.o
+In file included from host/buildvm.c:59:0:
+./../dynasm/dasm_x86.h: In function 'dasm_put':
+./../dynasm/dasm_x86.h:207:2: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+  if (*p++ == 1 && *p == DASM_DISP) mrm = n; continue;
+  ^~
+./../dynasm/dasm_x86.h:207:45: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+  if (*p++ == 1 && *p == DASM_DISP) mrm = n; continue;
+                                             ^~~~~~~~
+In file included from host/buildvm.c:59:
+./../dynasm/dasm_x86.h:134:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset((void *)(((unsigned char *)D->pclabels)+osz), 0, D->pcsize-osz);
+  ^~~~~~
+./../dynasm/dasm_x86.h:145:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset((void *)D->lglabels, 0, D->lgsize);
+  ^~~~~~
+./../dynasm/dasm_x86.h:146:20: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  if (D->pclabels) memset((void *)D->pclabels, 0, D->pcsize);
+                   ^~~~~~
+host/buildvm.c:108:3: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  sprintf(name, "%s%s%s", symprefix, prefix, suffix);
+  ^~~~~~~
+host/buildvm.c:123:3: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+  strcpy(p, name);
+  ^~~~~~
+host/buildvm.c:178:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(ctx->glob, 0, ctx->nglob*sizeof(void *));
+  ^~~~~~
+6 warnings generated.
+HOSTCC    host/buildvm_asm.o
+HOSTCC    host/buildvm_peobj.o
+host/buildvm_peobj.c:138:5: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    memcpy(sym.n.name, name, len);
+    ^~~~~~
+host/buildvm_peobj.c:139:5: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    memset(sym.n.name+len, 0, 8-len);
+    ^~~~~~
+host/buildvm_peobj.c:143:5: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    memcpy(strtab + strtabofs, name, len);
+    ^~~~~~
+host/buildvm_peobj.c:161:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memcpy(sym.n.name, pesect[sect].name, 8);
+  ^~~~~~
+host/buildvm_peobj.c:168:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(&aux, 0, sizeof(PEsymaux));
+  ^~~~~~
+host/buildvm_peobj.c:186:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(&pesect, 0, PEOBJ_NSECTIONS*sizeof(PEsection));
+  ^~~~~~
+host/buildvm_peobj.c:187:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memcpy(pesect[PEOBJ_SECT_TEXT].name, ".text", sizeof(".text")-1);
+  ^~~~~~
+host/buildvm_peobj.c:196:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memcpy(pesect[PEOBJ_SECT_PDATA].name, ".pdata", sizeof(".pdata")-1);
+  ^~~~~~
+host/buildvm_peobj.c:204:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memcpy(pesect[PEOBJ_SECT_XDATA].name, ".xdata", sizeof(".xdata")-1);
+  ^~~~~~
+host/buildvm_peobj.c:213:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memcpy(pesect[PEOBJ_SECT_RDATA_Z].name, ".rdata$Z", sizeof(".rdata$Z")-1);
+  ^~~~~~
+10 warnings generated.
+HOSTCC    host/buildvm_lib.o
+host/buildvm_lib.c:44:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memcpy(optr, p, n);
+  ^~~~~~
+host/buildvm_lib.c:61:12: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+      n += sprintf(line+n, "%d,", *p);
+           ^~~~~~~
+host/buildvm_lib.c:92:3: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+  strcpy(modname, p);
+  ^~~~~~
+host/buildvm_lib.c:140:5: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+    strcpy(funcname, p);
+    ^~~~~~
+host/buildvm_lib.c:167:3: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+  strcpy(p, name);
+  ^~~~~~
+host/buildvm_lib.c:196:5: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    memcpy(dst, src, n);
+    ^~~~~~
+6 warnings generated.
+HOSTCC    host/buildvm_fold.o
+host/buildvm_fold.c:22:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(htab, 0xff, (sz+1)*sizeof(uint32_t));
+  ^~~~~~
+1 warning generated.
+HOSTLINK  host/buildvm
+BUILDVM   lj_vm.s
+ASM       lj_vm.o
+CC        lj_gc.o
+BUILDVM   lj_ffdef.h
+CC        lj_err.o
+CC        lj_char.o
+BUILDVM   lj_bcdef.h
+CC        lj_bc.o
+CC        lj_obj.o
+CC        lj_str.o
+lj_str.c:76:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(newhash, 0, (newmask+1)*sizeof(GCRef));
+  ^~~~~~
+lj_str.c:152:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memcpy(strdatawr(s), str, len);
+  ^~~~~~
+lj_str.c:180:20: warning: Call to function 'sprintf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    return (size_t)lua_number2str(s, n);
+                   ^~~~~~~~~~~~~~~~~~~~
+./luaconf.h:108:30: note: expanded from macro 'lua_number2str'
+#define lua_number2str(s, n)    sprintf((s), LUA_NUMBER_FMT, (n))
+                                ^~~~~~~
+3 warnings generated.
+CC        lj_tab.o
+lj_tab.c:179:7: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+      memcpy(array, karray, asize*sizeof(TValue));
+      ^~~~~~
+1 warning generated.
+CC        lj_func.o
+CC        lj_udata.o
+CC        lj_meta.o
+lj_meta.c:298:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        memcpy(buffer + tlen, strVdata(top-i), len);
+        ^~~~~~
+1 warning generated.
+CC        lj_debug.o
+lj_debug.c:328:5: warning: Call to function 'strncpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'strncpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    strncpy(out, src+1, LUA_IDSIZE);  /* Remove first char. */
+    ^~~~~~~
+lj_debug.c:337:5: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+    strcpy(out, src);
+    ^~~~~~
+lj_debug.c:342:5: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+    strcpy(out, "[string \""); out += 9;
+    ^~~~~~
+lj_debug.c:345:7: warning: Call to function 'strncpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'strncpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+      strncpy(out, src, len); out += len;
+      ^~~~~~~
+lj_debug.c:346:7: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+      strcpy(out, "..."); out += 3;
+      ^~~~~~
+lj_debug.c:348:7: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+      strcpy(out, src); out += len;
+      ^~~~~~
+lj_debug.c:350:5: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+    strcpy(out, "\"]");
+    ^~~~~~
+7 warnings generated.
+CC        lj_state.o
+lj_state.c:188:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(GG, 0, sizeof(GG_State));
+  ^~~~~~
+1 warning generated.
+CC        lj_dispatch.o
+lj_dispatch.c:133:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        memcpy(&disp[0], &disp[GG_LEN_DDISP], GG_LEN_SDISP*sizeof(ASMFunction));
+        ^~~~~~
+1 warning generated.
+CC        lj_vmevent.o
+CC        lj_vmmath.o
+CC        lj_strscan.o
+lj_strscan.c:309:7: warning: Assigned value is garbage or undefined [core.uninitialized.Assign]
+      uint64_t x = xi[hi];
+      ^~~~~~~~~~   ~~~~~~
+1 warning generated.
+CC        lj_api.o
+CC        lj_lex.o
+CC        lj_parse.o
+lj_parse.c:1388:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memcpy(uv, fs->uvtmp, fs->nuv*sizeof(VarIndex));
+  ^~~~~~
+lj_parse.c:1511:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memcpy(p, ls->sb.buf, ls->sb.n);  /* Copy from temp. string buffer. */
+  ^~~~~~
+2 warnings generated.
+CC        lj_bcread.o
+lj_bcread.c:69:4: warning: Call to function 'memmove' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memmove_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+          memmove(ls->sb.buf, ls->p, ls->n);
+          ^~~~~~~
+lj_bcread.c:72:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        memcpy(ls->sb.buf, ls->p, ls->n);
+        ^~~~~~
+lj_bcread.c:86:7: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+      memcpy(ls->sb.buf + ls->sb.n, buf, size);
+      ^~~~~~
+lj_bcread.c:125:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memcpy(q, bcread_mem(ls, len), len);
+  ^~~~~~
+4 warnings generated.
+CC        lj_bcwrite.o
+CC        lj_load.o
+CC        lj_ir.o
+lj_ir.c:96:5: warning: Call to function 'memmove' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memmove_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    memmove(baseir + ofs, baseir, (J->cur.nins - J->irbotlim)*sizeof(IRIns));
+    ^~~~~~~
+lj_ir.c:104:5: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    memcpy(newbase + ofs, baseir, (J->cur.nins - J->irbotlim)*sizeof(IRIns));
+    ^~~~~~
+2 warnings generated.
+CC        lj_opt_mem.o
+lj_opt_mem.c:46:9: warning: Dereference of null pointer [core.NullDereference]
+    if (ir->op2 == ref &&
+        ^~~~~~~
+1 warning generated.
+BUILDVM   lj_folddef.h
+CC        lj_opt_fold.o
+CC        lj_opt_narrow.o
+lj_opt_narrow.c:374:8: warning: 2nd function call argument is an uninitialized value [core.CallAndMessage]
+              lj_ir_kint64(J, (int64_t)(int32_t)*next++) :
+              ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+lj_opt_narrow.c:375:8: warning: 2nd function call argument is an uninitialized value [core.CallAndMessage]
+              lj_ir_kint(J, *next++);
+              ^~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+CC        lj_opt_dce.o
+CC        lj_opt_loop.o
+CC        lj_opt_split.o
+CC        lj_opt_sink.o
+CC        lj_mcode.o
+CC        lj_snap.o
+lj_snap.c:181:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(udf, 1, maxslot);
+  ^~~~~~
+lj_snap.c:566:8: warning: Value stored to 'tmp' is never read [deadcode.DeadStores]
+              tmp = emitir(irs->ot, tmp, val);
+              ^     ~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+CC        lj_record.o
+In file included from lj_record.c:9:
+./lj_obj.h:842:5: warning: Undefined or garbage value returned to caller [core.uninitialized.UndefReturn]
+    return numV(o);
+    ^~~~~~~~~~~~~~
+lj_record.c:650:3: warning: Call to function 'memmove' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memmove_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memmove(&J->base[-1], &J->base[func], sizeof(TRef)*(J->maxslot+1));
+  ^~~~~~~
+lj_record.c:753:7: warning: Call to function 'memmove' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memmove_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+      memmove(J->base + cbase, J->base-1, sizeof(TRef)*nresults);
+      ^~~~~~~
+lj_record.c:754:7: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+      memset(J->base-1, 0, sizeof(TRef)*(cbase+1));
+      ^~~~~~
+lj_record.c:808:7: warning: The left operand of '&' is a garbage value [core.UndefinedBinaryOperatorResult]
+  if (tref_istab(ix->tab)) {
+      ^          ~~~~~~~
+./lj_ir.h:470:26: note: expanded from macro 'tref_istab'
+#define tref_istab(tr)          (tref_istype((tr), IRT_TAB))
+                                 ^            ~~
+./lj_ir.h:463:35: note: expanded from macro 'tref_istype'
+#define tref_istype(tr, t)      (((tr) & (IRT_TYPE<<24)) == ((t)<<24))
+                                   ~~  ^
+lj_record.c:878:11: warning: Assigned value is garbage or undefined [core.uninitialized.Assign]
+  base[1] = ix->tab; base[2] = ix->key;
+          ^ ~~~~~~~
+lj_record.c:878:30: warning: Assigned value is garbage or undefined [core.uninitialized.Assign]
+  base[1] = ix->tab; base[2] = ix->key;
+                             ^ ~~~~~~~
+lj_record.c:1166:11: warning: The left operand of '&' is a garbage value [core.UndefinedBinaryOperatorResult]
+  while (!tref_istab(ix->tab)) { /* Handle non-table lookup. */
+          ^          ~~~~~~~
+./lj_ir.h:470:26: note: expanded from macro 'tref_istab'
+#define tref_istab(tr)          (tref_istype((tr), IRT_TAB))
+                                 ^            ~~
+./lj_ir.h:463:35: note: expanded from macro 'tref_istype'
+#define tref_istype(tr, t)      (((tr) & (IRT_TYPE<<24)) == ((t)<<24))
+                                   ~~  ^
+lj_record.c:1783:7: warning: 1st function call argument is an uninitialized value [core.CallAndMessage]
+        if (!lj_ir_strcmp(strV(rav), strV(rcv), (IROp)irop)) irop ^= 1;
+             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+lj_record.c:2151:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(J->slot, 0, sizeof(J->slot));
+  ^~~~~~
+lj_record.c:2152:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(J->chain, 0, sizeof(J->chain));
+  ^~~~~~
+lj_record.c:2153:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(J->bpropcache, 0, sizeof(J->bpropcache));
+  ^~~~~~
+12 warnings generated.
+CC        lj_crecord.o
+lj_crecord.c:247:2: warning: Value stored to 'step' is never read [deadcode.DeadStores]
+        step = (1u << ctype_align(ct->info));
+        ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+BUILDVM   lj_recdef.h
+CC        lj_ffrecord.o
+CC        lj_asm.o
+lj_asm.c:304:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(as->phireg, 0, sizeof(as->phireg));
+  ^~~~~~
+In file included from lj_asm.c:1328:
+./lj_asm_x86.h:395:11: warning: Branch condition evaluates to a garbage value [core.uninitialized.Branch]
+      if (args[i] && irt_isfp(IR(args[i])->t)) {
+          ^~~~~~~
+./lj_asm_x86.h:455:5: warning: Assigned value is garbage or undefined [core.uninitialized.Assign]
+    IRRef ref = args[n];
+    ^~~~~~~~~   ~~~~~~~
+./lj_asm_x86.h:1293:11: warning: Although the value stored to 'osrc' is used in the enclosing expression, the value is never actually read from 'osrc' [deadcode.DeadStores]
+    src = osrc = ra_alloc1(as, ir->op2, allow8);
+          ^      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+4 warnings generated.
+CC        lj_trace.o
+lj_trace.c:130:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memcpy(T, &J->cur, sizeof(GCtrace));
+  ^~~~~~
+lj_trace.c:136:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memcpy(p, J->cur.ir+J->cur.nk, szins);
+  ^~~~~~
+lj_trace.c:138:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  TRACE_APPENDVEC(snap, nsnap, SnapShot)
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+lj_trace.c:82:3: note: expanded from macro 'TRACE_APPENDVEC'
+  memcpy(p, J->cur.field, J->cur.szfield*sizeof(tp)); \
+  ^~~~~~
+lj_trace.c:139:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  TRACE_APPENDVEC(snapmap, nsnapmap, SnapEntry)
+  ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+lj_trace.c:82:3: note: expanded from macro 'TRACE_APPENDVEC'
+  memcpy(p, J->cur.field, J->cur.szfield*sizeof(tp)); \
+  ^~~~~~
+lj_trace.c:277:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(J->penalty, 0, sizeof(J->penalty));
+  ^~~~~~
+lj_trace.c:280:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(J->exitstubgroup, 0, sizeof(J->exitstubgroup));
+  ^~~~~~
+lj_trace.c:385:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(&J->cur, 0, sizeof(GCtrace));
+  ^~~~~~
+7 warnings generated.
+CC        lj_gdbjit.o
+CC        lj_ctype.o
+lj_ctype.c:595:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(cts, 0, sizeof(CTState));
+  ^~~~~~
+1 warning generated.
+CC        lj_cdata.o
+CC        lj_cconv.o
+lj_cconv.c:169:7: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+      memcpy(dp, sp, ssize);
+      ^~~~~~
+lj_cconv.c:170:7: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+      memset(dp + ssize, fill, dsize-ssize);
+      ^~~~~~
+lj_cconv.c:178:7: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+      memcpy(dp, sp, dsize);
+      ^~~~~~
+lj_cconv.c:212:5: warning: Value stored to 'sinfo' is never read [deadcode.DeadStores]
+    sinfo = s->info;
+    ^       ~~~~~~~
+lj_cconv.c:276:5: warning: Value stored to 'sinfo' is never read [deadcode.DeadStores]
+    sinfo = s->info;
+    ^       ~~~~~~~
+lj_cconv.c:283:5: warning: Value stored to 'dinfo' is never read [deadcode.DeadStores]
+    dinfo = d->info;
+    ^       ~~~~~~~
+lj_cconv.c:285:5: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    memset(dp + dsize, 0, dsize);  /* Clear im. */
+    ^~~~~~
+lj_cconv.c:289:5: warning: Value stored to 'dinfo' is never read [deadcode.DeadStores]
+    dinfo = d->info;
+    ^       ~~~~~~~
+lj_cconv.c:291:5: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    memset(dp + dsize, 0, dsize);  /* Clear im. */
+    ^~~~~~
+lj_cconv.c:315:7: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+      memcpy(dp, sp, esize);
+      ^~~~~~
+lj_cconv.c:328:5: warning: Value stored to 'dinfo' is never read [deadcode.DeadStores]
+    dinfo = CTINFO(CT_NUM, CTF_UNSIGNED);
+    ^       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+lj_cconv.c:361:5: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    memcpy(dp, sp, dsize);
+    ^~~~~~
+lj_cconv.c:413:5: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    memcpy(cdataptr(cd), sp, sz);
+    ^~~~~~
+lj_cconv.c:479:40: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+      for (; ofs < size; ofs += esize) memcpy(dp + ofs, dp, esize);
+                                       ^~~~~~
+lj_cconv.c:481:7: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+      memset(dp + ofs, 0, size - ofs);
+      ^~~~~~
+lj_cconv.c:503:25: warning: Although the value stored to 'i' is used in the enclosing expression, the value is never actually read from 'i' [deadcode.DeadStores]
+          if (iz == 0) { *ip = i = -1; goto tryname; }  /* Init named fields. */
+                               ^   ~~
+lj_cconv.c:529:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(dp, 0, d->size);  /* Much simpler to clear the struct first. */
+  ^~~~~~
+lj_cconv.c:582:7: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+      memcpy(dp, strdata(str), sz);
+      ^~~~~~
+lj_cconv.c:678:36: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    for (; ofs < sz; ofs += esize) memcpy(dp + ofs, dp, esize);
+                                   ^~~~~~
+lj_cconv.c:680:5: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    memset(dp + ofs, 0, sz - ofs);
+    ^~~~~~
+lj_cconv.c:714:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(dp, 0, sz);  /* Much simpler to clear the struct first. */
+  ^~~~~~
+lj_cconv.c:740:5: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    memset(dp, 0, sz);
+    ^~~~~~
+22 warnings generated.
+CC        lj_ccall.o
+lj_ccall.c:554:5: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    memcpy(&cc->stack[nsp], dp, n*CTSIZE_PTR);
+    ^~~~~~
+lj_ccall.c:572:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memcpy(dp, sp, sz);
+  ^~~~~~
+lj_ccall.c:670:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(cc->gpr, 0, sizeof(cc->gpr));
+  ^~~~~~
+lj_ccall.c:672:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(cc->fpr, 0, sizeof(cc->fpr));
+  ^~~~~~
+4 warnings generated.
+CC        lj_ccallback.o
+lj_ccallback.c:587:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(cbid+top, 0, (cts->cb.sizeid-top)*sizeof(CTypeID1));
+  ^~~~~~
+1 warning generated.
+CC        lj_carith.o
+lj_carith.c:158:7: warning: Access to field 'info' results in a dereference of a null pointer [core.NullDereference]
+  if (ctype_isnum(ca->ct[0]->info) && ca->ct[0]->size <= 8 &&
+      ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./lj_ctype.h:202:28: note: expanded from macro 'ctype_isnum'
+#define ctype_isnum(info)       (ctype_type((info)) == CT_NUM)
+                                 ^~~~~~~~~~~~~~~~~~
+./lj_ctype.h:190:27: note: expanded from macro 'ctype_type'
+#define ctype_type(info)        ((info) >> CTSHIFT_NUM)
+                                 ^~~~~~
+1 warning generated.
+CC        lj_clib.o
+CC        lj_cparse.o
+lj_cparse.c: In function 'cp_next_':
+lj_cparse.c:313:7: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+       if (cp_get(cp) != '|') return '|'; cp_get(cp); return CTOK_OROR;
+       ^~
+lj_cparse.c:313:42: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+       if (cp_get(cp) != '|') return '|'; cp_get(cp); return CTOK_OROR;
+                                          ^~~~~~
+lj_cparse.c:315:7: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+       if (cp_get(cp) != '&') return '&'; cp_get(cp); return CTOK_ANDAND;
+       ^~
+lj_cparse.c:315:42: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+       if (cp_get(cp) != '&') return '&'; cp_get(cp); return CTOK_ANDAND;
+                                          ^~~~~~
+lj_cparse.c:317:7: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+       if (cp_get(cp) != '=') return '='; cp_get(cp); return CTOK_EQ;
+       ^~
+lj_cparse.c:317:42: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+       if (cp_get(cp) != '=') return '='; cp_get(cp); return CTOK_EQ;
+                                          ^~~~~~
+lj_cparse.c:319:7: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+       if (cp_get(cp) != '=') return '!'; cp_get(cp); return CTOK_NE;
+       ^~
+lj_cparse.c:319:42: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+       if (cp_get(cp) != '=') return '!'; cp_get(cp); return CTOK_NE;
+                                          ^~~~~~
+lj_cparse.c:329:7: warning: this 'if' clause does not guard... [-Wmisleading-indentation]
+       if (cp_get(cp) != '>') return '-'; cp_get(cp); return CTOK_DEREF;
+       ^~
+lj_cparse.c:329:42: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the 'if'
+       if (cp_get(cp) != '>') return '-'; cp_get(cp); return CTOK_DEREF;
+                                          ^~~~~~
+lj_cparse.c:1867:5: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    LJ_CTYPE_RESTORE(cp->cts);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~
+./lj_ctype.h:390:4: note: expanded from macro 'LJ_CTYPE_RESTORE'
+   memcpy((cts)->hash, savects_.hash, sizeof(savects_.hash)))
+   ^~~~~~
+1 warning generated.
+CC        lj_lib.o
+lj_lib.c:70:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        memcpy(fn->c.upvalue, L->top, sizeof(TValue)*nuv);
+        ^~~~~~
+lj_lib.c:80:12: warning: Dereference of null pointer [core.NullDereference]
+        fn->c.f = ofn->c.f;  /* Copy handler from previous function. */
+                  ^~~~~~~~
+lj_lib.c:98:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        memcpy(&L->top->n, p, sizeof(double));
+        ^~~~~~
+3 warnings generated.
+CC        lj_alloc.o
+lj_alloc.c:1147:5: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    memset(m, 0, msize);
+    ^~~~~~
+lj_alloc.c:1368:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        memcpy(newmem, ptr, oc < nsize ? oc : nsize);
+        ^~~~~~
+2 warnings generated.
+CC        lib_aux.o
+lib_aux.c:232:5: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    memcpy(B->p, s, vl);  /* put it there */
+    ^~~~~~
+1 warning generated.
+BUILDVM   lj_libdef.h
+CC        lib_base.o
+CC        lib_math.o
+CC        lib_bit.o
+CC        lib_string.o
+lib_string.c:324:43: warning: Dereference of null pointer (loaded from variable 's') [core.NullDereference]
+    else if (s<ms->src_end && singlematch(uchar(*s), p, ep))
+                                          ^~~~~~~~~
+lib_string.c:168:41: note: expanded from macro 'uchar'
+#define uchar(c)        ((unsigned char)(c))
+                                        ^~~
+lib_string.c:687:7: warning: Dereference of null pointer [core.NullDereference]
+      luaL_addchar(&b, *src++);
+      ^~~~~~~~~~~~~~~~~~~~~~~~
+./lauxlib.h:133:23: note: expanded from macro 'luaL_addchar'
+   (*(B)->p++ = (char)(c)))
+                      ^~~
+lib_string.c:755:3: warning: Call to function 'strncpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'strncpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  strncpy(form, strfrmt, (size_t)(p - strfrmt + 1));
+  ^~~~~~~
+lib_string.c:765:3: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+  strcpy(form + l - 1, LUA_INTFRMLEN);
+  ^~~~~~
+lib_string.c:858:2: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        sprintf(buff, form, lj_lib_checkint(L, arg));
+        ^~~~~~~
+lib_string.c:862:2: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        sprintf(buff, form, num2intfrm(L, arg));
+        ^~~~~~~
+lib_string.c:866:2: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        sprintf(buff, form, num2uintfrm(L, arg));
+        ^~~~~~~
+lib_string.c:883:4: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+          sprintf(buff, form, nbuf);
+          ^~~~~~~
+lib_string.c:886:2: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        sprintf(buff, form, (double)tv.n);
+        ^~~~~~~
+lib_string.c:905:2: warning: Call to function 'sprintf' is insecure as it does not provide bounding of the memory buffer or security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'sprintf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        sprintf(buff, form, strdata(str));
+        ^~~~~~~
+10 warnings generated.
+CC        lib_table.o
+CC        lib_io.o
+lib_io.c:127:7: warning: Call to function 'fscanf' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'fscanf_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  if (fscanf(fp, LUA_NUMBER_SCAN, &d) == 1) {
+      ^~~~~~
+lib_io.c:268:5: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    memcpy(L->top, &fn->c.upvalue[1], n*sizeof(TValue));
+    ^~~~~~
+2 warnings generated.
+CC        lib_os.o
+CC        lib_package.o
+CC        lib_debug.o
+CC        lib_jit.o
+lib_jit.c:639:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memcpy(J->param, jit_param_default, sizeof(J->param));
+  ^~~~~~
+1 warning generated.
+CC        lib_ffi.o
+lib_ffi.c:685:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memcpy(dp, sp, len);
+  ^~~~~~
+lib_ffi.c:695:3: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  memset(dp, fill, len);
+  ^~~~~~
+2 warnings generated.
+CC        lib_init.o
+AR        libluajit.a
+ar: `u' modifier ignored since `D' is the default (see `U')
+CC        luajit.o
+luajit.c:284:34: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+  if (strcmp(fname, "-") == 0 && strcmp(argv[n-1], "--") != 0)
+                                 ^~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+BUILDVM   jit/vmdef.lua
+LINK      luajit
+OK        Successfully built LuaJIT
+make[1]: Leaving directory '/tmp/real/c_wrk/wrk3/deps/luajit/src'
+CC src/wrk.c
+CC src/net.c
+In file included from src/wrk.h:4:0,
+                 from src/net.h:7,
+                 from src/net.c:7:
+src/config.h:8:0: warning: "_POSIX_C_SOURCE" redefined
+ #define _POSIX_C_SOURCE 200809L
+ 
+In file included from /usr/include/errno.h:25:0,
+                 from src/net.c:3:
+/usr/include/features.h:294:0: note: this is the location of the previous definition
+ # define _POSIX_C_SOURCE 199506L
+ 
+CC src/ssl.c
+In file included from src/wrk.h:4:0,
+                 from src/net.h:7,
+                 from src/ssl.h:4,
+                 from src/ssl.c:9:
+src/config.h:8:0: warning: "_POSIX_C_SOURCE" redefined
+ #define _POSIX_C_SOURCE 200809L
+ 
+In file included from /usr/include/pthread.h:21:0,
+                 from src/ssl.c:3:
+/usr/include/features.h:294:0: note: this is the location of the previous definition
+ # define _POSIX_C_SOURCE 199506L
+ 
+src/ssl.c:22:22: warning: 'ssl_id' defined but not used [-Wunused-function]
+ static unsigned long ssl_id() {
+                      ^~~~~~
+src/ssl.c:13:13: warning: 'ssl_lock' defined but not used [-Wunused-function]
+ static void ssl_lock(int mode, int n, const char *file, int line) {
+             ^~~~~~~~
+CC src/aprintf.c
+CC src/stats.c
+CC src/script.c
+In file included from src/script.h:7:0,
+                 from src/script.c:5:
+src/script.c: In function 'script_create':
+deps/luajit/src/lauxlib.h:110:25: warning: value computed is not used [-Wunused-value]
+  (luaL_loadstring(L, s) || lua_pcall(L, 0, LUA_MULTRET, 0))
+                         ^
+src/script.c:27:5: note: in expansion of macro 'luaL_dostring'
+     luaL_dostring(L, "wrk = require \"wrk\"");
+     ^~~~~~~~~~~~~
+CC src/units.c
+CC src/ae.c
+In file included from src/ae.c:45:0:
+src/config.h:8:0: warning: "_POSIX_C_SOURCE" redefined
+ #define _POSIX_C_SOURCE 200809L
+ 
+In file included from /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:33:0,
+                 from /usr/include/stdio.h:27,
+                 from src/ae.c:33:
+/usr/include/features.h:294:0: note: this is the location of the previous definition
+ # define _POSIX_C_SOURCE 199506L
+ 
+CC src/zmalloc.c
+In file included from src/zmalloc.c:35:0:
+src/config.h:8:0: warning: "_POSIX_C_SOURCE" redefined
+ #define _POSIX_C_SOURCE 200809L
+ 
+In file included from /usr/include/x86_64-linux-gnu/bits/libc-header-start.h:33:0,
+                 from /usr/include/stdio.h:27,
+                 from src/zmalloc.c:31:
+/usr/include/features.h:294:0: note: this is the location of the previous definition
+ # define _POSIX_C_SOURCE 199506L
+ 
+CC src/http_parser.c
+src/http_parser.c:2070:3: warning: Value stored to 'uf' is never read [deadcode.DeadStores]
+  uf = old_uf = UF_MAX;
+  ^    ~~~~~~~~~~~~~~~
+1 warning generated.
+CC src/tinymt64.c
+LUAJIT src/wrk.lua
+LINK wrk
+scan-build: Analysis run complete.
+scan-build: 153 bugs found.
+scan-build: Run 'scan-view /tmp/scan-build-2020-11-20-011311-6648-1' to examine bug reports.

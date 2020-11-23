@@ -1,0 +1,950 @@
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+make  all-recursive
+make[1]: Entering directory '/tmp/real/cpp_aria2/aria2'
+Making all in po
+make[2]: Entering directory '/tmp/real/cpp_aria2/aria2/po'
+make aria2.pot-update
+make[3]: Entering directory '/tmp/real/cpp_aria2/aria2/po'
+sed -e '/^#/d' remove-potcdate.sin > t-remove-potcdate.sed
+mv t-remove-potcdate.sed remove-potcdate.sed
+if LC_ALL=C grep 'GNU aria2' ../* 2>/dev/null | grep -v 'libtool:' >/dev/null; then \
+  package_gnu='GNU '; \
+else \
+  package_gnu=''; \
+fi; \
+if test -n 'https://aria2.github.io/' || test 'https://github.com/aria2/aria2/issues' = '@'PACKAGE_BUGREPORT'@'; then \
+  msgid_bugs_address='https://aria2.github.io/'; \
+else \
+  msgid_bugs_address='https://github.com/aria2/aria2/issues'; \
+fi; \
+case `/usr/bin/xgettext --version | sed 1q | sed -e 's,^[^0-9]*,,'` in \
+  '' | 0.[0-9] | 0.[0-9].* | 0.1[0-5] | 0.1[0-5].* | 0.16 | 0.16.[0-1]*) \
+    /usr/bin/xgettext --default-domain=aria2 --directory=.. \
+      --add-comments=TRANSLATORS: --keyword=_ --keyword=N_  \
+      --files-from=./POTFILES.in \
+      --copyright-holder='Tatsuhiro Tsujikawa' \
+      --msgid-bugs-address="$msgid_bugs_address" \
+    ;; \
+  *) \
+    /usr/bin/xgettext --default-domain=aria2 --directory=.. \
+      --add-comments=TRANSLATORS: --keyword=_ --keyword=N_  \
+      --files-from=./POTFILES.in \
+      --copyright-holder='Tatsuhiro Tsujikawa' \
+      --package-name="${package_gnu}aria2" \
+      --package-version='1.35.0' \
+      --msgid-bugs-address="$msgid_bugs_address" \
+    ;; \
+esac
+test ! -f aria2.po || { \
+  if test -f ./aria2.pot; then \
+    sed -f remove-potcdate.sed < ./aria2.pot > aria2.1po && \
+    sed -f remove-potcdate.sed < aria2.po > aria2.2po && \
+    if cmp aria2.1po aria2.2po >/dev/null 2>&1; then \
+      rm -f aria2.1po aria2.2po aria2.po; \
+    else \
+      rm -f aria2.1po aria2.2po ./aria2.pot && \
+      mv aria2.po ./aria2.pot; \
+    fi; \
+  else \
+    mv aria2.po ./aria2.pot; \
+  fi; \
+}
+make[3]: Leaving directory '/tmp/real/cpp_aria2/aria2/po'
+test ! -f ./aria2.pot || \
+  test -z "" || make 
+touch stamp-po
+make[2]: Leaving directory '/tmp/real/cpp_aria2/aria2/po'
+Making all in lib
+make[2]: Entering directory '/tmp/real/cpp_aria2/aria2/lib'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/tmp/real/cpp_aria2/aria2/lib'
+Making all in deps
+make[2]: Entering directory '/tmp/real/cpp_aria2/aria2/deps'
+Making all in wslay
+make[3]: Entering directory '/tmp/real/cpp_aria2/aria2/deps/wslay'
+make  all-recursive
+make[4]: Entering directory '/tmp/real/cpp_aria2/aria2/deps/wslay'
+Making all in lib
+make[5]: Entering directory '/tmp/real/cpp_aria2/aria2/deps/wslay/lib'
+Making all in includes
+make[6]: Entering directory '/tmp/real/cpp_aria2/aria2/deps/wslay/lib/includes'
+make[6]: Nothing to be done for 'all'.
+make[6]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps/wslay/lib/includes'
+make[6]: Entering directory '/tmp/real/cpp_aria2/aria2/deps/wslay/lib'
+/bin/bash ../libtool  --tag=CC   --mode=compile /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I..  -DHAVE_CONFIG_H -I./includes -I./includes -I/usr/local/BerkeleyDB.4.8/include/ -Wall -g -O2 -MT wslay_frame.lo -MD -MP -MF .deps/wslay_frame.Tpo -c -o wslay_frame.lo wslay_frame.c
+libtool: compile:  /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I.. -DHAVE_CONFIG_H -I./includes -I./includes -I/usr/local/BerkeleyDB.4.8/include/ -Wall -g -O2 -MT wslay_frame.lo -MD -MP -MF .deps/wslay_frame.Tpo -c wslay_frame.c  -fPIC -DPIC -o .libs/wslay_frame.o
+libtool: compile:  /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I.. -DHAVE_CONFIG_H -I./includes -I./includes -I/usr/local/BerkeleyDB.4.8/include/ -Wall -g -O2 -MT wslay_frame.lo -MD -MP -MF .deps/wslay_frame.Tpo -c wslay_frame.c -o wslay_frame.o >/dev/null 2>&1
+mv -f .deps/wslay_frame.Tpo .deps/wslay_frame.Plo
+/bin/bash ../libtool  --tag=CC   --mode=compile /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I..  -DHAVE_CONFIG_H -I./includes -I./includes -I/usr/local/BerkeleyDB.4.8/include/ -Wall -g -O2 -MT wslay_event.lo -MD -MP -MF .deps/wslay_event.Tpo -c -o wslay_event.lo wslay_event.c
+libtool: compile:  /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I.. -DHAVE_CONFIG_H -I./includes -I./includes -I/usr/local/BerkeleyDB.4.8/include/ -Wall -g -O2 -MT wslay_event.lo -MD -MP -MF .deps/wslay_event.Tpo -c wslay_event.c  -fPIC -DPIC -o .libs/wslay_event.o
+wslay_event.c:93:30: warning: The left operand of '<<' is a garbage value [core.UndefinedBinaryOperatorResult]
+    (byte & 0x3fu) | (*codep << 6) :
+                      ~~~~~~ ^
+wslay_event.c:227:5: warning: Null pointer passed to 2nd parameter expecting 'nonnull' [core.NonNullParamChecker]
+    memcpy((*m)->data, msg, msg_length);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+wslay_event.c:708:17: warning: Null pointer passed to 2nd parameter expecting 'nonnull' [core.NonNullParamChecker]
+                memcpy(&status_code, msg, 2);
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+libtool: compile:  /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I.. -DHAVE_CONFIG_H -I./includes -I./includes -I/usr/local/BerkeleyDB.4.8/include/ -Wall -g -O2 -MT wslay_event.lo -MD -MP -MF .deps/wslay_event.Tpo -c wslay_event.c -o wslay_event.o >/dev/null 2>&1
+mv -f .deps/wslay_event.Tpo .deps/wslay_event.Plo
+/bin/bash ../libtool  --tag=CC   --mode=compile /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I..  -DHAVE_CONFIG_H -I./includes -I./includes -I/usr/local/BerkeleyDB.4.8/include/ -Wall -g -O2 -MT wslay_queue.lo -MD -MP -MF .deps/wslay_queue.Tpo -c -o wslay_queue.lo wslay_queue.c
+libtool: compile:  /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I.. -DHAVE_CONFIG_H -I./includes -I./includes -I/usr/local/BerkeleyDB.4.8/include/ -Wall -g -O2 -MT wslay_queue.lo -MD -MP -MF .deps/wslay_queue.Tpo -c wslay_queue.c  -fPIC -DPIC -o .libs/wslay_queue.o
+libtool: compile:  /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I.. -DHAVE_CONFIG_H -I./includes -I./includes -I/usr/local/BerkeleyDB.4.8/include/ -Wall -g -O2 -MT wslay_queue.lo -MD -MP -MF .deps/wslay_queue.Tpo -c wslay_queue.c -o wslay_queue.o >/dev/null 2>&1
+mv -f .deps/wslay_queue.Tpo .deps/wslay_queue.Plo
+/bin/bash ../libtool  --tag=CC   --mode=compile /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I..  -DHAVE_CONFIG_H -I./includes -I./includes -I/usr/local/BerkeleyDB.4.8/include/ -Wall -g -O2 -MT wslay_net.lo -MD -MP -MF .deps/wslay_net.Tpo -c -o wslay_net.lo wslay_net.c
+libtool: compile:  /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I.. -DHAVE_CONFIG_H -I./includes -I./includes -I/usr/local/BerkeleyDB.4.8/include/ -Wall -g -O2 -MT wslay_net.lo -MD -MP -MF .deps/wslay_net.Tpo -c wslay_net.c  -fPIC -DPIC -o .libs/wslay_net.o
+libtool: compile:  /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I.. -DHAVE_CONFIG_H -I./includes -I./includes -I/usr/local/BerkeleyDB.4.8/include/ -Wall -g -O2 -MT wslay_net.lo -MD -MP -MF .deps/wslay_net.Tpo -c wslay_net.c -o wslay_net.o >/dev/null 2>&1
+mv -f .deps/wslay_net.Tpo .deps/wslay_net.Plo
+/bin/bash ../libtool  --tag=CC   --mode=link /llvm-project/build/bin/../libexec/ccc-analyzer -Wall -g -O2 -no-undefined -version-info 0:1:0  -o libwslay.la   wslay_frame.lo wslay_event.lo wslay_queue.lo wslay_net.lo  
+libtool: warning: '-version-info/-version-number' is ignored for convenience libraries
+libtool: link: ar cru .libs/libwslay.a .libs/wslay_frame.o .libs/wslay_event.o .libs/wslay_queue.o .libs/wslay_net.o 
+ar: `u' modifier ignored since `D' is the default (see `U')
+libtool: link: ranlib .libs/libwslay.a
+libtool: link: ( cd ".libs" && rm -f "libwslay.la" && ln -s "../libwslay.la" "libwslay.la" )
+make[6]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps/wslay/lib'
+make[5]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps/wslay/lib'
+Making all in tests
+make[5]: Entering directory '/tmp/real/cpp_aria2/aria2/deps/wslay/tests'
+make[5]: Nothing to be done for 'all'.
+make[5]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps/wslay/tests'
+make[5]: Entering directory '/tmp/real/cpp_aria2/aria2/deps/wslay'
+make[5]: Nothing to be done for 'all-am'.
+make[5]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps/wslay'
+make[4]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps/wslay'
+make[3]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps/wslay'
+make[3]: Entering directory '/tmp/real/cpp_aria2/aria2/deps'
+make[3]: Nothing to be done for 'all-am'.
+make[3]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps'
+make[2]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps'
+Making all in src
+make[2]: Entering directory '/tmp/real/cpp_aria2/aria2/src'
+Making all in includes
+make[3]: Entering directory '/tmp/real/cpp_aria2/aria2/src/includes'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/tmp/real/cpp_aria2/aria2/src/includes'
+make[3]: Entering directory '/tmp/real/cpp_aria2/aria2/src'
+  CXX      A2STR.lo
+  CXX      AbstractAuthResolver.lo
+  CXX      AbstractCommand.lo
+  CXX      AbstractDiskWriter.lo
+  CXX      AbstractHttpServerResponseCommand.lo
+  CXX      AbstractOptionHandler.lo
+  CXX      AbstractProxyRequestCommand.lo
+  CXX      AbstractProxyResponseCommand.lo
+  CXX      AbstractSingleDiskAdaptor.lo
+  CXX      AdaptiveFileAllocationIterator.lo
+  CXX      AdaptiveURISelector.lo
+  CXX      AuthConfig.lo
+  CXX      AuthConfigFactory.lo
+  CXX      AutoSaveCommand.lo
+  CXX      BackupIPv4ConnectCommand.lo
+  CXX      base32.lo
+  CXX      bitfield.lo
+  CXX      BitfieldMan.lo
+In file included from BitfieldMan.cc:40:
+./array_fun.h:123:41: warning: Array access (via field 't') results in a null pointer dereference [core.NullDereference]
+  T operator[](size_t i) const { return t[i]; }
+                                        ^~~~
+1 warning generated.
+  CXX      BufferedFile.lo
+  CXX      ByteArrayDiskWriter.lo
+  CXX      CheckIntegrityCommand.lo
+  CXX      CheckIntegrityDispatcherCommand.lo
+  CXX      CheckIntegrityEntry.lo
+  CXX      Checksum.lo
+  CXX      ChecksumCheckIntegrityEntry.lo
+  CXX      ChunkChecksum.lo
+  CXX      ChunkedDecodingStreamFilter.lo
+  CXX      ColorizedStream.lo
+  CXX      Command.lo
+  CXX      ConnectCommand.lo
+  CXX      console.lo
+  CXX      ConsoleStatCalc.lo
+  CXX      ContentTypeRequestGroupCriteria.lo
+  CXX      Context.lo
+  CXX      ContextAttribute.lo
+  CXX      Cookie.lo
+  CXX      CookieStorage.lo
+  CXX      cookie_helper.lo
+  CXX      CreateRequestCommand.lo
+  CXX      CUIDCounter.lo
+  CXX      DefaultAuthResolver.lo
+  CXX      DefaultBtProgressInfoFile.lo
+  CXX      DefaultDiskWriter.lo
+  CXX      DefaultDiskWriterFactory.lo
+  CXX      DefaultPieceStorage.lo
+  CXX      DefaultStreamPieceSelector.lo
+  CXX      DirectDiskAdaptor.lo
+  CXX      DiskAdaptor.lo
+  CXX      DlAbortEx.lo
+  CXX      DlRetryEx.lo
+  CXX      DNSCache.lo
+  CXX      DownloadCommand.lo
+  CXX      DownloadContext.lo
+  CXX      DownloadEngine.lo
+  CXX      DownloadEngineFactory.lo
+  CXX      DownloadFailureException.lo
+  CXX      DownloadHandler.lo
+  CXX      DownloadHandlerConstants.lo
+  CXX      DownloadResult.lo
+  CXX      download_handlers.lo
+  CXX      download_helper.lo
+  CXX      Exception.lo
+  CXX      FatalException.lo
+  CXX      FeatureConfig.lo
+  CXX      FeedbackURISelector.lo
+  CXX      File.lo
+  CXX      FileAllocationCommand.lo
+  CXX      FileAllocationDispatcherCommand.lo
+  CXX      FileAllocationEntry.lo
+  CXX      FileEntry.lo
+  CXX      FillRequestGroupCommand.lo
+  CXX      fmt.lo
+  CXX      FtpConnection.lo
+  CXX      FtpDownloadCommand.lo
+  CXX      FtpFinishDownloadCommand.lo
+  CXX      FtpInitiateConnectionCommand.lo
+  CXX      FtpNegotiationCommand.lo
+  CXX      FtpTunnelRequestCommand.lo
+  CXX      FtpTunnelResponseCommand.lo
+  CXX      GeomStreamPieceSelector.lo
+  CXX      GroupId.lo
+  CXX      GrowSegment.lo
+  CXX      HaveEraseCommand.lo
+  CXX      help_tags.lo
+  CXX      HttpConnection.lo
+  CXX      HttpDownloadCommand.lo
+  CXX      HttpHeader.lo
+  CXX      HttpHeaderProcessor.lo
+  CXX      HttpInitiateConnectionCommand.lo
+  CXX      HttpListenCommand.lo
+  CXX      HttpProxyRequestCommand.lo
+  CXX      HttpProxyResponseCommand.lo
+  CXX      HttpRequest.lo
+  CXX      HttpRequestCommand.lo
+  CXX      HttpResponse.lo
+  CXX      HttpResponseCommand.lo
+  CXX      HttpServer.lo
+  CXX      HttpServerBodyCommand.lo
+  CXX      HttpServerCommand.lo
+  CXX      HttpServerResponseCommand.lo
+  CXX      HttpSkipResponseCommand.lo
+  CXX      InitiateConnectionCommand.lo
+  CXX      InitiateConnectionCommandFactory.lo
+  CXX      InorderStreamPieceSelector.lo
+  CXX      RandomStreamPieceSelector.lo
+  CXX      InorderURISelector.lo
+  CXX      IOFile.lo
+  CXX      IteratableChecksumValidator.lo
+  CXX      IteratableChunkChecksumValidator.lo
+  CXX      json.lo
+  CXX      JsonParser.lo
+  CXX      LogFactory.lo
+LogFactory.cc:70:5: warning: Value stored to 'level' is never read [deadcode.DeadStores]
+    level = std::min(level, logLevel_);
+    ^       ~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      Logger.lo
+  CXX      LongestSequencePieceSelector.lo
+  CXX      MessageDigest.lo
+  CXX      message_digest_helper.lo
+  CXX      MetadataInfo.lo
+  CXX      MetalinkHttpEntry.lo
+  CXX      MultiDiskAdaptor.lo
+  CXX      MultiFileAllocationIterator.lo
+  CXX      MultiUrlRequestInfo.lo
+  CXX      NameResolver.lo
+  CXX      Netrc.lo
+  CXX      NetrcAuthResolver.lo
+  CXX      NetStat.lo
+  CXX      Notifier.lo
+  CXX      NsCookieParser.lo
+  CXX      NullSinkStreamFilter.lo
+  CXX      Option.lo
+  CXX      OptionHandler.lo
+  CXX      OptionHandlerException.lo
+  CXX      OptionHandlerFactory.lo
+  CXX      OptionHandlerImpl.lo
+  CXX      OptionParser.lo
+OptionParser.cc:172:12: warning: 1st function call argument is an uninitialized value [core.CallAndMessage]
+      op = findById(lopt);
+           ^~~~~~~~~~~~~~
+1 warning generated.
+  CXX      option_processing.lo
+  CXX      paramed_string.lo
+  CXX      PeerStat.lo
+  CXX      Piece.lo
+  CXX      PiecedSegment.lo
+  CXX      PieceHashCheckIntegrityEntry.lo
+  CXX      PieceStatMan.lo
+  CXX      Platform.lo
+  CXX      prefs.lo
+  CXX      ProtocolDetector.lo
+  CXX      Range.lo
+  CXX      RarestPieceSelector.lo
+  CXX      RealtimeCommand.lo
+  CXX      RecoverableException.lo
+  CXX      Request.lo
+  CXX      RequestGroup.lo
+  CXX      RequestGroupEntry.lo
+  CXX      RequestGroupMan.lo
+  CXX      RpcMethod.lo
+  CXX      RpcMethodFactory.lo
+  CXX      RpcMethodImpl.lo
+  CXX      RpcRequest.lo
+  CXX      RpcResponse.lo
+  CXX      rpc_helper.lo
+  CXX      SaveSessionCommand.lo
+  CXX      SegmentMan.lo
+  CXX      SelectEventPoll.lo
+  CXX      ServerStat.lo
+  CXX      ServerStatMan.lo
+  CXX      SessionSerializer.lo
+  CXX      Signature.lo
+  CXX      SimpleRandomizer.lo
+  CXX      SingleFileAllocationIterator.lo
+  CXX      SinkStreamFilter.lo
+  CXX      SocketBuffer.lo
+  CXX      SocketCore.lo
+SocketCore.cc:1684:33: warning: The left operand of '!=' is a garbage value [core.UndefinedBinaryOperatorResult]
+      if (ad.in.sin_addr.s_addr != htonl(INADDR_LOOPBACK)) {
+          ~~~~~~~~~~~~~~~~~~~~~ ^
+SocketCore.cc:1693:12: warning: The left operand of '==' is a garbage value [core.UndefinedBinaryOperatorResult]
+      if (!IN6_IS_ADDR_LOOPBACK(&ad.in6.sin6_addr) &&
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/netinet/in.h:421:35: note: expanded from macro 'IN6_IS_ADDR_LOOPBACK'
+      __a->__in6_u.__u6_addr32[0] == 0                                        \
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^
+2 warnings generated.
+  CXX      SocketRecvBuffer.lo
+  CXX      SpeedCalc.lo
+  CXX      StreamCheckIntegrityEntry.lo
+  CXX      StreamFileAllocationEntry.lo
+  CXX      StreamFilter.lo
+  CXX      TimeA2.lo
+  CXX      TimeBasedCommand.lo
+  CXX      TimedHaltCommand.lo
+  CXX      TimerA2.lo
+  CXX      TorrentAttribute.lo
+  CXX      TransferStat.lo
+  CXX      TruncFileAllocationIterator.lo
+  CXX      UnknownLengthPieceStorage.lo
+  CXX      UnknownOptionException.lo
+  CXX      uri.lo
+  CXX      UriListParser.lo
+  CXX      URIResult.lo
+  CC       uri_split.lo
+  CXX      util.lo
+  CXX      util_security.lo
+  CXX      ValueBase.lo
+  CXX      ValueBaseStructParserStateImpl.lo
+  CXX      ValueBaseStructParserStateMachine.lo
+  CXX      version_usage.lo
+  CXX      wallclock.lo
+  CXX      WatchProcessCommand.lo
+  CXX      WrDiskCache.lo
+  CXX      WrDiskCacheEntry.lo
+  CXX      XmlRpcRequestParserController.lo
+  CXX      OpenedFileCounter.lo
+  CXX      SHA1IOFile.lo
+  CXX      EvictSocketPoolCommand.lo
+  CXX      WebSocketInteractionCommand.lo
+  CXX      WebSocketResponseCommand.lo
+  CXX      WebSocketSession.lo
+  CXX      WebSocketSessionMan.lo
+  CXX      XmlAttr.lo
+  CXX      XmlParser.lo
+  CXX      Xml2XmlParser.lo
+  CXX      XmlRpcDiskWriter.lo
+  CXX      XmlRpcRequestParserStateImpl.lo
+  CXX      XmlRpcRequestParserStateMachine.lo
+  CXX      FallocFileAllocationIterator.lo
+  CXX      EpollEventPoll.lo
+  CXX      LibsslARC4Encryptor.lo
+  CXX      LibsslDHKeyExchange.lo
+  CXX      LibsslTLSContext.lo
+  CXX      LibsslTLSSession.lo
+  CXX      LibsslMessageDigestImpl.lo
+  CXX      GZipDecodingStreamFilter.lo
+  CXX      GZipEncoder.lo
+  CXX      GZipFile.lo
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+make  all-recursive
+make[1]: Entering directory '/tmp/real/cpp_aria2/aria2'
+Making all in po
+make[2]: Entering directory '/tmp/real/cpp_aria2/aria2/po'
+make aria2.pot-update
+make[3]: Entering directory '/tmp/real/cpp_aria2/aria2/po'
+sed -e '/^#/d' remove-potcdate.sin > t-remove-potcdate.sed
+mv t-remove-potcdate.sed remove-potcdate.sed
+if LC_ALL=C grep 'GNU aria2' ../* 2>/dev/null | grep -v 'libtool:' >/dev/null; then \
+  package_gnu='GNU '; \
+else \
+  package_gnu=''; \
+fi; \
+if test -n 'https://aria2.github.io/' || test 'https://github.com/aria2/aria2/issues' = '@'PACKAGE_BUGREPORT'@'; then \
+  msgid_bugs_address='https://aria2.github.io/'; \
+else \
+  msgid_bugs_address='https://github.com/aria2/aria2/issues'; \
+fi; \
+case `/usr/bin/xgettext --version | sed 1q | sed -e 's,^[^0-9]*,,'` in \
+  '' | 0.[0-9] | 0.[0-9].* | 0.1[0-5] | 0.1[0-5].* | 0.16 | 0.16.[0-1]*) \
+    /usr/bin/xgettext --default-domain=aria2 --directory=.. \
+      --add-comments=TRANSLATORS: --keyword=_ --keyword=N_  \
+      --files-from=./POTFILES.in \
+      --copyright-holder='Tatsuhiro Tsujikawa' \
+      --msgid-bugs-address="$msgid_bugs_address" \
+    ;; \
+  *) \
+    /usr/bin/xgettext --default-domain=aria2 --directory=.. \
+      --add-comments=TRANSLATORS: --keyword=_ --keyword=N_  \
+      --files-from=./POTFILES.in \
+      --copyright-holder='Tatsuhiro Tsujikawa' \
+      --package-name="${package_gnu}aria2" \
+      --package-version='1.35.0' \
+      --msgid-bugs-address="$msgid_bugs_address" \
+    ;; \
+esac
+test ! -f aria2.po || { \
+  if test -f ./aria2.pot; then \
+    sed -f remove-potcdate.sed < ./aria2.pot > aria2.1po && \
+    sed -f remove-potcdate.sed < aria2.po > aria2.2po && \
+    if cmp aria2.1po aria2.2po >/dev/null 2>&1; then \
+      rm -f aria2.1po aria2.2po aria2.po; \
+    else \
+      rm -f aria2.1po aria2.2po ./aria2.pot && \
+      mv aria2.po ./aria2.pot; \
+    fi; \
+  else \
+    mv aria2.po ./aria2.pot; \
+  fi; \
+}
+make[3]: Leaving directory '/tmp/real/cpp_aria2/aria2/po'
+test ! -f ./aria2.pot || \
+  test -z "" || make 
+touch stamp-po
+make[2]: Leaving directory '/tmp/real/cpp_aria2/aria2/po'
+Making all in lib
+make[2]: Entering directory '/tmp/real/cpp_aria2/aria2/lib'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/tmp/real/cpp_aria2/aria2/lib'
+Making all in deps
+make[2]: Entering directory '/tmp/real/cpp_aria2/aria2/deps'
+Making all in wslay
+make[3]: Entering directory '/tmp/real/cpp_aria2/aria2/deps/wslay'
+make  all-recursive
+make[4]: Entering directory '/tmp/real/cpp_aria2/aria2/deps/wslay'
+Making all in lib
+make[5]: Entering directory '/tmp/real/cpp_aria2/aria2/deps/wslay/lib'
+Making all in includes
+make[6]: Entering directory '/tmp/real/cpp_aria2/aria2/deps/wslay/lib/includes'
+make[6]: Nothing to be done for 'all'.
+make[6]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps/wslay/lib/includes'
+make[6]: Entering directory '/tmp/real/cpp_aria2/aria2/deps/wslay/lib'
+/bin/bash ../libtool  --tag=CC   --mode=compile /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I..  -DHAVE_CONFIG_H -I./includes -I./includes  -Wall -g -O2 -MT wslay_frame.lo -MD -MP -MF .deps/wslay_frame.Tpo -c -o wslay_frame.lo wslay_frame.c
+libtool: compile:  /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I.. -DHAVE_CONFIG_H -I./includes -I./includes -Wall -g -O2 -MT wslay_frame.lo -MD -MP -MF .deps/wslay_frame.Tpo -c wslay_frame.c  -fPIC -DPIC -o .libs/wslay_frame.o
+libtool: compile:  /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I.. -DHAVE_CONFIG_H -I./includes -I./includes -Wall -g -O2 -MT wslay_frame.lo -MD -MP -MF .deps/wslay_frame.Tpo -c wslay_frame.c -o wslay_frame.o >/dev/null 2>&1
+mv -f .deps/wslay_frame.Tpo .deps/wslay_frame.Plo
+/bin/bash ../libtool  --tag=CC   --mode=compile /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I..  -DHAVE_CONFIG_H -I./includes -I./includes  -Wall -g -O2 -MT wslay_event.lo -MD -MP -MF .deps/wslay_event.Tpo -c -o wslay_event.lo wslay_event.c
+libtool: compile:  /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I.. -DHAVE_CONFIG_H -I./includes -I./includes -Wall -g -O2 -MT wslay_event.lo -MD -MP -MF .deps/wslay_event.Tpo -c wslay_event.c  -fPIC -DPIC -o .libs/wslay_event.o
+wslay_event.c:93:30: warning: The left operand of '<<' is a garbage value [core.UndefinedBinaryOperatorResult]
+    (byte & 0x3fu) | (*codep << 6) :
+                      ~~~~~~ ^
+wslay_event.c:227:5: warning: Null pointer passed to 2nd parameter expecting 'nonnull' [core.NonNullParamChecker]
+    memcpy((*m)->data, msg, msg_length);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+wslay_event.c:708:17: warning: Null pointer passed to 2nd parameter expecting 'nonnull' [core.NonNullParamChecker]
+                memcpy(&status_code, msg, 2);
+                ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+3 warnings generated.
+libtool: compile:  /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I.. -DHAVE_CONFIG_H -I./includes -I./includes -Wall -g -O2 -MT wslay_event.lo -MD -MP -MF .deps/wslay_event.Tpo -c wslay_event.c -o wslay_event.o >/dev/null 2>&1
+mv -f .deps/wslay_event.Tpo .deps/wslay_event.Plo
+/bin/bash ../libtool  --tag=CC   --mode=compile /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I..  -DHAVE_CONFIG_H -I./includes -I./includes  -Wall -g -O2 -MT wslay_queue.lo -MD -MP -MF .deps/wslay_queue.Tpo -c -o wslay_queue.lo wslay_queue.c
+libtool: compile:  /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I.. -DHAVE_CONFIG_H -I./includes -I./includes -Wall -g -O2 -MT wslay_queue.lo -MD -MP -MF .deps/wslay_queue.Tpo -c wslay_queue.c  -fPIC -DPIC -o .libs/wslay_queue.o
+libtool: compile:  /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I.. -DHAVE_CONFIG_H -I./includes -I./includes -Wall -g -O2 -MT wslay_queue.lo -MD -MP -MF .deps/wslay_queue.Tpo -c wslay_queue.c -o wslay_queue.o >/dev/null 2>&1
+mv -f .deps/wslay_queue.Tpo .deps/wslay_queue.Plo
+/bin/bash ../libtool  --tag=CC   --mode=compile /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I..  -DHAVE_CONFIG_H -I./includes -I./includes  -Wall -g -O2 -MT wslay_net.lo -MD -MP -MF .deps/wslay_net.Tpo -c -o wslay_net.lo wslay_net.c
+libtool: compile:  /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I.. -DHAVE_CONFIG_H -I./includes -I./includes -Wall -g -O2 -MT wslay_net.lo -MD -MP -MF .deps/wslay_net.Tpo -c wslay_net.c  -fPIC -DPIC -o .libs/wslay_net.o
+libtool: compile:  /llvm-project/build/bin/../libexec/ccc-analyzer -DHAVE_CONFIG_H -I. -I.. -DHAVE_CONFIG_H -I./includes -I./includes -Wall -g -O2 -MT wslay_net.lo -MD -MP -MF .deps/wslay_net.Tpo -c wslay_net.c -o wslay_net.o >/dev/null 2>&1
+mv -f .deps/wslay_net.Tpo .deps/wslay_net.Plo
+/bin/bash ../libtool  --tag=CC   --mode=link /llvm-project/build/bin/../libexec/ccc-analyzer -Wall -g -O2 -no-undefined -version-info 0:1:0  -o libwslay.la   wslay_frame.lo wslay_event.lo wslay_queue.lo wslay_net.lo  
+libtool: warning: '-version-info/-version-number' is ignored for convenience libraries
+libtool: link: ar cru .libs/libwslay.a .libs/wslay_frame.o .libs/wslay_event.o .libs/wslay_queue.o .libs/wslay_net.o 
+ar: `u' modifier ignored since `D' is the default (see `U')
+libtool: link: ranlib .libs/libwslay.a
+libtool: link: ( cd ".libs" && rm -f "libwslay.la" && ln -s "../libwslay.la" "libwslay.la" )
+make[6]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps/wslay/lib'
+make[5]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps/wslay/lib'
+Making all in tests
+make[5]: Entering directory '/tmp/real/cpp_aria2/aria2/deps/wslay/tests'
+make[5]: Nothing to be done for 'all'.
+make[5]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps/wslay/tests'
+make[5]: Entering directory '/tmp/real/cpp_aria2/aria2/deps/wslay'
+make[5]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps/wslay'
+make[4]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps/wslay'
+make[3]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps/wslay'
+make[3]: Entering directory '/tmp/real/cpp_aria2/aria2/deps'
+make[3]: Nothing to be done for 'all-am'.
+make[3]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps'
+make[2]: Leaving directory '/tmp/real/cpp_aria2/aria2/deps'
+Making all in src
+make[2]: Entering directory '/tmp/real/cpp_aria2/aria2/src'
+Making all in includes
+make[3]: Entering directory '/tmp/real/cpp_aria2/aria2/src/includes'
+make[3]: Nothing to be done for 'all'.
+make[3]: Leaving directory '/tmp/real/cpp_aria2/aria2/src/includes'
+make[3]: Entering directory '/tmp/real/cpp_aria2/aria2/src'
+  CXX      A2STR.lo
+  CXX      AbstractAuthResolver.lo
+  CXX      AbstractCommand.lo
+  CXX      AbstractDiskWriter.lo
+  CXX      AbstractHttpServerResponseCommand.lo
+  CXX      AbstractOptionHandler.lo
+  CXX      AbstractProxyRequestCommand.lo
+  CXX      AbstractProxyResponseCommand.lo
+  CXX      AbstractSingleDiskAdaptor.lo
+  CXX      AdaptiveFileAllocationIterator.lo
+  CXX      AdaptiveURISelector.lo
+  CXX      AuthConfig.lo
+  CXX      AuthConfigFactory.lo
+  CXX      AutoSaveCommand.lo
+  CXX      BackupIPv4ConnectCommand.lo
+  CXX      base32.lo
+  CXX      bitfield.lo
+  CXX      BitfieldMan.lo
+In file included from BitfieldMan.cc:40:
+./array_fun.h:123:41: warning: Array access (via field 't') results in a null pointer dereference [core.NullDereference]
+  T operator[](size_t i) const { return t[i]; }
+                                        ^~~~
+1 warning generated.
+  CXX      BufferedFile.lo
+  CXX      ByteArrayDiskWriter.lo
+  CXX      CheckIntegrityCommand.lo
+  CXX      CheckIntegrityDispatcherCommand.lo
+  CXX      CheckIntegrityEntry.lo
+  CXX      Checksum.lo
+  CXX      ChecksumCheckIntegrityEntry.lo
+  CXX      ChunkChecksum.lo
+  CXX      ChunkedDecodingStreamFilter.lo
+  CXX      ColorizedStream.lo
+  CXX      Command.lo
+  CXX      ConnectCommand.lo
+  CXX      console.lo
+  CXX      ConsoleStatCalc.lo
+  CXX      ContentTypeRequestGroupCriteria.lo
+  CXX      Context.lo
+  CXX      ContextAttribute.lo
+  CXX      Cookie.lo
+  CXX      CookieStorage.lo
+  CXX      cookie_helper.lo
+  CXX      CreateRequestCommand.lo
+  CXX      CUIDCounter.lo
+  CXX      DefaultAuthResolver.lo
+  CXX      DefaultBtProgressInfoFile.lo
+  CXX      DefaultDiskWriter.lo
+  CXX      DefaultDiskWriterFactory.lo
+  CXX      DefaultPieceStorage.lo
+  CXX      DefaultStreamPieceSelector.lo
+  CXX      DirectDiskAdaptor.lo
+  CXX      DiskAdaptor.lo
+  CXX      DlAbortEx.lo
+  CXX      DlRetryEx.lo
+  CXX      DNSCache.lo
+  CXX      DownloadCommand.lo
+  CXX      DownloadContext.lo
+  CXX      DownloadEngine.lo
+  CXX      DownloadEngineFactory.lo
+  CXX      DownloadFailureException.lo
+  CXX      DownloadHandler.lo
+  CXX      DownloadHandlerConstants.lo
+  CXX      DownloadResult.lo
+  CXX      download_handlers.lo
+  CXX      download_helper.lo
+  CXX      Exception.lo
+  CXX      FatalException.lo
+  CXX      FeatureConfig.lo
+  CXX      FeedbackURISelector.lo
+  CXX      File.lo
+  CXX      FileAllocationCommand.lo
+  CXX      FileAllocationDispatcherCommand.lo
+  CXX      FileAllocationEntry.lo
+  CXX      FileEntry.lo
+  CXX      FillRequestGroupCommand.lo
+  CXX      fmt.lo
+  CXX      FtpConnection.lo
+  CXX      FtpDownloadCommand.lo
+  CXX      FtpFinishDownloadCommand.lo
+  CXX      FtpInitiateConnectionCommand.lo
+  CXX      FtpNegotiationCommand.lo
+  CXX      FtpTunnelRequestCommand.lo
+  CXX      FtpTunnelResponseCommand.lo
+  CXX      GeomStreamPieceSelector.lo
+  CXX      GroupId.lo
+  CXX      GrowSegment.lo
+  CXX      HaveEraseCommand.lo
+  CXX      help_tags.lo
+  CXX      HttpConnection.lo
+  CXX      HttpDownloadCommand.lo
+  CXX      HttpHeader.lo
+  CXX      HttpHeaderProcessor.lo
+  CXX      HttpInitiateConnectionCommand.lo
+  CXX      HttpListenCommand.lo
+  CXX      HttpProxyRequestCommand.lo
+  CXX      HttpProxyResponseCommand.lo
+  CXX      HttpRequest.lo
+  CXX      HttpRequestCommand.lo
+  CXX      HttpResponse.lo
+  CXX      HttpResponseCommand.lo
+  CXX      HttpServer.lo
+  CXX      HttpServerBodyCommand.lo
+  CXX      HttpServerCommand.lo
+  CXX      HttpServerResponseCommand.lo
+  CXX      HttpSkipResponseCommand.lo
+  CXX      InitiateConnectionCommand.lo
+  CXX      InitiateConnectionCommandFactory.lo
+  CXX      InorderStreamPieceSelector.lo
+  CXX      RandomStreamPieceSelector.lo
+  CXX      InorderURISelector.lo
+  CXX      IOFile.lo
+  CXX      IteratableChecksumValidator.lo
+  CXX      IteratableChunkChecksumValidator.lo
+  CXX      json.lo
+  CXX      JsonParser.lo
+  CXX      LogFactory.lo
+LogFactory.cc:70:5: warning: Value stored to 'level' is never read [deadcode.DeadStores]
+    level = std::min(level, logLevel_);
+    ^       ~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 warning generated.
+  CXX      Logger.lo
+  CXX      LongestSequencePieceSelector.lo
+  CXX      MessageDigest.lo
+  CXX      message_digest_helper.lo
+  CXX      MetadataInfo.lo
+  CXX      MetalinkHttpEntry.lo
+  CXX      MultiDiskAdaptor.lo
+  CXX      MultiFileAllocationIterator.lo
+  CXX      MultiUrlRequestInfo.lo
+  CXX      NameResolver.lo
+  CXX      Netrc.lo
+  CXX      NetrcAuthResolver.lo
+  CXX      NetStat.lo
+  CXX      Notifier.lo
+  CXX      NsCookieParser.lo
+  CXX      NullSinkStreamFilter.lo
+  CXX      Option.lo
+  CXX      OptionHandler.lo
+  CXX      OptionHandlerException.lo
+  CXX      OptionHandlerFactory.lo
+  CXX      OptionHandlerImpl.lo
+  CXX      OptionParser.lo
+OptionParser.cc:172:12: warning: 1st function call argument is an uninitialized value [core.CallAndMessage]
+      op = findById(lopt);
+           ^~~~~~~~~~~~~~
+1 warning generated.
+  CXX      option_processing.lo
+  CXX      paramed_string.lo
+  CXX      PeerStat.lo
+  CXX      Piece.lo
+  CXX      PiecedSegment.lo
+  CXX      PieceHashCheckIntegrityEntry.lo
+  CXX      PieceStatMan.lo
+  CXX      Platform.lo
+  CXX      prefs.lo
+  CXX      ProtocolDetector.lo
+  CXX      Range.lo
+  CXX      RarestPieceSelector.lo
+  CXX      RealtimeCommand.lo
+  CXX      RecoverableException.lo
+  CXX      Request.lo
+  CXX      RequestGroup.lo
+  CXX      RequestGroupEntry.lo
+  CXX      RequestGroupMan.lo
+  CXX      RpcMethod.lo
+  CXX      RpcMethodFactory.lo
+  CXX      RpcMethodImpl.lo
+  CXX      RpcRequest.lo
+  CXX      RpcResponse.lo
+  CXX      rpc_helper.lo
+  CXX      SaveSessionCommand.lo
+  CXX      SegmentMan.lo
+  CXX      SelectEventPoll.lo
+  CXX      ServerStat.lo
+  CXX      ServerStatMan.lo
+  CXX      SessionSerializer.lo
+  CXX      Signature.lo
+  CXX      SimpleRandomizer.lo
+  CXX      SingleFileAllocationIterator.lo
+  CXX      SinkStreamFilter.lo
+  CXX      SocketBuffer.lo
+  CXX      SocketCore.lo
+SocketCore.cc:1684:33: warning: The left operand of '!=' is a garbage value [core.UndefinedBinaryOperatorResult]
+      if (ad.in.sin_addr.s_addr != htonl(INADDR_LOOPBACK)) {
+          ~~~~~~~~~~~~~~~~~~~~~ ^
+SocketCore.cc:1693:12: warning: The left operand of '==' is a garbage value [core.UndefinedBinaryOperatorResult]
+      if (!IN6_IS_ADDR_LOOPBACK(&ad.in6.sin6_addr) &&
+           ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/netinet/in.h:421:35: note: expanded from macro 'IN6_IS_ADDR_LOOPBACK'
+      __a->__in6_u.__u6_addr32[0] == 0                                        \
+      ~~~~~~~~~~~~~~~~~~~~~~~~~~~ ^
+2 warnings generated.
+  CXX      SocketRecvBuffer.lo
+  CXX      SpeedCalc.lo
+  CXX      StreamCheckIntegrityEntry.lo
+  CXX      StreamFileAllocationEntry.lo
+  CXX      StreamFilter.lo
+  CXX      TimeA2.lo
+  CXX      TimeBasedCommand.lo
+  CXX      TimedHaltCommand.lo
+  CXX      TimerA2.lo
+  CXX      TorrentAttribute.lo
+  CXX      TransferStat.lo
+  CXX      TruncFileAllocationIterator.lo
+  CXX      UnknownLengthPieceStorage.lo
+  CXX      UnknownOptionException.lo
+  CXX      uri.lo
+  CXX      UriListParser.lo
+  CXX      URIResult.lo
+  CC       uri_split.lo
+  CXX      util.lo
+  CXX      util_security.lo
+  CXX      ValueBase.lo
+  CXX      ValueBaseStructParserStateImpl.lo
+  CXX      ValueBaseStructParserStateMachine.lo
+  CXX      version_usage.lo
+  CXX      wallclock.lo
+  CXX      WatchProcessCommand.lo
+  CXX      WrDiskCache.lo
+  CXX      WrDiskCacheEntry.lo
+  CXX      XmlRpcRequestParserController.lo
+  CXX      OpenedFileCounter.lo
+  CXX      SHA1IOFile.lo
+  CXX      EvictSocketPoolCommand.lo
+  CXX      WebSocketInteractionCommand.lo
+  CXX      WebSocketResponseCommand.lo
+  CXX      WebSocketSession.lo
+  CXX      WebSocketSessionMan.lo
+  CXX      XmlAttr.lo
+  CXX      XmlParser.lo
+  CXX      Xml2XmlParser.lo
+  CXX      XmlRpcDiskWriter.lo
+  CXX      XmlRpcRequestParserStateImpl.lo
+  CXX      XmlRpcRequestParserStateMachine.lo
+  CXX      FallocFileAllocationIterator.lo
+  CXX      EpollEventPoll.lo
+  CXX      LibsslARC4Encryptor.lo
+  CXX      LibsslDHKeyExchange.lo
+  CXX      LibsslTLSContext.lo
+  CXX      LibsslTLSSession.lo
+  CXX      LibsslMessageDigestImpl.lo
+  CXX      GZipDecodingStreamFilter.lo
+  CXX      GZipEncoder.lo
+  CXX      GZipFile.lo
+  CXX      Adler32MessageDigestImpl.lo
+  CXX      AbstractBtMessage.lo
+  CXX      ActivePeerConnectionCommand.lo
+  CXX      AnnounceList.lo
+  CXX      AnnounceTier.lo
+  CXX      bencode2.lo
+  CXX      BencodeParser.lo
+  CXX      bittorrent_helper.lo
+  CXX      BtAbortOutstandingRequestEvent.lo
+  CXX      BtAllowedFastMessage.lo
+  CXX      BtAnnounce.lo
+  CXX      BtBitfieldMessage.lo
+  CXX      BtBitfieldMessageValidator.lo
+  CXX      BtCancelMessage.lo
+  CXX      BtCheckIntegrityEntry.lo
+  CXX      BtChokeMessage.lo
+  CXX      BtDependency.lo
+  CXX      BtExtendedMessage.lo
+  CXX      BtFileAllocationEntry.lo
+  CXX      BtHandshakeMessage.lo
+  CXX      BtHandshakeMessageValidator.lo
+  CXX      BtHaveAllMessage.lo
+  CXX      BtHaveMessage.lo
+  CXX      BtHaveNoneMessage.lo
+  CXX      BtInterestedMessage.lo
+  CXX      BtKeepAliveMessage.lo
+  CXX      BtLeecherStateChoke.lo
+  CXX      BtNotInterestedMessage.lo
+  CXX      BtPieceMessage.lo
+  CXX      BtPieceMessageValidator.lo
+  CXX      BtPortMessage.lo
+  CXX      BtPostDownloadHandler.lo
+  CXX      BtRegistry.lo
+  CXX      BtRejectMessage.lo
+  CXX      BtRequestMessage.lo
+  CXX      BtRuntime.lo
+  CXX      BtSeederStateChoke.lo
+  CXX      BtSetup.lo
+  CXX      BtStopDownloadCommand.lo
+  CXX      BtSuggestPieceMessage.lo
+  CXX      BtUnchokeMessage.lo
+  CXX      DefaultBtAnnounce.lo
+  CXX      DefaultBtInteractive.lo
+  CXX      DefaultBtMessageDispatcher.lo
+  CXX      DefaultBtMessageFactory.lo
+  CXX      DefaultBtMessageReceiver.lo
+  CXX      DefaultBtRequestFactory.lo
+  CXX      DefaultExtensionMessageFactory.lo
+  CXX      DefaultPeerStorage.lo
+  CXX      DHTAbstractMessage.lo
+  CXX      DHTAbstractTask.lo
+  CXX      DHTAnnouncePeerMessage.lo
+  CXX      DHTAnnouncePeerReplyMessage.lo
+  CXX      DHTAutoSaveCommand.lo
+  CXX      DHTBucket.lo
+  CXX      DHTBucketRefreshCommand.lo
+  CXX      DHTBucketRefreshTask.lo
+  CXX      DHTBucketTree.lo
+  CXX      DHTConnectionImpl.lo
+  CXX      DHTEntryPointNameResolveCommand.lo
+  CXX      DHTFindNodeMessage.lo
+  CXX      DHTFindNodeReplyMessage.lo
+  CXX      DHTGetPeersCommand.lo
+  CXX      DHTGetPeersMessage.lo
+  CXX      DHTGetPeersReplyMessage.lo
+  CXX      DHTInteractionCommand.lo
+  CXX      DHTMessage.lo
+  CXX      DHTMessageDispatcherImpl.lo
+  CXX      DHTMessageEntry.lo
+  CXX      DHTMessageFactoryImpl.lo
+  CXX      DHTMessageReceiver.lo
+  CXX      DHTMessageTracker.lo
+  CXX      DHTMessageTrackerEntry.lo
+  CXX      DHTNode.lo
+  CXX      DHTNodeLookupEntry.lo
+  CXX      DHTNodeLookupTask.lo
+  CXX      DHTNodeLookupTaskCallback.lo
+  CXX      DHTPeerAnnounceCommand.lo
+  CXX      DHTPeerAnnounceEntry.lo
+  CXX      DHTPeerAnnounceStorage.lo
+  CXX      DHTPeerLookupTask.lo
+  CXX      DHTPeerLookupTaskCallback.lo
+  CXX      DHTPingMessage.lo
+  CXX      DHTPingReplyMessage.lo
+  CXX      DHTPingTask.lo
+  CXX      DHTQueryMessage.lo
+  CXX      DHTRegistry.lo
+  CXX      DHTReplaceNodeTask.lo
+  CXX      DHTResponseMessage.lo
+  CXX      DHTRoutingTable.lo
+  CXX      DHTRoutingTableDeserializer.lo
+  CXX      DHTRoutingTableSerializer.lo
+  CXX      DHTSetup.lo
+  CXX      DHTTaskExecutor.lo
+  CXX      DHTTaskFactoryImpl.lo
+  CXX      DHTTaskQueueImpl.lo
+  CXX      DHTTokenTracker.lo
+  CXX      DHTTokenUpdateCommand.lo
+  CXX      DHTUnknownMessage.lo
+  CXX      ExtensionMessageRegistry.lo
+  CXX      HandshakeExtensionMessage.lo
+  CXX      IndexBtMessage.lo
+  CXX      IndexBtMessageValidator.lo
+  CXX      InitiatorMSEHandshakeCommand.lo
+  CXX      LpdDispatchMessageCommand.lo
+  CXX      LpdMessage.lo
+  CXX      LpdMessageDispatcher.lo
+  CXX      LpdMessageReceiver.lo
+  CXX      LpdReceiveMessageCommand.lo
+  CXX      magnet.lo
+  CXX      MSEHandshake.lo
+  CXX      NameResolveCommand.lo
+  CXX      Peer.lo
+  CXX      PeerAbstractCommand.lo
+  CXX      PeerAddrEntry.lo
+  CXX      PeerChokeCommand.lo
+  CXX      PeerConnection.lo
+  CXX      PeerInitiateConnectionCommand.lo
+  CXX      PeerInteractionCommand.lo
+  CXX      PeerListenCommand.lo
+  CXX      PeerReceiveHandshakeCommand.lo
+  CXX      PeerSessionResource.lo
+  CXX      PriorityPieceSelector.lo
+  CXX      RangeBtMessage.lo
+  CXX      RangeBtMessageValidator.lo
+  CXX      ReceiverMSEHandshakeCommand.lo
+  CXX      RequestSlot.lo
+  CXX      SeedCheckCommand.lo
+  CXX      ShareRatioSeedCriteria.lo
+  CXX      SimpleBtMessage.lo
+  CXX      TimeSeedCriteria.lo
+  CXX      TrackerWatcherCommand.lo
+  CXX      UDPTrackerClient.lo
+  CXX      UDPTrackerRequest.lo
+  CXX      UnionSeedCriteria.lo
+  CXX      UTMetadataDataExtensionMessage.lo
+  CXX      UTMetadataExtensionMessage.lo
+  CXX      UTMetadataPostDownloadHandler.lo
+  CXX      UTMetadataRejectExtensionMessage.lo
+  CXX      UTMetadataRequestExtensionMessage.lo
+  CXX      UTMetadataRequestFactory.lo
+  CXX      UTMetadataRequestTracker.lo
+  CXX      UTPexExtensionMessage.lo
+  CXX      ZeroBtMessage.lo
+  CXX      Metalink2RequestGroup.lo
+  CXX      MetalinkEntry.lo
+  CXX      Metalinker.lo
+  CXX      MetalinkMetaurl.lo
+  CXX      MetalinkParserController.lo
+  CXX      MetalinkParserState.lo
+  CXX      MetalinkParserStateImpl.lo
+  CXX      MetalinkParserStateMachine.lo
+  CXX      MetalinkParserStateV3Impl.lo
+  CXX      MetalinkParserStateV4Impl.lo
+  CXX      MetalinkPostDownloadHandler.lo
+  CXX      MetalinkResource.lo
+  CXX      metalink_helper.lo
+  CXX      PollEventPoll.lo
+  CXXLD    libaria2.la
+ar: `u' modifier ignored since `D' is the default (see `U')
+  CXX      main.o
+  CXXLD    aria2c
+make[3]: Leaving directory '/tmp/real/cpp_aria2/aria2/src'
+make[2]: Leaving directory '/tmp/real/cpp_aria2/aria2/src'
+Making all in doc
+make[2]: Entering directory '/tmp/real/cpp_aria2/aria2/doc'
+Making all in manual-src
+make[3]: Entering directory '/tmp/real/cpp_aria2/aria2/doc/manual-src'
+Making all in en
+make[4]: Entering directory '/tmp/real/cpp_aria2/aria2/doc/manual-src/en'
+WARNING: Building only stub man pages. Please install sphinx-build: pip install sphinx
+if [ ! -d "_build/man" ]; then mkdir -p "_build/man"; fi;
+if [ ! -e "_build/man/aria2c.1" ]; then touch "_build/man/aria2c.1"; fi;
+make[4]: Leaving directory '/tmp/real/cpp_aria2/aria2/doc/manual-src/en'
+Making all in ru
+make[4]: Entering directory '/tmp/real/cpp_aria2/aria2/doc/manual-src/ru'
+WARNING: Building only stub man pages. Please install sphinx-build: pip install sphinx
+if [ ! -d "_build/man" ]; then mkdir -p "_build/man"; fi;
+if [ ! -e "_build/man/aria2c.1" ]; then touch "_build/man/aria2c.1"; fi;
+make[4]: Leaving directory '/tmp/real/cpp_aria2/aria2/doc/manual-src/ru'
+Making all in pt
+make[4]: Entering directory '/tmp/real/cpp_aria2/aria2/doc/manual-src/pt'
+WARNING: Building only stub man pages. Please install sphinx-build: pip install sphinx
+if [ ! -d "_build/man" ]; then mkdir -p "_build/man"; fi;
+if [ ! -e "_build/man/aria2c.1" ]; then touch "_build/man/aria2c.1"; fi;
+make[4]: Leaving directory '/tmp/real/cpp_aria2/aria2/doc/manual-src/pt'
+make[4]: Entering directory '/tmp/real/cpp_aria2/aria2/doc/manual-src'
+make[4]: Nothing to be done for 'all-am'.
+make[4]: Leaving directory '/tmp/real/cpp_aria2/aria2/doc/manual-src'
+make[3]: Leaving directory '/tmp/real/cpp_aria2/aria2/doc/manual-src'
+make[3]: Entering directory '/tmp/real/cpp_aria2/aria2/doc'
+make[3]: Nothing to be done for 'all-am'.
+make[3]: Leaving directory '/tmp/real/cpp_aria2/aria2/doc'
+make[2]: Leaving directory '/tmp/real/cpp_aria2/aria2/doc'
+Making all in test
+make[2]: Entering directory '/tmp/real/cpp_aria2/aria2/test'
+make[2]: Nothing to be done for 'all'.
+make[2]: Leaving directory '/tmp/real/cpp_aria2/aria2/test'
+make[2]: Entering directory '/tmp/real/cpp_aria2/aria2'
+Warning: rst2html not installed. Placing only a dummy file for README.html
+echo "<!doctype html>" > README.html
+echo "<p>Readme has not been built!.<br>Instead see <a href='README.rst'>README.rst</a></p>" >> README.html
+make[2]: Leaving directory '/tmp/real/cpp_aria2/aria2'
+make[1]: Leaving directory '/tmp/real/cpp_aria2/aria2'
+scan-build: Analysis run complete.
+scan-build: 11 bugs found.
+scan-build: Run 'scan-view /tmp/scan-build-2020-11-19-021355-21152-1' to examine bug reports.
