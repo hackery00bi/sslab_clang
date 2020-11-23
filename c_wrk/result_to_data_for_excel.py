@@ -16,8 +16,20 @@ def main():
 
     workbook = Workbook(location + "test.xlsx")
     worksheet = workbook.add_worksheet()
-    worksheet.set_column('C:L', 100)
+    worksheet.set_column('B:B', 25)
     cell_format = workbook.add_format({'text_wrap': True})
+
+    worksheet.write('B1', "date & version", cell_format) # date & version
+    worksheet.write('C1', "core", cell_format) #core
+    worksheet.write('D1', "cplusplus", cell_format) #cplusplus
+    worksheet.write('E1', "deadcode", cell_format) #deadcode
+    worksheet.write('F1', "nullability", cell_format) #nullability
+    worksheet.write('G1', "optin", cell_format) #optin
+    worksheet.write('H1', "security", cell_format) #security
+    worksheet.write('I1', "unix", cell_format) #unix
+    worksheet.write('J1', "osx", cell_format) #osx
+    worksheet.write('K1', "fuchsia", cell_format) #fuchsia
+    worksheet.write('L1', "webkit", cell_format) #webkit
 
     
     for i in range(len(targets)): 
@@ -96,17 +108,17 @@ def check_target(cmd):
 
 
 def excel_make(worksheet, cell_format, target, data, i):    
-    worksheet.write('B' + str(i+1), target, cell_format) # date & version
-    worksheet.write('C' + str(i+1), data[0], cell_format) #core
-    worksheet.write('D' + str(i+1), data[1], cell_format) #cplusplus
-    worksheet.write('E' + str(i+1), data[2], cell_format) #deadcode
-    worksheet.write('F' + str(i+1), data[3], cell_format) #nullalbility
-    worksheet.write('G' + str(i+1), data[4], cell_format) #optin
-    worksheet.write('H' + str(i+1), data[5], cell_format) #security
-    worksheet.write('I' + str(i+1), data[6], cell_format) #unix
-    worksheet.write('J' + str(i+1), data[7], cell_format) #osx
-    worksheet.write('K' + str(i+1), data[8], cell_format) #fuchsia
-    worksheet.write('L' + str(i+1), data[9], cell_format) #webkit
+    worksheet.write('B' + str(i+2), target, cell_format) # date & version
+    worksheet.write('C' + str(i+2), data[0], cell_format) #core
+    worksheet.write('D' + str(i+2), data[1], cell_format) #cplusplus
+    worksheet.write('E' + str(i+2), data[2], cell_format) #deadcode
+    worksheet.write('F' + str(i+2), data[3], cell_format) #nullalbility
+    worksheet.write('G' + str(i+2), data[4], cell_format) #optin
+    worksheet.write('H' + str(i+2), data[5], cell_format) #security
+    worksheet.write('I' + str(i+2), data[6], cell_format) #unix
+    worksheet.write('J' + str(i+2), data[7], cell_format) #osx
+    worksheet.write('K' + str(i+2), data[8], cell_format) #fuchsia
+    worksheet.write('L' + str(i+2), data[9], cell_format) #webkit
     '''
     workbook = Workbook()
     worksheet = workbook.worksheets[0]
