@@ -12,7 +12,7 @@ def main():
     targets = check_target(cmd)
     targets = targets.split("\n")
     targets.pop()
-    print(targets)
+    #print(targets)
 
     workbook = Workbook(location + "test.xlsx")
     worksheet = workbook.add_worksheet()
@@ -30,7 +30,8 @@ def main():
         for value in count:
             result.append(value)
         
-        print(result)
+        #print(result)
+        print(i)
         excel_make(worksheet, cell_format, targets[i], result, i)
 
     workbook.close()
@@ -106,6 +107,7 @@ def excel_make(worksheet, cell_format, target, data, i):
     worksheet.write('J' + str(i+1), data[7], cell_format) #osx
     worksheet.write('K' + str(i+1), data[8], cell_format) #fuchsia
     worksheet.write('L' + str(i+1), data[9], cell_format) #webkit
+    sys.exit()
     '''
     workbook = Workbook()
     worksheet = workbook.worksheets[0]
