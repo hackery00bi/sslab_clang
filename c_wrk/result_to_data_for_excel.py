@@ -14,12 +14,12 @@ def main(target):
     for checker in checkers:
         count.append(parsing_result(cmd, checker))
     
-    f = open(location + "data.txt", "w")
+    f = open(location + "data.csv", "w")
     for value in count:
-        f.write(value + "\t")
+        f.write(value + ",")
     f.close()
 
-    excel_make("data.txt")
+    excel_make("data.csv")
     '''
     print(target + "\t", end='')
     
@@ -72,7 +72,7 @@ def check_result(cmd):
 def excel_make(fileName):
     print("excel_make start")
     print(datetime.now())
-    data = pd.read_csv(location + fileName, sep='\t', header=None, error_bad_lines=False)
+    data = pd.read_csv(location + fileName, error_bad_lines=False)
     #data.columns = ['....', '.....', '....', '....', '....', '....', '....', '....', '....', '..', '...', '......']
     #data.index = [1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
 
