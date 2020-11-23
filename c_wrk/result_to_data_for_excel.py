@@ -107,7 +107,6 @@ def excel_make(worksheet, cell_format, target, data, i):
     worksheet.write('J' + str(i+1), data[7], cell_format) #osx
     worksheet.write('K' + str(i+1), data[8], cell_format) #fuchsia
     worksheet.write('L' + str(i+1), data[9], cell_format) #webkit
-    sys.exit()
     '''
     workbook = Workbook()
     worksheet = workbook.worksheets[0]
