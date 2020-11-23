@@ -1,7 +1,6 @@
 import sys
 import subprocess
-from datetime import datetime
-import pandas as pd
+from xlsxwriter.workbook import Workbook
 
 location = "/tmp/sslab_clang/c_wrk/"
 target = "/tmp/sslab_clang/c_wrk/wrk"
@@ -13,13 +12,12 @@ def main(target):
     count = []
     for checker in checkers:
         count.append(parsing_result(cmd, checker))
-    
-    f = open(location + "data.csv", "w")
+   
+    result = []
     for value in count:
-        f.write(value + ",")
-    f.close()
+        result.append(value)
 
-    excel_make("data.csv")
+    excel_make(result)
     '''
     print(target + "\t", end='')
     
@@ -62,6 +60,7 @@ def check_bug_count(cmd):
 
     return return_value
 
+
 def check_result(cmd):
     cmd_result = ['wc', '-w']
     ps = subprocess.Popen((cmd), stdout=subprocess.PIPE)
@@ -69,17 +68,27 @@ def check_result(cmd):
     data = data.decode('utf-8')
     return data
 
-def excel_make(fileName):
-    print("excel_make start")
-    print(datetime.now())
-    data = pd.read_csv(location + fileName, error_bad_lines=False)
-    #data.columns = ['....', '.....', '....', '....', '....', '....', '....', '....', '....', '..', '...', '......']
-    #data.index = [1998, 1999, 2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
 
-    xlsx_outputFileName = 'data.xlsx'
-    data.to_excel(location + xlsx_outputFileName, encoding='utf-8')
-    print("excel_make done")
-    print(datetime.now())
+def excel_make(data):
+    workbook = Workbook(location + "test.xlsx")
+    worksheet = workbook.add_worksheet()
+
+    worksheet.set_column('A:A', 20)
+
+    cell_format = workbook.add_format({'text_wrap': True})
+
+    worksheet.write('A1', data[0], cell_format)
+    workbook.close()
+    '''
+    workbook = Workbook()
+    worksheet = workbook.worksheets[0]
+    worksheet.title = "Sheet1"
+    
+    worksheet.cell('A1').style.alignment.wrap_text = True
+    worksheet.cell('A1').value = data[0]
+
+    workbook.save(location + "test.xlsx")
+    '''
 
 if __name__ == "__main__":
     main(sys.argv[1])
