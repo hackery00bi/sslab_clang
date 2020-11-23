@@ -73,10 +73,10 @@ def excel_make(data):
     workbook = Workbook(location + "test.xlsx")
     worksheet = workbook.add_worksheet()
 
-    worksheet.set_column('A:A', 20)
+    worksheet.set_column('C:L', 100)
 
     cell_format = workbook.add_format({'text_wrap': True})
-
+    '''
     worksheet.write('C1', data[0], cell_format) #core
     worksheet.write('D1', data[1], cell_format) #cplusplus
     worksheet.write('E1', data[2], cell_format) #deadcode
@@ -87,7 +87,8 @@ def excel_make(data):
     worksheet.write('J1', data[7], cell_format) #osx
     worksheet.write('K1', data[8], cell_format) #fuchsia
     worksheet.write('L1', data[9], cell_format) #webkit
-    
+    '''
+    worksheet.write('A1', data[9], cell_format) #webkit
     workbook.close()
     '''
     workbook = Workbook()
