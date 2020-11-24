@@ -48,3 +48,123 @@ make[1]: Leaving directory '/tmp/real/c_the_silver_searcher/the_silver_searcher'
 scan-build: Analysis run complete.
 scan-build: 4 bugs found.
 scan-build: Run 'scan-view /tmp/scan-build-2020-11-16-022912-12241-1' to examine bug reports.
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+  CC       src/ignore.o
+  CC       src/log.o
+  CC       src/print.o
+  CC       src/options.o
+  CC       src/print_w32.o
+  CC       src/scandir.o
+  CC       src/search.o
+  CC       src/lang.o
+src/lang.c:149:5: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+    strcpy(regex, "\\.(");
+    ^~~~~~
+src/lang.c:163:9: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+        strcpy(regex + regex_length, extension);
+        ^~~~~~
+2 warnings generated.
+  CC       src/util.o
+src/options.c:457:45: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+                opts.max_matches_per_file = atoi(optarg);
+                                            ^~~~~~~~~~~~
+src/options.c:506:30: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+                opts.width = strtol(optarg, &num_end, 10);
+                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+  CC       src/decompress.o
+src/decompress.c: In function 'decompress_zlib':
+src/decompress.c:52:22: warning: cast discards 'const' qualifier from pointer target type [-Wcast-qual]
+     stream.next_in = (Bytef *)buf;
+                      ^
+  CC       src/main.o
+src/search.c:407:13: warning: Argument to free() is a constant address (18446744073709551615), which is not memory allocated by malloc() [unix.Malloc]
+            free(buf);
+            ^~~~~~~~~
+src/search.c:472:5: warning: Division by zero [core.DivideZero]
+    HASH_ADD(hh, symhash, key, sizeof(dirkey_t), new_item);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/uthash.h:172:5: note: expanded from macro 'HASH_ADD'
+    HASH_ADD_KEYPTR(hh, head, &((add)->fieldname), keylen_in, add)
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/uthash.h:202:9: note: expanded from macro 'HASH_ADD_KEYPTR'
+        HASH_ADD_TO_BKT((head)->hh.tbl->buckets[_ha_bkt], &(add)->hh);                      \
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/uthash.h:665:13: note: expanded from macro 'HASH_ADD_TO_BKT'
+            HASH_EXPAND_BUCKETS((addhh)->tbl);                                                                  \
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/uthash.h:732:65: note: expanded from macro 'HASH_EXPAND_BUCKETS'
+                    _he_newbkt->expand_mult = _he_newbkt->count / tbl->ideal_chain_maxlen;                                                     \
+                                              ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+  CC       src/zfile.o
+src/zfile.c:255:13: warning: Value stored to 'left' is never read [deadcode.DeadStores]
+            left -= toread;
+            ^       ~~~~~~
+1 warning generated.
+  CCLD     ag
+make[1]: Entering directory '/tmp/sslab_clang/c_the_silver_searcher/the_silver_searcher'
+make[1]: Leaving directory '/tmp/sslab_clang/c_the_silver_searcher/the_silver_searcher'
+scan-build: Analysis run complete.
+scan-build: 7 bugs found.
+scan-build: Run 'scan-view /tmp/scan-build-2020-11-23-160224-18519-1' to examine bug reports.
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+  CC       src/ignore.o
+  CC       src/log.o
+  CC       src/options.o
+  CC       src/print.o
+  CC       src/print_w32.o
+  CC       src/scandir.o
+  CC       src/search.o
+  CC       src/lang.o
+src/lang.c:149:5: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+    strcpy(regex, "\\.(");
+    ^~~~~~
+src/lang.c:163:9: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+        strcpy(regex + regex_length, extension);
+        ^~~~~~
+2 warnings generated.
+  CC       src/util.o
+src/options.c:457:45: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+                opts.max_matches_per_file = atoi(optarg);
+                                            ^~~~~~~~~~~~
+src/options.c:506:30: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+                opts.width = strtol(optarg, &num_end, 10);
+                             ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+  CC       src/decompress.o
+src/decompress.c: In function 'decompress_zlib':
+src/decompress.c:52:22: warning: cast discards 'const' qualifier from pointer target type [-Wcast-qual]
+     stream.next_in = (Bytef *)buf;
+                      ^
+  CC       src/main.o
+src/search.c:407:13: warning: Argument to free() is a constant address (18446744073709551615), which is not memory allocated by malloc() [unix.Malloc]
+            free(buf);
+            ^~~~~~~~~
+src/search.c:472:5: warning: Division by zero [core.DivideZero]
+    HASH_ADD(hh, symhash, key, sizeof(dirkey_t), new_item);
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/uthash.h:172:5: note: expanded from macro 'HASH_ADD'
+    HASH_ADD_KEYPTR(hh, head, &((add)->fieldname), keylen_in, add)
+    ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/uthash.h:202:9: note: expanded from macro 'HASH_ADD_KEYPTR'
+        HASH_ADD_TO_BKT((head)->hh.tbl->buckets[_ha_bkt], &(add)->hh);                      \
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/uthash.h:665:13: note: expanded from macro 'HASH_ADD_TO_BKT'
+            HASH_EXPAND_BUCKETS((addhh)->tbl);                                                                  \
+            ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./src/uthash.h:732:65: note: expanded from macro 'HASH_EXPAND_BUCKETS'
+                    _he_newbkt->expand_mult = _he_newbkt->count / tbl->ideal_chain_maxlen;                                                     \
+                                              ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~
+2 warnings generated.
+  CC       src/zfile.o
+src/zfile.c:255:13: warning: Value stored to 'left' is never read [deadcode.DeadStores]
+            left -= toread;
+            ^       ~~~~~~
+1 warning generated.
+  CCLD     ag
+make[1]: Entering directory '/tmp/sslab_clang/c_the_silver_searcher/the_silver_searcher'
+make[1]: Leaving directory '/tmp/sslab_clang/c_the_silver_searcher/the_silver_searcher'
+scan-build: Analysis run complete.
+scan-build: 7 bugs found.
+scan-build: Run 'scan-view /tmp/scan-build-2020-11-24-134619-7089-1' to examine bug reports.

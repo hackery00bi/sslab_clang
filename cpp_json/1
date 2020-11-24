@@ -1,0 +1,23 @@
+scan-build: Using '/llvm-project/build/bin/clang-12' for static analysis
+amalgamate - amalgamate file single_include/nlohmann/json.hpp from the include/nlohmann sources
+ChangeLog.md - generate ChangeLog file
+check-amalgamation - check whether sources have been amalgamated
+clean - remove built files
+coverage - create coverage information with lcov
+cppcheck - analyze code with cppcheck
+cpplint - analyze code with cpplint
+clang_tidy - analyze code with Clang-Tidy
+clang_analyze - analyze code with Clang-Analyzer
+doctest - compile example files and check their output
+fuzz_testing - prepare fuzz testing of the JSON parser
+fuzz_testing_bson - prepare fuzz testing of the BSON parser
+fuzz_testing_cbor - prepare fuzz testing of the CBOR parser
+fuzz_testing_msgpack - prepare fuzz testing of the MessagePack parser
+fuzz_testing_ubjson - prepare fuzz testing of the UBJSON parser
+pedantic_clang - run Clang with maximal warning flags
+pedantic_gcc - run GCC with maximal warning flags
+pretty - beautify code with Artistic Style
+run_benchmarks - build and run benchmarks
+scan-build: Analysis run complete.
+scan-build: Removing directory '/tmp/scan-build-2020-11-24-152905-24586-1' because it contains no reports.
+scan-build: No bugs found.
