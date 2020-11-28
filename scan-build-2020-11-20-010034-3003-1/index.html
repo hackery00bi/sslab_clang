@@ -1,0 +1,114 @@
+<html>
+<head>
+<title>wrk1 - scan-build results</title>
+<link type="text/css" rel="stylesheet" href="scanview.css"/>
+<script src="sorttable.js"></script>
+<script language='javascript' type="text/javascript">
+function SetDisplay(RowClass, DisplayVal)
+{
+  var Rows = document.getElementsByTagName("tr");
+  for ( var i = 0 ; i < Rows.length; ++i ) {
+    if (Rows[i].className == RowClass) {
+      Rows[i].style.display = DisplayVal;
+    }
+  }
+}
+
+function CopyCheckedStateToCheckButtons(SummaryCheckButton) {
+  var Inputs = document.getElementsByTagName("input");
+  for ( var i = 0 ; i < Inputs.length; ++i ) {
+    if (Inputs[i].type == "checkbox") {
+      if(Inputs[i] != SummaryCheckButton) {
+        Inputs[i].checked = SummaryCheckButton.checked;
+        Inputs[i].onclick();
+      }
+    }
+  }
+}
+
+function returnObjById( id ) {
+    if (document.getElementById)
+        var returnVar = document.getElementById(id);
+    else if (document.all)
+        var returnVar = document.all[id];
+    else if (document.layers)
+        var returnVar = document.layers[id];
+    return returnVar;
+}
+
+var NumUnchecked = 0;
+
+function ToggleDisplay(CheckButton, ClassName) {
+  if (CheckButton.checked) {
+    SetDisplay(ClassName, "");
+    if (--NumUnchecked == 0) {
+      returnObjById("AllBugsCheck").checked = true;
+    }
+  }
+  else {
+    SetDisplay(ClassName, "none");
+    NumUnchecked++;
+    returnObjById("AllBugsCheck").checked = false;
+  }
+}
+</script>
+<!-- SUMMARYENDHEAD -->
+</head>
+<body>
+<h1>wrk1 - scan-build results</h1>
+
+<table>
+<tr><th>User:</th><td>root@57bc4409cbaf</td></tr>
+<tr><th>Working Directory:</th><td>/tmp/real/c_wrk/wrk1</td></tr>
+<tr><th>Command Line:</th><td>make</td></tr>
+<tr><th>Clang Version:</th><td>clang version 12.0.0 (https://github.com/llvm/llvm-project.git 65936fed1490dd1ef8d9a0a88b7d305b0840eb05)
+</td></tr>
+<tr><th>Date:</th><td>Fri Nov 20 01:00:34 2020</td></tr>
+</table>
+<h2>Bug Summary</h2><table>
+<thead><tr><td>Bug Type</td><td>Quantity</td><td class="sorttable_nosort">Display?</td></tr></thead>
+<tr style="font-weight:bold"><td class="SUMM_DESC">All Bugs</td><td class="Q">1</td><td><center><input type="checkbox" id="AllBugsCheck" onClick="CopyCheckedStateToCheckButtons(this);" checked/></center></td></tr>
+<tr><th>Security</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_');" checked/></center></td></tr>
+</table>
+<h2>Reports</h2>
+
+<table class="sortable" style="table-layout:automatic">
+<thead><tr>
+  <td>Bug Group</td>
+  <td class="sorttable_sorted">Bug Type<span id="sorttable_sortfwdind">&nbsp;&#x25BE;</span></td>
+  <td>File</td>
+  <td>Function/Method</td>
+  <td class="Q">Line</td>
+  <td class="Q">Path Length</td>
+  <td class="sorttable_nosort"></td>
+  <!-- REPORTBUGCOL -->
+</tr></thead>
+<tbody>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>host/buildvm_fold.c</td><td class="DESC">tryhash</td><td class="Q">22</td><td class="Q">1</td><td><a href="report-67c2e4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-67c2e4.html" -->
+</tr>
+</tbody>
+</table>
+
+<h2>Analyzer Failures</h2>
+<p>The analyzer had problems processing the following files:</p>
+<table>
+<thead><tr><td>Problem</td><td>Source File</td><td>Preprocessed File</td><td>STDERR Output</td></tr></thead>
+<tr><td>Crash</td><td>host/buildvm.c</td><td><a href="failures/clang_crash_0ZkC4V.i">clang_crash_0ZkC4V.i</a></td><td><a href="failures/clang_crash_0ZkC4V.i.stderr.txt">clang_crash_0ZkC4V.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="host/buildvm.c" file="failures/clang_crash_0ZkC4V.i" clangfile="failures/clang_crash_0ZkC4V.clang.i" stderr="failures/clang_crash_0ZkC4V.i.stderr.txt" info="failures/clang_crash_0ZkC4V.i.info.txt" -->
+<tr><td>Crash</td><td>host/buildvm_lib.c</td><td><a href="failures/clang_crash_1w5Zvc.i">clang_crash_1w5Zvc.i</a></td><td><a href="failures/clang_crash_1w5Zvc.i.stderr.txt">clang_crash_1w5Zvc.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="host/buildvm_lib.c" file="failures/clang_crash_1w5Zvc.i" clangfile="failures/clang_crash_1w5Zvc.clang.i" stderr="failures/clang_crash_1w5Zvc.i.stderr.txt" info="failures/clang_crash_1w5Zvc.i.info.txt" -->
+<tr><td>Crash</td><td>host/buildvm_peobj.c</td><td><a href="failures/clang_crash_9BdWHs.i">clang_crash_9BdWHs.i</a></td><td><a href="failures/clang_crash_9BdWHs.i.stderr.txt">clang_crash_9BdWHs.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="host/buildvm_peobj.c" file="failures/clang_crash_9BdWHs.i" clangfile="failures/clang_crash_9BdWHs.clang.i" stderr="failures/clang_crash_9BdWHs.i.stderr.txt" info="failures/clang_crash_9BdWHs.i.info.txt" -->
+<tr><td>Crash</td><td>lj_err.c</td><td><a href="failures/clang_crash_KRW4dk.i">clang_crash_KRW4dk.i</a></td><td><a href="failures/clang_crash_KRW4dk.i.stderr.txt">clang_crash_KRW4dk.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="lj_err.c" file="failures/clang_crash_KRW4dk.i" clangfile="failures/clang_crash_KRW4dk.clang.i" stderr="failures/clang_crash_KRW4dk.i.stderr.txt" info="failures/clang_crash_KRW4dk.i.info.txt" -->
+<tr><td>Crash</td><td>host/buildvm_asm.c</td><td><a href="failures/clang_crash_KYB_fG.i">clang_crash_KYB_fG.i</a></td><td><a href="failures/clang_crash_KYB_fG.i.stderr.txt">clang_crash_KYB_fG.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="host/buildvm_asm.c" file="failures/clang_crash_KYB_fG.i" clangfile="failures/clang_crash_KYB_fG.clang.i" stderr="failures/clang_crash_KYB_fG.i.stderr.txt" info="failures/clang_crash_KYB_fG.i.info.txt" -->
+<tr><td>Crash</td><td>host/minilua.c</td><td><a href="failures/clang_crash_efFobQ.i">clang_crash_efFobQ.i</a></td><td><a href="failures/clang_crash_efFobQ.i.stderr.txt">clang_crash_efFobQ.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="host/minilua.c" file="failures/clang_crash_efFobQ.i" clangfile="failures/clang_crash_efFobQ.clang.i" stderr="failures/clang_crash_efFobQ.i.stderr.txt" info="failures/clang_crash_efFobQ.i.info.txt" -->
+<tr><td>Crash</td><td>lj_gc.c</td><td><a href="failures/clang_crash_zrImJ1.i">clang_crash_zrImJ1.i</a></td><td><a href="failures/clang_crash_zrImJ1.i.stderr.txt">clang_crash_zrImJ1.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="lj_gc.c" file="failures/clang_crash_zrImJ1.i" clangfile="failures/clang_crash_zrImJ1.clang.i" stderr="failures/clang_crash_zrImJ1.i.stderr.txt" info="failures/clang_crash_zrImJ1.i.info.txt" -->
+</table>
+<p>Please consider submitting preprocessed files as <a href="http://clang-analyzer.llvm.org/filing_bugs.html">bug reports</a>. <!-- REPORTCRASHES --> </p>
+</body></html>

@@ -1,0 +1,7 @@
+In file included from coverage.c:12:
+In file included from ../../vm_core.h:78:
+In file included from ../../method.h:14:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.

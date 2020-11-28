@@ -1,0 +1,133 @@
+<html>
+<head>
+<title>git-master - scan-build results</title>
+<link type="text/css" rel="stylesheet" href="scanview.css"/>
+<script src="sorttable.js"></script>
+<script language='javascript' type="text/javascript">
+function SetDisplay(RowClass, DisplayVal)
+{
+  var Rows = document.getElementsByTagName("tr");
+  for ( var i = 0 ; i < Rows.length; ++i ) {
+    if (Rows[i].className == RowClass) {
+      Rows[i].style.display = DisplayVal;
+    }
+  }
+}
+
+function CopyCheckedStateToCheckButtons(SummaryCheckButton) {
+  var Inputs = document.getElementsByTagName("input");
+  for ( var i = 0 ; i < Inputs.length; ++i ) {
+    if (Inputs[i].type == "checkbox") {
+      if(Inputs[i] != SummaryCheckButton) {
+        Inputs[i].checked = SummaryCheckButton.checked;
+        Inputs[i].onclick();
+      }
+    }
+  }
+}
+
+function returnObjById( id ) {
+    if (document.getElementById)
+        var returnVar = document.getElementById(id);
+    else if (document.all)
+        var returnVar = document.all[id];
+    else if (document.layers)
+        var returnVar = document.layers[id];
+    return returnVar;
+}
+
+var NumUnchecked = 0;
+
+function ToggleDisplay(CheckButton, ClassName) {
+  if (CheckButton.checked) {
+    SetDisplay(ClassName, "");
+    if (--NumUnchecked == 0) {
+      returnObjById("AllBugsCheck").checked = true;
+    }
+  }
+  else {
+    SetDisplay(ClassName, "none");
+    NumUnchecked++;
+    returnObjById("AllBugsCheck").checked = false;
+  }
+}
+</script>
+<!-- SUMMARYENDHEAD -->
+</head>
+<body>
+<h1>git-master - scan-build results</h1>
+
+<table>
+<tr><th>User:</th><td>root@57bc4409cbaf</td></tr>
+<tr><th>Working Directory:</th><td>/tmp/oss_c/git/git-master</td></tr>
+<tr><th>Command Line:</th><td>make</td></tr>
+<tr><th>Clang Version:</th><td>clang version 12.0.0 (https://github.com/llvm/llvm-project.git 65936fed1490dd1ef8d9a0a88b7d305b0840eb05)
+</td></tr>
+<tr><th>Date:</th><td>Mon Nov  9 09:58:30 2020</td></tr>
+</table>
+<h2>Bug Summary</h2><table>
+<thead><tr><td>Bug Type</td><td>Quantity</td><td class="sorttable_nosort">Display?</td></tr></thead>
+<tr style="font-weight:bold"><td class="SUMM_DESC">All Bugs</td><td class="Q">10</td><td><center><input type="checkbox" id="AllBugsCheck" onClick="CopyCheckedStateToCheckButtons(this);" checked/></center></td></tr>
+<tr><th>Dead store</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Dead assignment</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_assignment');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dead nested assignment</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_nested_assignment');" checked/></center></td></tr>
+<tr><th>Logic error</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Assigned value is garbage or undefined</td><td class="Q">2</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_assigned_value_is_garbage_or_undefined');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dereference of null pointer</td><td class="Q">6</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_dereference_of_null_pointer');" checked/></center></td></tr>
+</table>
+<h2>Reports</h2>
+
+<table class="sortable" style="table-layout:automatic">
+<thead><tr>
+  <td>Bug Group</td>
+  <td class="sorttable_sorted">Bug Type<span id="sorttable_sortfwdind">&nbsp;&#x25BE;</span></td>
+  <td>File</td>
+  <td>Function/Method</td>
+  <td class="Q">Line</td>
+  <td class="Q">Path Length</td>
+  <td class="sorttable_nosort"></td>
+  <!-- REPORTBUGCOL -->
+</tr></thead>
+<tbody>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>blame.c</td><td class="DESC">add_blame_entry</td><td class="Q">1464</td><td class="Q">67</td><td><a href="report-0afc09.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0afc09.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>blame.c</td><td class="DESC">dup_entry</td><td class="Q">1480</td><td class="Q">65</td><td><a href="report-fa923b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fa923b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>archive.c</td><td class="DESC">write_archive</td><td class="Q">649</td><td class="Q">1</td><td><a href="report-ce2c78.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ce2c78.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>attr.c</td><td class="DESC">attr_check_initl</td><td class="Q">575</td><td class="Q">1</td><td><a href="report-420120.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-420120.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>apply.c</td><td class="DESC">apply_one_fragment</td><td class="Q">2959</td><td class="Q">25</td><td><a href="report-540a69.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-540a69.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>bisect.c</td><td class="DESC">find_bisection</td><td class="Q">419</td><td class="Q">20</td><td><a href="report-6a7140.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6a7140.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>attr.c</td><td class="DESC">prepare_attr_stack</td><td class="Q">919</td><td class="Q">7</td><td><a href="report-6f52d6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6f52d6.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>attr.c</td><td class="DESC">prepare_attr_stack</td><td class="Q">927</td><td class="Q">25</td><td><a href="report-88065b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-88065b.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>blame.c</td><td class="DESC">setup_scoreboard</td><td class="Q">2828</td><td class="Q">26</td><td><a href="report-e02afc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e02afc.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>apply.c</td><td class="DESC">match_fragment</td><td class="Q">2493</td><td class="Q">37</td><td><a href="report-f8fbbb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f8fbbb.html" -->
+</tr>
+</tbody>
+</table>
+
+<h2>Analyzer Failures</h2>
+<p>The analyzer had problems processing the following files:</p>
+<table>
+<thead><tr><td>Problem</td><td>Source File</td><td>Preprocessed File</td><td>STDERR Output</td></tr></thead>
+<tr><td>Crash</td><td>cache-tree.c</td><td><a href="failures/clang_crash_6ADJbj.i">clang_crash_6ADJbj.i</a></td><td><a href="failures/clang_crash_6ADJbj.i.stderr.txt">clang_crash_6ADJbj.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="cache-tree.c" file="failures/clang_crash_6ADJbj.i" clangfile="failures/clang_crash_6ADJbj.clang.i" stderr="failures/clang_crash_6ADJbj.i.stderr.txt" info="failures/clang_crash_6ADJbj.i.info.txt" -->
+</table>
+<p>Please consider submitting preprocessed files as <a href="http://clang-analyzer.llvm.org/filing_bugs.html">bug reports</a>. <!-- REPORTCRASHES --> </p>
+</body></html>

@@ -1,0 +1,818 @@
+<!doctype html>
+<html>
+<head>
+<title>lj_meta.c</title>
+
+<style type="text/css">
+body { color:#000000; background-color:#ffffff }
+body { font-family:Helvetica, sans-serif; font-size:10pt }
+h1 { font-size:14pt }
+.FileName { margin-top: 5px; margin-bottom: 5px; display: inline; }
+.FileNav { margin-left: 5px; margin-right: 5px; display: inline; }
+.FileNav a { text-decoration:none; font-size: larger; }
+.divider { margin-top: 30px; margin-bottom: 30px; height: 15px; }
+.divider { background-color: gray; }
+.code { border-collapse:collapse; width:100%; }
+.code { font-family: "Monospace", monospace; font-size:10pt }
+.code { line-height: 1.2em }
+.comment { color: green; font-style: oblique }
+.keyword { color: blue }
+.string_literal { color: red }
+.directive { color: darkmagenta }
+
+/* Macros and variables could have pop-up notes hidden by default.
+  - Macro pop-up:    expansion of the macro
+  - Variable pop-up: value (table) of the variable */
+.macro_popup, .variable_popup { display: none; }
+
+/* Pop-up appears on mouse-hover event. */
+.macro:hover .macro_popup, .variable:hover .variable_popup {
+  display: block;
+  padding: 2px;
+  -webkit-border-radius:5px;
+  -webkit-box-shadow:1px 1px 7px #000;
+  border-radius:5px;
+  box-shadow:1px 1px 7px #000;
+  position: absolute;
+  top: -1em;
+  left:10em;
+  z-index: 1
+}
+
+.macro_popup {
+  border: 2px solid red;
+  background-color:#FFF0F0;
+  font-weight: normal;
+}
+
+.variable_popup {
+  border: 2px solid blue;
+  background-color:#F0F0FF;
+  font-weight: bold;
+  font-family: Helvetica, sans-serif;
+  font-size: 9pt;
+}
+
+/* Pop-up notes needs a relative position as a base where they pops up. */
+.macro, .variable {
+  background-color: PaleGoldenRod;
+  position: relative;
+}
+.macro { color: DarkMagenta; }
+
+#tooltiphint {
+  position: fixed;
+  width: 50em;
+  margin-left: -25em;
+  left: 50%;
+  padding: 10px;
+  border: 1px solid #b0b0b0;
+  border-radius: 2px;
+  box-shadow: 1px 1px 7px black;
+  background-color: #c0c0c0;
+  z-index: 2;
+}
+
+.num { width:2.5em; padding-right:2ex; background-color:#eeeeee }
+.num { text-align:right; font-size:8pt }
+.num { color:#444444 }
+.line { padding-left: 1ex; border-left: 3px solid #ccc }
+.line { white-space: pre }
+.msg { -webkit-box-shadow:1px 1px 7px #000 }
+.msg { box-shadow:1px 1px 7px #000 }
+.msg { -webkit-border-radius:5px }
+.msg { border-radius:5px }
+.msg { font-family:Helvetica, sans-serif; font-size:8pt }
+.msg { float:left }
+.msg { padding:0.25em 1ex 0.25em 1ex }
+.msg { margin-top:10px; margin-bottom:10px }
+.msg { font-weight:bold }
+.msg { max-width:60em; word-wrap: break-word; white-space: pre-wrap }
+.msgT { padding:0x; spacing:0x }
+.msgEvent { background-color:#fff8b4; color:#000000 }
+.msgControl { background-color:#bbbbbb; color:#000000 }
+.msgNote { background-color:#ddeeff; color:#000000 }
+.mrange { background-color:#dfddf3 }
+.mrange { border-bottom:1px solid #6F9DBE }
+.PathIndex { font-weight: bold; padding:0px 5px; margin-right:5px; }
+.PathIndex { -webkit-border-radius:8px }
+.PathIndex { border-radius:8px }
+.PathIndexEvent { background-color:#bfba87 }
+.PathIndexControl { background-color:#8c8c8c }
+.PathIndexPopUp { background-color: #879abc; }
+.PathNav a { text-decoration:none; font-size: larger }
+.CodeInsertionHint { font-weight: bold; background-color: #10dd10 }
+.CodeRemovalHint { background-color:#de1010 }
+.CodeRemovalHint { border-bottom:1px solid #6F9DBE }
+.selected{ background-color:orange !important; }
+
+table.simpletable {
+  padding: 5px;
+  font-size:12pt;
+  margin:20px;
+  border-collapse: collapse; border-spacing: 0px;
+}
+td.rowname {
+  text-align: right;
+  vertical-align: top;
+  font-weight: bold;
+  color:#444444;
+  padding-right:2ex;
+}
+
+/* Hidden text. */
+input.spoilerhider + label {
+  cursor: pointer;
+  text-decoration: underline;
+  display: block;
+}
+input.spoilerhider {
+ display: none;
+}
+input.spoilerhider ~ .spoiler {
+  overflow: hidden;
+  margin: 10px auto 0;
+  height: 0;
+  opacity: 0;
+}
+input.spoilerhider:checked + label + .spoiler{
+  height: auto;
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+<!-- BUGDESC Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 -->
+
+<!-- BUGTYPE Potential insecure memory buffer bounds restriction in call 'memcpy' -->
+
+<!-- BUGCATEGORY Security -->
+
+<!-- BUGFILE /tmp/real/c_wrk/wrk3/deps/luajit/src/lj_meta.c -->
+
+<!-- FILENAME lj_meta.c -->
+
+<!-- FUNCTIONNAME lj_meta_cat -->
+
+<!-- ISSUEHASHCONTENTOFLINEINCONTEXT e32fe0bba4fa862e1b97ee1292e3382a -->
+
+<!-- BUGLINE 298 -->
+
+<!-- BUGCOLUMN 2 -->
+
+<!-- BUGPATHLENGTH 1 -->
+
+<!-- BUGMETAEND -->
+<!-- REPORTHEADER -->
+<h3>Bug Summary</h3>
+<table class="simpletable">
+<tr><td class="rowname">File:</td><td>deps/luajit/src/lj_meta.c</td></tr>
+<tr><td class="rowname">Warning:</td><td><a href="#EndPath">line 298, column 2</a><br />Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11</td></tr>
+
+</table>
+<!-- REPORTSUMMARYEXTRA -->
+<h3>Annotated Source Code</h3>
+<p>Press <a href="#" onclick="toggleHelp(); return false;">'?'</a>
+   to see keyboard shortcuts</p>
+<input type="checkbox" class="spoilerhider" id="showinvocation" />
+<label for="showinvocation" >Show analyzer invocation</label>
+<div class="spoiler">clang -cc1 -cc1 -triple x86_64-unknown-linux-gnu -analyze -disable-free -main-file-name lj_meta.c -analyzer-store=region -analyzer-opt-analyze-nested-blocks -analyzer-checker=core -analyzer-checker=apiModeling -analyzer-checker=unix -analyzer-checker=deadcode -analyzer-checker=security.insecureAPI.UncheckedReturn -analyzer-checker=security.insecureAPI.getpw -analyzer-checker=security.insecureAPI.gets -analyzer-checker=security.insecureAPI.mktemp -analyzer-checker=security.insecureAPI.mkstemp -analyzer-checker=security.insecureAPI.vfork -analyzer-checker=nullability.NullPassedToNonnull -analyzer-checker=nullability.NullReturnedFromNonnull -analyzer-output plist -w -setup-static-analyzer -mrelocation-model static -mframe-pointer=none -fmath-errno -fno-rounding-math -mconstructor-aliases -munwind-tables -target-cpu x86-64 -fno-split-dwarf-inlining -debugger-tuning=gdb -resource-dir /llvm-project/build/lib/clang/12.0.0 -D _FILE_OFFSET_BITS=64 -D _LARGEFILE_SOURCE -U _FORTIFY_SOURCE -internal-isystem /usr/local/include -internal-isystem /llvm-project/build/lib/clang/12.0.0/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -O2 -fdebug-compilation-dir /tmp/real/c_wrk/wrk3/deps/luajit/src -ferror-limit 19 -fgnuc-version=4.2.1 -vectorize-loops -vectorize-slp -analyzer-checker core -analyzer-checker cplusplus -analyzer-checker nullability -analyzer-checker optin -analyzer-checker security -analyzer-checker unix -analyzer-checker osx -analyzer-checker fuchsia -analyzer-checker webkit -analyzer-output=html -faddrsig -o /tmp/scan-build-2020-11-20-015428-12370-1 -x c lj_meta.c
+</div>
+<div id='tooltiphint' hidden="true">
+  <p>Keyboard shortcuts: </p>
+  <ul>
+    <li>Use 'j/k' keys for keyboard navigation</li>
+    <li>Use 'Shift+S' to show/hide relevant lines</li>
+    <li>Use '?' to toggle this window</li>
+  </ul>
+  <a href="#" onclick="toggleHelp(); return false;">Close</a>
+</div>
+<script type='text/javascript'>
+var relevant_lines = {"1": {"298": 1}};
+
+var filterCounterexample = function (hide) {
+  var tables = document.getElementsByClassName("code");
+  for (var t=0; t<tables.length; t++) {
+    var table = tables[t];
+    var file_id = table.getAttribute("data-fileid");
+    var lines_in_fid = relevant_lines[file_id];
+    if (!lines_in_fid) {
+      lines_in_fid = {};
+    }
+    var lines = table.getElementsByClassName("codeline");
+    for (var i=0; i<lines.length; i++) {
+        var el = lines[i];
+        var lineNo = el.getAttribute("data-linenumber");
+        if (!lines_in_fid[lineNo]) {
+          if (hide) {
+            el.setAttribute("hidden", "");
+          } else {
+            el.removeAttribute("hidden");
+          }
+        }
+    }
+  }
+}
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "S") {
+    var checked = document.getElementsByName("showCounterexample")[0].checked;
+    filterCounterexample(!checked);
+    document.getElementsByName("showCounterexample")[0].checked = !checked;
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('input[name="showCounterexample"]').onchange=
+        function (event) {
+      filterCounterexample(this.checked);
+    };
+});
+</script>
+
+<form>
+    <input type="checkbox" name="showCounterexample" id="showCounterexample" />
+    <label for="showCounterexample">
+       Show only relevant lines
+    </label>
+</form>
+
+<script type='text/javascript'>
+var digitMatcher = new RegExp("[0-9]+");
+
+var querySelectorAllArray = function(selector) {
+  return Array.prototype.slice.call(
+    document.querySelectorAll(selector));
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    querySelectorAllArray(".PathNav > a").forEach(
+        function(currentValue, currentIndex) {
+            var hrefValue = currentValue.getAttribute("href");
+            currentValue.onclick = function() {
+                scrollTo(document.querySelector(hrefValue));
+                return false;
+            };
+        });
+});
+
+var findNum = function() {
+    var s = document.querySelector(".selected");
+    if (!s || s.id == "EndPath") {
+        return 0;
+    }
+    var out = parseInt(digitMatcher.exec(s.id)[0]);
+    return out;
+};
+
+var scrollTo = function(el) {
+    querySelectorAllArray(".selected").forEach(function(s) {
+        s.classList.remove("selected");
+    });
+    el.classList.add("selected");
+    window.scrollBy(0, el.getBoundingClientRect().top -
+        (window.innerHeight / 2));
+}
+
+var move = function(num, up, numItems) {
+  if (num == 1 && up || num == numItems - 1 && !up) {
+    return 0;
+  } else if (num == 0 && up) {
+    return numItems - 1;
+  } else if (num == 0 && !up) {
+    return 1 % numItems;
+  }
+  return up ? num - 1 : num + 1;
+}
+
+var numToId = function(num) {
+  if (num == 0) {
+    return document.getElementById("EndPath")
+  }
+  return document.getElementById("Path" + num);
+};
+
+var navigateTo = function(up) {
+  var numItems = document.querySelectorAll(
+      ".line > .msgEvent, .line > .msgControl").length;
+  var currentSelected = findNum();
+  var newSelected = move(currentSelected, up, numItems);
+  var newEl = numToId(newSelected, numItems);
+
+  // Scroll element into center.
+  scrollTo(newEl);
+};
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "j") {
+    navigateTo(/*up=*/false);
+  } else if (event.key == "k") {
+    navigateTo(/*up=*/true);
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+</script>
+  
+<script type='text/javascript'>
+
+var toggleHelp = function() {
+    var hint = document.querySelector("#tooltiphint");
+    var attributeName = "hidden";
+    if (hint.hasAttribute(attributeName)) {
+      hint.removeAttribute(attributeName);
+    } else {
+      hint.setAttribute("hidden", "true");
+    }
+};
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "?") {
+    toggleHelp();
+  } else {
+    return;
+  }
+  event.preventDefault();
+});
+</script>
+<table class="code" data-fileid="1">
+<tr class="codeline" data-linenumber="1"><td class="num" id="LN1">1</td><td class="line"><span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="2"><td class="num" id="LN2">2</td><td class="line"><span class='comment'>** Metamethod handling.</span></td></tr>
+<tr class="codeline" data-linenumber="3"><td class="num" id="LN3">3</td><td class="line"><span class='comment'>** Copyright (C) 2005-2013 Mike Pall. See Copyright Notice in luajit.h</span></td></tr>
+<tr class="codeline" data-linenumber="4"><td class="num" id="LN4">4</td><td class="line"><span class='comment'>**</span></td></tr>
+<tr class="codeline" data-linenumber="5"><td class="num" id="LN5">5</td><td class="line"><span class='comment'>** Portions taken verbatim or adapted from the Lua interpreter.</span></td></tr>
+<tr class="codeline" data-linenumber="6"><td class="num" id="LN6">6</td><td class="line"><span class='comment'>** Copyright (C) 1994-2008 Lua.org, PUC-Rio. See Copyright Notice in lua.h</span></td></tr>
+<tr class="codeline" data-linenumber="7"><td class="num" id="LN7">7</td><td class="line"><span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="8"><td class="num" id="LN8">8</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="9"><td class="num" id="LN9">9</td><td class="line"><span class='directive'>#define lj_meta_c</span></td></tr>
+<tr class="codeline" data-linenumber="10"><td class="num" id="LN10">10</td><td class="line"><span class='directive'>#define LUA_CORE</span></td></tr>
+<tr class="codeline" data-linenumber="11"><td class="num" id="LN11">11</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="12"><td class="num" id="LN12">12</td><td class="line"><span class='directive'>#include "lj_obj.h"</span></td></tr>
+<tr class="codeline" data-linenumber="13"><td class="num" id="LN13">13</td><td class="line"><span class='directive'>#include "lj_gc.h"</span></td></tr>
+<tr class="codeline" data-linenumber="14"><td class="num" id="LN14">14</td><td class="line"><span class='directive'>#include "lj_err.h"</span></td></tr>
+<tr class="codeline" data-linenumber="15"><td class="num" id="LN15">15</td><td class="line"><span class='directive'>#include "lj_str.h"</span></td></tr>
+<tr class="codeline" data-linenumber="16"><td class="num" id="LN16">16</td><td class="line"><span class='directive'>#include "lj_tab.h"</span></td></tr>
+<tr class="codeline" data-linenumber="17"><td class="num" id="LN17">17</td><td class="line"><span class='directive'>#include "lj_meta.h"</span></td></tr>
+<tr class="codeline" data-linenumber="18"><td class="num" id="LN18">18</td><td class="line"><span class='directive'>#include "lj_frame.h"</span></td></tr>
+<tr class="codeline" data-linenumber="19"><td class="num" id="LN19">19</td><td class="line"><span class='directive'>#include "lj_bc.h"</span></td></tr>
+<tr class="codeline" data-linenumber="20"><td class="num" id="LN20">20</td><td class="line"><span class='directive'>#include "lj_vm.h"</span></td></tr>
+<tr class="codeline" data-linenumber="21"><td class="num" id="LN21">21</td><td class="line"><span class='directive'>#include "lj_strscan.h"</span></td></tr>
+<tr class="codeline" data-linenumber="22"><td class="num" id="LN22">22</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="23"><td class="num" id="LN23">23</td><td class="line"><span class='comment'>/* -- Metamethod handling ------------------------------------------------- */</span></td></tr>
+<tr class="codeline" data-linenumber="24"><td class="num" id="LN24">24</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="25"><td class="num" id="LN25">25</td><td class="line"><span class='comment'>/* String interning of metamethod names for fast indexing. */</span></td></tr>
+<tr class="codeline" data-linenumber="26"><td class="num" id="LN26">26</td><td class="line"><span class='keyword'>void</span> lj_meta_init(lua_State *L)</td></tr>
+<tr class="codeline" data-linenumber="27"><td class="num" id="LN27">27</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="28"><td class="num" id="LN28">28</td><td class="line"><span class='directive'>#define MMNAME(name)	"__" #name</span></td></tr>
+<tr class="codeline" data-linenumber="29"><td class="num" id="LN29">29</td><td class="line">  <span class='keyword'>const</span> <span class='keyword'>char</span> *metanames = <span class='macro'>MMDEF(MMNAME)<span class='macro_popup'>MMNAME(index) MMNAME(newindex) MMNAME(gc) MMNAME(mode) MMNAME<br>(eq) MMNAME(len) MMNAME(lt) MMNAME(le) MMNAME(concat) MMNAME(<br>call) MMNAME(add) MMNAME(sub) MMNAME(mul) MMNAME(div) MMNAME(<br>mod) MMNAME(pow) MMNAME(unm) MMNAME(metatable) MMNAME(tostring<br>) MMNAME(new) MMNAME(pairs) MMNAME(ipairs)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="30"><td class="num" id="LN30">30</td><td class="line"><span class='directive'>#undef MMNAME</span></td></tr>
+<tr class="codeline" data-linenumber="31"><td class="num" id="LN31">31</td><td class="line">  global_State *g = <span class='macro'>G(L)<span class='macro_popup'>(((global_State *)(void *)(uintptr_t)(L-&gt;glref).ptr32))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="32"><td class="num" id="LN32">32</td><td class="line">  <span class='keyword'>const</span> <span class='keyword'>char</span> *p, *q;</td></tr>
+<tr class="codeline" data-linenumber="33"><td class="num" id="LN33">33</td><td class="line">  uint32_t mm;</td></tr>
+<tr class="codeline" data-linenumber="34"><td class="num" id="LN34">34</td><td class="line">  <span class='keyword'>for</span> (mm = 0, p = metanames; *p; mm++, p = q) {</td></tr>
+<tr class="codeline" data-linenumber="35"><td class="num" id="LN35">35</td><td class="line">    GCstr *s;</td></tr>
+<tr class="codeline" data-linenumber="36"><td class="num" id="LN36">36</td><td class="line">    <span class='keyword'>for</span> (q = p+2; *q &amp;&amp; *q != '_'; q++) ;</td></tr>
+<tr class="codeline" data-linenumber="37"><td class="num" id="LN37">37</td><td class="line">    s = lj_str_new(L, p, (size_t)(q-p));</td></tr>
+<tr class="codeline" data-linenumber="38"><td class="num" id="LN38">38</td><td class="line">    <span class='comment'>/* NOBARRIER: g-&gt;gcroot[] is a GC root. */</span></td></tr>
+<tr class="codeline" data-linenumber="39"><td class="num" id="LN39">39</td><td class="line">    <span class='macro'>setgcref(g-&gt;gcroot[GCROOT_MMNAME+mm], obj2gco(s))<span class='macro_popup'>((g-&gt;gcroot[GCROOT_MMNAME+mm]).gcptr32 = (uint32_t)(uintptr_t<br>)&amp;(((GCobj *)(s)))-&gt;gch)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="40"><td class="num" id="LN40">40</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="41"><td class="num" id="LN41">41</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="42"><td class="num" id="LN42">42</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="43"><td class="num" id="LN43">43</td><td class="line"><span class='comment'>/* Negative caching of a few fast metamethods. See the lj_meta_fast() macro. */</span></td></tr>
+<tr class="codeline" data-linenumber="44"><td class="num" id="LN44">44</td><td class="line">cTValue *lj_meta_cache(GCtab *mt, MMS mm, GCstr *name)</td></tr>
+<tr class="codeline" data-linenumber="45"><td class="num" id="LN45">45</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="46"><td class="num" id="LN46">46</td><td class="line">  cTValue *mo = lj_tab_getstr(mt, name);</td></tr>
+<tr class="codeline" data-linenumber="47"><td class="num" id="LN47">47</td><td class="line">  <span class='macro'>lua_assert(mm &lt;= MM_FAST)<span class='macro_popup'>((void)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="48"><td class="num" id="LN48">48</td><td class="line">  <span class='keyword'>if</span> (!mo || <span class='macro'>tvisnil(mo)<span class='macro_popup'>(((mo)-&gt;it) == (~0u))</span></span>) {  <span class='comment'>/* No metamethod? */</span></td></tr>
+<tr class="codeline" data-linenumber="49"><td class="num" id="LN49">49</td><td class="line">    mt-&gt;nomm |= (uint8_t)(1u&lt;&lt;mm);  <span class='comment'>/* Set negative cache flag. */</span></td></tr>
+<tr class="codeline" data-linenumber="50"><td class="num" id="LN50">50</td><td class="line">    <span class='keyword'>return</span> <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="51"><td class="num" id="LN51">51</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="52"><td class="num" id="LN52">52</td><td class="line">  <span class='keyword'>return</span> mo;</td></tr>
+<tr class="codeline" data-linenumber="53"><td class="num" id="LN53">53</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="54"><td class="num" id="LN54">54</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="55"><td class="num" id="LN55">55</td><td class="line"><span class='comment'>/* Lookup metamethod for object. */</span></td></tr>
+<tr class="codeline" data-linenumber="56"><td class="num" id="LN56">56</td><td class="line">cTValue *lj_meta_lookup(lua_State *L, cTValue *o, MMS mm)</td></tr>
+<tr class="codeline" data-linenumber="57"><td class="num" id="LN57">57</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="58"><td class="num" id="LN58">58</td><td class="line">  GCtab *mt;</td></tr>
+<tr class="codeline" data-linenumber="59"><td class="num" id="LN59">59</td><td class="line">  <span class='keyword'>if</span> (<span class='macro'>tvistab(o)<span class='macro_popup'>(((o)-&gt;it) == (~11u))</span></span>)</td></tr>
+<tr class="codeline" data-linenumber="60"><td class="num" id="LN60">60</td><td class="line">    mt = <span class='macro'>tabref(tabV(o)-&gt;metatable)<span class='macro_popup'>(&amp;((GCobj *)(uintptr_t)(((&amp;(((GCobj *)(uintptr_t)((o)<br>-&gt;gcr).gcptr32))-&gt;tab)-&gt;metatable)).gcptr32)-&gt;tab<br>)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="61"><td class="num" id="LN61">61</td><td class="line">  <span class='keyword'>else</span> <span class='keyword'>if</span> (<span class='macro'>tvisudata(o)<span class='macro_popup'>(((o)-&gt;it) == (~12u))</span></span>)</td></tr>
+<tr class="codeline" data-linenumber="62"><td class="num" id="LN62">62</td><td class="line">    mt = <span class='macro'>tabref(udataV(o)-&gt;metatable)<span class='macro_popup'>(&amp;((GCobj *)(uintptr_t)(((&amp;(((GCobj *)(uintptr_t)((o)<br>-&gt;gcr).gcptr32))-&gt;ud)-&gt;metatable)).gcptr32)-&gt;tab)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="63"><td class="num" id="LN63">63</td><td class="line">  <span class='keyword'>else</span></td></tr>
+<tr class="codeline" data-linenumber="64"><td class="num" id="LN64">64</td><td class="line">    mt = <span class='macro'>tabref(basemt_obj(G(L), o))<span class='macro_popup'>(&amp;((GCobj *)(uintptr_t)(((((((global_State *)(void *)(uintptr_t<br>)(L-&gt;glref).ptr32)))-&gt;gcroot[GCROOT_BASEMT+((((o)-&gt;it<br>) &lt;= 0xfffeffffu) ? ~(~13u) : (((int32_t)((o)-&gt;it) &gt;&gt;<br> 15) == -2) ? ~(~3u) : ~((o)-&gt;it))]))).gcptr32)-&gt;tab)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="65"><td class="num" id="LN65">65</td><td class="line">  <span class='keyword'>if</span> (mt) {</td></tr>
+<tr class="codeline" data-linenumber="66"><td class="num" id="LN66">66</td><td class="line">    cTValue *mo = lj_tab_getstr(mt, <span class='macro'>mmname_str(G(L), mm)<span class='macro_popup'>((&amp;((GCobj *)(uintptr_t)((((((global_State *)(void *)(uintptr_t<br>)(L-&gt;glref).ptr32)))-&gt;gcroot[GCROOT_MMNAME+(mm)])).gcptr32<br>)-&gt;str))</span></span>);</td></tr>
+<tr class="codeline" data-linenumber="67"><td class="num" id="LN67">67</td><td class="line">    <span class='keyword'>if</span> (mo)</td></tr>
+<tr class="codeline" data-linenumber="68"><td class="num" id="LN68">68</td><td class="line">      <span class='keyword'>return</span> mo;</td></tr>
+<tr class="codeline" data-linenumber="69"><td class="num" id="LN69">69</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="70"><td class="num" id="LN70">70</td><td class="line">  <span class='keyword'>return</span> <span class='macro'>niltv(L)<span class='macro_popup'>(&amp;(((global_State *)(void *)(uintptr_t)(L-&gt;glref).ptr32<br>))-&gt;nilnode.val)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="71"><td class="num" id="LN71">71</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="72"><td class="num" id="LN72">72</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="73"><td class="num" id="LN73">73</td><td class="line"><span class='directive'>#if <span class='macro'>LJ_HASFFI<span class='macro_popup'>1</span></span></span></td></tr>
+<tr class="codeline" data-linenumber="74"><td class="num" id="LN74">74</td><td class="line"><span class='comment'>/* Tailcall from C function. */</span></td></tr>
+<tr class="codeline" data-linenumber="75"><td class="num" id="LN75">75</td><td class="line"><span class='keyword'>int</span> lj_meta_tailcall(lua_State *L, cTValue *tv)</td></tr>
+<tr class="codeline" data-linenumber="76"><td class="num" id="LN76">76</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="77"><td class="num" id="LN77">77</td><td class="line">  TValue *base = L-&gt;base;</td></tr>
+<tr class="codeline" data-linenumber="78"><td class="num" id="LN78">78</td><td class="line">  TValue *top = L-&gt;top;</td></tr>
+<tr class="codeline" data-linenumber="79"><td class="num" id="LN79">79</td><td class="line">  <span class='keyword'>const</span> BCIns *pc = <span class='macro'>frame_pc(base-1)<span class='macro_popup'>(((const BCIns *)(void *)(uintptr_t)((base-1)-&gt;fr.tp.pcr).<br>ptr32))</span></span>;  <span class='comment'>/* Preserve old PC from frame. */</span></td></tr>
+<tr class="codeline" data-linenumber="80"><td class="num" id="LN80">80</td><td class="line">  copyTV(L, base-1, tv);  <span class='comment'>/* Replace frame with new object. */</span></td></tr>
+<tr class="codeline" data-linenumber="81"><td class="num" id="LN81">81</td><td class="line">  top-&gt;u32.lo = LJ_CONT_TAILCALL;</td></tr>
+<tr class="codeline" data-linenumber="82"><td class="num" id="LN82">82</td><td class="line">  <span class='macro'>setframe_pc(top, pc)<span class='macro_popup'>((((top)-&gt;fr.tp.pcr).ptr32 = (uint32_t)(uintptr_t)(void *)<br>((pc))))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="83"><td class="num" id="LN83">83</td><td class="line">  <span class='macro'>setframe_gc(top+1, obj2gco(L))<span class='macro_popup'>((((top+1)-&gt;fr.func).gcptr32 = (uint32_t)(uintptr_t)&amp;(<br>(((GCobj *)(L))))-&gt;gch))</span></span>;  <span class='comment'>/* Dummy frame object. */</span></td></tr>
+<tr class="codeline" data-linenumber="84"><td class="num" id="LN84">84</td><td class="line">  <span class='macro'>setframe_ftsz(top+1, (<span class='keyword'>int</span>)((<span class='keyword'>char</span> *)(top+2) - (<span class='keyword'>char</span> *)base) + FRAME_CONT)<span class='macro_popup'>((top+1)-&gt;fr.tp.ftsz = ((int)((char *)(top+2) - (char *)base<br>) + FRAME_CONT))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="85"><td class="num" id="LN85">85</td><td class="line">  L-&gt;base = L-&gt;top = top+2;</td></tr>
+<tr class="codeline" data-linenumber="86"><td class="num" id="LN86">86</td><td class="line">  <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="87"><td class="num" id="LN87">87</td><td class="line">  <span class='comment'>** before:   [old_mo|PC]    [... ...]</span></td></tr>
+<tr class="codeline" data-linenumber="88"><td class="num" id="LN88">88</td><td class="line">  <span class='comment'>**                         ^base     ^top</span></td></tr>
+<tr class="codeline" data-linenumber="89"><td class="num" id="LN89">89</td><td class="line">  <span class='comment'>** after:    [new_mo|itype] [... ...] [NULL|PC] [dummy|delta]</span></td></tr>
+<tr class="codeline" data-linenumber="90"><td class="num" id="LN90">90</td><td class="line">  <span class='comment'>**                                                           ^base/top</span></td></tr>
+<tr class="codeline" data-linenumber="91"><td class="num" id="LN91">91</td><td class="line">  <span class='comment'>** tailcall: [new_mo|PC]    [... ...]</span></td></tr>
+<tr class="codeline" data-linenumber="92"><td class="num" id="LN92">92</td><td class="line">  <span class='comment'>**                         ^base     ^top</span></td></tr>
+<tr class="codeline" data-linenumber="93"><td class="num" id="LN93">93</td><td class="line">  <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="94"><td class="num" id="LN94">94</td><td class="line">  <span class='keyword'>return</span> 0;</td></tr>
+<tr class="codeline" data-linenumber="95"><td class="num" id="LN95">95</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="96"><td class="num" id="LN96">96</td><td class="line"><span class='directive'>#endif</span></td></tr>
+<tr class="codeline" data-linenumber="97"><td class="num" id="LN97">97</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="98"><td class="num" id="LN98">98</td><td class="line"><span class='comment'>/* Setup call to metamethod to be run by Assembler VM. */</span></td></tr>
+<tr class="codeline" data-linenumber="99"><td class="num" id="LN99">99</td><td class="line"><span class='keyword'>static</span> TValue *mmcall(lua_State *L, ASMFunction cont, cTValue *mo,</td></tr>
+<tr class="codeline" data-linenumber="100"><td class="num" id="LN100">100</td><td class="line">		    cTValue *a, cTValue *b)</td></tr>
+<tr class="codeline" data-linenumber="101"><td class="num" id="LN101">101</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="102"><td class="num" id="LN102">102</td><td class="line">  <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="103"><td class="num" id="LN103">103</td><td class="line">  <span class='comment'>**           |-- framesize -&gt; top       top+1       top+2 top+3</span></td></tr>
+<tr class="codeline" data-linenumber="104"><td class="num" id="LN104">104</td><td class="line">  <span class='comment'>** before:   [func slots ...]</span></td></tr>
+<tr class="codeline" data-linenumber="105"><td class="num" id="LN105">105</td><td class="line">  <span class='comment'>** mm setup: [func slots ...] [cont|?]  [mo|tmtype] [a]   [b]</span></td></tr>
+<tr class="codeline" data-linenumber="106"><td class="num" id="LN106">106</td><td class="line">  <span class='comment'>** in asm:   [func slots ...] [cont|PC] [mo|delta]  [a]   [b]</span></td></tr>
+<tr class="codeline" data-linenumber="107"><td class="num" id="LN107">107</td><td class="line">  <span class='comment'>**           ^-- func base                          ^-- mm base</span></td></tr>
+<tr class="codeline" data-linenumber="108"><td class="num" id="LN108">108</td><td class="line">  <span class='comment'>** after mm: [func slots ...]           [result]</span></td></tr>
+<tr class="codeline" data-linenumber="109"><td class="num" id="LN109">109</td><td class="line">  <span class='comment'>**                ^-- copy to base[PC_RA] --/     for lj_cont_ra</span></td></tr>
+<tr class="codeline" data-linenumber="110"><td class="num" id="LN110">110</td><td class="line">  <span class='comment'>**                          istruecond + branch   for lj_cont_cond*</span></td></tr>
+<tr class="codeline" data-linenumber="111"><td class="num" id="LN111">111</td><td class="line">  <span class='comment'>**                                       ignore   for lj_cont_nop</span></td></tr>
+<tr class="codeline" data-linenumber="112"><td class="num" id="LN112">112</td><td class="line">  <span class='comment'>** next PC:  [func slots ...]</span></td></tr>
+<tr class="codeline" data-linenumber="113"><td class="num" id="LN113">113</td><td class="line">  <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="114"><td class="num" id="LN114">114</td><td class="line">  TValue *top = L-&gt;top;</td></tr>
+<tr class="codeline" data-linenumber="115"><td class="num" id="LN115">115</td><td class="line">  <span class='keyword'>if</span> (<span class='macro'>curr_funcisL(L)<span class='macro_popup'>((((&amp;((GCobj *)(uintptr_t)((L-&gt;base-1)-&gt;fr.func).gcptr32<br>)-&gt;fn))-&gt;c.ffid == 0))</span></span>) top = <span class='macro'>curr_topL(L)<span class='macro_popup'>(L-&gt;base + (((GCproto *)(((char *)(void *)(uintptr_t)(((&amp;<br>((GCobj *)(uintptr_t)((L-&gt;base-1)-&gt;fr.func).gcptr32)-&gt;<br>fn))-&gt;l.pc).ptr32)-sizeof(GCproto))))-&gt;framesize)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="116"><td class="num" id="LN116">116</td><td class="line">  <span class='macro'>setcont(top, cont)<span class='macro_popup'>((top)-&gt;u64 = (uint64_t)(void *)(cont) - (uint64_t)lj_vm_asm_begin<br>)</span></span>;  <span class='comment'>/* Assembler VM stores PC in upper word. */</span></td></tr>
+<tr class="codeline" data-linenumber="117"><td class="num" id="LN117">117</td><td class="line">  copyTV(L, top+1, mo);  <span class='comment'>/* Store metamethod and two arguments. */</span></td></tr>
+<tr class="codeline" data-linenumber="118"><td class="num" id="LN118">118</td><td class="line">  copyTV(L, top+2, a);</td></tr>
+<tr class="codeline" data-linenumber="119"><td class="num" id="LN119">119</td><td class="line">  copyTV(L, top+3, b);</td></tr>
+<tr class="codeline" data-linenumber="120"><td class="num" id="LN120">120</td><td class="line">  <span class='keyword'>return</span> top+2;  <span class='comment'>/* Return new base. */</span></td></tr>
+<tr class="codeline" data-linenumber="121"><td class="num" id="LN121">121</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="122"><td class="num" id="LN122">122</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="123"><td class="num" id="LN123">123</td><td class="line"><span class='comment'>/* -- C helpers for some instructions, called from assembler VM ----------- */</span></td></tr>
+<tr class="codeline" data-linenumber="124"><td class="num" id="LN124">124</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="125"><td class="num" id="LN125">125</td><td class="line"><span class='comment'>/* Helper for TGET*. __index chain and metamethod. */</span></td></tr>
+<tr class="codeline" data-linenumber="126"><td class="num" id="LN126">126</td><td class="line">cTValue *lj_meta_tget(lua_State *L, cTValue *o, cTValue *k)</td></tr>
+<tr class="codeline" data-linenumber="127"><td class="num" id="LN127">127</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="128"><td class="num" id="LN128">128</td><td class="line">  <span class='keyword'>int</span> loop;</td></tr>
+<tr class="codeline" data-linenumber="129"><td class="num" id="LN129">129</td><td class="line">  <span class='keyword'>for</span> (loop = 0; loop &lt; <span class='macro'>LJ_MAX_IDXCHAIN<span class='macro_popup'>100</span></span>; loop++) {</td></tr>
+<tr class="codeline" data-linenumber="130"><td class="num" id="LN130">130</td><td class="line">    cTValue *mo;</td></tr>
+<tr class="codeline" data-linenumber="131"><td class="num" id="LN131">131</td><td class="line">    <span class='keyword'>if</span> (<span class='macro'>LJ_LIKELY(tvistab(o))<span class='macro_popup'>__builtin_expect(!!((((o)-&gt;it) == (~11u))), 1)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="132"><td class="num" id="LN132">132</td><td class="line">      GCtab *t = <span class='macro'>tabV(o)<span class='macro_popup'>(&amp;(((GCobj *)(uintptr_t)((o)-&gt;gcr).gcptr32))-&gt;tab)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="133"><td class="num" id="LN133">133</td><td class="line">      cTValue *tv = lj_tab_get(L, t, k);</td></tr>
+<tr class="codeline" data-linenumber="134"><td class="num" id="LN134">134</td><td class="line">      <span class='keyword'>if</span> (!<span class='macro'>tvisnil(tv)<span class='macro_popup'>(((tv)-&gt;it) == (~0u))</span></span> ||</td></tr>
+<tr class="codeline" data-linenumber="135"><td class="num" id="LN135">135</td><td class="line">	  !(mo = <span class='macro'>lj_meta_fast(L, tabref(t-&gt;metatable), MM_index)<span class='macro_popup'>(((&amp;((GCobj *)(uintptr_t)((t-&gt;metatable)).gcptr32)-&gt;<br>tab)) == ((void*)0) ? ((void*)0) : (((&amp;((GCobj *)(uintptr_t<br>)((t-&gt;metatable)).gcptr32)-&gt;tab))-&gt;nomm &amp; (1u&lt;&lt;<br>(MM_index))) ? ((void*)0) : lj_meta_cache((&amp;((GCobj *)(uintptr_t<br>)((t-&gt;metatable)).gcptr32)-&gt;tab), MM_index, ((&amp;((GCobj<br> *)(uintptr_t)((((((global_State *)(void *)(uintptr_t)(L-&gt;<br>glref).ptr32)))-&gt;gcroot[GCROOT_MMNAME+(MM_index)])).gcptr32<br>)-&gt;str))))</span></span>))</td></tr>
+<tr class="codeline" data-linenumber="136"><td class="num" id="LN136">136</td><td class="line">	<span class='keyword'>return</span> tv;</td></tr>
+<tr class="codeline" data-linenumber="137"><td class="num" id="LN137">137</td><td class="line">    } <span class='keyword'>else</span> <span class='keyword'>if</span> (<span class='macro'>tvisnil(mo = lj_meta_lookup(L, o, MM_index))<span class='macro_popup'>(((mo = lj_meta_lookup(L, o, MM_index))-&gt;it) == (~0u))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="138"><td class="num" id="LN138">138</td><td class="line">      lj_err_optype(L, o, LJ_ERR_OPINDEX);</td></tr>
+<tr class="codeline" data-linenumber="139"><td class="num" id="LN139">139</td><td class="line">      <span class='keyword'>return</span> <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;  <span class='comment'>/* unreachable */</span></td></tr>
+<tr class="codeline" data-linenumber="140"><td class="num" id="LN140">140</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="141"><td class="num" id="LN141">141</td><td class="line">    <span class='keyword'>if</span> (<span class='macro'>tvisfunc(mo)<span class='macro_popup'>(((mo)-&gt;it) == (~8u))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="142"><td class="num" id="LN142">142</td><td class="line">      L-&gt;top = mmcall(L, lj_cont_ra, mo, o, k);</td></tr>
+<tr class="codeline" data-linenumber="143"><td class="num" id="LN143">143</td><td class="line">      <span class='keyword'>return</span> <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;  <span class='comment'>/* Trigger metamethod call. */</span></td></tr>
+<tr class="codeline" data-linenumber="144"><td class="num" id="LN144">144</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="145"><td class="num" id="LN145">145</td><td class="line">    o = mo;</td></tr>
+<tr class="codeline" data-linenumber="146"><td class="num" id="LN146">146</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="147"><td class="num" id="LN147">147</td><td class="line">  lj_err_msg(L, LJ_ERR_GETLOOP);</td></tr>
+<tr class="codeline" data-linenumber="148"><td class="num" id="LN148">148</td><td class="line">  <span class='keyword'>return</span> <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;  <span class='comment'>/* unreachable */</span></td></tr>
+<tr class="codeline" data-linenumber="149"><td class="num" id="LN149">149</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="150"><td class="num" id="LN150">150</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="151"><td class="num" id="LN151">151</td><td class="line"><span class='comment'>/* Helper for TSET*. __newindex chain and metamethod. */</span></td></tr>
+<tr class="codeline" data-linenumber="152"><td class="num" id="LN152">152</td><td class="line">TValue *lj_meta_tset(lua_State *L, cTValue *o, cTValue *k)</td></tr>
+<tr class="codeline" data-linenumber="153"><td class="num" id="LN153">153</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="154"><td class="num" id="LN154">154</td><td class="line">  TValue tmp;</td></tr>
+<tr class="codeline" data-linenumber="155"><td class="num" id="LN155">155</td><td class="line">  <span class='keyword'>int</span> loop;</td></tr>
+<tr class="codeline" data-linenumber="156"><td class="num" id="LN156">156</td><td class="line">  <span class='keyword'>for</span> (loop = 0; loop &lt; <span class='macro'>LJ_MAX_IDXCHAIN<span class='macro_popup'>100</span></span>; loop++) {</td></tr>
+<tr class="codeline" data-linenumber="157"><td class="num" id="LN157">157</td><td class="line">    cTValue *mo;</td></tr>
+<tr class="codeline" data-linenumber="158"><td class="num" id="LN158">158</td><td class="line">    <span class='keyword'>if</span> (<span class='macro'>LJ_LIKELY(tvistab(o))<span class='macro_popup'>__builtin_expect(!!((((o)-&gt;it) == (~11u))), 1)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="159"><td class="num" id="LN159">159</td><td class="line">      GCtab *t = <span class='macro'>tabV(o)<span class='macro_popup'>(&amp;(((GCobj *)(uintptr_t)((o)-&gt;gcr).gcptr32))-&gt;tab)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="160"><td class="num" id="LN160">160</td><td class="line">      cTValue *tv = lj_tab_get(L, t, k);</td></tr>
+<tr class="codeline" data-linenumber="161"><td class="num" id="LN161">161</td><td class="line">      <span class='keyword'>if</span> (<span class='macro'>LJ_LIKELY(!tvisnil(tv))<span class='macro_popup'>__builtin_expect(!!(!(((tv)-&gt;it) == (~0u))), 1)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="162"><td class="num" id="LN162">162</td><td class="line">	t-&gt;nomm = 0;  <span class='comment'>/* Invalidate negative metamethod cache. */</span></td></tr>
+<tr class="codeline" data-linenumber="163"><td class="num" id="LN163">163</td><td class="line">	<span class='macro'>lj_gc_anybarriert(L, t)<span class='macro_popup'>{ if (__builtin_expect(!!(((((GCobj *)(t)))-&gt;gch.marked &amp;<br> 0x04)), 0)) lj_gc_barrierback((((global_State *)(void *)(uintptr_t<br>)(L-&gt;glref).ptr32)), (t)); }</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="164"><td class="num" id="LN164">164</td><td class="line">	<span class='keyword'>return</span> (TValue *)tv;</td></tr>
+<tr class="codeline" data-linenumber="165"><td class="num" id="LN165">165</td><td class="line">      } <span class='keyword'>else</span> <span class='keyword'>if</span> (!(mo = <span class='macro'>lj_meta_fast(L, tabref(t-&gt;metatable), MM_newindex)<span class='macro_popup'>(((&amp;((GCobj *)(uintptr_t)((t-&gt;metatable)).gcptr32)-&gt;<br>tab)) == ((void*)0) ? ((void*)0) : (((&amp;((GCobj *)(uintptr_t<br>)((t-&gt;metatable)).gcptr32)-&gt;tab))-&gt;nomm &amp; (1u&lt;&lt;<br>(MM_newindex))) ? ((void*)0) : lj_meta_cache((&amp;((GCobj *)<br>(uintptr_t)((t-&gt;metatable)).gcptr32)-&gt;tab), MM_newindex<br>, ((&amp;((GCobj *)(uintptr_t)((((((global_State *)(void *)(uintptr_t<br>)(L-&gt;glref).ptr32)))-&gt;gcroot[GCROOT_MMNAME+(MM_newindex<br>)])).gcptr32)-&gt;str))))</span></span>)) {</td></tr>
+<tr class="codeline" data-linenumber="166"><td class="num" id="LN166">166</td><td class="line">	t-&gt;nomm = 0;  <span class='comment'>/* Invalidate negative metamethod cache. */</span></td></tr>
+<tr class="codeline" data-linenumber="167"><td class="num" id="LN167">167</td><td class="line">	<span class='macro'>lj_gc_anybarriert(L, t)<span class='macro_popup'>{ if (__builtin_expect(!!(((((GCobj *)(t)))-&gt;gch.marked &amp;<br> 0x04)), 0)) lj_gc_barrierback((((global_State *)(void *)(uintptr_t<br>)(L-&gt;glref).ptr32)), (t)); }</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="168"><td class="num" id="LN168">168</td><td class="line">	<span class='keyword'>if</span> (tv != <span class='macro'>niltv(L)<span class='macro_popup'>(&amp;(((global_State *)(void *)(uintptr_t)(L-&gt;glref).ptr32<br>))-&gt;nilnode.val)</span></span>)</td></tr>
+<tr class="codeline" data-linenumber="169"><td class="num" id="LN169">169</td><td class="line">	  <span class='keyword'>return</span> (TValue *)tv;</td></tr>
+<tr class="codeline" data-linenumber="170"><td class="num" id="LN170">170</td><td class="line">	<span class='keyword'>if</span> (<span class='macro'>tvisnil(k)<span class='macro_popup'>(((k)-&gt;it) == (~0u))</span></span>) lj_err_msg(L, LJ_ERR_NILIDX);</td></tr>
+<tr class="codeline" data-linenumber="171"><td class="num" id="LN171">171</td><td class="line">	<span class='keyword'>else</span> <span class='keyword'>if</span> (<span class='macro'>tvisint(k)<span class='macro_popup'>(0 &amp;&amp; ((k)-&gt;it) == 0xfffeffffu)</span></span>) { <span class='macro'>setnumV(&amp;tmp, (lua_Number)intV(k))<span class='macro_popup'>((&amp;tmp)-&gt;n = ((lua_Number)((int32_t)(k)-&gt;i)))</span></span>; k = &amp;tmp; }</td></tr>
+<tr class="codeline" data-linenumber="172"><td class="num" id="LN172">172</td><td class="line">	<span class='keyword'>else</span> <span class='keyword'>if</span> (<span class='macro'>tvisnum(k)<span class='macro_popup'>(((k)-&gt;it) &lt; 0xfffeffffu)</span></span> &amp;&amp; <span class='macro'>tvisnan(k)<span class='macro_popup'>((k)-&gt;n != (k)-&gt;n)</span></span>) lj_err_msg(L, LJ_ERR_NANIDX);</td></tr>
+<tr class="codeline" data-linenumber="173"><td class="num" id="LN173">173</td><td class="line">	<span class='keyword'>return</span> lj_tab_newkey(L, t, k);</td></tr>
+<tr class="codeline" data-linenumber="174"><td class="num" id="LN174">174</td><td class="line">      }</td></tr>
+<tr class="codeline" data-linenumber="175"><td class="num" id="LN175">175</td><td class="line">    } <span class='keyword'>else</span> <span class='keyword'>if</span> (<span class='macro'>tvisnil(mo = lj_meta_lookup(L, o, MM_newindex))<span class='macro_popup'>(((mo = lj_meta_lookup(L, o, MM_newindex))-&gt;it) == (~0u))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="176"><td class="num" id="LN176">176</td><td class="line">      lj_err_optype(L, o, LJ_ERR_OPINDEX);</td></tr>
+<tr class="codeline" data-linenumber="177"><td class="num" id="LN177">177</td><td class="line">      <span class='keyword'>return</span> <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;  <span class='comment'>/* unreachable */</span></td></tr>
+<tr class="codeline" data-linenumber="178"><td class="num" id="LN178">178</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="179"><td class="num" id="LN179">179</td><td class="line">    <span class='keyword'>if</span> (<span class='macro'>tvisfunc(mo)<span class='macro_popup'>(((mo)-&gt;it) == (~8u))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="180"><td class="num" id="LN180">180</td><td class="line">      L-&gt;top = mmcall(L, lj_cont_nop, mo, o, k);</td></tr>
+<tr class="codeline" data-linenumber="181"><td class="num" id="LN181">181</td><td class="line">      <span class='comment'>/* L-&gt;top+2 = v filled in by caller. */</span></td></tr>
+<tr class="codeline" data-linenumber="182"><td class="num" id="LN182">182</td><td class="line">      <span class='keyword'>return</span> <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;  <span class='comment'>/* Trigger metamethod call. */</span></td></tr>
+<tr class="codeline" data-linenumber="183"><td class="num" id="LN183">183</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="184"><td class="num" id="LN184">184</td><td class="line">    copyTV(L, &amp;tmp, mo);</td></tr>
+<tr class="codeline" data-linenumber="185"><td class="num" id="LN185">185</td><td class="line">    o = &amp;tmp;</td></tr>
+<tr class="codeline" data-linenumber="186"><td class="num" id="LN186">186</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="187"><td class="num" id="LN187">187</td><td class="line">  lj_err_msg(L, LJ_ERR_SETLOOP);</td></tr>
+<tr class="codeline" data-linenumber="188"><td class="num" id="LN188">188</td><td class="line">  <span class='keyword'>return</span> <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;  <span class='comment'>/* unreachable */</span></td></tr>
+<tr class="codeline" data-linenumber="189"><td class="num" id="LN189">189</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="190"><td class="num" id="LN190">190</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="191"><td class="num" id="LN191">191</td><td class="line"><span class='keyword'>static</span> cTValue *str2num(cTValue *o, TValue *n)</td></tr>
+<tr class="codeline" data-linenumber="192"><td class="num" id="LN192">192</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="193"><td class="num" id="LN193">193</td><td class="line">  <span class='keyword'>if</span> (<span class='macro'>tvisnum(o)<span class='macro_popup'>(((o)-&gt;it) &lt; 0xfffeffffu)</span></span>)</td></tr>
+<tr class="codeline" data-linenumber="194"><td class="num" id="LN194">194</td><td class="line">    <span class='keyword'>return</span> o;</td></tr>
+<tr class="codeline" data-linenumber="195"><td class="num" id="LN195">195</td><td class="line">  <span class='keyword'>else</span> <span class='keyword'>if</span> (<span class='macro'>tvisint(o)<span class='macro_popup'>(0 &amp;&amp; ((o)-&gt;it) == 0xfffeffffu)</span></span>)</td></tr>
+<tr class="codeline" data-linenumber="196"><td class="num" id="LN196">196</td><td class="line">    <span class='keyword'>return</span> (<span class='macro'>setnumV(n, (lua_Number)intV(o))<span class='macro_popup'>((n)-&gt;n = ((lua_Number)((int32_t)(o)-&gt;i)))</span></span>, n);</td></tr>
+<tr class="codeline" data-linenumber="197"><td class="num" id="LN197">197</td><td class="line">  <span class='keyword'>else</span> <span class='keyword'>if</span> (<span class='macro'>tvisstr(o)<span class='macro_popup'>(((o)-&gt;it) == (~4u))</span></span> &amp;&amp; lj_strscan_num(<span class='macro'>strV(o)<span class='macro_popup'>(&amp;(((GCobj *)(uintptr_t)((o)-&gt;gcr).gcptr32))-&gt;str)</span></span>, n))</td></tr>
+<tr class="codeline" data-linenumber="198"><td class="num" id="LN198">198</td><td class="line">    <span class='keyword'>return</span> n;</td></tr>
+<tr class="codeline" data-linenumber="199"><td class="num" id="LN199">199</td><td class="line">  <span class='keyword'>else</span></td></tr>
+<tr class="codeline" data-linenumber="200"><td class="num" id="LN200">200</td><td class="line">    <span class='keyword'>return</span> <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="201"><td class="num" id="LN201">201</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="202"><td class="num" id="LN202">202</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="203"><td class="num" id="LN203">203</td><td class="line"><span class='comment'>/* Helper for arithmetic instructions. Coercion, metamethod. */</span></td></tr>
+<tr class="codeline" data-linenumber="204"><td class="num" id="LN204">204</td><td class="line">TValue *lj_meta_arith(lua_State *L, TValue *ra, cTValue *rb, cTValue *rc,</td></tr>
+<tr class="codeline" data-linenumber="205"><td class="num" id="LN205">205</td><td class="line">		      BCReg op)</td></tr>
+<tr class="codeline" data-linenumber="206"><td class="num" id="LN206">206</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="207"><td class="num" id="LN207">207</td><td class="line">  MMS mm = <span class='macro'>bcmode_mm(op)<span class='macro_popup'>((MMS)(lj_bc_mode[op]&gt;&gt;11))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="208"><td class="num" id="LN208">208</td><td class="line">  TValue tempb, tempc;</td></tr>
+<tr class="codeline" data-linenumber="209"><td class="num" id="LN209">209</td><td class="line">  cTValue *b, *c;</td></tr>
+<tr class="codeline" data-linenumber="210"><td class="num" id="LN210">210</td><td class="line">  <span class='keyword'>if</span> ((b = str2num(rb, &amp;tempb)) != <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span> &amp;&amp;</td></tr>
+<tr class="codeline" data-linenumber="211"><td class="num" id="LN211">211</td><td class="line">      (c = str2num(rc, &amp;tempc)) != <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>) {  <span class='comment'>/* Try coercion first. */</span></td></tr>
+<tr class="codeline" data-linenumber="212"><td class="num" id="LN212">212</td><td class="line">    <span class='macro'>setnumV(ra, lj_vm_foldarith(numV(b), numV(c), (<span class='keyword'>int</span>)mm-MM_add))<span class='macro_popup'>((ra)-&gt;n = (lj_vm_foldarith(((b)-&gt;n), ((c)-&gt;n), (int<br>)mm-MM_add)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="213"><td class="num" id="LN213">213</td><td class="line">    <span class='keyword'>return</span> <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="214"><td class="num" id="LN214">214</td><td class="line">  } <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="215"><td class="num" id="LN215">215</td><td class="line">    cTValue *mo = lj_meta_lookup(L, rb, mm);</td></tr>
+<tr class="codeline" data-linenumber="216"><td class="num" id="LN216">216</td><td class="line">    <span class='keyword'>if</span> (<span class='macro'>tvisnil(mo)<span class='macro_popup'>(((mo)-&gt;it) == (~0u))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="217"><td class="num" id="LN217">217</td><td class="line">      mo = lj_meta_lookup(L, rc, mm);</td></tr>
+<tr class="codeline" data-linenumber="218"><td class="num" id="LN218">218</td><td class="line">      <span class='keyword'>if</span> (<span class='macro'>tvisnil(mo)<span class='macro_popup'>(((mo)-&gt;it) == (~0u))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="219"><td class="num" id="LN219">219</td><td class="line">	<span class='keyword'>if</span> (str2num(rb, &amp;tempb) == <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>) rc = rb;</td></tr>
+<tr class="codeline" data-linenumber="220"><td class="num" id="LN220">220</td><td class="line">	lj_err_optype(L, rc, LJ_ERR_OPARITH);</td></tr>
+<tr class="codeline" data-linenumber="221"><td class="num" id="LN221">221</td><td class="line">	<span class='keyword'>return</span> <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;  <span class='comment'>/* unreachable */</span></td></tr>
+<tr class="codeline" data-linenumber="222"><td class="num" id="LN222">222</td><td class="line">      }</td></tr>
+<tr class="codeline" data-linenumber="223"><td class="num" id="LN223">223</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="224"><td class="num" id="LN224">224</td><td class="line">    <span class='keyword'>return</span> mmcall(L, lj_cont_ra, mo, rb, rc);</td></tr>
+<tr class="codeline" data-linenumber="225"><td class="num" id="LN225">225</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="226"><td class="num" id="LN226">226</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="227"><td class="num" id="LN227">227</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="228"><td class="num" id="LN228">228</td><td class="line"><span class='comment'>/* In-place coercion of a number to a string. */</span></td></tr>
+<tr class="codeline" data-linenumber="229"><td class="num" id="LN229">229</td><td class="line"><span class='keyword'>static</span> <span class='macro'>LJ_AINLINE<span class='macro_popup'>inline __attribute__((always_inline))</span></span> <span class='keyword'>int</span> tostring(lua_State *L, TValue *o)</td></tr>
+<tr class="codeline" data-linenumber="230"><td class="num" id="LN230">230</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="231"><td class="num" id="LN231">231</td><td class="line">  <span class='keyword'>if</span> (<span class='macro'>tvisstr(o)<span class='macro_popup'>(((o)-&gt;it) == (~4u))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="232"><td class="num" id="LN232">232</td><td class="line">    <span class='keyword'>return</span> 1;</td></tr>
+<tr class="codeline" data-linenumber="233"><td class="num" id="LN233">233</td><td class="line">  } <span class='keyword'>else</span> <span class='keyword'>if</span> (<span class='macro'>tvisnumber(o)<span class='macro_popup'>(((o)-&gt;it) &lt;= 0xfffeffffu)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="234"><td class="num" id="LN234">234</td><td class="line">    setstrV(L, o, lj_str_fromnumber(L, o));</td></tr>
+<tr class="codeline" data-linenumber="235"><td class="num" id="LN235">235</td><td class="line">    <span class='keyword'>return</span> 1;</td></tr>
+<tr class="codeline" data-linenumber="236"><td class="num" id="LN236">236</td><td class="line">  } <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="237"><td class="num" id="LN237">237</td><td class="line">    <span class='keyword'>return</span> 0;</td></tr>
+<tr class="codeline" data-linenumber="238"><td class="num" id="LN238">238</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="239"><td class="num" id="LN239">239</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="240"><td class="num" id="LN240">240</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="241"><td class="num" id="LN241">241</td><td class="line"><span class='comment'>/* Helper for CAT. Coercion, iterative concat, __concat metamethod. */</span></td></tr>
+<tr class="codeline" data-linenumber="242"><td class="num" id="LN242">242</td><td class="line">TValue *lj_meta_cat(lua_State *L, TValue *top, <span class='keyword'>int</span> left)</td></tr>
+<tr class="codeline" data-linenumber="243"><td class="num" id="LN243">243</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="244"><td class="num" id="LN244">244</td><td class="line">  <span class='keyword'>int</span> fromc = 0;</td></tr>
+<tr class="codeline" data-linenumber="245"><td class="num" id="LN245">245</td><td class="line">  <span class='keyword'>if</span> (left &lt; 0) { left = -left; fromc = 1; }</td></tr>
+<tr class="codeline" data-linenumber="246"><td class="num" id="LN246">246</td><td class="line">  <span class='keyword'>do</span> {</td></tr>
+<tr class="codeline" data-linenumber="247"><td class="num" id="LN247">247</td><td class="line">    <span class='keyword'>int</span> n = 1;</td></tr>
+<tr class="codeline" data-linenumber="248"><td class="num" id="LN248">248</td><td class="line">    <span class='keyword'>if</span> (!(<span class='macro'>tvisstr(top-1)<span class='macro_popup'>(((top-1)-&gt;it) == (~4u))</span></span> || <span class='macro'>tvisnumber(top-1)<span class='macro_popup'>(((top-1)-&gt;it) &lt;= 0xfffeffffu)</span></span>) || !tostring(L, top)) {</td></tr>
+<tr class="codeline" data-linenumber="249"><td class="num" id="LN249">249</td><td class="line">      cTValue *mo = lj_meta_lookup(L, top-1, MM_concat);</td></tr>
+<tr class="codeline" data-linenumber="250"><td class="num" id="LN250">250</td><td class="line">      <span class='keyword'>if</span> (<span class='macro'>tvisnil(mo)<span class='macro_popup'>(((mo)-&gt;it) == (~0u))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="251"><td class="num" id="LN251">251</td><td class="line">	mo = lj_meta_lookup(L, top, MM_concat);</td></tr>
+<tr class="codeline" data-linenumber="252"><td class="num" id="LN252">252</td><td class="line">	<span class='keyword'>if</span> (<span class='macro'>tvisnil(mo)<span class='macro_popup'>(((mo)-&gt;it) == (~0u))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="253"><td class="num" id="LN253">253</td><td class="line">	  <span class='keyword'>if</span> (<span class='macro'>tvisstr(top-1)<span class='macro_popup'>(((top-1)-&gt;it) == (~4u))</span></span> || <span class='macro'>tvisnumber(top-1)<span class='macro_popup'>(((top-1)-&gt;it) &lt;= 0xfffeffffu)</span></span>) top++;</td></tr>
+<tr class="codeline" data-linenumber="254"><td class="num" id="LN254">254</td><td class="line">	  lj_err_optype(L, top-1, LJ_ERR_OPCAT);</td></tr>
+<tr class="codeline" data-linenumber="255"><td class="num" id="LN255">255</td><td class="line">	  <span class='keyword'>return</span> <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;  <span class='comment'>/* unreachable */</span></td></tr>
+<tr class="codeline" data-linenumber="256"><td class="num" id="LN256">256</td><td class="line">	}</td></tr>
+<tr class="codeline" data-linenumber="257"><td class="num" id="LN257">257</td><td class="line">      }</td></tr>
+<tr class="codeline" data-linenumber="258"><td class="num" id="LN258">258</td><td class="line">      <span class='comment'>/* One of the top two elements is not a string, call __cat metamethod:</span></td></tr>
+<tr class="codeline" data-linenumber="259"><td class="num" id="LN259">259</td><td class="line">      <span class='comment'>**</span></td></tr>
+<tr class="codeline" data-linenumber="260"><td class="num" id="LN260">260</td><td class="line">      <span class='comment'>** before:    [...][CAT stack .........................]</span></td></tr>
+<tr class="codeline" data-linenumber="261"><td class="num" id="LN261">261</td><td class="line">      <span class='comment'>**                                 top-1     top         top+1 top+2</span></td></tr>
+<tr class="codeline" data-linenumber="262"><td class="num" id="LN262">262</td><td class="line">      <span class='comment'>** pick two:  [...][CAT stack ...] [o1]      [o2]</span></td></tr>
+<tr class="codeline" data-linenumber="263"><td class="num" id="LN263">263</td><td class="line">      <span class='comment'>** setup mm:  [...][CAT stack ...] [cont|?]  [mo|tmtype] [o1]  [o2]</span></td></tr>
+<tr class="codeline" data-linenumber="264"><td class="num" id="LN264">264</td><td class="line">      <span class='comment'>** in asm:    [...][CAT stack ...] [cont|PC] [mo|delta]  [o1]  [o2]</span></td></tr>
+<tr class="codeline" data-linenumber="265"><td class="num" id="LN265">265</td><td class="line">      <span class='comment'>**            ^-- func base                              ^-- mm base</span></td></tr>
+<tr class="codeline" data-linenumber="266"><td class="num" id="LN266">266</td><td class="line">      <span class='comment'>** after mm:  [...][CAT stack ...] &lt;--push-- [result]</span></td></tr>
+<tr class="codeline" data-linenumber="267"><td class="num" id="LN267">267</td><td class="line">      <span class='comment'>** next step: [...][CAT stack .............]</span></td></tr>
+<tr class="codeline" data-linenumber="268"><td class="num" id="LN268">268</td><td class="line">      <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="269"><td class="num" id="LN269">269</td><td class="line">      copyTV(L, top+2, top);  <span class='comment'>/* Careful with the order of stack copies! */</span></td></tr>
+<tr class="codeline" data-linenumber="270"><td class="num" id="LN270">270</td><td class="line">      copyTV(L, top+1, top-1);</td></tr>
+<tr class="codeline" data-linenumber="271"><td class="num" id="LN271">271</td><td class="line">      copyTV(L, top, mo);</td></tr>
+<tr class="codeline" data-linenumber="272"><td class="num" id="LN272">272</td><td class="line">      <span class='macro'>setcont(top-1, lj_cont_cat)<span class='macro_popup'>((top-1)-&gt;u64 = (uint64_t)(void *)(lj_cont_cat) - (uint64_t<br>)lj_vm_asm_begin)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="273"><td class="num" id="LN273">273</td><td class="line">      <span class='keyword'>return</span> top+1;  <span class='comment'>/* Trigger metamethod call. */</span></td></tr>
+<tr class="codeline" data-linenumber="274"><td class="num" id="LN274">274</td><td class="line">    } <span class='keyword'>else</span> <span class='keyword'>if</span> (<span class='macro'>strV(top)<span class='macro_popup'>(&amp;(((GCobj *)(uintptr_t)((top)-&gt;gcr).gcptr32))-&gt;str<br>)</span></span>-&gt;len == 0) {  <span class='comment'>/* Shortcut. */</span></td></tr>
+<tr class="codeline" data-linenumber="275"><td class="num" id="LN275">275</td><td class="line">      (<span class='keyword'>void</span>)tostring(L, top-1);</td></tr>
+<tr class="codeline" data-linenumber="276"><td class="num" id="LN276">276</td><td class="line">    } <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="277"><td class="num" id="LN277">277</td><td class="line">      <span class='comment'>/* Pick as many strings as possible from the top and concatenate them:</span></td></tr>
+<tr class="codeline" data-linenumber="278"><td class="num" id="LN278">278</td><td class="line">      <span class='comment'>**</span></td></tr>
+<tr class="codeline" data-linenumber="279"><td class="num" id="LN279">279</td><td class="line">      <span class='comment'>** before:    [...][CAT stack ...........................]</span></td></tr>
+<tr class="codeline" data-linenumber="280"><td class="num" id="LN280">280</td><td class="line">      <span class='comment'>** pick str:  [...][CAT stack ...] [...... strings ......]</span></td></tr>
+<tr class="codeline" data-linenumber="281"><td class="num" id="LN281">281</td><td class="line">      <span class='comment'>** concat:    [...][CAT stack ...] [result]</span></td></tr>
+<tr class="codeline" data-linenumber="282"><td class="num" id="LN282">282</td><td class="line">      <span class='comment'>** next step: [...][CAT stack ............]</span></td></tr>
+<tr class="codeline" data-linenumber="283"><td class="num" id="LN283">283</td><td class="line">      <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="284"><td class="num" id="LN284">284</td><td class="line">      MSize tlen = <span class='macro'>strV(top)<span class='macro_popup'>(&amp;(((GCobj *)(uintptr_t)((top)-&gt;gcr).gcptr32))-&gt;str<br>)</span></span>-&gt;len;</td></tr>
+<tr class="codeline" data-linenumber="285"><td class="num" id="LN285">285</td><td class="line">      <span class='keyword'>char</span> *buffer;</td></tr>
+<tr class="codeline" data-linenumber="286"><td class="num" id="LN286">286</td><td class="line">      <span class='keyword'>int</span> i;</td></tr>
+<tr class="codeline" data-linenumber="287"><td class="num" id="LN287">287</td><td class="line">      <span class='keyword'>for</span> (n = 1; n &lt;= left &amp;&amp; tostring(L, top-n); n++) {</td></tr>
+<tr class="codeline" data-linenumber="288"><td class="num" id="LN288">288</td><td class="line">	MSize len = <span class='macro'>strV(top-n)<span class='macro_popup'>(&amp;(((GCobj *)(uintptr_t)((top-n)-&gt;gcr).gcptr32))-&gt;str<br>)</span></span>-&gt;len;</td></tr>
+<tr class="codeline" data-linenumber="289"><td class="num" id="LN289">289</td><td class="line">	<span class='keyword'>if</span> (len &gt;= <span class='macro'>LJ_MAX_STR<span class='macro_popup'>0x7fffff00</span></span> - tlen)</td></tr>
+<tr class="codeline" data-linenumber="290"><td class="num" id="LN290">290</td><td class="line">	  lj_err_msg(L, LJ_ERR_STROV);</td></tr>
+<tr class="codeline" data-linenumber="291"><td class="num" id="LN291">291</td><td class="line">	tlen += len;</td></tr>
+<tr class="codeline" data-linenumber="292"><td class="num" id="LN292">292</td><td class="line">      }</td></tr>
+<tr class="codeline" data-linenumber="293"><td class="num" id="LN293">293</td><td class="line">      buffer = lj_str_needbuf(L, &amp;<span class='macro'>G(L)<span class='macro_popup'>(((global_State *)(void *)(uintptr_t)(L-&gt;glref).ptr32))</span></span>-&gt;tmpbuf, tlen);</td></tr>
+<tr class="codeline" data-linenumber="294"><td class="num" id="LN294">294</td><td class="line">      n--;</td></tr>
+<tr class="codeline" data-linenumber="295"><td class="num" id="LN295">295</td><td class="line">      tlen = 0;</td></tr>
+<tr class="codeline" data-linenumber="296"><td class="num" id="LN296">296</td><td class="line">      <span class='keyword'>for</span> (i = n; i &gt;= 0; i--) {</td></tr>
+<tr class="codeline" data-linenumber="297"><td class="num" id="LN297">297</td><td class="line">	MSize len = <span class='macro'>strV(top-i)<span class='macro_popup'>(&amp;(((GCobj *)(uintptr_t)((top-i)-&gt;gcr).gcptr32))-&gt;str<br>)</span></span>-&gt;len;</td></tr>
+<tr class="codeline" data-linenumber="298"><td class="num" id="LN298">298</td><td class="line">	<span class="mrange">memcpy</span>(buffer + tlen, <span class='macro'>strVdata(top-i)<span class='macro_popup'>((const char *)(((&amp;(((GCobj *)(uintptr_t)((top-i)-&gt;gcr<br>).gcptr32))-&gt;str))+1))</span></span>, len);</td></tr>
+<tr><td class="num"></td><td class="line"><div id="EndPath" class="msg msgEvent" style="margin-left:9ex; max-width:58em">Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11</div></td></tr>
+<tr class="codeline" data-linenumber="299"><td class="num" id="LN299">299</td><td class="line">	tlen += len;</td></tr>
+<tr class="codeline" data-linenumber="300"><td class="num" id="LN300">300</td><td class="line">      }</td></tr>
+<tr class="codeline" data-linenumber="301"><td class="num" id="LN301">301</td><td class="line">      setstrV(L, top-n, lj_str_new(L, buffer, tlen));</td></tr>
+<tr class="codeline" data-linenumber="302"><td class="num" id="LN302">302</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="303"><td class="num" id="LN303">303</td><td class="line">    left -= n;</td></tr>
+<tr class="codeline" data-linenumber="304"><td class="num" id="LN304">304</td><td class="line">    top -= n;</td></tr>
+<tr class="codeline" data-linenumber="305"><td class="num" id="LN305">305</td><td class="line">  } <span class='keyword'>while</span> (left &gt;= 1);</td></tr>
+<tr class="codeline" data-linenumber="306"><td class="num" id="LN306">306</td><td class="line">  <span class='keyword'>if</span> (<span class='macro'>LJ_UNLIKELY(G(L)-&gt;gc.total &gt;= G(L)-&gt;gc.threshold)<span class='macro_popup'>__builtin_expect(!!((((global_State *)(void *)(uintptr_t)(L-&gt;<br>glref).ptr32))-&gt;gc.total &gt;= (((global_State *)(void *)(<br>uintptr_t)(L-&gt;glref).ptr32))-&gt;gc.threshold), 0)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="307"><td class="num" id="LN307">307</td><td class="line">    <span class='keyword'>if</span> (!fromc) L-&gt;top = <span class='macro'>curr_topL(L)<span class='macro_popup'>(L-&gt;base + (((GCproto *)(((char *)(void *)(uintptr_t)(((&amp;<br>((GCobj *)(uintptr_t)((L-&gt;base-1)-&gt;fr.func).gcptr32)-&gt;<br>fn))-&gt;l.pc).ptr32)-sizeof(GCproto))))-&gt;framesize)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="308"><td class="num" id="LN308">308</td><td class="line">    lj_gc_step(L);</td></tr>
+<tr class="codeline" data-linenumber="309"><td class="num" id="LN309">309</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="310"><td class="num" id="LN310">310</td><td class="line">  <span class='keyword'>return</span> <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="311"><td class="num" id="LN311">311</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="312"><td class="num" id="LN312">312</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="313"><td class="num" id="LN313">313</td><td class="line"><span class='comment'>/* Helper for LEN. __len metamethod. */</span></td></tr>
+<tr class="codeline" data-linenumber="314"><td class="num" id="LN314">314</td><td class="line">TValue * LJ_FASTCALL lj_meta_len(lua_State *L, cTValue *o)</td></tr>
+<tr class="codeline" data-linenumber="315"><td class="num" id="LN315">315</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="316"><td class="num" id="LN316">316</td><td class="line">  cTValue *mo = lj_meta_lookup(L, o, MM_len);</td></tr>
+<tr class="codeline" data-linenumber="317"><td class="num" id="LN317">317</td><td class="line">  <span class='keyword'>if</span> (<span class='macro'>tvisnil(mo)<span class='macro_popup'>(((mo)-&gt;it) == (~0u))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="318"><td class="num" id="LN318">318</td><td class="line">    <span class='keyword'>if</span> (<span class='macro'>LJ_52<span class='macro_popup'>0</span></span> &amp;&amp; <span class='macro'>tvistab(o)<span class='macro_popup'>(((o)-&gt;it) == (~11u))</span></span>)</td></tr>
+<tr class="codeline" data-linenumber="319"><td class="num" id="LN319">319</td><td class="line">      <span class='macro'>tabref(tabV(o)-&gt;metatable)<span class='macro_popup'>(&amp;((GCobj *)(uintptr_t)(((&amp;(((GCobj *)(uintptr_t)((o)<br>-&gt;gcr).gcptr32))-&gt;tab)-&gt;metatable)).gcptr32)-&gt;tab<br>)</span></span>-&gt;nomm |= (uint8_t)(1u&lt;&lt;MM_len);</td></tr>
+<tr class="codeline" data-linenumber="320"><td class="num" id="LN320">320</td><td class="line">    <span class='keyword'>else</span></td></tr>
+<tr class="codeline" data-linenumber="321"><td class="num" id="LN321">321</td><td class="line">      lj_err_optype(L, o, LJ_ERR_OPLEN);</td></tr>
+<tr class="codeline" data-linenumber="322"><td class="num" id="LN322">322</td><td class="line">    <span class='keyword'>return</span> <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="323"><td class="num" id="LN323">323</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="324"><td class="num" id="LN324">324</td><td class="line">  <span class='keyword'>return</span> mmcall(L, lj_cont_ra, mo, o, <span class='macro'>LJ_52<span class='macro_popup'>0</span></span> ? o : <span class='macro'>niltv(L)<span class='macro_popup'>(&amp;(((global_State *)(void *)(uintptr_t)(L-&gt;glref).ptr32<br>))-&gt;nilnode.val)</span></span>);</td></tr>
+<tr class="codeline" data-linenumber="325"><td class="num" id="LN325">325</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="326"><td class="num" id="LN326">326</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="327"><td class="num" id="LN327">327</td><td class="line"><span class='comment'>/* Helper for equality comparisons. __eq metamethod. */</span></td></tr>
+<tr class="codeline" data-linenumber="328"><td class="num" id="LN328">328</td><td class="line">TValue *lj_meta_equal(lua_State *L, GCobj *o1, GCobj *o2, <span class='keyword'>int</span> ne)</td></tr>
+<tr class="codeline" data-linenumber="329"><td class="num" id="LN329">329</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="330"><td class="num" id="LN330">330</td><td class="line">  <span class='comment'>/* Field metatable must be at same offset for GCtab and GCudata! */</span></td></tr>
+<tr class="codeline" data-linenumber="331"><td class="num" id="LN331">331</td><td class="line">  cTValue *mo = <span class='macro'>lj_meta_fast(L, tabref(o1-&gt;gch.metatable), MM_eq)<span class='macro_popup'>(((&amp;((GCobj *)(uintptr_t)((o1-&gt;gch.metatable)).gcptr32<br>)-&gt;tab)) == ((void*)0) ? ((void*)0) : (((&amp;((GCobj *)(uintptr_t<br>)((o1-&gt;gch.metatable)).gcptr32)-&gt;tab))-&gt;nomm &amp; (<br>1u&lt;&lt;(MM_eq))) ? ((void*)0) : lj_meta_cache((&amp;((GCobj<br> *)(uintptr_t)((o1-&gt;gch.metatable)).gcptr32)-&gt;tab), MM_eq<br>, ((&amp;((GCobj *)(uintptr_t)((((((global_State *)(void *)(uintptr_t<br>)(L-&gt;glref).ptr32)))-&gt;gcroot[GCROOT_MMNAME+(MM_eq)])).gcptr32<br>)-&gt;str))))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="332"><td class="num" id="LN332">332</td><td class="line">  <span class='keyword'>if</span> (mo) {</td></tr>
+<tr class="codeline" data-linenumber="333"><td class="num" id="LN333">333</td><td class="line">    TValue *top;</td></tr>
+<tr class="codeline" data-linenumber="334"><td class="num" id="LN334">334</td><td class="line">    uint32_t it;</td></tr>
+<tr class="codeline" data-linenumber="335"><td class="num" id="LN335">335</td><td class="line">    <span class='keyword'>if</span> (<span class='macro'>tabref(o1-&gt;gch.metatable)<span class='macro_popup'>(&amp;((GCobj *)(uintptr_t)((o1-&gt;gch.metatable)).gcptr32)-&gt;<br>tab)</span></span> != <span class='macro'>tabref(o2-&gt;gch.metatable)<span class='macro_popup'>(&amp;((GCobj *)(uintptr_t)((o2-&gt;gch.metatable)).gcptr32)-&gt;<br>tab)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="336"><td class="num" id="LN336">336</td><td class="line">      cTValue *mo2 = <span class='macro'>lj_meta_fast(L, tabref(o2-&gt;gch.metatable), MM_eq)<span class='macro_popup'>(((&amp;((GCobj *)(uintptr_t)((o2-&gt;gch.metatable)).gcptr32<br>)-&gt;tab)) == ((void*)0) ? ((void*)0) : (((&amp;((GCobj *)(uintptr_t<br>)((o2-&gt;gch.metatable)).gcptr32)-&gt;tab))-&gt;nomm &amp; (<br>1u&lt;&lt;(MM_eq))) ? ((void*)0) : lj_meta_cache((&amp;((GCobj<br> *)(uintptr_t)((o2-&gt;gch.metatable)).gcptr32)-&gt;tab), MM_eq<br>, ((&amp;((GCobj *)(uintptr_t)((((((global_State *)(void *)(uintptr_t<br>)(L-&gt;glref).ptr32)))-&gt;gcroot[GCROOT_MMNAME+(MM_eq)])).gcptr32<br>)-&gt;str))))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="337"><td class="num" id="LN337">337</td><td class="line">      <span class='keyword'>if</span> (mo2 == <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span> || !lj_obj_equal(mo, mo2))</td></tr>
+<tr class="codeline" data-linenumber="338"><td class="num" id="LN338">338</td><td class="line">	<span class='keyword'>return</span> (TValue *)(intptr_t)ne;</td></tr>
+<tr class="codeline" data-linenumber="339"><td class="num" id="LN339">339</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="340"><td class="num" id="LN340">340</td><td class="line">    top = <span class='macro'>curr_top(L)<span class='macro_popup'>(((((&amp;((GCobj *)(uintptr_t)((L-&gt;base-1)-&gt;fr.func).gcptr32<br>)-&gt;fn))-&gt;c.ffid == 0)) ? (L-&gt;base + (((GCproto *)(((<br>char *)(void *)(uintptr_t)(((&amp;((GCobj *)(uintptr_t)((L-&gt;<br>base-1)-&gt;fr.func).gcptr32)-&gt;fn))-&gt;l.pc).ptr32)-sizeof<br>(GCproto))))-&gt;framesize) : L-&gt;top)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="341"><td class="num" id="LN341">341</td><td class="line">    <span class='macro'>setcont(top, ne ? lj_cont_condf : lj_cont_condt)<span class='macro_popup'>((top)-&gt;u64 = (uint64_t)(void *)(ne ? lj_cont_condf : lj_cont_condt<br>) - (uint64_t)lj_vm_asm_begin)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="342"><td class="num" id="LN342">342</td><td class="line">    copyTV(L, top+1, mo);</td></tr>
+<tr class="codeline" data-linenumber="343"><td class="num" id="LN343">343</td><td class="line">    it = ~(uint32_t)o1-&gt;gch.gct;</td></tr>
+<tr class="codeline" data-linenumber="344"><td class="num" id="LN344">344</td><td class="line">    setgcV(L, top+2, o1, it);</td></tr>
+<tr class="codeline" data-linenumber="345"><td class="num" id="LN345">345</td><td class="line">    setgcV(L, top+3, o2, it);</td></tr>
+<tr class="codeline" data-linenumber="346"><td class="num" id="LN346">346</td><td class="line">    <span class='keyword'>return</span> top+2;  <span class='comment'>/* Trigger metamethod call. */</span></td></tr>
+<tr class="codeline" data-linenumber="347"><td class="num" id="LN347">347</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="348"><td class="num" id="LN348">348</td><td class="line">  <span class='keyword'>return</span> (TValue *)(intptr_t)ne;</td></tr>
+<tr class="codeline" data-linenumber="349"><td class="num" id="LN349">349</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="350"><td class="num" id="LN350">350</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="351"><td class="num" id="LN351">351</td><td class="line"><span class='directive'>#if <span class='macro'>LJ_HASFFI<span class='macro_popup'>1</span></span></span></td></tr>
+<tr class="codeline" data-linenumber="352"><td class="num" id="LN352">352</td><td class="line">TValue * LJ_FASTCALL lj_meta_equal_cd(lua_State *L, BCIns ins)</td></tr>
+<tr class="codeline" data-linenumber="353"><td class="num" id="LN353">353</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="354"><td class="num" id="LN354">354</td><td class="line">  ASMFunction cont = (<span class='macro'>bc_op(ins)<span class='macro_popup'>((BCOp)((ins)&amp;0xff))</span></span> &amp; 1) ? lj_cont_condf : lj_cont_condt;</td></tr>
+<tr class="codeline" data-linenumber="355"><td class="num" id="LN355">355</td><td class="line">  <span class='keyword'>int</span> op = (<span class='keyword'>int</span>)<span class='macro'>bc_op(ins)<span class='macro_popup'>((BCOp)((ins)&amp;0xff))</span></span> &amp; ~1;</td></tr>
+<tr class="codeline" data-linenumber="356"><td class="num" id="LN356">356</td><td class="line">  TValue tv;</td></tr>
+<tr class="codeline" data-linenumber="357"><td class="num" id="LN357">357</td><td class="line">  cTValue *mo, *o2, *o1 = &amp;L-&gt;base[<span class='macro'>bc_a(ins)<span class='macro_popup'>((BCReg)(((ins)&gt;&gt;8)&amp;0xff))</span></span>];</td></tr>
+<tr class="codeline" data-linenumber="358"><td class="num" id="LN358">358</td><td class="line">  cTValue *o1mm = o1;</td></tr>
+<tr class="codeline" data-linenumber="359"><td class="num" id="LN359">359</td><td class="line">  <span class='keyword'>if</span> (op == BC_ISEQV) {</td></tr>
+<tr class="codeline" data-linenumber="360"><td class="num" id="LN360">360</td><td class="line">    o2 = &amp;L-&gt;base[<span class='macro'>bc_d(ins)<span class='macro_popup'>((BCReg)((ins)&gt;&gt;16))</span></span>];</td></tr>
+<tr class="codeline" data-linenumber="361"><td class="num" id="LN361">361</td><td class="line">    <span class='keyword'>if</span> (!<span class='macro'>tviscdata(o1mm)<span class='macro_popup'>(((o1mm)-&gt;it) == (~10u))</span></span>) o1mm = o2;</td></tr>
+<tr class="codeline" data-linenumber="362"><td class="num" id="LN362">362</td><td class="line">  } <span class='keyword'>else</span> <span class='keyword'>if</span> (op == BC_ISEQS) {</td></tr>
+<tr class="codeline" data-linenumber="363"><td class="num" id="LN363">363</td><td class="line">    setstrV(L, &amp;tv, <span class='macro'>gco2str(proto_kgc(curr_proto(L), ~(ptrdiff_t)bc_d(ins)))<span class='macro_popup'>(&amp;((((GCobj *)(uintptr_t)(((GCRef *)(void *)(uintptr_t)((<br>(((GCproto *)(((char *)(void *)(uintptr_t)(((&amp;((GCobj *)(<br>uintptr_t)((L-&gt;base-1)-&gt;fr.func).gcptr32)-&gt;fn))-&gt;<br>l.pc).ptr32)-sizeof(GCproto)))))-&gt;k).ptr32)[(~(ptrdiff_t)(<br>(BCReg)((ins)&gt;&gt;16)))]).gcptr32)))-&gt;str)</span></span>);</td></tr>
+<tr class="codeline" data-linenumber="364"><td class="num" id="LN364">364</td><td class="line">    o2 = &amp;tv;</td></tr>
+<tr class="codeline" data-linenumber="365"><td class="num" id="LN365">365</td><td class="line">  } <span class='keyword'>else</span> <span class='keyword'>if</span> (op == BC_ISEQN) {</td></tr>
+<tr class="codeline" data-linenumber="366"><td class="num" id="LN366">366</td><td class="line">    o2 = &amp;<span class='macro'>mref(curr_proto(L)-&gt;k, cTValue)<span class='macro_popup'>((cTValue *)(void *)(uintptr_t)((((GCproto *)(((char *)(void *<br>)(uintptr_t)(((&amp;((GCobj *)(uintptr_t)((L-&gt;base-1)-&gt;<br>fr.func).gcptr32)-&gt;fn))-&gt;l.pc).ptr32)-sizeof(GCproto)))<br>)-&gt;k).ptr32)</span></span>[<span class='macro'>bc_d(ins)<span class='macro_popup'>((BCReg)((ins)&gt;&gt;16))</span></span>];</td></tr>
+<tr class="codeline" data-linenumber="367"><td class="num" id="LN367">367</td><td class="line">  } <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="368"><td class="num" id="LN368">368</td><td class="line">    <span class='macro'>lua_assert(op == BC_ISEQP)<span class='macro_popup'>((void)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="369"><td class="num" id="LN369">369</td><td class="line">    <span class='macro'>setitype(&amp;tv, ~bc_d(ins))<span class='macro_popup'>((&amp;tv)-&gt;it = (~((BCReg)((ins)&gt;&gt;16))))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="370"><td class="num" id="LN370">370</td><td class="line">    o2 = &amp;tv;</td></tr>
+<tr class="codeline" data-linenumber="371"><td class="num" id="LN371">371</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="372"><td class="num" id="LN372">372</td><td class="line">  mo = lj_meta_lookup(L, o1mm, MM_eq);</td></tr>
+<tr class="codeline" data-linenumber="373"><td class="num" id="LN373">373</td><td class="line">  <span class='keyword'>if</span> (<span class='macro'>LJ_LIKELY(!tvisnil(mo))<span class='macro_popup'>__builtin_expect(!!(!(((mo)-&gt;it) == (~0u))), 1)</span></span>)</td></tr>
+<tr class="codeline" data-linenumber="374"><td class="num" id="LN374">374</td><td class="line">    <span class='keyword'>return</span> mmcall(L, cont, mo, o1, o2);</td></tr>
+<tr class="codeline" data-linenumber="375"><td class="num" id="LN375">375</td><td class="line">  <span class='keyword'>else</span></td></tr>
+<tr class="codeline" data-linenumber="376"><td class="num" id="LN376">376</td><td class="line">    <span class='keyword'>return</span> (TValue *)(intptr_t)(<span class='macro'>bc_op(ins)<span class='macro_popup'>((BCOp)((ins)&amp;0xff))</span></span> &amp; 1);</td></tr>
+<tr class="codeline" data-linenumber="377"><td class="num" id="LN377">377</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="378"><td class="num" id="LN378">378</td><td class="line"><span class='directive'>#endif</span></td></tr>
+<tr class="codeline" data-linenumber="379"><td class="num" id="LN379">379</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="380"><td class="num" id="LN380">380</td><td class="line"><span class='comment'>/* Helper for ordered comparisons. String compare, __lt/__le metamethods. */</span></td></tr>
+<tr class="codeline" data-linenumber="381"><td class="num" id="LN381">381</td><td class="line">TValue *lj_meta_comp(lua_State *L, cTValue *o1, cTValue *o2, <span class='keyword'>int</span> op)</td></tr>
+<tr class="codeline" data-linenumber="382"><td class="num" id="LN382">382</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="383"><td class="num" id="LN383">383</td><td class="line">  <span class='keyword'>if</span> (<span class='macro'>LJ_HASFFI<span class='macro_popup'>1</span></span> &amp;&amp; (<span class='macro'>tviscdata(o1)<span class='macro_popup'>(((o1)-&gt;it) == (~10u))</span></span> || <span class='macro'>tviscdata(o2)<span class='macro_popup'>(((o2)-&gt;it) == (~10u))</span></span>)) {</td></tr>
+<tr class="codeline" data-linenumber="384"><td class="num" id="LN384">384</td><td class="line">    ASMFunction cont = (op &amp; 1) ? lj_cont_condf : lj_cont_condt;</td></tr>
+<tr class="codeline" data-linenumber="385"><td class="num" id="LN385">385</td><td class="line">    MMS mm = (op &amp; 2) ? MM_le : MM_lt;</td></tr>
+<tr class="codeline" data-linenumber="386"><td class="num" id="LN386">386</td><td class="line">    cTValue *mo = lj_meta_lookup(L, <span class='macro'>tviscdata(o1)<span class='macro_popup'>(((o1)-&gt;it) == (~10u))</span></span> ? o1 : o2, mm);</td></tr>
+<tr class="codeline" data-linenumber="387"><td class="num" id="LN387">387</td><td class="line">    <span class='keyword'>if</span> (<span class='macro'>LJ_UNLIKELY(tvisnil(mo))<span class='macro_popup'>__builtin_expect(!!((((mo)-&gt;it) == (~0u))), 0)</span></span>) <span class='keyword'>goto</span> err;</td></tr>
+<tr class="codeline" data-linenumber="388"><td class="num" id="LN388">388</td><td class="line">    <span class='keyword'>return</span> mmcall(L, cont, mo, o1, o2);</td></tr>
+<tr class="codeline" data-linenumber="389"><td class="num" id="LN389">389</td><td class="line">  } <span class='keyword'>else</span> <span class='keyword'>if</span> (<span class='macro'>LJ_52<span class='macro_popup'>0</span></span> || <span class='macro'>itype(o1)<span class='macro_popup'>((o1)-&gt;it)</span></span> == <span class='macro'>itype(o2)<span class='macro_popup'>((o2)-&gt;it)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="390"><td class="num" id="LN390">390</td><td class="line">    <span class='comment'>/* Never called with two numbers. */</span></td></tr>
+<tr class="codeline" data-linenumber="391"><td class="num" id="LN391">391</td><td class="line">    <span class='keyword'>if</span> (<span class='macro'>tvisstr(o1)<span class='macro_popup'>(((o1)-&gt;it) == (~4u))</span></span> &amp;&amp; <span class='macro'>tvisstr(o2)<span class='macro_popup'>(((o2)-&gt;it) == (~4u))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="392"><td class="num" id="LN392">392</td><td class="line">      int32_t res = lj_str_cmp(<span class='macro'>strV(o1)<span class='macro_popup'>(&amp;(((GCobj *)(uintptr_t)((o1)-&gt;gcr).gcptr32))-&gt;str)</span></span>, <span class='macro'>strV(o2)<span class='macro_popup'>(&amp;(((GCobj *)(uintptr_t)((o2)-&gt;gcr).gcptr32))-&gt;str)</span></span>);</td></tr>
+<tr class="codeline" data-linenumber="393"><td class="num" id="LN393">393</td><td class="line">      <span class='keyword'>return</span> (TValue *)(intptr_t)(((op&amp;2) ? res &lt;= 0 : res &lt; 0) ^ (op&amp;1));</td></tr>
+<tr class="codeline" data-linenumber="394"><td class="num" id="LN394">394</td><td class="line">    } <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="395"><td class="num" id="LN395">395</td><td class="line">    trymt:</td></tr>
+<tr class="codeline" data-linenumber="396"><td class="num" id="LN396">396</td><td class="line">      <span class='keyword'>while</span> (1) {</td></tr>
+<tr class="codeline" data-linenumber="397"><td class="num" id="LN397">397</td><td class="line">	ASMFunction cont = (op &amp; 1) ? lj_cont_condf : lj_cont_condt;</td></tr>
+<tr class="codeline" data-linenumber="398"><td class="num" id="LN398">398</td><td class="line">	MMS mm = (op &amp; 2) ? MM_le : MM_lt;</td></tr>
+<tr class="codeline" data-linenumber="399"><td class="num" id="LN399">399</td><td class="line">	cTValue *mo = lj_meta_lookup(L, o1, mm);</td></tr>
+<tr class="codeline" data-linenumber="400"><td class="num" id="LN400">400</td><td class="line"><span class='directive'>#if <span class='macro'>LJ_52<span class='macro_popup'>0</span></span></span></td></tr>
+<tr class="codeline" data-linenumber="401"><td class="num" id="LN401">401</td><td class="line">	<span class='keyword'>if</span> (<span class='macro'>tvisnil(mo)<span class='macro_popup'>(((mo)-&gt;it) == (~0u))</span></span> &amp;&amp; <span class='macro'>tvisnil((mo = lj_meta_lookup(L, o2, mm)))<span class='macro_popup'>((((mo = lj_meta_lookup(L, o2, mm)))-&gt;it) == (~0u))</span></span>)</td></tr>
+<tr class="codeline" data-linenumber="402"><td class="num" id="LN402">402</td><td class="line"><span class='directive'>#else</span></td></tr>
+<tr class="codeline" data-linenumber="403"><td class="num" id="LN403">403</td><td class="line">	cTValue *mo2 = lj_meta_lookup(L, o2, mm);</td></tr>
+<tr class="codeline" data-linenumber="404"><td class="num" id="LN404">404</td><td class="line">	<span class='keyword'>if</span> (<span class='macro'>tvisnil(mo)<span class='macro_popup'>(((mo)-&gt;it) == (~0u))</span></span> || !lj_obj_equal(mo, mo2))</td></tr>
+<tr class="codeline" data-linenumber="405"><td class="num" id="LN405">405</td><td class="line"><span class='directive'>#endif</span></td></tr>
+<tr class="codeline" data-linenumber="406"><td class="num" id="LN406">406</td><td class="line">	{</td></tr>
+<tr class="codeline" data-linenumber="407"><td class="num" id="LN407">407</td><td class="line">	  <span class='keyword'>if</span> (op &amp; 2) {  <span class='comment'>/* MM_le not found: retry with MM_lt. */</span></td></tr>
+<tr class="codeline" data-linenumber="408"><td class="num" id="LN408">408</td><td class="line">	    cTValue *ot = o1; o1 = o2; o2 = ot;  <span class='comment'>/* Swap operands. */</span></td></tr>
+<tr class="codeline" data-linenumber="409"><td class="num" id="LN409">409</td><td class="line">	    op ^= 3;  <span class='comment'>/* Use LT and flip condition. */</span></td></tr>
+<tr class="codeline" data-linenumber="410"><td class="num" id="LN410">410</td><td class="line">	    <span class='keyword'>continue</span>;</td></tr>
+<tr class="codeline" data-linenumber="411"><td class="num" id="LN411">411</td><td class="line">	  }</td></tr>
+<tr class="codeline" data-linenumber="412"><td class="num" id="LN412">412</td><td class="line">	  <span class='keyword'>goto</span> err;</td></tr>
+<tr class="codeline" data-linenumber="413"><td class="num" id="LN413">413</td><td class="line">	}</td></tr>
+<tr class="codeline" data-linenumber="414"><td class="num" id="LN414">414</td><td class="line">	<span class='keyword'>return</span> mmcall(L, cont, mo, o1, o2);</td></tr>
+<tr class="codeline" data-linenumber="415"><td class="num" id="LN415">415</td><td class="line">      }</td></tr>
+<tr class="codeline" data-linenumber="416"><td class="num" id="LN416">416</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="417"><td class="num" id="LN417">417</td><td class="line">  } <span class='keyword'>else</span> <span class='keyword'>if</span> (<span class='macro'>tvisbool(o1)<span class='macro_popup'>((((o1)-&gt;it) == (~1u)) || (((o1)-&gt;it) == (~2u)))</span></span> &amp;&amp; <span class='macro'>tvisbool(o2)<span class='macro_popup'>((((o2)-&gt;it) == (~1u)) || (((o2)-&gt;it) == (~2u)))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="418"><td class="num" id="LN418">418</td><td class="line">    <span class='keyword'>goto</span> trymt;</td></tr>
+<tr class="codeline" data-linenumber="419"><td class="num" id="LN419">419</td><td class="line">  } <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="420"><td class="num" id="LN420">420</td><td class="line">  err:</td></tr>
+<tr class="codeline" data-linenumber="421"><td class="num" id="LN421">421</td><td class="line">    lj_err_comp(L, o1, o2);</td></tr>
+<tr class="codeline" data-linenumber="422"><td class="num" id="LN422">422</td><td class="line">    <span class='keyword'>return</span> <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="423"><td class="num" id="LN423">423</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="424"><td class="num" id="LN424">424</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="425"><td class="num" id="LN425">425</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="426"><td class="num" id="LN426">426</td><td class="line"><span class='comment'>/* Helper for calls. __call metamethod. */</span></td></tr>
+<tr class="codeline" data-linenumber="427"><td class="num" id="LN427">427</td><td class="line"><span class='keyword'>void</span> lj_meta_call(lua_State *L, TValue *func, TValue *top)</td></tr>
+<tr class="codeline" data-linenumber="428"><td class="num" id="LN428">428</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="429"><td class="num" id="LN429">429</td><td class="line">  cTValue *mo = lj_meta_lookup(L, func, MM_call);</td></tr>
+<tr class="codeline" data-linenumber="430"><td class="num" id="LN430">430</td><td class="line">  TValue *p;</td></tr>
+<tr class="codeline" data-linenumber="431"><td class="num" id="LN431">431</td><td class="line">  <span class='keyword'>if</span> (!<span class='macro'>tvisfunc(mo)<span class='macro_popup'>(((mo)-&gt;it) == (~8u))</span></span>)</td></tr>
+<tr class="codeline" data-linenumber="432"><td class="num" id="LN432">432</td><td class="line">    lj_err_optype_call(L, func);</td></tr>
+<tr class="codeline" data-linenumber="433"><td class="num" id="LN433">433</td><td class="line">  <span class='keyword'>for</span> (p = top; p &gt; func; p--) copyTV(L, p, p-1);</td></tr>
+<tr class="codeline" data-linenumber="434"><td class="num" id="LN434">434</td><td class="line">  copyTV(L, func, mo);</td></tr>
+<tr class="codeline" data-linenumber="435"><td class="num" id="LN435">435</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="436"><td class="num" id="LN436">436</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="437"><td class="num" id="LN437">437</td><td class="line"><span class='comment'>/* Helper for FORI. Coercion. */</span></td></tr>
+<tr class="codeline" data-linenumber="438"><td class="num" id="LN438">438</td><td class="line"><span class='keyword'>void</span> LJ_FASTCALL lj_meta_for(lua_State *L, TValue *o)</td></tr>
+<tr class="codeline" data-linenumber="439"><td class="num" id="LN439">439</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="440"><td class="num" id="LN440">440</td><td class="line">  <span class='keyword'>if</span> (!lj_strscan_numberobj(o)) lj_err_msg(L, LJ_ERR_FORINIT);</td></tr>
+<tr class="codeline" data-linenumber="441"><td class="num" id="LN441">441</td><td class="line">  <span class='keyword'>if</span> (!lj_strscan_numberobj(o+1)) lj_err_msg(L, LJ_ERR_FORLIM);</td></tr>
+<tr class="codeline" data-linenumber="442"><td class="num" id="LN442">442</td><td class="line">  <span class='keyword'>if</span> (!lj_strscan_numberobj(o+2)) lj_err_msg(L, LJ_ERR_FORSTEP);</td></tr>
+<tr class="codeline" data-linenumber="443"><td class="num" id="LN443">443</td><td class="line">  <span class='keyword'>if</span> (<span class='macro'>LJ_DUALNUM<span class='macro_popup'>0</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="444"><td class="num" id="LN444">444</td><td class="line">    <span class='comment'>/* Ensure all slots are integers or all slots are numbers. */</span></td></tr>
+<tr class="codeline" data-linenumber="445"><td class="num" id="LN445">445</td><td class="line">    int32_t k[3];</td></tr>
+<tr class="codeline" data-linenumber="446"><td class="num" id="LN446">446</td><td class="line">    <span class='keyword'>int</span> nint = 0;</td></tr>
+<tr class="codeline" data-linenumber="447"><td class="num" id="LN447">447</td><td class="line">    ptrdiff_t i;</td></tr>
+<tr class="codeline" data-linenumber="448"><td class="num" id="LN448">448</td><td class="line">    <span class='keyword'>for</span> (i = 0; i &lt;= 2; i++) {</td></tr>
+<tr class="codeline" data-linenumber="449"><td class="num" id="LN449">449</td><td class="line">      <span class='keyword'>if</span> (<span class='macro'>tvisint(o+i)<span class='macro_popup'>(0 &amp;&amp; ((o+i)-&gt;it) == 0xfffeffffu)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="450"><td class="num" id="LN450">450</td><td class="line">	k[i] = <span class='macro'>intV(o+i)<span class='macro_popup'>((int32_t)(o+i)-&gt;i)</span></span>; nint++;</td></tr>
+<tr class="codeline" data-linenumber="451"><td class="num" id="LN451">451</td><td class="line">      } <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="452"><td class="num" id="LN452">452</td><td class="line">	k[i] = <span class='macro'>lj_num2int(numV(o+i))<span class='macro_popup'>((int32_t)(((o+i)-&gt;n)))</span></span>; nint += ((lua_Number)k[i] == <span class='macro'>numV(o+i)<span class='macro_popup'>((o+i)-&gt;n)</span></span>);</td></tr>
+<tr class="codeline" data-linenumber="453"><td class="num" id="LN453">453</td><td class="line">      }</td></tr>
+<tr class="codeline" data-linenumber="454"><td class="num" id="LN454">454</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="455"><td class="num" id="LN455">455</td><td class="line">    <span class='keyword'>if</span> (nint == 3) {  <span class='comment'>/* Narrow to integers. */</span></td></tr>
+<tr class="codeline" data-linenumber="456"><td class="num" id="LN456">456</td><td class="line">      setintV(o, k[0]);</td></tr>
+<tr class="codeline" data-linenumber="457"><td class="num" id="LN457">457</td><td class="line">      setintV(o+1, k[1]);</td></tr>
+<tr class="codeline" data-linenumber="458"><td class="num" id="LN458">458</td><td class="line">      setintV(o+2, k[2]);</td></tr>
+<tr class="codeline" data-linenumber="459"><td class="num" id="LN459">459</td><td class="line">    } <span class='keyword'>else</span> <span class='keyword'>if</span> (nint != 0) {  <span class='comment'>/* Widen to numbers. */</span></td></tr>
+<tr class="codeline" data-linenumber="460"><td class="num" id="LN460">460</td><td class="line">      <span class='keyword'>if</span> (<span class='macro'>tvisint(o)<span class='macro_popup'>(0 &amp;&amp; ((o)-&gt;it) == 0xfffeffffu)</span></span>) <span class='macro'>setnumV(o, (lua_Number)intV(o))<span class='macro_popup'>((o)-&gt;n = ((lua_Number)((int32_t)(o)-&gt;i)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="461"><td class="num" id="LN461">461</td><td class="line">      <span class='keyword'>if</span> (<span class='macro'>tvisint(o+1)<span class='macro_popup'>(0 &amp;&amp; ((o+1)-&gt;it) == 0xfffeffffu)</span></span>) <span class='macro'>setnumV(o+1, (lua_Number)intV(o+1))<span class='macro_popup'>((o+1)-&gt;n = ((lua_Number)((int32_t)(o+1)-&gt;i)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="462"><td class="num" id="LN462">462</td><td class="line">      <span class='keyword'>if</span> (<span class='macro'>tvisint(o+2)<span class='macro_popup'>(0 &amp;&amp; ((o+2)-&gt;it) == 0xfffeffffu)</span></span>) <span class='macro'>setnumV(o+2, (lua_Number)intV(o+2))<span class='macro_popup'>((o+2)-&gt;n = ((lua_Number)((int32_t)(o+2)-&gt;i)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="463"><td class="num" id="LN463">463</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="464"><td class="num" id="LN464">464</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="465"><td class="num" id="LN465">465</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="466"><td class="num" id="LN466">466</td><td class="line"> </td></tr>
+</table></body></html>

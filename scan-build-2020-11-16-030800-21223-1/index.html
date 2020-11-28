@@ -1,0 +1,208 @@
+<html>
+<head>
+<title>tmux - scan-build results</title>
+<link type="text/css" rel="stylesheet" href="scanview.css"/>
+<script src="sorttable.js"></script>
+<script language='javascript' type="text/javascript">
+function SetDisplay(RowClass, DisplayVal)
+{
+  var Rows = document.getElementsByTagName("tr");
+  for ( var i = 0 ; i < Rows.length; ++i ) {
+    if (Rows[i].className == RowClass) {
+      Rows[i].style.display = DisplayVal;
+    }
+  }
+}
+
+function CopyCheckedStateToCheckButtons(SummaryCheckButton) {
+  var Inputs = document.getElementsByTagName("input");
+  for ( var i = 0 ; i < Inputs.length; ++i ) {
+    if (Inputs[i].type == "checkbox") {
+      if(Inputs[i] != SummaryCheckButton) {
+        Inputs[i].checked = SummaryCheckButton.checked;
+        Inputs[i].onclick();
+      }
+    }
+  }
+}
+
+function returnObjById( id ) {
+    if (document.getElementById)
+        var returnVar = document.getElementById(id);
+    else if (document.all)
+        var returnVar = document.all[id];
+    else if (document.layers)
+        var returnVar = document.layers[id];
+    return returnVar;
+}
+
+var NumUnchecked = 0;
+
+function ToggleDisplay(CheckButton, ClassName) {
+  if (CheckButton.checked) {
+    SetDisplay(ClassName, "");
+    if (--NumUnchecked == 0) {
+      returnObjById("AllBugsCheck").checked = true;
+    }
+  }
+  else {
+    SetDisplay(ClassName, "none");
+    NumUnchecked++;
+    returnObjById("AllBugsCheck").checked = false;
+  }
+}
+</script>
+<!-- SUMMARYENDHEAD -->
+</head>
+<body>
+<h1>tmux - scan-build results</h1>
+
+<table>
+<tr><th>User:</th><td>root@57bc4409cbaf</td></tr>
+<tr><th>Working Directory:</th><td>/tmp/real/c_tmux/tmux</td></tr>
+<tr><th>Command Line:</th><td>make</td></tr>
+<tr><th>Clang Version:</th><td>clang version 12.0.0 (https://github.com/llvm/llvm-project.git 65936fed1490dd1ef8d9a0a88b7d305b0840eb05)
+</td></tr>
+<tr><th>Date:</th><td>Mon Nov 16 03:08:00 2020</td></tr>
+</table>
+<h2>Bug Summary</h2><table>
+<thead><tr><td>Bug Type</td><td>Quantity</td><td class="sorttable_nosort">Display?</td></tr></thead>
+<tr style="font-weight:bold"><td class="SUMM_DESC">All Bugs</td><td class="Q">35</td><td><center><input type="checkbox" id="AllBugsCheck" onClick="CopyCheckedStateToCheckButtons(this);" checked/></center></td></tr>
+<tr><th>API</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Argument with 'nonnull' attribute passed null</td><td class="Q">5</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_api_argument_with_nonnull_attribute_passed_null');" checked/></center></td></tr>
+<tr><th>Dead store</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Dead assignment</td><td class="Q">3</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_assignment');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dead increment</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_increment');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dead nested assignment</td><td class="Q">3</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_nested_assignment');" checked/></center></td></tr>
+<tr><th>Logic error</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Assigned value is garbage or undefined</td><td class="Q">2</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_assigned_value_is_garbage_or_undefined');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dereference of null pointer</td><td class="Q">8</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_dereference_of_null_pointer');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Division by zero</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_division_by_zero');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Result of operation is garbage or undefined</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_result_of_operation_is_garbage_or_undefined');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Uninitialized argument value</td><td class="Q">2</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_uninitialized_argument_value');" checked/></center></td></tr>
+<tr><th>Memory error</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Use-after-free</td><td class="Q">9</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_memory_error_use-after-free');" checked/></center></td></tr>
+</table>
+<h2>Reports</h2>
+
+<table class="sortable" style="table-layout:automatic">
+<thead><tr>
+  <td>Bug Group</td>
+  <td class="sorttable_sorted">Bug Type<span id="sorttable_sortfwdind">&nbsp;&#x25BE;</span></td>
+  <td>File</td>
+  <td>Function/Method</td>
+  <td class="Q">Line</td>
+  <td class="Q">Path Length</td>
+  <td class="sorttable_nosort"></td>
+  <!-- REPORTBUGCOL -->
+</tr></thead>
+<tbody>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>window-tree.c</td><td class="DESC">window_tree_build_session</td><td class="Q">420</td><td class="Q">15</td><td><a href="report-3847b8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3847b8.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>window-tree.c</td><td class="DESC">window_tree_build</td><td class="Q">466</td><td class="Q">6</td><td><a href="report-61e54c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-61e54c.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>window-client.c</td><td class="DESC">window_client_build</td><td class="Q">180</td><td class="Q">6</td><td><a href="report-a4d7a9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a4d7a9.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>window-buffer.c</td><td class="DESC">window_buffer_build</td><td class="Q">165</td><td class="Q">6</td><td><a href="report-af122d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-af122d.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>compat/imsg.c</td><td class="DESC">imsg_get</td><td class="Q">153</td><td class="Q">13</td><td><a href="report-d93466.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d93466.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>cmd-new-session.c</td><td class="DESC">cmd_new_session_exec</td><td class="Q">240</td><td class="Q">28</td><td><a href="report-353833.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-353833.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>cmd-new-session.c</td><td class="DESC">cmd_new_session_exec</td><td class="Q">242</td><td class="Q">30</td><td><a href="report-386416.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-386416.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>cmd-list-keys.c</td><td class="DESC">cmd_list_keys_exec</td><td class="Q">272</td><td class="Q">1</td><td><a href="report-08faf0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-08faf0.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>cmd-list-keys.c</td><td class="DESC">cmd_list_keys_exec</td><td class="Q">282</td><td class="Q">1</td><td><a href="report-296680.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-296680.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>style.c</td><td class="DESC">style_tostring</td><td class="Q">253</td><td class="Q">1</td><td><a href="report-526999.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-526999.html" -->
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>window.c</td><td class="DESC">window_pane_search</td><td class="Q">1309</td><td class="Q">1</td><td><a href="report-175e0f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-175e0f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>client.c</td><td class="DESC">client_read_open</td><td class="Q">661</td><td class="Q">1</td><td><a href="report-1242bd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1242bd.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>client.c</td><td class="DESC">client_write_open</td><td class="Q">506</td><td class="Q">1</td><td><a href="report-b4978c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b4978c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>window-buffer.c</td><td class="DESC">window_buffer_do_paste</td><td class="Q">352</td><td class="Q">1</td><td><a href="report-e9419b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e9419b.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>grid.c</td><td class="DESC">grid_string_cells</td><td class="Q">927</td><td class="Q">11</td><td><a href="report-07c405.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-07c405.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>resize.c</td><td class="DESC">recalculate_sizes</td><td class="Q">387</td><td class="Q">11</td><td><a href="report-290b65.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-290b65.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>grid.c</td><td class="DESC">grid_reflow_join</td><td class="Q">1126</td><td class="Q">36</td><td><a href="report-70e264.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-70e264.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>cmd-send-keys.c</td><td class="DESC">cmd_send_keys_inject_key</td><td class="Q">74</td><td class="Q">60</td><td><a href="report-72f2e1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-72f2e1.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>spawn.c</td><td class="DESC">spawn_window</td><td class="Q">185</td><td class="Q">13</td><td><a href="report-879f9f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-879f9f.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>cmd-queue.c</td><td class="DESC">cmdq_get_command</td><td class="Q">240</td><td class="Q">17</td><td><a href="report-906f8d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-906f8d.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>mode-tree.c</td><td class="DESC">mode_tree_build</td><td class="Q">407</td><td class="Q">34</td><td><a href="report-b386eb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b386eb.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>spawn.c</td><td class="DESC">spawn_window</td><td class="Q">189</td><td class="Q">13</td><td><a href="report-bab506.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bab506.html" -->
+</tr>
+<tr class="bt_logic_error_division_by_zero"><td class="DESC">Logic error</td><td class="DESC">Division by zero</td><td>layout.c</td><td class="DESC">layout_new_pane_size</td><td class="Q">739</td><td class="Q">76</td><td><a href="report-276fc8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-276fc8.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>resize.c</td><td class="DESC">recalculate_size</td><td class="Q">349</td><td class="Q">13</td><td><a href="report-f70a43.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f70a43.html" -->
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>cmd-new-session.c</td><td class="DESC">cmd_new_session_exec</td><td class="Q">256</td><td class="Q">43</td><td><a href="report-a6866b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a6866b.html" -->
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>cmd-new-session.c</td><td class="DESC">cmd_new_session_exec</td><td class="Q">256</td><td class="Q">43</td><td><a href="report-fba2ed.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fba2ed.html" -->
+</tr>
+<tr class="bt_memory_error_use-after-free"><td class="DESC">Memory error</td><td class="DESC">Use-after-free</td><td>screen.c</td><td class="DESC">screen_free_titles</td><td class="Q">64</td><td class="Q">11</td><td><a href="report-04f220.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-04f220.html" -->
+</tr>
+<tr class="bt_memory_error_use-after-free"><td class="DESC">Memory error</td><td class="DESC">Use-after-free</td><td>cmd-queue.c</td><td class="DESC">cmdq_remove</td><td class="Q">182</td><td class="Q">45</td><td><a href="report-1606c1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1606c1.html" -->
+</tr>
+<tr class="bt_memory_error_use-after-free"><td class="DESC">Memory error</td><td class="DESC">Use-after-free</td><td>window.c</td><td class="DESC">window_destroy_panes</td><td class="Q">798</td><td class="Q">33</td><td><a href="report-16205f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-16205f.html" -->
+</tr>
+<tr class="bt_memory_error_use-after-free"><td class="DESC">Memory error</td><td class="DESC">Use-after-free</td><td>cmd-queue.c</td><td class="DESC">cmdq_next</td><td class="Q">419</td><td class="Q">25</td><td><a href="report-30c6ab.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-30c6ab.html" -->
+</tr>
+<tr class="bt_memory_error_use-after-free"><td class="DESC">Memory error</td><td class="DESC">Use-after-free</td><td>compat/imsg.c</td><td class="DESC">imsg_get_fd</td><td class="Q">278</td><td class="Q">13</td><td><a href="report-4fdc52.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4fdc52.html" -->
+</tr>
+<tr class="bt_memory_error_use-after-free"><td class="DESC">Memory error</td><td class="DESC">Use-after-free</td><td>compat/imsg-buffer.c</td><td class="DESC">msgbuf_clear</td><td class="Q">221</td><td class="Q">16</td><td><a href="report-679d2e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-679d2e.html" -->
+</tr>
+<tr class="bt_memory_error_use-after-free"><td class="DESC">Memory error</td><td class="DESC">Use-after-free</td><td>format-draw.c</td><td class="DESC">format_update_ranges</td><td class="Q">71</td><td class="Q">31</td><td><a href="report-7fe6a0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7fe6a0.html" -->
+</tr>
+<tr class="bt_memory_error_use-after-free"><td class="DESC">Memory error</td><td class="DESC">Use-after-free</td><td>window.c</td><td class="DESC">window_pane_reset_mode</td><td class="Q">1231</td><td class="Q">16</td><td><a href="report-93b603.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-93b603.html" -->
+</tr>
+<tr class="bt_memory_error_use-after-free"><td class="DESC">Memory error</td><td class="DESC">Use-after-free</td><td>layout.c</td><td class="DESC">layout_free_cell</td><td class="Q">82</td><td class="Q">20</td><td><a href="report-a221f0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a221f0.html" -->
+</tr>
+</tbody>
+</table>
+
+</body></html>

@@ -1,0 +1,6 @@
+In file included from tcpsocket.c:11:
+In file included from ./rubysocket.h:8:
+../../internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.

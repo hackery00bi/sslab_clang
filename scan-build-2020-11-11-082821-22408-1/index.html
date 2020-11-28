@@ -1,0 +1,719 @@
+<html>
+<head>
+<title>redis - scan-build results</title>
+<link type="text/css" rel="stylesheet" href="scanview.css"/>
+<script src="sorttable.js"></script>
+<script language='javascript' type="text/javascript">
+function SetDisplay(RowClass, DisplayVal)
+{
+  var Rows = document.getElementsByTagName("tr");
+  for ( var i = 0 ; i < Rows.length; ++i ) {
+    if (Rows[i].className == RowClass) {
+      Rows[i].style.display = DisplayVal;
+    }
+  }
+}
+
+function CopyCheckedStateToCheckButtons(SummaryCheckButton) {
+  var Inputs = document.getElementsByTagName("input");
+  for ( var i = 0 ; i < Inputs.length; ++i ) {
+    if (Inputs[i].type == "checkbox") {
+      if(Inputs[i] != SummaryCheckButton) {
+        Inputs[i].checked = SummaryCheckButton.checked;
+        Inputs[i].onclick();
+      }
+    }
+  }
+}
+
+function returnObjById( id ) {
+    if (document.getElementById)
+        var returnVar = document.getElementById(id);
+    else if (document.all)
+        var returnVar = document.all[id];
+    else if (document.layers)
+        var returnVar = document.layers[id];
+    return returnVar;
+}
+
+var NumUnchecked = 0;
+
+function ToggleDisplay(CheckButton, ClassName) {
+  if (CheckButton.checked) {
+    SetDisplay(ClassName, "");
+    if (--NumUnchecked == 0) {
+      returnObjById("AllBugsCheck").checked = true;
+    }
+  }
+  else {
+    SetDisplay(ClassName, "none");
+    NumUnchecked++;
+    returnObjById("AllBugsCheck").checked = false;
+  }
+}
+</script>
+<!-- SUMMARYENDHEAD -->
+</head>
+<body>
+<h1>redis - scan-build results</h1>
+
+<table>
+<tr><th>User:</th><td>root@57bc4409cbaf</td></tr>
+<tr><th>Working Directory:</th><td>/tmp/02_c_redis/redis</td></tr>
+<tr><th>Command Line:</th><td>make</td></tr>
+<tr><th>Clang Version:</th><td>clang version 12.0.0 (https://github.com/llvm/llvm-project.git 65936fed1490dd1ef8d9a0a88b7d305b0840eb05)
+</td></tr>
+<tr><th>Date:</th><td>Wed Nov 11 08:28:21 2020</td></tr>
+</table>
+<h2>Bug Summary</h2><table>
+<thead><tr><td>Bug Type</td><td>Quantity</td><td class="sorttable_nosort">Display?</td></tr></thead>
+<tr style="font-weight:bold"><td class="SUMM_DESC">All Bugs</td><td class="Q">204</td><td><center><input type="checkbox" id="AllBugsCheck" onClick="CopyCheckedStateToCheckButtons(this);" checked/></center></td></tr>
+<tr><th>API</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Argument with 'nonnull' attribute passed null</td><td class="Q">2</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_api_argument_with_nonnull_attribute_passed_null');" checked/></center></td></tr>
+<tr><th>Dead store</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Dead assignment</td><td class="Q">21</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_assignment');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dead increment</td><td class="Q">7</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_increment');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dead initialization</td><td class="Q">68</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_initialization');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dead nested assignment</td><td class="Q">15</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_nested_assignment');" checked/></center></td></tr>
+<tr><th>Logic error</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Assigned value is garbage or undefined</td><td class="Q">3</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_assigned_value_is_garbage_or_undefined');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Branch condition evaluates to a garbage value</td><td class="Q">6</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_branch_condition_evaluates_to_a_garbage_value');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Called function pointer is null (null dereference)</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_called_function_pointer_is_null_null_dereference_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dereference of null pointer</td><td class="Q">29</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_dereference_of_null_pointer');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dereference of undefined pointer value</td><td class="Q">7</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_dereference_of_undefined_pointer_value');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Division by zero</td><td class="Q">2</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_division_by_zero');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Result of operation is garbage or undefined</td><td class="Q">36</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_result_of_operation_is_garbage_or_undefined');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Uninitialized argument value</td><td class="Q">5</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_uninitialized_argument_value');" checked/></center></td></tr>
+<tr><th>Memory error</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Memory leak</td><td class="Q">2</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_memory_error_memory_leak');" checked/></center></td></tr>
+</table>
+<h2>Reports</h2>
+
+<table class="sortable" style="table-layout:automatic">
+<thead><tr>
+  <td>Bug Group</td>
+  <td class="sorttable_sorted">Bug Type<span id="sorttable_sortfwdind">&nbsp;&#x25BE;</span></td>
+  <td>File</td>
+  <td>Function/Method</td>
+  <td class="Q">Line</td>
+  <td class="Q">Path Length</td>
+  <td class="sorttable_nosort"></td>
+  <!-- REPORTBUGCOL -->
+</tr></thead>
+<tbody>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>deps/lua/src/lua.c</td><td class="DESC">handle_script</td><td class="Q">245</td><td class="Q">15</td><td><a href="report-a048c5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a048c5.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>src/redis-cli.c</td><td class="DESC">clusterManagerGetAntiAffinityScore</td><td class="Q">2876</td><td class="Q">53</td><td><a href="report-afbfbc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-afbfbc.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>src/acl.c</td><td class="DESC">ACLDescribeUserCommandRules</td><td class="Q">516</td><td class="Q">29</td><td><a href="report-3b1312.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3b1312.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>src/t_zset.c</td><td class="DESC">zaddGenericCommand</td><td class="Q">1655</td><td class="Q">61</td><td><a href="report-57d7b7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-57d7b7.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>deps/lua/src/lua_struct.c</td><td class="DESC">correctbytes</td><td class="Q">200</td><td class="Q">13</td><td><a href="report-6a5308.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6a5308.html" -->
+</tr>
+<tr class="bt_logic_error_branch_condition_evaluates_to_a_garbage_value"><td class="DESC">Logic error</td><td class="DESC">Branch condition evaluates to a garbage value</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">background_thread0_work</td><td class="Q">466</td><td class="Q">31</td><td><a href="report-62157d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-62157d.html" -->
+</tr>
+<tr class="bt_logic_error_branch_condition_evaluates_to_a_garbage_value"><td class="DESC">Logic error</td><td class="DESC">Branch condition evaluates to a garbage value</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">background_thread0_work</td><td class="Q">466</td><td class="Q">31</td><td><a href="report-78e58f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-78e58f.html" -->
+</tr>
+<tr class="bt_logic_error_branch_condition_evaluates_to_a_garbage_value"><td class="DESC">Logic error</td><td class="DESC">Branch condition evaluates to a garbage value</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">check_background_thread_creation</td><td class="Q">396</td><td class="Q">21</td><td><a href="report-9a31b2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9a31b2.html" -->
+</tr>
+<tr class="bt_logic_error_branch_condition_evaluates_to_a_garbage_value"><td class="DESC">Logic error</td><td class="DESC">Branch condition evaluates to a garbage value</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_record</td><td class="Q">1631</td><td class="Q">90</td><td><a href="report-b2e34e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b2e34e.html" -->
+</tr>
+<tr class="bt_logic_error_branch_condition_evaluates_to_a_garbage_value"><td class="DESC">Logic error</td><td class="DESC">Branch condition evaluates to a garbage value</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">check_background_thread_creation</td><td class="Q">396</td><td class="Q">21</td><td><a href="report-d94839.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d94839.html" -->
+</tr>
+<tr class="bt_logic_error_branch_condition_evaluates_to_a_garbage_value"><td class="DESC">Logic error</td><td class="DESC">Branch condition evaluates to a garbage value</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_record</td><td class="Q">1631</td><td class="Q">90</td><td><a href="report-feac25.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-feac25.html" -->
+</tr>
+<tr class="bt_logic_error_called_function_pointer_is_null_null_dereference_"><td class="DESC">Logic error</td><td class="DESC">Called function pointer is null (null dereference)</td><td>src/quicklist.c</td><td class="DESC">quicklistNext</td><td class="Q">1166</td><td class="Q">13</td><td><a href="report-1ecbf2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1ecbf2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">123</td><td class="Q">1</td><td><a href="report-058b16.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-058b16.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">129</td><td class="Q">1</td><td><a href="report-082e6c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-082e6c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">126</td><td class="Q">1</td><td><a href="report-1888bb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1888bb.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/src/arena.c</td><td class="DESC">je_arena_reset</td><td class="Q">989</td><td class="Q">1</td><td><a href="report-1b017d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1b017d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>src/defrag.c</td><td class="DESC">activeDefragCycle</td><td class="Q">1113</td><td class="Q">1</td><td><a href="report-42ed8a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-42ed8a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>src/redis-cli.c</td><td class="DESC">clusterManagerNodeLoadInfo</td><td class="Q">3928</td><td class="Q">1</td><td><a href="report-54986e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-54986e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_print_value</td><td class="Q">181</td><td class="Q">1</td><td><a href="report-590bd2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-590bd2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_print_value</td><td class="Q">181</td><td class="Q">1</td><td><a href="report-662dca.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-662dca.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">background_thread_sleep</td><td class="Q">257</td><td class="Q">1</td><td><a href="report-66cb04.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-66cb04.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">126</td><td class="Q">1</td><td><a href="report-6e7b59.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6e7b59.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">123</td><td class="Q">1</td><td><a href="report-7393c0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7393c0.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/src/arena.c</td><td class="DESC">arena_reset</td><td class="Q">989</td><td class="Q">1</td><td><a href="report-837a04.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-837a04.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/include/jemalloc/internal/emitter.h</td><td class="DESC">emitter_gen_fmt</td><td class="Q">129</td><td class="Q">1</td><td><a href="report-8d35a5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8d35a5.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">background_thread_sleep</td><td class="Q">234</td><td class="Q">1</td><td><a href="report-b22e72.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b22e72.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/conftest.c</td><td class="DESC">main</td><td class="Q">98</td><td class="Q">1</td><td><a href="report-b69ada.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b69ada.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>src/networking.c</td><td class="DESC">writeToClient</td><td class="Q">1456</td><td class="Q">1</td><td><a href="report-ba0283.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ba0283.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>src/defrag.c</td><td class="DESC">activeDefragAlloc</td><td class="Q">62</td><td class="Q">1</td><td><a href="report-c9c8b6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c9c8b6.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">background_thread_sleep</td><td class="Q">257</td><td class="Q">1</td><td><a href="report-d3ce6e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d3ce6e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">background_thread_sleep</td><td class="Q">234</td><td class="Q">1</td><td><a href="report-d70ba4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d70ba4.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>src/sort.c</td><td class="DESC">sortCommand</td><td class="Q">320</td><td class="Q">1</td><td><a href="report-f4a9b8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f4a9b8.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>src/sha1.c</td><td class="DESC">SHA1Transform</td><td class="Q">108</td><td class="Q">1</td><td><a href="report-f5fdec.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f5fdec.html" -->
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>src/debug.c</td><td class="DESC">debugCommand</td><td class="Q">550</td><td class="Q">1</td><td><a href="report-0a7f21.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0a7f21.html" -->
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>deps/jemalloc/include/jemalloc/internal/log.h</td><td class="DESC">log_impl_varargs</td><td class="Q">99</td><td class="Q">1</td><td><a href="report-271e66.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-271e66.html" -->
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>src/listpack.c</td><td class="DESC">lpInsert</td><td class="Q">696</td><td class="Q">1</td><td><a href="report-3092f2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3092f2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>deps/jemalloc/include/jemalloc/internal/log.h</td><td class="DESC">log_impl_varargs</td><td class="Q">99</td><td class="Q">1</td><td><a href="report-b8eee8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b8eee8.html" -->
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>deps/jemalloc/include/jemalloc/internal/log.h</td><td class="DESC">log_impl_varargs</td><td class="Q">99</td><td class="Q">1</td><td><a href="report-c4bc21.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c4bc21.html" -->
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>deps/jemalloc/include/jemalloc/internal/log.h</td><td class="DESC">log_impl_varargs</td><td class="Q">99</td><td class="Q">1</td><td><a href="report-f87227.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f87227.html" -->
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>src/debug.c</td><td class="DESC">debugCommand</td><td class="Q">549</td><td class="Q">1</td><td><a href="report-ff7422.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ff7422.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-01fcaa.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-01fcaa.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/ctl.c</td><td class="DESC">prof_reset_ctl</td><td class="Q">2614</td><td class="Q">1</td><td><a href="report-148ac5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-148ac5.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-15c0df.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-15c0df.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extents_remove_locked</td><td class="Q">348</td><td class="Q">1</td><td><a href="report-16e268.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-16e268.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-242256.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-242256.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-282a9e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-282a9e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">background_thread_postfork_child</td><td class="Q">768</td><td class="Q">1</td><td><a href="report-29653f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-29653f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-2a0e57.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2a0e57.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-2b6f3d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2b6f3d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-3022c2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3022c2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-3c604d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3c604d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-3de710.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3de710.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/conftest.c</td><td class="DESC">main</td><td class="Q">92</td><td class="Q">1</td><td><a href="report-4703e6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4703e6.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-474d05.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-474d05.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-4cdb47.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4cdb47.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-50e799.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-50e799.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_recycle_split</td><td class="Q">1044</td><td class="Q">1</td><td><a href="report-58d4b5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-58d4b5.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-5a48ac.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5a48ac.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-639771.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-639771.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-669977.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-669977.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-6bff05.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6bff05.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-6cfac7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6cfac7.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-6d12a2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6d12a2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-6d36c9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6d36c9.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-725913.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-725913.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-7345e3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7345e3.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-761d8b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-761d8b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-91d886.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-91d886.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/background_thread.c</td><td class="DESC">je_background_thread_postfork_child</td><td class="Q">768</td><td class="Q">1</td><td><a href="report-92a183.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-92a183.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-952281.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-952281.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-97c63a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-97c63a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-9851a6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9851a6.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-9b8694.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9b8694.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-9ee10b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9ee10b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/conftest.c</td><td class="DESC">main</td><td class="Q">96</td><td class="Q">1</td><td><a href="report-a3d460.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a3d460.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-a498ea.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a498ea.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-a694fb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a694fb.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-af7fee.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-af7fee.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-b833a5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b833a5.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-b928ae.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b928ae.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-bc0f3e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bc0f3e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/conftest.c</td><td class="DESC">main</td><td class="Q">86</td><td class="Q">1</td><td><a href="report-c29ef2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c29ef2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-c655ac.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c655ac.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_recycle_split</td><td class="Q">1044</td><td class="Q">1</td><td><a href="report-c68100.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c68100.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extents_remove_locked</td><td class="Q">348</td><td class="Q">1</td><td><a href="report-c766fb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c766fb.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-c91d8d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c91d8d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-cf3f86.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cf3f86.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-d095f4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d095f4.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-d4b916.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d4b916.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-d52cf4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d52cf4.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-d901d7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d901d7.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/tcache.c</td><td class="DESC">tcache_bin_flush_large</td><td class="Q">217</td><td class="Q">1</td><td><a href="report-e27462.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e27462.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-e2d8bc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e2d8bc.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-e47bb2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e47bb2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-e55fd4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e55fd4.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-e57f0f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e57f0f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-e9a676.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e9a676.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/ctl.c</td><td class="DESC">prof_reset_ctl</td><td class="Q">2614</td><td class="Q">1</td><td><a href="report-ea6252.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ea6252.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-eac3d5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-eac3d5.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-f3d00c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f3d00c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-f44765.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f44765.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-f45c8a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f45c8a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/src/tcache.c</td><td class="DESC">je_tcache_bin_flush_large</td><td class="Q">217</td><td class="Q">1</td><td><a href="report-f4e7bf.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f4e7bf.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-f5e57b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f5e57b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-f7acf6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f7acf6.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-f9f65a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f9f65a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-fb906b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fb906b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>deps/jemalloc/include/jemalloc/internal/prof_inlines_b.h</td><td class="DESC">prof_free</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-fe4460.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fe4460.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/sds.c</td><td class="DESC">sdstrim</td><td class="Q">738</td><td class="Q">1</td><td><a href="report-1ce770.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1ce770.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/redis-check-rdb.c</td><td class="DESC">redis_check_rdb</td><td class="Q">257</td><td class="Q">1</td><td><a href="report-2163c2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2163c2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/redis-check-rdb.c</td><td class="DESC">redis_check_rdb</td><td class="Q">259</td><td class="Q">1</td><td><a href="report-274b93.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-274b93.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>deps/hiredis/net.c</td><td class="DESC">_redisContextConnectTcp</td><td class="Q">425</td><td class="Q">1</td><td><a href="report-31f8fb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-31f8fb.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>deps/jemalloc/src/stats.c</td><td class="DESC">stats_print_helper</td><td class="Q">1204</td><td class="Q">1</td><td><a href="report-339cc0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-339cc0.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>deps/jemalloc/src/stats.c</td><td class="DESC">stats_print_helper</td><td class="Q">1204</td><td class="Q">1</td><td><a href="report-4a0c90.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4a0c90.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/sha1.c</td><td class="DESC">SHA1Transform</td><td class="Q">108</td><td class="Q">1</td><td><a href="report-58ecb1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-58ecb1.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>deps/hiredis/sds.c</td><td class="DESC">hi_sdstrim</td><td class="Q">695</td><td class="Q">1</td><td><a href="report-5bdc71.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5bdc71.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/sentinel.c</td><td class="DESC">sentinelHandleConfiguration</td><td class="Q">1733</td><td class="Q">1</td><td><a href="report-5f82a8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5f82a8.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/sha1.c</td><td class="DESC">SHA1Transform</td><td class="Q">108</td><td class="Q">1</td><td><a href="report-91b2fa.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-91b2fa.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/redis-check-rdb.c</td><td class="DESC">redis_check_rdb</td><td class="Q">283</td><td class="Q">1</td><td><a href="report-b5c6da.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b5c6da.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/redis-check-rdb.c</td><td class="DESC">redis_check_rdb</td><td class="Q">284</td><td class="Q">1</td><td><a href="report-c896c8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c896c8.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/sha1.c</td><td class="DESC">SHA1Transform</td><td class="Q">108</td><td class="Q">1</td><td><a href="report-d6f51f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d6f51f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/sha1.c</td><td class="DESC">SHA1Transform</td><td class="Q">108</td><td class="Q">1</td><td><a href="report-dba2cc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-dba2cc.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>src/t_zset.c</td><td class="DESC">zzlDeleteRangeByLex</td><td class="Q">1128</td><td class="Q">1</td><td><a href="report-dffb28.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-dffb28.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/rdb.c</td><td class="DESC">rdbLoadObject</td><td class="Q">1895</td><td class="Q">53</td><td><a href="report-08d95e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-08d95e.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/t_stream.c</td><td class="DESC">streamLookupConsumer</td><td class="Q">1747</td><td class="Q">24</td><td><a href="report-1dc7f2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1dc7f2.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/replication.c</td><td class="DESC">disklessLoadRestoreBackups</td><td class="Q">1454</td><td class="Q">32</td><td><a href="report-1ff390.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1ff390.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/lua/src/strbuf.c</td><td class="DESC">strbuf_init</td><td class="Q">53</td><td class="Q">8</td><td><a href="report-22ecb2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-22ecb2.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/replication.c</td><td class="DESC">disklessLoadRestoreBackups</td><td class="Q">1460</td><td class="Q">32</td><td><a href="report-3115a6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3115a6.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">186</td><td class="Q">17</td><td><a href="report-3fe638.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3fe638.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">205</td><td class="Q">17</td><td><a href="report-4572cb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4572cb.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/lua/src/lua_cjson.c</td><td class="DESC">json_next_token</td><td class="Q">1022</td><td class="Q">6</td><td><a href="report-477e6a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-477e6a.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">171</td><td class="Q">17</td><td><a href="report-47842d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-47842d.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/lua/src/lstrlib.c</td><td class="DESC">min_expand</td><td class="Q">322</td><td class="Q">18</td><td><a href="report-568147.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-568147.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">205</td><td class="Q">17</td><td><a href="report-57dfb3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-57dfb3.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">171</td><td class="Q">17</td><td><a href="report-5b34a5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5b34a5.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/dict.c</td><td class="DESC">dictGetRandomKey</td><td class="Q">649</td><td class="Q">19</td><td><a href="report-5baa8c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5baa8c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/config.c</td><td class="DESC">rewriteConfigRewriteLine</td><td class="Q">1231</td><td class="Q">40</td><td><a href="report-6bd75e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6bd75e.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_try_coalesce</td><td class="Q">1578</td><td class="Q">94</td><td><a href="report-6e541c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6e541c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/quicklist.c</td><td class="DESC">quicklistPushTail</td><td class="Q">516</td><td class="Q">30</td><td><a href="report-765bc5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-765bc5.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_try_coalesce</td><td class="Q">1557</td><td class="Q">76</td><td><a href="report-7883b5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7883b5.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_try_coalesce</td><td class="Q">1578</td><td class="Q">94</td><td><a href="report-87dedc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-87dedc.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/lua/src/lparser.c</td><td class="DESC">breakstat</td><td class="Q">986</td><td class="Q">17</td><td><a href="report-8e48a3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8e48a3.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/redis-cli.c</td><td class="DESC">getKeySizes</td><td class="Q">7410</td><td class="Q">35</td><td><a href="report-9145b5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9145b5.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_try_coalesce</td><td class="Q">1587</td><td class="Q">115</td><td><a href="report-9d7468.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9d7468.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">186</td><td class="Q">17</td><td><a href="report-b1935c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b1935c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/t_stream.c</td><td class="DESC">xgroupCommand</td><td class="Q">1903</td><td class="Q">19</td><td><a href="report-b8e3de.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b8e3de.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/rax.c</td><td class="DESC">raxGenericInsert</td><td class="Q">892</td><td class="Q">16</td><td><a href="report-ba2568.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ba2568.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/quicklist.c</td><td class="DESC">_quicklistZiplistMerge</td><td class="Q">729</td><td class="Q">50</td><td><a href="report-bf3e27.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bf3e27.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_try_coalesce</td><td class="Q">1587</td><td class="Q">115</td><td><a href="report-c1b191.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c1b191.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>src/rdb.c</td><td class="DESC">rdbLoadObject</td><td class="Q">1943</td><td class="Q">61</td><td><a href="report-c9d102.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c9d102.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_try_coalesce</td><td class="Q">1557</td><td class="Q">76</td><td><a href="report-dcfadf.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-dcfadf.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/lua/src/strbuf.h</td><td class="DESC">strbuf_ensure_null</td><td class="Q">142</td><td class="Q">10</td><td><a href="report-e2b7ba.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e2b7ba.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">171</td><td class="Q">26</td><td><a href="report-1551e9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1551e9.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">186</td><td class="Q">26</td><td><a href="report-19f359.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-19f359.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">171</td><td class="Q">26</td><td><a href="report-332cae.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-332cae.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">205</td><td class="Q">26</td><td><a href="report-a7f885.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a7f885.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>src/t_zset.c</td><td class="DESC">zslInsert</td><td class="Q">167</td><td class="Q">38</td><td><a href="report-b0956b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b0956b.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">186</td><td class="Q">26</td><td><a href="report-b4d16c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b4d16c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">205</td><td class="Q">26</td><td><a href="report-bccaf1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bccaf1.html" -->
+</tr>
+<tr class="bt_logic_error_division_by_zero"><td class="DESC">Logic error</td><td class="DESC">Division by zero</td><td>src/redis-cli.c</td><td class="DESC">clusterManagerNodeMasterRandom</td><td class="Q">4492</td><td class="Q">4</td><td><a href="report-447939.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-447939.html" -->
+</tr>
+<tr class="bt_logic_error_division_by_zero"><td class="DESC">Logic error</td><td class="DESC">Division by zero</td><td>src/redis-cli.c</td><td class="DESC">clusterManagerOptimizeAntiAffinity</td><td class="Q">2916</td><td class="Q">58</td><td><a href="report-f0ffdb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f0ffdb.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>deps/jemalloc/conftest.c</td><td class="DESC">main</td><td class="Q">100</td><td class="Q">2</td><td><a href="report-b3f010.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b3f010.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>deps/jemalloc/conftest.c</td><td class="DESC">main</td><td class="Q">23</td><td class="Q">4</td><td><a href="report-f5204a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f5204a.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">205</td><td class="Q">46</td><td><a href="report-0d2567.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0d2567.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_recycle_split</td><td class="Q">1040</td><td class="Q">37</td><td><a href="report-0f576d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0f576d.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_grow_retained</td><td class="Q">1322</td><td class="Q">59</td><td><a href="report-16afae.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-16afae.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">186</td><td class="Q">38</td><td><a href="report-1d79f2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1d79f2.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/ctl.c</td><td class="DESC">ctl_refresh</td><td class="Q">942</td><td class="Q">19</td><td><a href="report-22735f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-22735f.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/lua/src/lua_bit.c</td><td class="DESC">bit_rol</td><td class="Q">117</td><td class="Q">1</td><td><a href="report-2c1e3b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2c1e3b.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_grow_retained</td><td class="Q">1322</td><td class="Q">59</td><td><a href="report-300cdc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-300cdc.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/include/jemalloc/internal/extent_inlines.h</td><td class="DESC">extent_arena_set</td><td class="Q">183</td><td class="Q">41</td><td><a href="report-30e7c7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-30e7c7.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>src/anet.c</td><td class="DESC">anetFdToString</td><td class="Q">606</td><td class="Q">8</td><td><a href="report-3281b2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3281b2.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>src/bitops.c</td><td class="DESC">checkUnsignedBitfieldOverflow</td><td class="Q">316</td><td class="Q">12</td><td><a href="report-37998b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-37998b.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>src/t_zset.c</td><td class="DESC">zslInsert</td><td class="Q">180</td><td class="Q">40</td><td><a href="report-3ded37.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3ded37.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">171</td><td class="Q">47</td><td><a href="report-40227b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-40227b.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">171</td><td class="Q">6</td><td><a href="report-4023eb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4023eb.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">205</td><td class="Q">38</td><td><a href="report-41ebad.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-41ebad.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">205</td><td class="Q">38</td><td><a href="report-424b2d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-424b2d.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/include/jemalloc/internal/extent_inlines.h</td><td class="DESC">extent_arena_set</td><td class="Q">183</td><td class="Q">18</td><td><a href="report-4a8dc1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4a8dc1.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/lua/src/lua_bit.c</td><td class="DESC">bit_ror</td><td class="Q">118</td><td class="Q">1</td><td><a href="report-530aab.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-530aab.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">186</td><td class="Q">6</td><td><a href="report-5748a2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5748a2.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/include/jemalloc/internal/extent_inlines.h</td><td class="DESC">extent_arena_set</td><td class="Q">183</td><td class="Q">18</td><td><a href="report-6ae437.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6ae437.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/lua/src/lua_struct.c</td><td class="DESC">getinteger</td><td class="Q">285</td><td class="Q">12</td><td><a href="report-6dffa1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6dffa1.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">205</td><td class="Q">6</td><td><a href="report-81f3cc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-81f3cc.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">171</td><td class="Q">38</td><td><a href="report-8b6aea.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8b6aea.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">171</td><td class="Q">38</td><td><a href="report-8d72b1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8d72b1.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">186</td><td class="Q">46</td><td><a href="report-a32c59.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a32c59.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">186</td><td class="Q">46</td><td><a href="report-a55947.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a55947.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/include/jemalloc/internal/extent_inlines.h</td><td class="DESC">extent_arena_set</td><td class="Q">183</td><td class="Q">41</td><td><a href="report-a90a08.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a90a08.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">186</td><td class="Q">38</td><td><a href="report-ae7095.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ae7095.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/ctl.c</td><td class="DESC">ctl_refresh</td><td class="Q">942</td><td class="Q">19</td><td><a href="report-b2dfb1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b2dfb1.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">gctx_tree_remove</td><td class="Q">186</td><td class="Q">6</td><td><a href="report-b6bbd2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b6bbd2.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">171</td><td class="Q">47</td><td><a href="report-c0ff24.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c0ff24.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/lua/src/lparser.c</td><td class="DESC">exprstat</td><td class="Q">1229</td><td class="Q">16</td><td><a href="report-c74f8a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c74f8a.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">205</td><td class="Q">46</td><td><a href="report-d40f15.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d40f15.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tdata_tree_remove</td><td class="Q">205</td><td class="Q">6</td><td><a href="report-dae228.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-dae228.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/prof.c</td><td class="DESC">tctx_tree_remove</td><td class="Q">171</td><td class="Q">6</td><td><a href="report-e0076f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e0076f.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>src/t_stream.c</td><td class="DESC">streamCompareID</td><td class="Q">178</td><td class="Q">28</td><td><a href="report-f19379.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f19379.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/jemalloc/src/extent.c</td><td class="DESC">extent_recycle_split</td><td class="Q">1040</td><td class="Q">37</td><td><a href="report-faa917.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-faa917.html" -->
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>deps/lua/src/lua_cjson.c</td><td class="DESC">json_process_value</td><td class="Q">1229</td><td class="Q">18</td><td><a href="report-2c7e24.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2c7e24.html" -->
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>deps/lua/src/lua_struct.c</td><td class="DESC">b_unpack</td><td class="Q">327</td><td class="Q">11</td><td><a href="report-3632b1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3632b1.html" -->
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>deps/lua/src/lua_cjson.c</td><td class="DESC">json_process_value</td><td class="Q">1232</td><td class="Q">18</td><td><a href="report-511455.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-511455.html" -->
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>deps/lua/src/lua_cjson.c</td><td class="DESC">json_process_value</td><td class="Q">1235</td><td class="Q">18</td><td><a href="report-7683d2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7683d2.html" -->
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>deps/lua/src/lua_struct.c</td><td class="DESC">b_unpack</td><td class="Q">334</td><td class="Q">11</td><td><a href="report-83e1b7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-83e1b7.html" -->
+</tr>
+</tbody>
+</table>
+
+</body></html>

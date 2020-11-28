@@ -1,0 +1,128 @@
+<html>
+<head>
+<title>wrk0 - scan-build results</title>
+<link type="text/css" rel="stylesheet" href="scanview.css"/>
+<script src="sorttable.js"></script>
+<script language='javascript' type="text/javascript">
+function SetDisplay(RowClass, DisplayVal)
+{
+  var Rows = document.getElementsByTagName("tr");
+  for ( var i = 0 ; i < Rows.length; ++i ) {
+    if (Rows[i].className == RowClass) {
+      Rows[i].style.display = DisplayVal;
+    }
+  }
+}
+
+function CopyCheckedStateToCheckButtons(SummaryCheckButton) {
+  var Inputs = document.getElementsByTagName("input");
+  for ( var i = 0 ; i < Inputs.length; ++i ) {
+    if (Inputs[i].type == "checkbox") {
+      if(Inputs[i] != SummaryCheckButton) {
+        Inputs[i].checked = SummaryCheckButton.checked;
+        Inputs[i].onclick();
+      }
+    }
+  }
+}
+
+function returnObjById( id ) {
+    if (document.getElementById)
+        var returnVar = document.getElementById(id);
+    else if (document.all)
+        var returnVar = document.all[id];
+    else if (document.layers)
+        var returnVar = document.layers[id];
+    return returnVar;
+}
+
+var NumUnchecked = 0;
+
+function ToggleDisplay(CheckButton, ClassName) {
+  if (CheckButton.checked) {
+    SetDisplay(ClassName, "");
+    if (--NumUnchecked == 0) {
+      returnObjById("AllBugsCheck").checked = true;
+    }
+  }
+  else {
+    SetDisplay(ClassName, "none");
+    NumUnchecked++;
+    returnObjById("AllBugsCheck").checked = false;
+  }
+}
+</script>
+<!-- SUMMARYENDHEAD -->
+</head>
+<body>
+<h1>wrk0 - scan-build results</h1>
+
+<table>
+<tr><th>User:</th><td>root@57bc4409cbaf</td></tr>
+<tr><th>Working Directory:</th><td>/tmp/real/c_wrk/wrk0</td></tr>
+<tr><th>Command Line:</th><td>make</td></tr>
+<tr><th>Clang Version:</th><td>clang version 12.0.0 (https://github.com/llvm/llvm-project.git 65936fed1490dd1ef8d9a0a88b7d305b0840eb05)
+</td></tr>
+<tr><th>Date:</th><td>Fri Nov 20 01:00:34 2020</td></tr>
+</table>
+<h2>Bug Summary</h2><table>
+<thead><tr><td>Bug Type</td><td>Quantity</td><td class="sorttable_nosort">Display?</td></tr></thead>
+<tr style="font-weight:bold"><td class="SUMM_DESC">All Bugs</td><td class="Q">4</td><td><center><input type="checkbox" id="AllBugsCheck" onClick="CopyCheckedStateToCheckButtons(this);" checked/></center></td></tr>
+<tr><th>Security</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td class="Q">2</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td class="Q">2</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_');" checked/></center></td></tr>
+</table>
+<h2>Reports</h2>
+
+<table class="sortable" style="table-layout:automatic">
+<thead><tr>
+  <td>Bug Group</td>
+  <td class="sorttable_sorted">Bug Type<span id="sorttable_sortfwdind">&nbsp;&#x25BE;</span></td>
+  <td>File</td>
+  <td>Function/Method</td>
+  <td class="Q">Line</td>
+  <td class="Q">Path Length</td>
+  <td class="sorttable_nosort"></td>
+  <!-- REPORTBUGCOL -->
+</tr></thead>
+<tbody>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>lj_str.c</td><td class="DESC">lj_str_new</td><td class="Q">180</td><td class="Q">1</td><td><a href="report-1f7105.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1f7105.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>lj_tab.c</td><td class="DESC">lj_tab_dup</td><td class="Q">199</td><td class="Q">1</td><td><a href="report-373a89.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-373a89.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>host/buildvm_fold.c</td><td class="DESC">tryhash</td><td class="Q">22</td><td class="Q">1</td><td><a href="report-186bc4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-186bc4.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>lj_str.c</td><td class="DESC">lj_str_resize</td><td class="Q">104</td><td class="Q">1</td><td><a href="report-c31669.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c31669.html" -->
+</tr>
+</tbody>
+</table>
+
+<h2>Analyzer Failures</h2>
+<p>The analyzer had problems processing the following files:</p>
+<table>
+<thead><tr><td>Problem</td><td>Source File</td><td>Preprocessed File</td><td>STDERR Output</td></tr></thead>
+<tr><td>Crash</td><td>host/minilua.c</td><td><a href="failures/clang_crash_7Qy3UY.i">clang_crash_7Qy3UY.i</a></td><td><a href="failures/clang_crash_7Qy3UY.i.stderr.txt">clang_crash_7Qy3UY.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="host/minilua.c" file="failures/clang_crash_7Qy3UY.i" clangfile="failures/clang_crash_7Qy3UY.clang.i" stderr="failures/clang_crash_7Qy3UY.i.stderr.txt" info="failures/clang_crash_7Qy3UY.i.info.txt" -->
+<tr><td>Crash</td><td>host/buildvm_peobj.c</td><td><a href="failures/clang_crash_M8Zyp5.i">clang_crash_M8Zyp5.i</a></td><td><a href="failures/clang_crash_M8Zyp5.i.stderr.txt">clang_crash_M8Zyp5.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="host/buildvm_peobj.c" file="failures/clang_crash_M8Zyp5.i" clangfile="failures/clang_crash_M8Zyp5.clang.i" stderr="failures/clang_crash_M8Zyp5.i.stderr.txt" info="failures/clang_crash_M8Zyp5.i.info.txt" -->
+<tr><td>Crash</td><td>host/buildvm_asm.c</td><td><a href="failures/clang_crash_QttPl4.i">clang_crash_QttPl4.i</a></td><td><a href="failures/clang_crash_QttPl4.i.stderr.txt">clang_crash_QttPl4.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="host/buildvm_asm.c" file="failures/clang_crash_QttPl4.i" clangfile="failures/clang_crash_QttPl4.clang.i" stderr="failures/clang_crash_QttPl4.i.stderr.txt" info="failures/clang_crash_QttPl4.i.info.txt" -->
+<tr><td>Crash</td><td>host/buildvm.c</td><td><a href="failures/clang_crash_TuzcJB.i">clang_crash_TuzcJB.i</a></td><td><a href="failures/clang_crash_TuzcJB.i.stderr.txt">clang_crash_TuzcJB.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="host/buildvm.c" file="failures/clang_crash_TuzcJB.i" clangfile="failures/clang_crash_TuzcJB.clang.i" stderr="failures/clang_crash_TuzcJB.i.stderr.txt" info="failures/clang_crash_TuzcJB.i.info.txt" -->
+<tr><td>Crash</td><td>lj_err.c</td><td><a href="failures/clang_crash__fUgeM.i">clang_crash__fUgeM.i</a></td><td><a href="failures/clang_crash__fUgeM.i.stderr.txt">clang_crash__fUgeM.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="lj_err.c" file="failures/clang_crash__fUgeM.i" clangfile="failures/clang_crash__fUgeM.clang.i" stderr="failures/clang_crash__fUgeM.i.stderr.txt" info="failures/clang_crash__fUgeM.i.info.txt" -->
+<tr><td>Crash</td><td>lj_meta.c</td><td><a href="failures/clang_crash_a_gQ05.i">clang_crash_a_gQ05.i</a></td><td><a href="failures/clang_crash_a_gQ05.i.stderr.txt">clang_crash_a_gQ05.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="lj_meta.c" file="failures/clang_crash_a_gQ05.i" clangfile="failures/clang_crash_a_gQ05.clang.i" stderr="failures/clang_crash_a_gQ05.i.stderr.txt" info="failures/clang_crash_a_gQ05.i.info.txt" -->
+<tr><td>Crash</td><td>host/buildvm_lib.c</td><td><a href="failures/clang_crash_y37rLT.i">clang_crash_y37rLT.i</a></td><td><a href="failures/clang_crash_y37rLT.i.stderr.txt">clang_crash_y37rLT.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="host/buildvm_lib.c" file="failures/clang_crash_y37rLT.i" clangfile="failures/clang_crash_y37rLT.clang.i" stderr="failures/clang_crash_y37rLT.i.stderr.txt" info="failures/clang_crash_y37rLT.i.info.txt" -->
+<tr><td>Crash</td><td>lj_buf.c</td><td><a href="failures/clang_crash_yuRjq2.i">clang_crash_yuRjq2.i</a></td><td><a href="failures/clang_crash_yuRjq2.i.stderr.txt">clang_crash_yuRjq2.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="lj_buf.c" file="failures/clang_crash_yuRjq2.i" clangfile="failures/clang_crash_yuRjq2.clang.i" stderr="failures/clang_crash_yuRjq2.i.stderr.txt" info="failures/clang_crash_yuRjq2.i.info.txt" -->
+<tr><td>Crash</td><td>lj_gc.c</td><td><a href="failures/clang_crash_zfXC1u.i">clang_crash_zfXC1u.i</a></td><td><a href="failures/clang_crash_zfXC1u.i.stderr.txt">clang_crash_zfXC1u.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="lj_gc.c" file="failures/clang_crash_zfXC1u.i" clangfile="failures/clang_crash_zfXC1u.clang.i" stderr="failures/clang_crash_zfXC1u.i.stderr.txt" info="failures/clang_crash_zfXC1u.i.info.txt" -->
+</table>
+<p>Please consider submitting preprocessed files as <a href="http://clang-analyzer.llvm.org/filing_bugs.html">bug reports</a>. <!-- REPORTCRASHES --> </p>
+</body></html>

@@ -1,0 +1,570 @@
+<html>
+<head>
+<title>wrk3 - scan-build results</title>
+<link type="text/css" rel="stylesheet" href="scanview.css"/>
+<script src="sorttable.js"></script>
+<script language='javascript' type="text/javascript">
+function SetDisplay(RowClass, DisplayVal)
+{
+  var Rows = document.getElementsByTagName("tr");
+  for ( var i = 0 ; i < Rows.length; ++i ) {
+    if (Rows[i].className == RowClass) {
+      Rows[i].style.display = DisplayVal;
+    }
+  }
+}
+
+function CopyCheckedStateToCheckButtons(SummaryCheckButton) {
+  var Inputs = document.getElementsByTagName("input");
+  for ( var i = 0 ; i < Inputs.length; ++i ) {
+    if (Inputs[i].type == "checkbox") {
+      if(Inputs[i] != SummaryCheckButton) {
+        Inputs[i].checked = SummaryCheckButton.checked;
+        Inputs[i].onclick();
+      }
+    }
+  }
+}
+
+function returnObjById( id ) {
+    if (document.getElementById)
+        var returnVar = document.getElementById(id);
+    else if (document.all)
+        var returnVar = document.all[id];
+    else if (document.layers)
+        var returnVar = document.layers[id];
+    return returnVar;
+}
+
+var NumUnchecked = 0;
+
+function ToggleDisplay(CheckButton, ClassName) {
+  if (CheckButton.checked) {
+    SetDisplay(ClassName, "");
+    if (--NumUnchecked == 0) {
+      returnObjById("AllBugsCheck").checked = true;
+    }
+  }
+  else {
+    SetDisplay(ClassName, "none");
+    NumUnchecked++;
+    returnObjById("AllBugsCheck").checked = false;
+  }
+}
+</script>
+<!-- SUMMARYENDHEAD -->
+</head>
+<body>
+<h1>wrk3 - scan-build results</h1>
+
+<table>
+<tr><th>User:</th><td>root@57bc4409cbaf</td></tr>
+<tr><th>Working Directory:</th><td>/tmp/real/c_wrk/wrk3</td></tr>
+<tr><th>Command Line:</th><td>make</td></tr>
+<tr><th>Clang Version:</th><td>clang version 12.0.0 (https://github.com/llvm/llvm-project.git 65936fed1490dd1ef8d9a0a88b7d305b0840eb05)
+</td></tr>
+<tr><th>Date:</th><td>Fri Nov 20 01:13:11 2020</td></tr>
+</table>
+<h2>Bug Summary</h2><table>
+<thead><tr><td>Bug Type</td><td>Quantity</td><td class="sorttable_nosort">Display?</td></tr></thead>
+<tr style="font-weight:bold"><td class="SUMM_DESC">All Bugs</td><td class="Q">153</td><td><center><input type="checkbox" id="AllBugsCheck" onClick="CopyCheckedStateToCheckButtons(this);" checked/></center></td></tr>
+<tr><th>API</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Argument with 'nonnull' attribute passed null</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_api_argument_with_nonnull_attribute_passed_null');" checked/></center></td></tr>
+<tr><th>Dead store</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Dead assignment</td><td class="Q">8</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_assignment');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dead nested assignment</td><td class="Q">2</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_nested_assignment');" checked/></center></td></tr>
+<tr><th>Logic error</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Assigned value is garbage or undefined</td><td class="Q">4</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_assigned_value_is_garbage_or_undefined');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Branch condition evaluates to a garbage value</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_branch_condition_evaluates_to_a_garbage_value');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dereference of null pointer</td><td class="Q">5</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_dereference_of_null_pointer');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Garbage return value</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_garbage_return_value');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Result of operation is garbage or undefined</td><td class="Q">4</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_result_of_operation_is_garbage_or_undefined');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Uninitialized argument value</td><td class="Q">3</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_uninitialized_argument_value');" checked/></center></td></tr>
+<tr><th>Security</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'fscanf'</td><td class="Q">2</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_fscanf_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td class="Q">45</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td class="Q">4</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td class="Q">33</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td class="Q">16</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'strcat'</td><td class="Q">5</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcat_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td class="Q">13</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'strncat'</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strncat_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'strncpy'</td><td class="Q">5</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strncpy_');" checked/></center></td></tr>
+</table>
+<h2>Reports</h2>
+
+<table class="sortable" style="table-layout:automatic">
+<thead><tr>
+  <td>Bug Group</td>
+  <td class="sorttable_sorted">Bug Type<span id="sorttable_sortfwdind">&nbsp;&#x25BE;</span></td>
+  <td>File</td>
+  <td>Function/Method</td>
+  <td class="Q">Line</td>
+  <td class="Q">Path Length</td>
+  <td class="sorttable_nosort"></td>
+  <!-- REPORTBUGCOL -->
+</tr></thead>
+<tbody>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>deps/luajit/src/luajit.c</td><td class="DESC">handle_script</td><td class="Q">284</td><td class="Q">16</td><td><a href="report-9c1342.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9c1342.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>deps/luajit/src/lj_asm_x86.h</td><td class="DESC">asm_gencall</td><td class="Q">455</td><td class="Q">36</td><td><a href="report-2bab8d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2bab8d.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>deps/luajit/src/lj_record.c</td><td class="DESC">rec_mm_arith</td><td class="Q">878</td><td class="Q">19</td><td><a href="report-83cc0f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-83cc0f.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>deps/luajit/src/lj_strscan.c</td><td class="DESC">strscan_dec</td><td class="Q">309</td><td class="Q">39</td><td><a href="report-d6bda8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d6bda8.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>deps/luajit/src/lj_record.c</td><td class="DESC">rec_mm_arith</td><td class="Q">878</td><td class="Q">19</td><td><a href="report-f9a316.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f9a316.html" -->
+</tr>
+<tr class="bt_logic_error_branch_condition_evaluates_to_a_garbage_value"><td class="DESC">Logic error</td><td class="DESC">Branch condition evaluates to a garbage value</td><td>deps/luajit/src/lj_asm_x86.h</td><td class="DESC">asm_count_call_slots</td><td class="Q">395</td><td class="Q">38</td><td><a href="report-078817.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-078817.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">lj_cconv_ct_ct</td><td class="Q">212</td><td class="Q">1</td><td><a href="report-28906b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-28906b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>src/http_parser.c</td><td class="DESC">http_parser_parse_url</td><td class="Q">2070</td><td class="Q">1</td><td><a href="report-63c22a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-63c22a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">lj_cconv_ct_ct</td><td class="Q">289</td><td class="Q">1</td><td><a href="report-640f01.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-640f01.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/luajit/src/lj_snap.c</td><td class="DESC">lj_snap_replay</td><td class="Q">566</td><td class="Q">1</td><td><a href="report-a09224.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a09224.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/luajit/src/lj_crecord.c</td><td class="DESC">crec_copy</td><td class="Q">247</td><td class="Q">1</td><td><a href="report-aba870.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-aba870.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">lj_cconv_ct_ct</td><td class="Q">283</td><td class="Q">1</td><td><a href="report-ad9827.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ad9827.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">lj_cconv_ct_ct</td><td class="Q">328</td><td class="Q">1</td><td><a href="report-bf4486.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bf4486.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">lj_cconv_ct_ct</td><td class="Q">276</td><td class="Q">1</td><td><a href="report-c00672.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c00672.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">cconv_substruct_tab</td><td class="Q">503</td><td class="Q">1</td><td><a href="report-894dec.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-894dec.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>deps/luajit/src/lj_asm_x86.h</td><td class="DESC">asm_fxstore</td><td class="Q">1293</td><td class="Q">1</td><td><a href="report-f1b32d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f1b32d.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/luajit/src/lj_carith.c</td><td class="DESC">carith_int64</td><td class="Q">158</td><td class="Q">34</td><td><a href="report-13ec1b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-13ec1b.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/luajit/src/lib_string.c</td><td class="DESC">lj_cf_string_gsub</td><td class="Q">687</td><td class="Q">26</td><td><a href="report-1aabf0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1aabf0.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/luajit/src/lj_lib.c</td><td class="DESC">lj_lib_register</td><td class="Q">80</td><td class="Q">13</td><td><a href="report-819f84.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-819f84.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/luajit/src/lj_opt_mem.c</td><td class="DESC">aa_escape</td><td class="Q">46</td><td class="Q">33</td><td><a href="report-84bc99.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-84bc99.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>deps/luajit/src/lib_string.c</td><td class="DESC">min_expand</td><td class="Q">324</td><td class="Q">20</td><td><a href="report-9bd552.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9bd552.html" -->
+</tr>
+<tr class="bt_logic_error_garbage_return_value"><td class="DESC">Logic error</td><td class="DESC">Garbage return value</td><td>deps/luajit/src/lj_obj.h</td><td class="DESC">numberVnum</td><td class="Q">842</td><td class="Q">29</td><td><a href="report-4b38c5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4b38c5.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_fscanf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'fscanf'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">read_number</td><td class="Q">6761</td><td class="Q">1</td><td><a href="report-3e3d58.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3e3d58.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_fscanf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'fscanf'</td><td>deps/luajit/src/lib_io.c</td><td class="DESC">io_file_readnum</td><td class="Q">127</td><td class="Q">1</td><td><a href="report-bf634d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bf634d.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_ir.c</td><td class="DESC">lj_ir_growbot</td><td class="Q">104</td><td class="Q">1</td><td><a href="report-0cd5c0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0cd5c0.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/host/buildvm_peobj.c</td><td class="DESC">emit_peobj_sym</td><td class="Q">143</td><td class="Q">1</td><td><a href="report-0d575c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0d575c.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/host/buildvm_lib.c</td><td class="DESC">memcpy_endian</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-11ef96.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-11ef96.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_trace.c</td><td class="DESC">trace_save</td><td class="Q">130</td><td class="Q">1</td><td><a href="report-24b9a4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-24b9a4.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lib_jit.c</td><td class="DESC">jit_init</td><td class="Q">639</td><td class="Q">1</td><td><a href="report-3969a9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3969a9.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lib_ffi.c</td><td class="DESC">lj_cf_ffi_copy</td><td class="Q">685</td><td class="Q">1</td><td><a href="report-40fcc2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-40fcc2.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_bcread.c</td><td class="DESC">bcread_block</td><td class="Q">125</td><td class="Q">1</td><td><a href="report-4164a7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4164a7.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">cconv_array_init</td><td class="Q">678</td><td class="Q">1</td><td><a href="report-45f25c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-45f25c.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_lib.c</td><td class="DESC">lj_lib_register</td><td class="Q">98</td><td class="Q">1</td><td><a href="report-505149.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-505149.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/host/buildvm_peobj.c</td><td class="DESC">emit_peobj</td><td class="Q">196</td><td class="Q">1</td><td><a href="report-562ad8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-562ad8.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">lj_cconv_tv_ct</td><td class="Q">413</td><td class="Q">1</td><td><a href="report-5dc5cc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5dc5cc.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_parse.c</td><td class="DESC">fs_fixup_uv1</td><td class="Q">1388</td><td class="Q">1</td><td><a href="report-5e2754.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5e2754.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">cconv_array_tab</td><td class="Q">479</td><td class="Q">1</td><td><a href="report-60e0d0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-60e0d0.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_parse.c</td><td class="DESC">fs_fixup_var</td><td class="Q">1511</td><td class="Q">1</td><td><a href="report-626b2f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-626b2f.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">lj_cconv_ct_ct</td><td class="Q">169</td><td class="Q">1</td><td><a href="report-67e5d3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-67e5d3.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/host/buildvm_peobj.c</td><td class="DESC">emit_peobj</td><td class="Q">187</td><td class="Q">1</td><td><a href="report-6c0d55.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6c0d55.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/host/buildvm_peobj.c</td><td class="DESC">emit_peobj</td><td class="Q">204</td><td class="Q">1</td><td><a href="report-7693ce.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7693ce.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/host/buildvm_peobj.c</td><td class="DESC">emit_peobj_sym_sect</td><td class="Q">161</td><td class="Q">1</td><td><a href="report-81c64a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-81c64a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/host/buildvm_lib.c</td><td class="DESC">libdef_name</td><td class="Q">44</td><td class="Q">1</td><td><a href="report-8ce887.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8ce887.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">lj_cconv_ct_ct</td><td class="Q">315</td><td class="Q">1</td><td><a href="report-8f0957.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8f0957.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_str.c</td><td class="DESC">lj_str_new</td><td class="Q">152</td><td class="Q">1</td><td><a href="report-91ff2e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-91ff2e.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_trace.c</td><td class="DESC">trace_save</td><td class="Q">138</td><td class="Q">1</td><td><a href="report-94b1fe.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-94b1fe.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">luaV_concat</td><td class="Q">4904</td><td class="Q">1</td><td><a href="report-9725fe.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9725fe.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_bcread.c</td><td class="DESC">bcread_fill</td><td class="Q">86</td><td class="Q">1</td><td><a href="report-97c6de.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-97c6de.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_cparse.c</td><td class="DESC">lj_cparse</td><td class="Q">1867</td><td class="Q">1</td><td><a href="report-9fc2c5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9fc2c5.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_alloc.c</td><td class="DESC">lj_alloc_realloc</td><td class="Q">1368</td><td class="Q">1</td><td><a href="report-adc735.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-adc735.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">lj_cconv_ct_ct</td><td class="Q">361</td><td class="Q">1</td><td><a href="report-b31b77.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b31b77.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_tab.c</td><td class="DESC">lj_tab_dup</td><td class="Q">179</td><td class="Q">1</td><td><a href="report-b5147f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b5147f.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">newlstr</td><td class="Q">1294</td><td class="Q">1</td><td><a href="report-bac8c8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bac8c8.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lib_aux.c</td><td class="DESC">luaL_addvalue</td><td class="Q">232</td><td class="Q">1</td><td><a href="report-c41fc5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c41fc5.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">lj_cconv_ct_tv</td><td class="Q">582</td><td class="Q">1</td><td><a href="report-c938ef.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c938ef.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_lib.c</td><td class="DESC">lj_lib_register</td><td class="Q">70</td><td class="Q">1</td><td><a href="report-ceb83a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ceb83a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/host/buildvm_peobj.c</td><td class="DESC">emit_peobj_sym</td><td class="Q">138</td><td class="Q">1</td><td><a href="report-cf6350.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cf6350.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_ccall.c</td><td class="DESC">ccall_struct_ret</td><td class="Q">572</td><td class="Q">1</td><td><a href="report-d47bd2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d47bd2.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_trace.c</td><td class="DESC">trace_save</td><td class="Q">139</td><td class="Q">1</td><td><a href="report-d5a8a7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d5a8a7.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/host/buildvm_peobj.c</td><td class="DESC">emit_peobj</td><td class="Q">213</td><td class="Q">1</td><td><a href="report-d87178.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d87178.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">luaL_addvalue</td><td class="Q">6101</td><td class="Q">1</td><td><a href="report-de4c1a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-de4c1a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_meta.c</td><td class="DESC">lj_meta_cat</td><td class="Q">298</td><td class="Q">1</td><td><a href="report-df3b24.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-df3b24.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_ccall.c</td><td class="DESC">ccall_struct_arg</td><td class="Q">554</td><td class="Q">1</td><td><a href="report-dfc28c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-dfc28c.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">lj_cconv_ct_ct</td><td class="Q">178</td><td class="Q">1</td><td><a href="report-e69b15.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e69b15.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_bcread.c</td><td class="DESC">bcread_fill</td><td class="Q">72</td><td class="Q">1</td><td><a href="report-e6a4f1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e6a4f1.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_dispatch.c</td><td class="DESC">lj_dispatch_update</td><td class="Q">133</td><td class="Q">1</td><td><a href="report-e6efff.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e6efff.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lib_io.c</td><td class="DESC">io_file_iter</td><td class="Q">268</td><td class="Q">1</td><td><a href="report-e7a133.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e7a133.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">hashnum</td><td class="Q">1351</td><td class="Q">1</td><td><a href="report-f6e267.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f6e267.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>deps/luajit/src/lj_trace.c</td><td class="DESC">trace_save</td><td class="Q">136</td><td class="Q">1</td><td><a href="report-fa2887.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fa2887.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>deps/luajit/src/lj_bcread.c</td><td class="DESC">bcread_fill</td><td class="Q">69</td><td class="Q">1</td><td><a href="report-05d94e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-05d94e.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>deps/luajit/src/lj_record.c</td><td class="DESC">lj_record_tailcall</td><td class="Q">650</td><td class="Q">1</td><td><a href="report-253d3d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-253d3d.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>deps/luajit/src/lj_ir.c</td><td class="DESC">lj_ir_growbot</td><td class="Q">96</td><td class="Q">1</td><td><a href="report-3ccbc8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3ccbc8.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>deps/luajit/src/lj_record.c</td><td class="DESC">lj_record_ret</td><td class="Q">753</td><td class="Q">1</td><td><a href="report-8b787a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8b787a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_ccall.c</td><td class="DESC">ccall_set_args</td><td class="Q">672</td><td class="Q">1</td><td><a href="report-0410e8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0410e8.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">cconv_array_tab</td><td class="Q">481</td><td class="Q">1</td><td><a href="report-05f1e4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-05f1e4.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/host/buildvm_peobj.c</td><td class="DESC">emit_peobj</td><td class="Q">186</td><td class="Q">1</td><td><a href="report-0d760c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0d760c.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/host/buildvm.c</td><td class="DESC">build_code</td><td class="Q">178</td><td class="Q">1</td><td><a href="report-125454.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-125454.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_trace.c</td><td class="DESC">trace_start</td><td class="Q">385</td><td class="Q">1</td><td><a href="report-15c3e5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-15c3e5.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_ccall.c</td><td class="DESC">ccall_set_args</td><td class="Q">670</td><td class="Q">1</td><td><a href="report-200353.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-200353.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_asm.c</td><td class="DESC">ra_setup</td><td class="Q">304</td><td class="Q">1</td><td><a href="report-21b0ed.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-21b0ed.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_ccallback.c</td><td class="DESC">callback_slot_new</td><td class="Q">587</td><td class="Q">1</td><td><a href="report-2bb5da.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2bb5da.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_trace.c</td><td class="DESC">lj_trace_flushall</td><td class="Q">280</td><td class="Q">1</td><td><a href="report-2d8d62.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2d8d62.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">cconv_array_init</td><td class="Q">680</td><td class="Q">1</td><td><a href="report-362270.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-362270.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">cconv_struct_tab</td><td class="Q">529</td><td class="Q">1</td><td><a href="report-39f546.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-39f546.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">lj_cconv_ct_ct</td><td class="Q">291</td><td class="Q">1</td><td><a href="report-42ad20.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-42ad20.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_snap.c</td><td class="DESC">snap_usedef</td><td class="Q">181</td><td class="Q">1</td><td><a href="report-492598.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-492598.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_str.c</td><td class="DESC">lj_str_resize</td><td class="Q">76</td><td class="Q">1</td><td><a href="report-6a6d7c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6a6d7c.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">lj_cconv_ct_init</td><td class="Q">740</td><td class="Q">1</td><td><a href="report-701656.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-701656.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_trace.c</td><td class="DESC">lj_trace_flushall</td><td class="Q">277</td><td class="Q">1</td><td><a href="report-7796a4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7796a4.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/dynasm/dasm_x86.h</td><td class="DESC">dasm_growpc</td><td class="Q">134</td><td class="Q">1</td><td><a href="report-7833fd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7833fd.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">cconv_struct_init</td><td class="Q">714</td><td class="Q">1</td><td><a href="report-7fabc8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7fabc8.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_alloc.c</td><td class="DESC">lj_alloc_create</td><td class="Q">1147</td><td class="Q">1</td><td><a href="report-8d8bda.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8d8bda.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">lj_cconv_ct_ct</td><td class="Q">170</td><td class="Q">1</td><td><a href="report-988ba2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-988ba2.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_state.c</td><td class="DESC">lj_state_newstate</td><td class="Q">188</td><td class="Q">1</td><td><a href="report-9c3d51.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9c3d51.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/dynasm/dasm_x86.h</td><td class="DESC">dasm_setup</td><td class="Q">146</td><td class="Q">1</td><td><a href="report-a7a2f1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a7a2f1.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/dynasm/dasm_x86.h</td><td class="DESC">dasm_setup</td><td class="Q">145</td><td class="Q">1</td><td><a href="report-ae8e84.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ae8e84.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/host/buildvm_peobj.c</td><td class="DESC">emit_peobj_sym_sect</td><td class="Q">168</td><td class="Q">1</td><td><a href="report-b94f18.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b94f18.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_cconv.c</td><td class="DESC">lj_cconv_ct_ct</td><td class="Q">285</td><td class="Q">1</td><td><a href="report-bbf36a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bbf36a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lib_ffi.c</td><td class="DESC">lj_cf_ffi_fill</td><td class="Q">695</td><td class="Q">1</td><td><a href="report-c2d92f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c2d92f.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/host/buildvm_peobj.c</td><td class="DESC">emit_peobj_sym</td><td class="Q">139</td><td class="Q">1</td><td><a href="report-c46958.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c46958.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_ctype.c</td><td class="DESC">lj_ctype_init</td><td class="Q">595</td><td class="Q">1</td><td><a href="report-c91f08.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c91f08.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_record.c</td><td class="DESC">lj_record_setup</td><td class="Q">2151</td><td class="Q">1</td><td><a href="report-cb4f18.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cb4f18.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_record.c</td><td class="DESC">lj_record_setup</td><td class="Q">2152</td><td class="Q">1</td><td><a href="report-e11842.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e11842.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/host/buildvm_fold.c</td><td class="DESC">tryhash</td><td class="Q">22</td><td class="Q">1</td><td><a href="report-fa1db2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fa1db2.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_record.c</td><td class="DESC">lj_record_setup</td><td class="Q">2153</td><td class="Q">1</td><td><a href="report-fc5b86.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fc5b86.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>deps/luajit/src/lj_record.c</td><td class="DESC">lj_record_ret</td><td class="Q">754</td><td class="Q">1</td><td><a href="report-fcf942.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fcf942.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">luaO_pushvfstring</td><td class="Q">697</td><td class="Q">1</td><td><a href="report-013d98.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-013d98.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td>deps/luajit/src/lib_string.c</td><td class="DESC">lj_cf_string_format</td><td class="Q">858</td><td class="Q">1</td><td><a href="report-0594be.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0594be.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">str_format</td><td class="Q">7610</td><td class="Q">1</td><td><a href="report-06733c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-06733c.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">str_format</td><td class="Q">7600</td><td class="Q">1</td><td><a href="report-149399.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-149399.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">str_format</td><td class="Q">7605</td><td class="Q">1</td><td><a href="report-177538.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-177538.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td>deps/luajit/src/host/buildvm.c</td><td class="DESC">sym_decorate</td><td class="Q">108</td><td class="Q">1</td><td><a href="report-3e4c1f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3e4c1f.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td>deps/luajit/src/host/buildvm_lib.c</td><td class="DESC">libdef_endmodule</td><td class="Q">61</td><td class="Q">1</td><td><a href="report-6082ae.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6082ae.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td>deps/luajit/src/lib_string.c</td><td class="DESC">lj_cf_string_format</td><td class="Q">883</td><td class="Q">1</td><td><a href="report-794121.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-794121.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">str_format</td><td class="Q">7631</td><td class="Q">1</td><td><a href="report-848fe3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-848fe3.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td>deps/luajit/src/lib_string.c</td><td class="DESC">lj_cf_string_format</td><td class="Q">905</td><td class="Q">1</td><td><a href="report-956291.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-956291.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">luaV_tostring</td><td class="Q">4703</td><td class="Q">1</td><td><a href="report-9bcab8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9bcab8.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">str_format</td><td class="Q">7615</td><td class="Q">1</td><td><a href="report-b10d77.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b10d77.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td>deps/luajit/src/lib_string.c</td><td class="DESC">lj_cf_string_format</td><td class="Q">886</td><td class="Q">1</td><td><a href="report-ba2751.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ba2751.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td>deps/luajit/src/lib_string.c</td><td class="DESC">lj_cf_string_format</td><td class="Q">866</td><td class="Q">1</td><td><a href="report-cb9768.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cb9768.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td>deps/luajit/src/lib_string.c</td><td class="DESC">lj_cf_string_format</td><td class="Q">862</td><td class="Q">1</td><td><a href="report-d49aaf.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d49aaf.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td>deps/luajit/src/lj_str.c</td><td class="DESC">lj_str_bufnum</td><td class="Q">180</td><td class="Q">1</td><td><a href="report-e19b5e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e19b5e.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcat_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcat'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">luaO_chunkid</td><td class="Q">759</td><td class="Q">1</td><td><a href="report-1510be.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1510be.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcat_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcat'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">luaO_chunkid</td><td class="Q">744</td><td class="Q">1</td><td><a href="report-1ab741.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1ab741.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcat_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcat'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">luaO_chunkid</td><td class="Q">755</td><td class="Q">1</td><td><a href="report-239b69.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-239b69.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcat_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcat'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">luaO_chunkid</td><td class="Q">758</td><td class="Q">1</td><td><a href="report-5730f7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5730f7.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcat_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcat'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">luaO_chunkid</td><td class="Q">746</td><td class="Q">1</td><td><a href="report-6ae6db.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6ae6db.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>deps/luajit/src/host/buildvm.c</td><td class="DESC">sym_decorate</td><td class="Q">123</td><td class="Q">1</td><td><a href="report-165abc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-165abc.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>deps/luajit/src/host/buildvm_lib.c</td><td class="DESC">find_rec</td><td class="Q">167</td><td class="Q">1</td><td><a href="report-4a2092.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4a2092.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>deps/luajit/src/host/buildvm_lib.c</td><td class="DESC">libdef_func</td><td class="Q">140</td><td class="Q">1</td><td><a href="report-56886f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-56886f.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>deps/luajit/src/lj_debug.c</td><td class="DESC">lj_debug_shortname</td><td class="Q">346</td><td class="Q">1</td><td><a href="report-570ad3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-570ad3.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>deps/luajit/src/lj_debug.c</td><td class="DESC">lj_debug_shortname</td><td class="Q">337</td><td class="Q">1</td><td><a href="report-6be64a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6be64a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>deps/luajit/src/lib_string.c</td><td class="DESC">addintlen</td><td class="Q">765</td><td class="Q">1</td><td><a href="report-81baf2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-81baf2.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>deps/luajit/src/lj_debug.c</td><td class="DESC">lj_debug_shortname</td><td class="Q">342</td><td class="Q">1</td><td><a href="report-9f09f3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9f09f3.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">luaO_chunkid</td><td class="Q">741</td><td class="Q">1</td><td><a href="report-be9209.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-be9209.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>deps/luajit/src/host/buildvm_lib.c</td><td class="DESC">libdef_module</td><td class="Q">92</td><td class="Q">1</td><td><a href="report-c28060.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c28060.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">addintlen</td><td class="Q">7575</td><td class="Q">1</td><td><a href="report-d079b2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d079b2.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>deps/luajit/src/lj_debug.c</td><td class="DESC">lj_debug_shortname</td><td class="Q">350</td><td class="Q">1</td><td><a href="report-ebed12.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ebed12.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>deps/luajit/src/lj_debug.c</td><td class="DESC">lj_debug_shortname</td><td class="Q">348</td><td class="Q">1</td><td><a href="report-ecaf53.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ecaf53.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">luaO_chunkid</td><td class="Q">752</td><td class="Q">1</td><td><a href="report-eed2b6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-eed2b6.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strncat_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strncat'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">luaO_chunkid</td><td class="Q">754</td><td class="Q">1</td><td><a href="report-a6308b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a6308b.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strncpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strncpy'</td><td>deps/luajit/src/lib_string.c</td><td class="DESC">scanformat</td><td class="Q">755</td><td class="Q">1</td><td><a href="report-3ca8ca.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3ca8ca.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strncpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strncpy'</td><td>deps/luajit/src/lj_debug.c</td><td class="DESC">lj_debug_shortname</td><td class="Q">345</td><td class="Q">1</td><td><a href="report-3f52cd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3f52cd.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strncpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strncpy'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">luaO_chunkid</td><td class="Q">732</td><td class="Q">1</td><td><a href="report-bd6272.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bd6272.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strncpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strncpy'</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">scanformat</td><td class="Q">7567</td><td class="Q">1</td><td><a href="report-e4167b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e4167b.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strncpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strncpy'</td><td>deps/luajit/src/lj_debug.c</td><td class="DESC">lj_debug_shortname</td><td class="Q">328</td><td class="Q">1</td><td><a href="report-e6199f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e6199f.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/luajit/src/lj_record.c</td><td class="DESC">lj_record_mm_lookup</td><td class="Q">808</td><td class="Q">19</td><td><a href="report-21364f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-21364f.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/luajit/src/lj_record.c</td><td class="DESC">lj_record_idx</td><td class="Q">1166</td><td class="Q">16</td><td><a href="report-98a012.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-98a012.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">assignment</td><td class="Q">4348</td><td class="Q">27</td><td><a href="report-d9a640.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d9a640.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>deps/luajit/src/host/minilua.c</td><td class="DESC">exprstat</td><td class="Q">4590</td><td class="Q">12</td><td><a href="report-f982a7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f982a7.html" -->
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>deps/luajit/src/lj_opt_narrow.c</td><td class="DESC">narrow_conv_emit</td><td class="Q">375</td><td class="Q">29</td><td><a href="report-2429f2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2429f2.html" -->
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>deps/luajit/src/lj_opt_narrow.c</td><td class="DESC">narrow_conv_emit</td><td class="Q">374</td><td class="Q">30</td><td><a href="report-918037.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-918037.html" -->
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>deps/luajit/src/lj_record.c</td><td class="DESC">lj_record_ins</td><td class="Q">1783</td><td class="Q">30</td><td><a href="report-a0ea93.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a0ea93.html" -->
+</tr>
+</tbody>
+</table>
+
+</body></html>

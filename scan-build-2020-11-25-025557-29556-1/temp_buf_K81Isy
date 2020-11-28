@@ -1,0 +1,6 @@
+clang version 12.0.0 (https://github.com/llvm/llvm-project.git 65936fed1490dd1ef8d9a0a88b7d305b0840eb05)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /llvm-project/build/bin
+ (in-process)
+ "/llvm-project/build/bin/clang-12" "-cc1" "-triple" "x86_64-unknown-linux-gnu" "-fsyntax-only" "-disable-free" "-main-file-name" "CWE467_Use_of_sizeof_on_Pointer_Type__int_01.c" "-mrelocation-model" "static" "-mframe-pointer=all" "-fmath-errno" "-fno-rounding-math" "-mconstructor-aliases" "-munwind-tables" "-target-cpu" "x86-64" "-fno-split-dwarf-inlining" "-debugger-tuning=gdb" "-resource-dir" "/llvm-project/build/lib/clang/12.0.0" "-I" "../../testcasesupport/" "-internal-isystem" "/usr/local/include" "-internal-isystem" "/llvm-project/build/lib/clang/12.0.0/include" "-internal-externc-isystem" "/usr/include/x86_64-linux-gnu" "-internal-externc-isystem" "/include" "-internal-externc-isystem" "/usr/include" "-fdebug-compilation-dir" "/root/dohyun/C/testcases/_CWE467_Use_of_sizeof_on_Pointer_Type" "-ferror-limit" "19" "-fgnuc-version=4.2.1" "-faddrsig" "-x" "c" "CWE467_Use_of_sizeof_on_Pointer_Type__int_01.c"

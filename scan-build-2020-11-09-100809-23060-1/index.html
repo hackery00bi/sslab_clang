@@ -1,0 +1,462 @@
+<html>
+<head>
+<title>git-master - scan-build results</title>
+<link type="text/css" rel="stylesheet" href="scanview.css"/>
+<script src="sorttable.js"></script>
+<script language='javascript' type="text/javascript">
+function SetDisplay(RowClass, DisplayVal)
+{
+  var Rows = document.getElementsByTagName("tr");
+  for ( var i = 0 ; i < Rows.length; ++i ) {
+    if (Rows[i].className == RowClass) {
+      Rows[i].style.display = DisplayVal;
+    }
+  }
+}
+
+function CopyCheckedStateToCheckButtons(SummaryCheckButton) {
+  var Inputs = document.getElementsByTagName("input");
+  for ( var i = 0 ; i < Inputs.length; ++i ) {
+    if (Inputs[i].type == "checkbox") {
+      if(Inputs[i] != SummaryCheckButton) {
+        Inputs[i].checked = SummaryCheckButton.checked;
+        Inputs[i].onclick();
+      }
+    }
+  }
+}
+
+function returnObjById( id ) {
+    if (document.getElementById)
+        var returnVar = document.getElementById(id);
+    else if (document.all)
+        var returnVar = document.all[id];
+    else if (document.layers)
+        var returnVar = document.layers[id];
+    return returnVar;
+}
+
+var NumUnchecked = 0;
+
+function ToggleDisplay(CheckButton, ClassName) {
+  if (CheckButton.checked) {
+    SetDisplay(ClassName, "");
+    if (--NumUnchecked == 0) {
+      returnObjById("AllBugsCheck").checked = true;
+    }
+  }
+  else {
+    SetDisplay(ClassName, "none");
+    NumUnchecked++;
+    returnObjById("AllBugsCheck").checked = false;
+  }
+}
+</script>
+<!-- SUMMARYENDHEAD -->
+</head>
+<body>
+<h1>git-master - scan-build results</h1>
+
+<table>
+<tr><th>User:</th><td>root@57bc4409cbaf</td></tr>
+<tr><th>Working Directory:</th><td>/tmp/oss_c/git/git-master</td></tr>
+<tr><th>Command Line:</th><td>make</td></tr>
+<tr><th>Clang Version:</th><td>clang version 12.0.0 (https://github.com/llvm/llvm-project.git 65936fed1490dd1ef8d9a0a88b7d305b0840eb05)
+</td></tr>
+<tr><th>Date:</th><td>Mon Nov  9 10:08:08 2020</td></tr>
+</table>
+<h2>Bug Summary</h2><table>
+<thead><tr><td>Bug Type</td><td>Quantity</td><td class="sorttable_nosort">Display?</td></tr></thead>
+<tr style="font-weight:bold"><td class="SUMM_DESC">All Bugs</td><td class="Q">120</td><td><center><input type="checkbox" id="AllBugsCheck" onClick="CopyCheckedStateToCheckButtons(this);" checked/></center></td></tr>
+<tr><th>API</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Argument with 'nonnull' attribute passed null</td><td class="Q">16</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_api_argument_with_nonnull_attribute_passed_null');" checked/></center></td></tr>
+<tr><th>Dead store</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Dead assignment</td><td class="Q">46</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_assignment');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dead increment</td><td class="Q">3</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_increment');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dead initialization</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_initialization');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dead nested assignment</td><td class="Q">5</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_nested_assignment');" checked/></center></td></tr>
+<tr><th>Logic error</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Assigned value is garbage or undefined</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_assigned_value_is_garbage_or_undefined');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dereference of null pointer</td><td class="Q">42</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_dereference_of_null_pointer');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dereference of undefined pointer value</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_dereference_of_undefined_pointer_value');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Garbage return value</td><td class="Q">2</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_garbage_return_value');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Uninitialized argument value</td><td class="Q">3</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_uninitialized_argument_value');" checked/></center></td></tr>
+</table>
+<h2>Reports</h2>
+
+<table class="sortable" style="table-layout:automatic">
+<thead><tr>
+  <td>Bug Group</td>
+  <td class="sorttable_sorted">Bug Type<span id="sorttable_sortfwdind">&nbsp;&#x25BE;</span></td>
+  <td>File</td>
+  <td>Function/Method</td>
+  <td class="Q">Line</td>
+  <td class="Q">Path Length</td>
+  <td class="sorttable_nosort"></td>
+  <!-- REPORTBUGCOL -->
+</tr></thead>
+<tbody>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>cache.h</td><td class="DESC">oidcpy</td><td class="Q">1172</td><td class="Q">28</td><td><a href="report-114e6e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-114e6e.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>builtin/clone.c</td><td class="DESC">cmd_clone</td><td class="Q">1078</td><td class="Q">43</td><td><a href="report-281613.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-281613.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>transport.c</td><td class="DESC">external_specification_len</td><td class="Q">888</td><td class="Q">22</td><td><a href="report-5232ce.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5232ce.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>refs.h</td><td class="DESC">has_glob_specials</td><td class="Q">385</td><td class="Q">11</td><td><a href="report-6a3c0e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6a3c0e.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>builtin/index-pack.c</td><td class="DESC">open_pack_file</td><td class="Q">346</td><td class="Q">31</td><td><a href="report-6d1720.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6d1720.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>strbuf.h</td><td class="DESC">strbuf_addstr</td><td class="Q">304</td><td class="Q">85</td><td><a href="report-70bc1c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-70bc1c.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>git-compat-util.h</td><td class="DESC">strtoul_ui</td><td class="Q">1075</td><td class="Q">17</td><td><a href="report-70fb2a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-70fb2a.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>builtin/index-pack.c</td><td class="DESC">final</td><td class="Q">1525</td><td class="Q">51</td><td><a href="report-78879d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-78879d.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>builtin/pull.c</td><td class="DESC">get_tracking_branch</td><td class="Q">766</td><td class="Q">48</td><td><a href="report-8052fd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8052fd.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>builtin/index-pack.c</td><td class="DESC">final</td><td class="Q">1517</td><td class="Q">51</td><td><a href="report-8bba13.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8bba13.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>builtin/rebase.c</td><td class="DESC">cmd_rebase</td><td class="Q">1872</td><td class="Q">105</td><td><a href="report-8e81c0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8e81c0.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>cache.h</td><td class="DESC">oidcpy</td><td class="Q">1172</td><td class="Q">34</td><td><a href="report-8ea830.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8ea830.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>diff.c</td><td class="DESC">diff_words_fill</td><td class="Q">2115</td><td class="Q">67</td><td><a href="report-9da4b5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9da4b5.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>transport.c</td><td class="DESC">is_file</td><td class="Q">881</td><td class="Q">15</td><td><a href="report-c078d1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c078d1.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>git-compat-util.h</td><td class="DESC">copy_array</td><td class="Q">896</td><td class="Q">21</td><td><a href="report-dfb5c8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-dfb5c8.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>remote.c</td><td class="DESC">alloc_ref_with_prefix</td><td class="Q">856</td><td class="Q">30</td><td><a href="report-eeb299.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-eeb299.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>trace2/tr2_dst.c</td><td class="DESC">tr2_dst_try_unix_domain_socket</td><td class="Q">296</td><td class="Q">38</td><td><a href="report-c21b71.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c21b71.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/commit-graph.c</td><td class="DESC">graph_write</td><td class="Q">250</td><td class="Q">1</td><td><a href="report-007d62.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-007d62.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>t/helper/test-lazy-init-name-hash.c</td><td class="DESC">cmd__lazy_init_name_hash</td><td class="Q">209</td><td class="Q">1</td><td><a href="report-08f096.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-08f096.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/bundle.c</td><td class="DESC">cmd_bundle_verify</td><td class="Q">112</td><td class="Q">1</td><td><a href="report-127cd0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-127cd0.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>diff.c</td><td class="DESC">mark_color_as_moved</td><td class="Q">1185</td><td class="Q">1</td><td><a href="report-189a42.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-189a42.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/write-tree.c</td><td class="DESC">cmd_write_tree</td><td class="Q">38</td><td class="Q">1</td><td><a href="report-198bec.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-198bec.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>diff.c</td><td class="DESC">mark_color_as_moved</td><td class="Q">1180</td><td class="Q">1</td><td><a href="report-2a0bb9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2a0bb9.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/fast-import.c</td><td class="DESC">validate_raw_date</td><td class="Q">1909</td><td class="Q">1</td><td><a href="report-2e6c6c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2e6c6c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>compat/terminal.c</td><td class="DESC">is_known_escape_sequence</td><td class="Q">280</td><td class="Q">1</td><td><a href="report-38b97a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-38b97a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/mktree.c</td><td class="DESC">cmd_mktree</td><td class="Q">160</td><td class="Q">1</td><td><a href="report-3cd838.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3cd838.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/show-index.c</td><td class="DESC">cmd_show_index</td><td class="Q">26</td><td class="Q">1</td><td><a href="report-3ed74d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3ed74d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/rebase.c</td><td class="DESC">cmd_rebase__interactive</td><td class="Q">552</td><td class="Q">1</td><td><a href="report-3ed7af.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3ed7af.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/credential-cache--daemon.c</td><td class="DESC">cmd_credential_cache_daemon</td><td class="Q">281</td><td class="Q">1</td><td><a href="report-436514.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-436514.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/show-ref.c</td><td class="DESC">cmd_show_ref</td><td class="Q">188</td><td class="Q">1</td><td><a href="report-4410b7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4410b7.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/sparse-checkout.c</td><td class="DESC">sparse_checkout_disable</td><td class="Q">607</td><td class="Q">1</td><td><a href="report-46fccc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-46fccc.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/merge.c</td><td class="DESC">merge_trivial</td><td class="Q">886</td><td class="Q">1</td><td><a href="report-4c5edc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4c5edc.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>help.c</td><td class="DESC">cmd_version</td><td class="Q">665</td><td class="Q">1</td><td><a href="report-5a4806.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5a4806.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>commit-graph.c</td><td class="DESC">fill_commit_in_graph</td><td class="Q">818</td><td class="Q">1</td><td><a href="report-5db508.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5db508.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/bugreport.c</td><td class="DESC">cmd_bugreport</td><td class="Q">140</td><td class="Q">1</td><td><a href="report-6acf0f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6acf0f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/repack.c</td><td class="DESC">cmd_repack</td><td class="Q">339</td><td class="Q">1</td><td><a href="report-6c092e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6c092e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>unpack-trees.c</td><td class="DESC">unpack_trees</td><td class="Q">1715</td><td class="Q">1</td><td><a href="report-6e53ca.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6e53ca.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/reset.c</td><td class="DESC">cmd_reset</td><td class="Q">319</td><td class="Q">1</td><td><a href="report-6e717a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6e717a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/sparse-checkout.c</td><td class="DESC">sparse_checkout_list</td><td class="Q">63</td><td class="Q">1</td><td><a href="report-6f3bd0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6f3bd0.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/stash.c</td><td class="DESC">list_stash</td><td class="Q">687</td><td class="Q">1</td><td><a href="report-71101e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-71101e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/rev-parse.c</td><td class="DESC">cmd_parseopt</td><td class="Q">520</td><td class="Q">1</td><td><a href="report-7a6be1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7a6be1.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/help.c</td><td class="DESC">cmd_help</td><td class="Q">552</td><td class="Q">1</td><td><a href="report-810e65.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-810e65.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/sparse-checkout.c</td><td class="DESC">sparse_checkout_init</td><td class="Q">313</td><td class="Q">1</td><td><a href="report-874344.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-874344.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>merge-recursive.c</td><td class="DESC">update_file_flags</td><td class="Q">943</td><td class="Q">1</td><td><a href="report-8816ef.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8816ef.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>t/helper/test-serve-v2.c</td><td class="DESC">cmd__serve_v2</td><td class="Q">25</td><td class="Q">1</td><td><a href="report-89808e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-89808e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>merge-recursive.c</td><td class="DESC">update_file_flags</td><td class="Q">969</td><td class="Q">1</td><td><a href="report-8f3fde.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8f3fde.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/rm.c</td><td class="DESC">cmd_rm</td><td class="Q">263</td><td class="Q">1</td><td><a href="report-90b22b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-90b22b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>diff.c</td><td class="DESC">mark_color_as_moved</td><td class="Q">1231</td><td class="Q">1</td><td><a href="report-95dcdf.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-95dcdf.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/add.c</td><td class="DESC">edit_patch</td><td class="Q">277</td><td class="Q">1</td><td><a href="report-9cb6df.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9cb6df.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/notes.c</td><td class="DESC">cmd_notes</td><td class="Q">1034</td><td class="Q">1</td><td><a href="report-a8fb12.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a8fb12.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/ls-files.c</td><td class="DESC">cmd_ls_files</td><td class="Q">596</td><td class="Q">1</td><td><a href="report-adadf5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-adadf5.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>commit-reach.c</td><td class="DESC">repo_in_merge_bases</td><td class="Q">363</td><td class="Q">1</td><td><a href="report-afc373.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-afc373.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/commit.c</td><td class="DESC">cmd_commit</td><td class="Q">1580</td><td class="Q">1</td><td><a href="report-b017fa.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b017fa.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/commit.c</td><td class="DESC">cmd_status</td><td class="Q">1404</td><td class="Q">1</td><td><a href="report-b7e40d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b7e40d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>http-backend.c</td><td class="DESC">inflate_request</td><td class="Q">417</td><td class="Q">1</td><td><a href="report-b9e384.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b9e384.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/update-index.c</td><td class="DESC">cmd_update_index</td><td class="Q">1133</td><td class="Q">1</td><td><a href="report-cd1724.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cd1724.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/commit-graph.c</td><td class="DESC">graph_verify</td><td class="Q">91</td><td class="Q">1</td><td><a href="report-d40d80.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d40d80.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>sequencer.c</td><td class="DESC">do_pick_commit</td><td class="Q">1909</td><td class="Q">1</td><td><a href="report-d44e7c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d44e7c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>commit-graph.c</td><td class="DESC">load_commit_graph_chain</td><td class="Q">559</td><td class="Q">1</td><td><a href="report-d9f6db.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d9f6db.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>dir.c</td><td class="DESC">treat_leading_path</td><td class="Q">2563</td><td class="Q">1</td><td><a href="report-df8b2d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-df8b2d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>builtin/sparse-checkout.c</td><td class="DESC">sparse_checkout_reapply</td><td class="Q">586</td><td class="Q">1</td><td><a href="report-e587c9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e587c9.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>diff.c</td><td class="DESC">emit_line_0</td><td class="Q">689</td><td class="Q">1</td><td><a href="report-ee01a6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ee01a6.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>merge-recursive.c</td><td class="DESC">handle_path_level_conflicts</td><td class="Q">2074</td><td class="Q">1</td><td><a href="report-f10c0f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f10c0f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>ewah/ewah_io.c</td><td class="DESC">ewah_read_mmap</td><td class="Q">131</td><td class="Q">1</td><td><a href="report-2e4f6e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2e4f6e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>diffcore-rename.c</td><td class="DESC">diffcore_rename</td><td class="Q">641</td><td class="Q">1</td><td><a href="report-3486d4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3486d4.html" -->
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>fsck.c</td><td class="DESC">fsck_ident</td><td class="Q">850</td><td class="Q">1</td><td><a href="report-f04728.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f04728.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>builtin/receive-pack.c</td><td class="DESC">check_nonce</td><td class="Q">619</td><td class="Q">1</td><td><a href="report-41f5a0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-41f5a0.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>run-command.c</td><td class="DESC">pp_buffer_stderr</td><td class="Q">1719</td><td class="Q">1</td><td><a href="report-033635.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-033635.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>imap-send.c</td><td class="DESC">get_cmd_result</td><td class="Q">762</td><td class="Q">1</td><td><a href="report-8b1efd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8b1efd.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>upload-pack.c</td><td class="DESC">get_reachable_list</td><td class="Q">681</td><td class="Q">1</td><td><a href="report-b35a6e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b35a6e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>line-log.c</td><td class="DESC">line_log_data_copy</td><td class="Q">645</td><td class="Q">1</td><td><a href="report-f4d760.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f4d760.html" -->
+</tr>
+<tr class="bt_dead_store_dead_nested_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead nested assignment</td><td>xdiff/xprepare.c</td><td class="DESC">xdl_prepare_ctx</td><td class="Q">185</td><td class="Q">1</td><td><a href="report-ff0026.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ff0026.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>parse-options.c</td><td class="DESC">parse_options</td><td class="Q">863</td><td class="Q">33</td><td><a href="report-0af822.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0af822.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>revision.c</td><td class="DESC">add_parents_only</td><td class="Q">1782</td><td class="Q">72</td><td><a href="report-0badfc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0badfc.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>convert.c</td><td class="DESC">gather_stats</td><td class="Q">53</td><td class="Q">107</td><td><a href="report-19e2da.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-19e2da.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>git-compat-util.h</td><td class="DESC">skip_prefix</td><td class="Q">526</td><td class="Q">25</td><td><a href="report-1bd55c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1bd55c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>pretty.c</td><td class="DESC">pretty_print_commit</td><td class="Q">1966</td><td class="Q">13</td><td><a href="report-30b5ab.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-30b5ab.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>sequencer.c</td><td class="DESC">try_to_commit</td><td class="Q">1489</td><td class="Q">32</td><td><a href="report-32eb42.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-32eb42.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>notes.c</td><td class="DESC">tree_write_stack_finish_subtree</td><td class="Q">669</td><td class="Q">24</td><td><a href="report-3bf9d7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3bf9d7.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>builtin/merge.c</td><td class="DESC">append_strategy</td><td class="Q">212</td><td class="Q">66</td><td><a href="report-42fdb9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-42fdb9.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>merge-recursive.c</td><td class="DESC">process_entry</td><td class="Q">3315</td><td class="Q">44</td><td><a href="report-46e009.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-46e009.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>sequencer.c</td><td class="DESC">run_prepare_commit_msg_hook</td><td class="Q">1167</td><td class="Q">26</td><td><a href="report-4aa48d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4aa48d.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>unpack-trees.c</td><td class="DESC">verify_absent_1</td><td class="Q">2098</td><td class="Q">18</td><td><a href="report-54ac27.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-54ac27.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>revision.c</td><td class="DESC">process_parents</td><td class="Q">1128</td><td class="Q">39</td><td><a href="report-5a2abc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5a2abc.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>http-walker.c</td><td class="DESC">fetch</td><td class="Q">573</td><td class="Q">5</td><td><a href="report-5d49a9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5d49a9.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>unpack-trees.c</td><td class="DESC">verify_absent</td><td class="Q">2138</td><td class="Q">12</td><td><a href="report-690f33.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-690f33.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>strbuf.c</td><td class="DESC">strbuf_grow</td><td class="Q">100</td><td class="Q">12</td><td><a href="report-6cbd66.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6cbd66.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>refs/iterator.c</td><td class="DESC">merge_ref_iterator_advance</td><td class="Q">161</td><td class="Q">21</td><td><a href="report-6f7825.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6f7825.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>t/helper/test-path-utils.c</td><td class="DESC">cmd__path_utils</td><td class="Q">449</td><td class="Q">41</td><td><a href="report-70ee5f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-70ee5f.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>builtin/index-pack.c</td><td class="DESC">show_pack_info</td><td class="Q">1686</td><td class="Q">42</td><td><a href="report-72a2fa.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-72a2fa.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>parse-options.c</td><td class="DESC">parse_options_step</td><td class="Q">746</td><td class="Q">40</td><td><a href="report-7b41b3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7b41b3.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>merge-recursive.c</td><td class="DESC">process_entry</td><td class="Q">3302</td><td class="Q">44</td><td><a href="report-81d4d9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-81d4d9.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>builtin/pack-objects.c</td><td class="DESC">want_object_in_pack</td><td class="Q">1275</td><td class="Q">132</td><td><a href="report-8329a5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8329a5.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>sha1-file.c</td><td class="DESC">fill_loose_path</td><td class="Q">434</td><td class="Q">14</td><td><a href="report-840aff.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-840aff.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>sequencer.c</td><td class="DESC">try_to_commit</td><td class="Q">1376</td><td class="Q">24</td><td><a href="report-89516c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-89516c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>line-log.c</td><td class="DESC">get_nth_line</td><td class="Q">873</td><td class="Q">48</td><td><a href="report-8e4485.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8e4485.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>diffcore-break.c</td><td class="DESC">diffcore_merge_broken</td><td class="Q">291</td><td class="Q">28</td><td><a href="report-9155fc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9155fc.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>builtin/submodule--helper.c</td><td class="DESC">sync_submodule</td><td class="Q">1411</td><td class="Q">9</td><td><a href="report-9444aa.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9444aa.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>dir.h</td><td class="DESC">ce_path_match</td><td class="Q">503</td><td class="Q">8</td><td><a href="report-97e6ce.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-97e6ce.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>diffcore-pickaxe.c</td><td class="DESC">diff_grep</td><td class="Q">49</td><td class="Q">33</td><td><a href="report-9804a5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9804a5.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>builtin/fast-import.c</td><td class="DESC">unload_one_branch</td><td class="Q">2033</td><td class="Q">59</td><td><a href="report-a5c8cb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a5c8cb.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>refs/iterator.c</td><td class="DESC">ref_iterator_advance</td><td class="Q">13</td><td class="Q">20</td><td><a href="report-a66cc8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a66cc8.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>kwset.c</td><td class="DESC">kwsprep</td><td class="Q">466</td><td class="Q">6</td><td><a href="report-b201fe.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b201fe.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>kwset.c</td><td class="DESC">cwexec</td><td class="Q">637</td><td class="Q">11</td><td><a href="report-b9772b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b9772b.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>revision.c</td><td class="DESC">limit_list</td><td class="Q">1420</td><td class="Q">23</td><td><a href="report-bde9ef.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bde9ef.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>builtin/index-pack.c</td><td class="DESC">show_pack_info</td><td class="Q">1664</td><td class="Q">43</td><td><a href="report-c950ff.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c950ff.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>builtin/merge.c</td><td class="DESC">cmd_merge</td><td class="Q">1472</td><td class="Q">67</td><td><a href="report-cb8358.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cb8358.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>combine-diff.c</td><td class="DESC">coalesce_lines</td><td class="Q">258</td><td class="Q">87</td><td><a href="report-e25575.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e25575.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>combine-diff.c</td><td class="DESC">coalesce_lines</td><td class="Q">266</td><td class="Q">90</td><td><a href="report-e39660.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e39660.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>convert.c</td><td class="DESC">crlf_to_git</td><td class="Q">573</td><td class="Q">123</td><td><a href="report-e60a2b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e60a2b.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>strvec.c</td><td class="DESC">strvec_push_nodup</td><td class="Q">20</td><td class="Q">8</td><td><a href="report-e62c1d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e62c1d.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>revision.c</td><td class="DESC">limit_list</td><td class="Q">1424</td><td class="Q">26</td><td><a href="report-e9872f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e9872f.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>commit-reach.c</td><td class="DESC">can_all_from_reach_with_flag</td><td class="Q">672</td><td class="Q">28</td><td><a href="report-f0f524.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f0f524.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>commit-graph.c</td><td class="DESC">split_graph_merge_strategy</td><td class="Q">1946</td><td class="Q">55</td><td><a href="report-f6b299.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f6b299.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>ref-filter.c</td><td class="DESC">populate_value</td><td class="Q">1819</td><td class="Q">31</td><td><a href="report-cab7ef.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cab7ef.html" -->
+</tr>
+<tr class="bt_logic_error_garbage_return_value"><td class="DESC">Logic error</td><td class="DESC">Garbage return value</td><td>ref-filter.c</td><td class="DESC">for_each_fullref_in_pattern</td><td class="Q">2028</td><td class="Q">22</td><td><a href="report-15261f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-15261f.html" -->
+</tr>
+<tr class="bt_logic_error_garbage_return_value"><td class="DESC">Logic error</td><td class="DESC">Garbage return value</td><td>color.c</td><td class="DESC">match_word</td><td class="Q">59</td><td class="Q">21</td><td><a href="report-9e881b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9e881b.html" -->
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>builtin/show-branch.c</td><td class="DESC">cmd_show_branch</td><td class="Q">891</td><td class="Q">66</td><td><a href="report-26bb39.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-26bb39.html" -->
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>remote.c</td><td class="DESC">query_matches_negative_refspec</td><td class="Q">753</td><td class="Q">28</td><td><a href="report-72ba5d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-72ba5d.html" -->
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>trace2/tr2_dst.c</td><td class="DESC">tr2_dst_try_unix_domain_socket</td><td class="Q">290</td><td class="Q">43</td><td><a href="report-b0d4dd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b0d4dd.html" -->
+</tr>
+</tbody>
+</table>
+
+</body></html>

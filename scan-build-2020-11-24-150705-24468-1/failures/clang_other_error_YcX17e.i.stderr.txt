@@ -1,0 +1,60 @@
+In file included from /tmp/20201124-2146-1dabyok.c:1:
+/tmp/20201124-2146-olvweo.h:1040:8: error: unknown type name '_Float32'
+extern _Float32 strtof32 (const char *__restrict __nptr,
+       ^
+/tmp/20201124-2146-olvweo.h:1043:8: error: unknown type name '_Float64'
+extern _Float64 strtof64 (const char *__restrict __nptr,
+       ^
+/tmp/20201124-2146-olvweo.h:1046:8: error: unknown type name '_Float128'
+extern _Float128 strtof128 (const char *__restrict __nptr,
+       ^
+/tmp/20201124-2146-olvweo.h:1049:8: error: unknown type name '_Float32x'
+extern _Float32x strtof32x (const char *__restrict __nptr,
+       ^
+/tmp/20201124-2146-olvweo.h:1052:8: error: unknown type name '_Float64x'
+extern _Float64x strtof64x (const char *__restrict __nptr,
+       ^
+/tmp/20201124-2146-olvweo.h:1087:10: error: unknown type name '_Float32'
+         _Float32 __f)
+         ^
+/tmp/20201124-2146-olvweo.h:1090:10: error: unknown type name '_Float64'
+         _Float64 __f)
+         ^
+/tmp/20201124-2146-olvweo.h:1093:4: error: unknown type name '_Float128'
+   _Float128 __f)
+   ^
+/tmp/20201124-2146-olvweo.h:1096:4: error: unknown type name '_Float32x'
+   _Float32x __f)
+   ^
+/tmp/20201124-2146-olvweo.h:1099:4: error: unknown type name '_Float64x'
+   _Float64x __f)
+   ^
+/tmp/20201124-2146-olvweo.h:1138:8: error: unknown type name '_Float32'
+extern _Float32 strtof32_l (const char *__restrict __nptr,
+       ^
+/tmp/20201124-2146-olvweo.h:1142:8: error: unknown type name '_Float64'
+extern _Float64 strtof64_l (const char *__restrict __nptr,
+       ^
+/tmp/20201124-2146-olvweo.h:1146:8: error: unknown type name '_Float128'
+extern _Float128 strtof128_l (const char *__restrict __nptr,
+       ^
+/tmp/20201124-2146-olvweo.h:1150:8: error: unknown type name '_Float32x'
+extern _Float32x strtof32x_l (const char *__restrict __nptr,
+       ^
+/tmp/20201124-2146-olvweo.h:1154:8: error: unknown type name '_Float64x'
+extern _Float64x strtof64x_l (const char *__restrict __nptr,
+       ^
+/tmp/20201124-2146-olvweo.h:2824:8: error: unknown type name '_Float32'
+extern _Float32 acosf32 (_Float32 __x) __attribute__ ((__nothrow__ , __leaf__)); extern _Float32 __acosf32 (_Float32 __x) __attribute__ ((__nothrow__ , __leaf__));
+       ^
+/tmp/20201124-2146-olvweo.h:2824:26: error: unknown type name '_Float32'
+extern _Float32 acosf32 (_Float32 __x) __attribute__ ((__nothrow__ , __leaf__)); extern _Float32 __acosf32 (_Float32 __x) __attribute__ ((__nothrow__ , __leaf__));
+                         ^
+/tmp/20201124-2146-olvweo.h:2824:89: error: unknown type name '_Float32'
+extern _Float32 acosf32 (_Float32 __x) __attribute__ ((__nothrow__ , __leaf__)); extern _Float32 __acosf32 (_Float32 __x) __attribute__ ((__nothrow__ , __leaf__));
+                                                                                        ^
+/tmp/20201124-2146-olvweo.h:2824:109: error: unknown type name '_Float32'
+extern _Float32 acosf32 (_Float32 __x) __attribute__ ((__nothrow__ , __leaf__)); extern _Float32 __acosf32 (_Float32 __x) __attribute__ ((__nothrow__ , __leaf__));
+                                                                                                            ^
+fatal error: too many errors emitted, stopping now [-ferror-limit=]
+20 errors generated.

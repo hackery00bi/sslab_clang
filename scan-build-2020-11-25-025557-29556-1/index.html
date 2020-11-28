@@ -1,0 +1,160 @@
+<html>
+<head>
+<title>_CWE467_Use_of_sizeof_on_Pointer_Type - scan-build results</title>
+<link type="text/css" rel="stylesheet" href="scanview.css"/>
+<script src="sorttable.js"></script>
+<script language='javascript' type="text/javascript">
+function SetDisplay(RowClass, DisplayVal)
+{
+  var Rows = document.getElementsByTagName("tr");
+  for ( var i = 0 ; i < Rows.length; ++i ) {
+    if (Rows[i].className == RowClass) {
+      Rows[i].style.display = DisplayVal;
+    }
+  }
+}
+
+function CopyCheckedStateToCheckButtons(SummaryCheckButton) {
+  var Inputs = document.getElementsByTagName("input");
+  for ( var i = 0 ; i < Inputs.length; ++i ) {
+    if (Inputs[i].type == "checkbox") {
+      if(Inputs[i] != SummaryCheckButton) {
+        Inputs[i].checked = SummaryCheckButton.checked;
+        Inputs[i].onclick();
+      }
+    }
+  }
+}
+
+function returnObjById( id ) {
+    if (document.getElementById)
+        var returnVar = document.getElementById(id);
+    else if (document.all)
+        var returnVar = document.all[id];
+    else if (document.layers)
+        var returnVar = document.layers[id];
+    return returnVar;
+}
+
+var NumUnchecked = 0;
+
+function ToggleDisplay(CheckButton, ClassName) {
+  if (CheckButton.checked) {
+    SetDisplay(ClassName, "");
+    if (--NumUnchecked == 0) {
+      returnObjById("AllBugsCheck").checked = true;
+    }
+  }
+  else {
+    SetDisplay(ClassName, "none");
+    NumUnchecked++;
+    returnObjById("AllBugsCheck").checked = false;
+  }
+}
+</script>
+<!-- SUMMARYENDHEAD -->
+</head>
+<body>
+<h1>_CWE467_Use_of_sizeof_on_Pointer_Type - scan-build results</h1>
+
+<table>
+<tr><th>User:</th><td>root@57bc4409cbaf</td></tr>
+<tr><th>Working Directory:</th><td>/root/dohyun/C/testcases/_CWE467_Use_of_sizeof_on_Pointer_Type</td></tr>
+<tr><th>Command Line:</th><td>gcc -c CWE467_Use_of_sizeof_on_Pointer_Type__char_01.c CWE467_Use_of_sizeof_on_Pointer_Type__char_02.c CWE467_Use_of_sizeof_on_Pointer_Type__char_03.c CWE467_Use_of_sizeof_on_Pointer_Type__char_04.c CWE467_Use_of_sizeof_on_Pointer_Type__char_05.c CWE467_Use_of_sizeof_on_Pointer_Type__char_06.c CWE467_Use_of_sizeof_on_Pointer_Type__char_07.c CWE467_Use_of_sizeof_on_Pointer_Type__char_08.c CWE467_Use_of_sizeof_on_Pointer_Type__char_09.c CWE467_Use_of_sizeof_on_Pointer_Type__char_10.c CWE467_Use_of_sizeof_on_Pointer_Type__char_11.c CWE467_Use_of_sizeof_on_Pointer_Type__char_12.c CWE467_Use_of_sizeof_on_Pointer_Type__char_13.c CWE467_Use_of_sizeof_on_Pointer_Type__char_14.c CWE467_Use_of_sizeof_on_Pointer_Type__char_15.c CWE467_Use_of_sizeof_on_Pointer_Type__char_16.c CWE467_Use_of_sizeof_on_Pointer_Type__char_17.c CWE467_Use_of_sizeof_on_Pointer_Type__char_18.c CWE467_Use_of_sizeof_on_Pointer_Type__int_01.c CWE467_Use_of_sizeof_on_Pointer_Type__int_02.c CWE467_Use_of_sizeof_on_Pointer_Type__int_03.c CWE467_Use_of_sizeof_on_Pointer_Type__int_04.c CWE467_Use_of_sizeof_on_Pointer_Type__int_05.c CWE467_Use_of_sizeof_on_Pointer_Type__int_06.c CWE467_Use_of_sizeof_on_Pointer_Type__int_07.c CWE467_Use_of_sizeof_on_Pointer_Type__int_08.c CWE467_Use_of_sizeof_on_Pointer_Type__int_09.c CWE467_Use_of_sizeof_on_Pointer_Type__int_10.c CWE467_Use_of_sizeof_on_Pointer_Type__int_11.c CWE467_Use_of_sizeof_on_Pointer_Type__int_12.c CWE467_Use_of_sizeof_on_Pointer_Type__int_13.c CWE467_Use_of_sizeof_on_Pointer_Type__int_14.c CWE467_Use_of_sizeof_on_Pointer_Type__int_15.c CWE467_Use_of_sizeof_on_Pointer_Type__int_16.c CWE467_Use_of_sizeof_on_Pointer_Type__int_17.c CWE467_Use_of_sizeof_on_Pointer_Type__int_18.c CWE467_Use_of_sizeof_on_Pointer_Type__short_01.c CWE467_Use_of_sizeof_on_Pointer_Type__short_02.c CWE467_Use_of_sizeof_on_Pointer_Type__short_03.c CWE467_Use_of_sizeof_on_Pointer_Type__short_04.c CWE467_Use_of_sizeof_on_Pointer_Type__short_05.c CWE467_Use_of_sizeof_on_Pointer_Type__short_06.c CWE467_Use_of_sizeof_on_Pointer_Type__short_07.c CWE467_Use_of_sizeof_on_Pointer_Type__short_08.c CWE467_Use_of_sizeof_on_Pointer_Type__short_09.c CWE467_Use_of_sizeof_on_Pointer_Type__short_10.c CWE467_Use_of_sizeof_on_Pointer_Type__short_11.c CWE467_Use_of_sizeof_on_Pointer_Type__short_12.c CWE467_Use_of_sizeof_on_Pointer_Type__short_13.c CWE467_Use_of_sizeof_on_Pointer_Type__short_14.c CWE467_Use_of_sizeof_on_Pointer_Type__short_15.c CWE467_Use_of_sizeof_on_Pointer_Type__short_16.c CWE467_Use_of_sizeof_on_Pointer_Type__short_17.c CWE467_Use_of_sizeof_on_Pointer_Type__short_18.c main.cpp main_linux.cpp -I ../../testcasesupport/</td></tr>
+<tr><th>Clang Version:</th><td>clang version 12.0.0 (https://github.com/llvm/llvm-project.git 65936fed1490dd1ef8d9a0a88b7d305b0840eb05)
+</td></tr>
+<tr><th>Date:</th><td>Wed Nov 25 02:55:57 2020</td></tr>
+</table>
+<h2>Bug Summary</h2><table>
+<thead><tr><td>Bug Type</td><td>Quantity</td><td class="sorttable_nosort">Display?</td></tr></thead>
+<tr style="font-weight:bold"><td class="SUMM_DESC">All Bugs</td><td class="Q">23</td><td><center><input type="checkbox" id="AllBugsCheck" onClick="CopyCheckedStateToCheckButtons(this);" checked/></center></td></tr>
+<tr><th>Unix API</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Allocator sizeof operand mismatch</td><td class="Q">23</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_unix_api_allocator_sizeof_operand_mismatch');" checked/></center></td></tr>
+</table>
+<h2>Reports</h2>
+
+<table class="sortable" style="table-layout:automatic">
+<thead><tr>
+  <td>Bug Group</td>
+  <td class="sorttable_sorted">Bug Type<span id="sorttable_sortfwdind">&nbsp;&#x25BE;</span></td>
+  <td>File</td>
+  <td>Function/Method</td>
+  <td class="Q">Line</td>
+  <td class="Q">Path Length</td>
+  <td class="sorttable_nosort"></td>
+  <!-- REPORTBUGCOL -->
+</tr></thead>
+<tbody>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_02.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_02_bad</td><td class="Q">27</td><td class="Q">1</td><td><a href="report-05e80b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-05e80b.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_06.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_06_bad</td><td class="Q">32</td><td class="Q">1</td><td><a href="report-0a420b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0a420b.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_16.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_16_bad</td><td class="Q">27</td><td class="Q">1</td><td><a href="report-0ec477.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0ec477.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__int_03.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__int_03_bad</td><td class="Q">27</td><td class="Q">1</td><td><a href="report-383e5c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-383e5c.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_01.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_01_bad</td><td class="Q">25</td><td class="Q">1</td><td><a href="report-41c5f3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-41c5f3.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_11.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_11_bad</td><td class="Q">27</td><td class="Q">1</td><td><a href="report-517ae7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-517ae7.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_08.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_08_bad</td><td class="Q">40</td><td class="Q">1</td><td><a href="report-55910f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-55910f.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_10.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_10_bad</td><td class="Q">27</td><td class="Q">1</td><td><a href="report-575f4d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-575f4d.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__int_04.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__int_04_bad</td><td class="Q">33</td><td class="Q">1</td><td><a href="report-65386f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-65386f.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_17.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_17_bad</td><td class="Q">28</td><td class="Q">1</td><td><a href="report-875b73.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-875b73.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_18.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_18_bad</td><td class="Q">27</td><td class="Q">1</td><td><a href="report-949b45.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-949b45.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_09.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_09_bad</td><td class="Q">27</td><td class="Q">1</td><td><a href="report-94a40c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-94a40c.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_13.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_13_bad</td><td class="Q">27</td><td class="Q">1</td><td><a href="report-98253c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-98253c.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_12.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_12_bad</td><td class="Q">27</td><td class="Q">1</td><td><a href="report-9e05f1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9e05f1.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_14.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_14_bad</td><td class="Q">27</td><td class="Q">1</td><td><a href="report-9e22dd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9e22dd.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__int_02.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__int_02_bad</td><td class="Q">27</td><td class="Q">1</td><td><a href="report-b4e6b0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b4e6b0.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_15.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_15_bad</td><td class="Q">28</td><td class="Q">1</td><td><a href="report-bae778.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bae778.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_07.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_07_bad</td><td class="Q">32</td><td class="Q">1</td><td><a href="report-bbcd72.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bbcd72.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_05.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_05_bad</td><td class="Q">33</td><td class="Q">1</td><td><a href="report-d2dd82.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d2dd82.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_04.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_04_bad</td><td class="Q">33</td><td class="Q">1</td><td><a href="report-de491d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-de491d.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__int_01.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__int_01_bad</td><td class="Q">25</td><td class="Q">1</td><td><a href="report-f0651e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f0651e.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__char_03.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__char_03_bad</td><td class="Q">27</td><td class="Q">1</td><td><a href="report-fa732e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fa732e.html" -->
+</tr>
+<tr class="bt_unix_api_allocator_sizeof_operand_mismatch"><td class="DESC">Unix API</td><td class="DESC">Allocator sizeof operand mismatch</td><td>CWE467_Use_of_sizeof_on_Pointer_Type__int_05.c</td><td class="DESC">CWE467_Use_of_sizeof_on_Pointer_Type__int_05_bad</td><td class="Q">33</td><td class="Q">1</td><td><a href="report-fcf64e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fcf64e.html" -->
+</tr>
+</tbody>
+</table>
+
+</body></html>

@@ -1,0 +1,853 @@
+<!doctype html>
+<html>
+<head>
+<title>lj_ir.c</title>
+
+<style type="text/css">
+body { color:#000000; background-color:#ffffff }
+body { font-family:Helvetica, sans-serif; font-size:10pt }
+h1 { font-size:14pt }
+.FileName { margin-top: 5px; margin-bottom: 5px; display: inline; }
+.FileNav { margin-left: 5px; margin-right: 5px; display: inline; }
+.FileNav a { text-decoration:none; font-size: larger; }
+.divider { margin-top: 30px; margin-bottom: 30px; height: 15px; }
+.divider { background-color: gray; }
+.code { border-collapse:collapse; width:100%; }
+.code { font-family: "Monospace", monospace; font-size:10pt }
+.code { line-height: 1.2em }
+.comment { color: green; font-style: oblique }
+.keyword { color: blue }
+.string_literal { color: red }
+.directive { color: darkmagenta }
+
+/* Macros and variables could have pop-up notes hidden by default.
+  - Macro pop-up:    expansion of the macro
+  - Variable pop-up: value (table) of the variable */
+.macro_popup, .variable_popup { display: none; }
+
+/* Pop-up appears on mouse-hover event. */
+.macro:hover .macro_popup, .variable:hover .variable_popup {
+  display: block;
+  padding: 2px;
+  -webkit-border-radius:5px;
+  -webkit-box-shadow:1px 1px 7px #000;
+  border-radius:5px;
+  box-shadow:1px 1px 7px #000;
+  position: absolute;
+  top: -1em;
+  left:10em;
+  z-index: 1
+}
+
+.macro_popup {
+  border: 2px solid red;
+  background-color:#FFF0F0;
+  font-weight: normal;
+}
+
+.variable_popup {
+  border: 2px solid blue;
+  background-color:#F0F0FF;
+  font-weight: bold;
+  font-family: Helvetica, sans-serif;
+  font-size: 9pt;
+}
+
+/* Pop-up notes needs a relative position as a base where they pops up. */
+.macro, .variable {
+  background-color: PaleGoldenRod;
+  position: relative;
+}
+.macro { color: DarkMagenta; }
+
+#tooltiphint {
+  position: fixed;
+  width: 50em;
+  margin-left: -25em;
+  left: 50%;
+  padding: 10px;
+  border: 1px solid #b0b0b0;
+  border-radius: 2px;
+  box-shadow: 1px 1px 7px black;
+  background-color: #c0c0c0;
+  z-index: 2;
+}
+
+.num { width:2.5em; padding-right:2ex; background-color:#eeeeee }
+.num { text-align:right; font-size:8pt }
+.num { color:#444444 }
+.line { padding-left: 1ex; border-left: 3px solid #ccc }
+.line { white-space: pre }
+.msg { -webkit-box-shadow:1px 1px 7px #000 }
+.msg { box-shadow:1px 1px 7px #000 }
+.msg { -webkit-border-radius:5px }
+.msg { border-radius:5px }
+.msg { font-family:Helvetica, sans-serif; font-size:8pt }
+.msg { float:left }
+.msg { padding:0.25em 1ex 0.25em 1ex }
+.msg { margin-top:10px; margin-bottom:10px }
+.msg { font-weight:bold }
+.msg { max-width:60em; word-wrap: break-word; white-space: pre-wrap }
+.msgT { padding:0x; spacing:0x }
+.msgEvent { background-color:#fff8b4; color:#000000 }
+.msgControl { background-color:#bbbbbb; color:#000000 }
+.msgNote { background-color:#ddeeff; color:#000000 }
+.mrange { background-color:#dfddf3 }
+.mrange { border-bottom:1px solid #6F9DBE }
+.PathIndex { font-weight: bold; padding:0px 5px; margin-right:5px; }
+.PathIndex { -webkit-border-radius:8px }
+.PathIndex { border-radius:8px }
+.PathIndexEvent { background-color:#bfba87 }
+.PathIndexControl { background-color:#8c8c8c }
+.PathIndexPopUp { background-color: #879abc; }
+.PathNav a { text-decoration:none; font-size: larger }
+.CodeInsertionHint { font-weight: bold; background-color: #10dd10 }
+.CodeRemovalHint { background-color:#de1010 }
+.CodeRemovalHint { border-bottom:1px solid #6F9DBE }
+.selected{ background-color:orange !important; }
+
+table.simpletable {
+  padding: 5px;
+  font-size:12pt;
+  margin:20px;
+  border-collapse: collapse; border-spacing: 0px;
+}
+td.rowname {
+  text-align: right;
+  vertical-align: top;
+  font-weight: bold;
+  color:#444444;
+  padding-right:2ex;
+}
+
+/* Hidden text. */
+input.spoilerhider + label {
+  cursor: pointer;
+  text-decoration: underline;
+  display: block;
+}
+input.spoilerhider {
+ display: none;
+}
+input.spoilerhider ~ .spoiler {
+  overflow: hidden;
+  margin: 10px auto 0;
+  height: 0;
+  opacity: 0;
+}
+input.spoilerhider:checked + label + .spoiler{
+  height: auto;
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+<!-- BUGDESC Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 -->
+
+<!-- BUGTYPE Potential insecure memory buffer bounds restriction in call 'memcpy' -->
+
+<!-- BUGCATEGORY Security -->
+
+<!-- BUGFILE /tmp/real/c_wrk/wrk4/deps/luajit/src/lj_ir.c -->
+
+<!-- FILENAME lj_ir.c -->
+
+<!-- FUNCTIONNAME lj_ir_growbot -->
+
+<!-- ISSUEHASHCONTENTOFLINEINCONTEXT ad6abb99d79e342d4faf5d51d8cea057 -->
+
+<!-- BUGLINE 104 -->
+
+<!-- BUGCOLUMN 5 -->
+
+<!-- BUGPATHLENGTH 1 -->
+
+<!-- BUGMETAEND -->
+<!-- REPORTHEADER -->
+<h3>Bug Summary</h3>
+<table class="simpletable">
+<tr><td class="rowname">File:</td><td>deps/luajit/src/lj_ir.c</td></tr>
+<tr><td class="rowname">Warning:</td><td><a href="#EndPath">line 104, column 5</a><br />Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11</td></tr>
+
+</table>
+<!-- REPORTSUMMARYEXTRA -->
+<h3>Annotated Source Code</h3>
+<p>Press <a href="#" onclick="toggleHelp(); return false;">'?'</a>
+   to see keyboard shortcuts</p>
+<input type="checkbox" class="spoilerhider" id="showinvocation" />
+<label for="showinvocation" >Show analyzer invocation</label>
+<div class="spoiler">clang -cc1 -cc1 -triple x86_64-unknown-linux-gnu -analyze -disable-free -main-file-name lj_ir.c -analyzer-store=region -analyzer-opt-analyze-nested-blocks -analyzer-checker=core -analyzer-checker=apiModeling -analyzer-checker=unix -analyzer-checker=deadcode -analyzer-checker=security.insecureAPI.UncheckedReturn -analyzer-checker=security.insecureAPI.getpw -analyzer-checker=security.insecureAPI.gets -analyzer-checker=security.insecureAPI.mktemp -analyzer-checker=security.insecureAPI.mkstemp -analyzer-checker=security.insecureAPI.vfork -analyzer-checker=nullability.NullPassedToNonnull -analyzer-checker=nullability.NullReturnedFromNonnull -analyzer-output plist -w -setup-static-analyzer -mrelocation-model static -mframe-pointer=none -fmath-errno -fno-rounding-math -mconstructor-aliases -munwind-tables -target-cpu x86-64 -fno-split-dwarf-inlining -debugger-tuning=gdb -resource-dir /llvm-project/build/lib/clang/12.0.0 -D _FILE_OFFSET_BITS=64 -D _LARGEFILE_SOURCE -U _FORTIFY_SOURCE -internal-isystem /usr/local/include -internal-isystem /llvm-project/build/lib/clang/12.0.0/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -O2 -fdebug-compilation-dir /tmp/real/c_wrk/wrk4/deps/luajit/src -ferror-limit 19 -fgnuc-version=4.2.1 -vectorize-loops -vectorize-slp -analyzer-checker core -analyzer-checker cplusplus -analyzer-checker nullability -analyzer-checker optin -analyzer-checker security -analyzer-checker unix -analyzer-checker osx -analyzer-checker fuchsia -analyzer-checker webkit -analyzer-output=html -faddrsig -o /tmp/scan-build-2020-11-20-015453-12606-1 -x c lj_ir.c
+</div>
+<div id='tooltiphint' hidden="true">
+  <p>Keyboard shortcuts: </p>
+  <ul>
+    <li>Use 'j/k' keys for keyboard navigation</li>
+    <li>Use 'Shift+S' to show/hide relevant lines</li>
+    <li>Use '?' to toggle this window</li>
+  </ul>
+  <a href="#" onclick="toggleHelp(); return false;">Close</a>
+</div>
+<script type='text/javascript'>
+var relevant_lines = {"1": {"104": 1}};
+
+var filterCounterexample = function (hide) {
+  var tables = document.getElementsByClassName("code");
+  for (var t=0; t<tables.length; t++) {
+    var table = tables[t];
+    var file_id = table.getAttribute("data-fileid");
+    var lines_in_fid = relevant_lines[file_id];
+    if (!lines_in_fid) {
+      lines_in_fid = {};
+    }
+    var lines = table.getElementsByClassName("codeline");
+    for (var i=0; i<lines.length; i++) {
+        var el = lines[i];
+        var lineNo = el.getAttribute("data-linenumber");
+        if (!lines_in_fid[lineNo]) {
+          if (hide) {
+            el.setAttribute("hidden", "");
+          } else {
+            el.removeAttribute("hidden");
+          }
+        }
+    }
+  }
+}
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "S") {
+    var checked = document.getElementsByName("showCounterexample")[0].checked;
+    filterCounterexample(!checked);
+    document.getElementsByName("showCounterexample")[0].checked = !checked;
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('input[name="showCounterexample"]').onchange=
+        function (event) {
+      filterCounterexample(this.checked);
+    };
+});
+</script>
+
+<form>
+    <input type="checkbox" name="showCounterexample" id="showCounterexample" />
+    <label for="showCounterexample">
+       Show only relevant lines
+    </label>
+</form>
+
+<script type='text/javascript'>
+var digitMatcher = new RegExp("[0-9]+");
+
+var querySelectorAllArray = function(selector) {
+  return Array.prototype.slice.call(
+    document.querySelectorAll(selector));
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    querySelectorAllArray(".PathNav > a").forEach(
+        function(currentValue, currentIndex) {
+            var hrefValue = currentValue.getAttribute("href");
+            currentValue.onclick = function() {
+                scrollTo(document.querySelector(hrefValue));
+                return false;
+            };
+        });
+});
+
+var findNum = function() {
+    var s = document.querySelector(".selected");
+    if (!s || s.id == "EndPath") {
+        return 0;
+    }
+    var out = parseInt(digitMatcher.exec(s.id)[0]);
+    return out;
+};
+
+var scrollTo = function(el) {
+    querySelectorAllArray(".selected").forEach(function(s) {
+        s.classList.remove("selected");
+    });
+    el.classList.add("selected");
+    window.scrollBy(0, el.getBoundingClientRect().top -
+        (window.innerHeight / 2));
+}
+
+var move = function(num, up, numItems) {
+  if (num == 1 && up || num == numItems - 1 && !up) {
+    return 0;
+  } else if (num == 0 && up) {
+    return numItems - 1;
+  } else if (num == 0 && !up) {
+    return 1 % numItems;
+  }
+  return up ? num - 1 : num + 1;
+}
+
+var numToId = function(num) {
+  if (num == 0) {
+    return document.getElementById("EndPath")
+  }
+  return document.getElementById("Path" + num);
+};
+
+var navigateTo = function(up) {
+  var numItems = document.querySelectorAll(
+      ".line > .msgEvent, .line > .msgControl").length;
+  var currentSelected = findNum();
+  var newSelected = move(currentSelected, up, numItems);
+  var newEl = numToId(newSelected, numItems);
+
+  // Scroll element into center.
+  scrollTo(newEl);
+};
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "j") {
+    navigateTo(/*up=*/false);
+  } else if (event.key == "k") {
+    navigateTo(/*up=*/true);
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+</script>
+  
+<script type='text/javascript'>
+
+var toggleHelp = function() {
+    var hint = document.querySelector("#tooltiphint");
+    var attributeName = "hidden";
+    if (hint.hasAttribute(attributeName)) {
+      hint.removeAttribute(attributeName);
+    } else {
+      hint.setAttribute("hidden", "true");
+    }
+};
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "?") {
+    toggleHelp();
+  } else {
+    return;
+  }
+  event.preventDefault();
+});
+</script>
+<table class="code" data-fileid="1">
+<tr class="codeline" data-linenumber="1"><td class="num" id="LN1">1</td><td class="line"><span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="2"><td class="num" id="LN2">2</td><td class="line"><span class='comment'>** SSA IR (Intermediate Representation) emitter.</span></td></tr>
+<tr class="codeline" data-linenumber="3"><td class="num" id="LN3">3</td><td class="line"><span class='comment'>** Copyright (C) 2005-2013 Mike Pall. See Copyright Notice in luajit.h</span></td></tr>
+<tr class="codeline" data-linenumber="4"><td class="num" id="LN4">4</td><td class="line"><span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="5"><td class="num" id="LN5">5</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="6"><td class="num" id="LN6">6</td><td class="line"><span class='directive'>#define lj_ir_c</span></td></tr>
+<tr class="codeline" data-linenumber="7"><td class="num" id="LN7">7</td><td class="line"><span class='directive'>#define LUA_CORE</span></td></tr>
+<tr class="codeline" data-linenumber="8"><td class="num" id="LN8">8</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="9"><td class="num" id="LN9">9</td><td class="line"><span class='comment'>/* For pointers to libc/libm functions. */</span></td></tr>
+<tr class="codeline" data-linenumber="10"><td class="num" id="LN10">10</td><td class="line"><span class='directive'>#include &lt;stdio.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="11"><td class="num" id="LN11">11</td><td class="line"><span class='directive'>#include &lt;math.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="12"><td class="num" id="LN12">12</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="13"><td class="num" id="LN13">13</td><td class="line"><span class='directive'>#include "lj_obj.h"</span></td></tr>
+<tr class="codeline" data-linenumber="14"><td class="num" id="LN14">14</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="15"><td class="num" id="LN15">15</td><td class="line"><span class='directive'>#if <span class='macro'>LJ_HASJIT<span class='macro_popup'>1</span></span></span></td></tr>
+<tr class="codeline" data-linenumber="16"><td class="num" id="LN16">16</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="17"><td class="num" id="LN17">17</td><td class="line"><span class='directive'>#include "lj_gc.h"</span></td></tr>
+<tr class="codeline" data-linenumber="18"><td class="num" id="LN18">18</td><td class="line"><span class='directive'>#include "lj_str.h"</span></td></tr>
+<tr class="codeline" data-linenumber="19"><td class="num" id="LN19">19</td><td class="line"><span class='directive'>#include "lj_tab.h"</span></td></tr>
+<tr class="codeline" data-linenumber="20"><td class="num" id="LN20">20</td><td class="line"><span class='directive'>#include "lj_ir.h"</span></td></tr>
+<tr class="codeline" data-linenumber="21"><td class="num" id="LN21">21</td><td class="line"><span class='directive'>#include "lj_jit.h"</span></td></tr>
+<tr class="codeline" data-linenumber="22"><td class="num" id="LN22">22</td><td class="line"><span class='directive'>#include "lj_ircall.h"</span></td></tr>
+<tr class="codeline" data-linenumber="23"><td class="num" id="LN23">23</td><td class="line"><span class='directive'>#include "lj_iropt.h"</span></td></tr>
+<tr class="codeline" data-linenumber="24"><td class="num" id="LN24">24</td><td class="line"><span class='directive'>#include "lj_trace.h"</span></td></tr>
+<tr class="codeline" data-linenumber="25"><td class="num" id="LN25">25</td><td class="line"><span class='directive'>#if <span class='macro'>LJ_HASFFI<span class='macro_popup'>1</span></span></span></td></tr>
+<tr class="codeline" data-linenumber="26"><td class="num" id="LN26">26</td><td class="line"><span class='directive'>#include "lj_ctype.h"</span></td></tr>
+<tr class="codeline" data-linenumber="27"><td class="num" id="LN27">27</td><td class="line"><span class='directive'>#include "lj_cdata.h"</span></td></tr>
+<tr class="codeline" data-linenumber="28"><td class="num" id="LN28">28</td><td class="line"><span class='directive'>#include "lj_carith.h"</span></td></tr>
+<tr class="codeline" data-linenumber="29"><td class="num" id="LN29">29</td><td class="line"><span class='directive'>#endif</span></td></tr>
+<tr class="codeline" data-linenumber="30"><td class="num" id="LN30">30</td><td class="line"><span class='directive'>#include "lj_vm.h"</span></td></tr>
+<tr class="codeline" data-linenumber="31"><td class="num" id="LN31">31</td><td class="line"><span class='directive'>#include "lj_strscan.h"</span></td></tr>
+<tr class="codeline" data-linenumber="32"><td class="num" id="LN32">32</td><td class="line"><span class='directive'>#include "lj_lib.h"</span></td></tr>
+<tr class="codeline" data-linenumber="33"><td class="num" id="LN33">33</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="34"><td class="num" id="LN34">34</td><td class="line"><span class='comment'>/* Some local macros to save typing. Undef'd at the end. */</span></td></tr>
+<tr class="codeline" data-linenumber="35"><td class="num" id="LN35">35</td><td class="line"><span class='directive'>#define IR(ref)			(&amp;J-&gt;cur.ir[(ref)])</span></td></tr>
+<tr class="codeline" data-linenumber="36"><td class="num" id="LN36">36</td><td class="line"><span class='directive'>#define fins			(&amp;J-&gt;fold.ins)</span></td></tr>
+<tr class="codeline" data-linenumber="37"><td class="num" id="LN37">37</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="38"><td class="num" id="LN38">38</td><td class="line"><span class='comment'>/* Pass IR on to next optimization in chain (FOLD). */</span></td></tr>
+<tr class="codeline" data-linenumber="39"><td class="num" id="LN39">39</td><td class="line"><span class='directive'>#define emitir(ot, a, b)        (<span class='macro'>lj_ir_set(J, (ot), (a), (b))<span class='macro_popup'>lj_ir_set_(J, (uint16_t)((ot)), (IRRef1)((a)), (IRRef1)((b)))</span></span>, lj_opt_fold(J))</span></td></tr>
+<tr class="codeline" data-linenumber="40"><td class="num" id="LN40">40</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="41"><td class="num" id="LN41">41</td><td class="line"><span class='comment'>/* -- IR tables ----------------------------------------------------------- */</span></td></tr>
+<tr class="codeline" data-linenumber="42"><td class="num" id="LN42">42</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="43"><td class="num" id="LN43">43</td><td class="line"><span class='comment'>/* IR instruction modes. */</span></td></tr>
+<tr class="codeline" data-linenumber="44"><td class="num" id="LN44">44</td><td class="line">LJ_DATADEF <span class='keyword'>const</span> uint8_t lj_ir_mode[IR__MAX+1] = {</td></tr>
+<tr class="codeline" data-linenumber="45"><td class="num" id="LN45">45</td><td class="line"><span class='macro'>IRDEF(IRMODE)<span class='macro_popup'>(((IRMref)|((IRMref)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|((IRMref<br>)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|(0x00<br>))^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|(0x00))^0x80), (((IRMref<br>)|((IRMref)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|((IRMref)&lt;&lt;<br>2)|(0x00))^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|(0x00))^0x80<br>), (((IRMref)|((IRMref)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|(<br>(IRMref)&lt;&lt;2)|(0x10))^0x80), (((IRMref)|((IRMref)&lt;&lt;<br>2)|(0x10))^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|(0x00))^0x80<br>), (((IRMref)|((IRMref)&lt;&lt;2)|(0x60))^0x80), (((IRMnone)|<br>((IRMnone)&lt;&lt;2)|(0x00))^0x80), (((IRMlit)|((IRMlit)&lt;&lt;<br>2)|(0x00))^0x80), (((IRMlit)|((IRMnone)&lt;&lt;2)|(0x00))^0x80<br>), (((IRMnone)|((IRMnone)&lt;&lt;2)|(0x60))^0x80), (((IRMref)<br>|((IRMref)&lt;&lt;2)|(0x60))^0x80), (((IRMnone)|((IRMnone)&lt;&lt;<br>2)|(0x60))^0x80), (((IRMref)|((IRMnone)&lt;&lt;2)|(0x60))^0x80<br>), (((IRMref)|((IRMref)&lt;&lt;2)|(0x60))^0x80), (((IRMref)|(<br>(IRMlit)&lt;&lt;2)|(0x60))^0x80), (((IRMnone)|((IRMnone)&lt;&lt;<br>2)|(0x00))^0x80), (((IRMcst)|((IRMnone)&lt;&lt;2)|(0x00))^0x80<br>), (((IRMcst)|((IRMnone)&lt;&lt;2)|(0x00))^0x80), (((IRMcst)|<br>((IRMnone)&lt;&lt;2)|(0x00))^0x80), (((IRMcst)|((IRMnone)&lt;&lt;<br>2)|(0x00))^0x80), (((IRMcst)|((IRMnone)&lt;&lt;2)|(0x00))^0x80<br>), (((IRMcst)|((IRMnone)&lt;&lt;2)|(0x00))^0x80), (((IRMcst)|<br>((IRMnone)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|((IRMlit)&lt;&lt;<br>2)|(0x00))^0x80), (((IRMref)|((IRMnone)&lt;&lt;2)|(0x00))^0x80<br>), (((IRMref)|((IRMnone)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|<br>((IRMref)&lt;&lt;2)|(0x10))^0x80), (((IRMref)|((IRMref)&lt;&lt;<br>2)|(0x10))^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|(0x10))^0x80<br>), (((IRMref)|((IRMref)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|(<br>(IRMref)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|((IRMref)&lt;&lt;<br>2)|(0x00))^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|(0x00))^0x80<br>), (((IRMref)|((IRMref)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|(<br>(IRMref)&lt;&lt;2)|(0x10))^0x80), (((IRMref)|((IRMref)&lt;&lt;<br>2)|(0x00))^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|(0x10))^0x80<br>), (((IRMref)|((IRMref)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|(<br>(IRMref)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|((IRMref)&lt;&lt;<br>2)|(0x00))^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|(0x00))^0x80<br>), (((IRMref)|((IRMref)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|(<br>(IRMref)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|((IRMref)&lt;&lt;<br>2)|(0x00))^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|(0x10))^0x80<br>), (((IRMref)|((IRMref)&lt;&lt;2)|(0x10))^0x80), (((IRMref)|(<br>(IRMlit)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|((IRMref)&lt;&lt;<br>2)|((0x10|0x80)))^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|((0x00<br>|0x80)))^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|((0x10|0x80)))<br>^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|(0x00))^0x80), (((IRMref<br>)|((IRMref)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|((IRMref)&lt;&lt;<br>2)|(0x40))^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|(0x60))^0x80<br>), (((IRMref)|((IRMlit)&lt;&lt;2)|((0x40|0x80)))^0x80), (((IRMref<br>)|((IRMlit)&lt;&lt;2)|((0x40|0x80)))^0x80), (((IRMref)|((IRMlit<br>)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|(0x00<br>))^0x80), (((IRMref)|((IRMnone)&lt;&lt;2)|(0x40))^0x80), (((IRMref<br>)|((IRMnone)&lt;&lt;2)|(0x40))^0x80), (((IRMref)|((IRMnone)&lt;&lt;<br>2)|(0x40))^0x80), (((IRMref)|((IRMlit)&lt;&lt;2)|(0x40))^0x80<br>), (((IRMref)|((IRMlit)&lt;&lt;2)|(0x40))^0x80), (((IRMlit)|(<br>(IRMlit)&lt;&lt;2)|(0x40))^0x80), (((IRMref)|((IRMnone)&lt;&lt;<br>2)|(0x40))^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|(0x60))^0x80<br>), (((IRMref)|((IRMref)&lt;&lt;2)|(0x60))^0x80), (((IRMref)|(<br>(IRMref)&lt;&lt;2)|(0x60))^0x80), (((IRMref)|((IRMref)&lt;&lt;<br>2)|(0x60))^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|(0x60))^0x80<br>), (((IRMref)|((IRMref)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|(<br>(IRMref)&lt;&lt;2)|(0x20))^0x80), (((IRMlit)|((IRMlit)&lt;&lt;<br>2)|((0x20|0x80)))^0x80), (((IRMref)|((IRMnone)&lt;&lt;2)|((0x20<br>|0x80)))^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|((0x20|0x80)))<br>^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|((0x00|0x80)))^0x80), (<br>((IRMref)|((IRMnone)&lt;&lt;2)|(0x60))^0x80), (((IRMref)|((IRMref<br>)&lt;&lt;2)|(0x60))^0x80), (((IRMnone)|((IRMnone)&lt;&lt;2)|(<br>0x60))^0x80), (((IRMref)|((IRMlit)&lt;&lt;2)|((0x00|0x80)))^0x80<br>), (((IRMref)|((IRMref)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|(<br>(IRMnone)&lt;&lt;2)|(0x00))^0x80), (((IRMref)|((IRMnone)&lt;&lt;<br>2)|(0x00))^0x80), (((IRMref)|((IRMlit)&lt;&lt;2)|(0x00))^0x80<br>), (((IRMref)|((IRMlit)&lt;&lt;2)|(0x40))^0x80), (((IRMref)|(<br>(IRMlit)&lt;&lt;2)|(0x60))^0x80), (((IRMref)|((IRMref)&lt;&lt;<br>2)|(0x60))^0x80), (((IRMref)|((IRMref)&lt;&lt;2)|(0x00))^0x80<br>),</span></span></td></tr>
+<tr class="codeline" data-linenumber="46"><td class="num" id="LN46">46</td><td class="line">  0</td></tr>
+<tr class="codeline" data-linenumber="47"><td class="num" id="LN47">47</td><td class="line">};</td></tr>
+<tr class="codeline" data-linenumber="48"><td class="num" id="LN48">48</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="49"><td class="num" id="LN49">49</td><td class="line"><span class='comment'>/* IR type sizes. */</span></td></tr>
+<tr class="codeline" data-linenumber="50"><td class="num" id="LN50">50</td><td class="line">LJ_DATADEF <span class='keyword'>const</span> uint8_t lj_ir_type_size[IRT__MAX+1] = {</td></tr>
+<tr class="codeline" data-linenumber="51"><td class="num" id="LN51">51</td><td class="line"><span class='directive'>#define IRTSIZE(name, size)	size,</span></td></tr>
+<tr class="codeline" data-linenumber="52"><td class="num" id="LN52">52</td><td class="line"><span class='macro'>IRTDEF(IRTSIZE)<span class='macro_popup'>IRTSIZE(NIL, 4) IRTSIZE(FALSE, 4) IRTSIZE(TRUE, 4) IRTSIZE(LIGHTUD<br>, 1 ? 8 : 4) IRTSIZE(STR, 4) IRTSIZE(P32, 4) IRTSIZE(THREAD, 4<br>) IRTSIZE(PROTO, 4) IRTSIZE(FUNC, 4) IRTSIZE(P64, 8) IRTSIZE(<br>CDATA, 4) IRTSIZE(TAB, 4) IRTSIZE(UDATA, 4) IRTSIZE(FLOAT, 4)<br> IRTSIZE(NUM, 8) IRTSIZE(I8, 1) IRTSIZE(U8, 1) IRTSIZE(I16, 2<br>) IRTSIZE(U16, 2) IRTSIZE(INT, 4) IRTSIZE(U32, 4) IRTSIZE(I64<br>, 8) IRTSIZE(U64, 8) IRTSIZE(SOFTFP, 4)</span></span></td></tr>
+<tr class="codeline" data-linenumber="53"><td class="num" id="LN53">53</td><td class="line"><span class='directive'>#undef IRTSIZE</span></td></tr>
+<tr class="codeline" data-linenumber="54"><td class="num" id="LN54">54</td><td class="line">  0</td></tr>
+<tr class="codeline" data-linenumber="55"><td class="num" id="LN55">55</td><td class="line">};</td></tr>
+<tr class="codeline" data-linenumber="56"><td class="num" id="LN56">56</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="57"><td class="num" id="LN57">57</td><td class="line"><span class='comment'>/* C call info for CALL* instructions. */</span></td></tr>
+<tr class="codeline" data-linenumber="58"><td class="num" id="LN58">58</td><td class="line">LJ_DATADEF <span class='keyword'>const</span> CCallInfo lj_ir_callinfo[] = {</td></tr>
+<tr class="codeline" data-linenumber="59"><td class="num" id="LN59">59</td><td class="line"><span class='directive'>#define IRCALLCI(cond, name, nargs, kind, type, flags) \</span></td></tr>
+<tr class="codeline" data-linenumber="60"><td class="num" id="LN60">60</td><td class="line">  <span class='directive'>{ (ASMFunction)IRCALLCOND_##cond(name), \</span></td></tr>
+<tr class="codeline" data-linenumber="61"><td class="num" id="LN61">61</td><td class="line">    <span class='directive'>(nargs)|(CCI_CALL_##kind)|(IRT_##type&lt;&lt;<span class='macro'>CCI_OTSHIFT<span class='macro_popup'>16</span></span>)|(flags) },</span></td></tr>
+<tr class="codeline" data-linenumber="62"><td class="num" id="LN62">62</td><td class="line"><span class='macro'>IRCALLDEF(IRCALLCI)<span class='macro_popup'>IRCALLCI(ANY, lj_str_cmp, 2, FN, INT, 0x0400) IRCALLCI(ANY, lj_str_new<br>, 3, S, STR, 0x0100) IRCALLCI(ANY, lj_strscan_num, 2, FN, INT<br>, 0) IRCALLCI(ANY, lj_str_fromint, 2, FN, STR, 0x0100) IRCALLCI<br>(ANY, lj_str_fromnum, 2, FN, STR, 0x0100) IRCALLCI(ANY, lj_tab_new1<br>, 2, FS, TAB, 0x0100) IRCALLCI(ANY, lj_tab_dup, 2, FS, TAB, 0x0100<br>) IRCALLCI(ANY, lj_tab_newkey, 3, S, P32, 0x0100) IRCALLCI(ANY<br>, lj_tab_len, 1, FL, INT, 0) IRCALLCI(ANY, lj_gc_step_jit, 2,<br> FS, NIL, 0x0100) IRCALLCI(ANY, lj_gc_barrieruv, 2, FS, NIL, 0<br>) IRCALLCI(ANY, lj_mem_newgco, 2, FS, P32, 0x0100) IRCALLCI(ANY<br>, lj_math_random_step, 1, FS, NUM, 0x0200|0x0400) IRCALLCI(ANY<br>, lj_vm_modi, 2, FN, INT, 0) IRCALLCI(ANY, sinh, 1, N, NUM, 0<br>) IRCALLCI(ANY, cosh, 1, N, NUM, 0) IRCALLCI(ANY, tanh, 1, N,<br> NUM, 0) IRCALLCI(ANY, fputc, 2, S, INT, 0) IRCALLCI(ANY, fwrite<br>, 4, S, INT, 0) IRCALLCI(ANY, fflush, 1, S, INT, 0) IRCALLCI(<br>FPMATH, floor, 1, N, NUM, 0) IRCALLCI(FPMATH, ceil, 1, N, NUM<br>, 0) IRCALLCI(FPMATH, lj_vm_trunc, 1, N, NUM, 0) IRCALLCI(FPMATH<br>, sqrt, 1, N, NUM, 0) IRCALLCI(FPMATH, exp, 1, N, NUM, 0) IRCALLCI<br>(FPMATH, lj_vm_exp2, 1, N, NUM, 0) IRCALLCI(FPMATH, log, 1, N<br>, NUM, 0) IRCALLCI(FPMATH, lj_vm_log2, 1, N, NUM, 0) IRCALLCI<br>(FPMATH, log10, 1, N, NUM, 0) IRCALLCI(FPMATH, sin, 1, N, NUM<br>, 0) IRCALLCI(FPMATH, cos, 1, N, NUM, 0) IRCALLCI(FPMATH, tan<br>, 1, N, NUM, 0) IRCALLCI(FPMATH, lj_vm_powi, 1 +1, N, NUM, 0)<br> IRCALLCI(FPMATH, pow, 1*2, N, NUM, 0) IRCALLCI(FPMATH, atan2<br>, 1*2, N, NUM, 0) IRCALLCI(FPMATH, ldexp, 1 +1, N, NUM, 0) IRCALLCI<br>(SOFTFP, lj_vm_tobit, 2, N, INT, 0) IRCALLCI(SOFTFP, softfp_add<br>, 4, N, NUM, 0) IRCALLCI(SOFTFP, softfp_sub, 4, N, NUM, 0) IRCALLCI<br>(SOFTFP, softfp_mul, 4, N, NUM, 0) IRCALLCI(SOFTFP, softfp_div<br>, 4, N, NUM, 0) IRCALLCI(SOFTFP, softfp_cmp, 4, N, NIL, 0) IRCALLCI<br>(SOFTFP, softfp_i2d, 1, N, NUM, 0) IRCALLCI(SOFTFP, softfp_d2i<br>, 2, N, INT, 0) IRCALLCI(SOFTFP_FFI, softfp_ui2d, 1, N, NUM, 0<br>) IRCALLCI(SOFTFP_FFI, softfp_f2d, 1, N, NUM, 0) IRCALLCI(SOFTFP_FFI<br>, softfp_d2ui, 2, N, INT, 0) IRCALLCI(SOFTFP_FFI, softfp_d2f,<br> 2, N, FLOAT, 0) IRCALLCI(SOFTFP_FFI, softfp_i2f, 1, N, FLOAT<br>, 0) IRCALLCI(SOFTFP_FFI, softfp_ui2f, 1, N, FLOAT, 0) IRCALLCI<br>(SOFTFP_FFI, softfp_f2i, 1, N, INT, 0) IRCALLCI(SOFTFP_FFI, softfp_f2ui<br>, 1, N, INT, 0) IRCALLCI(FP64_FFI, fp64_l2d, 2, N, NUM, 0) IRCALLCI<br>(FP64_FFI, fp64_ul2d, 2, N, NUM, 0) IRCALLCI(FP64_FFI, fp64_l2f<br>, 2, N, FLOAT, 0) IRCALLCI(FP64_FFI, fp64_ul2f, 2, N, FLOAT, 0<br>) IRCALLCI(FP64_FFI, fp64_d2l, 1, N, I64, 0) IRCALLCI(FP64_FFI<br>, fp64_d2ul, 1, N, U64, 0) IRCALLCI(FP64_FFI, fp64_f2l, 1, N,<br> I64, 0) IRCALLCI(FP64_FFI, fp64_f2ul, 1, N, U64, 0) IRCALLCI<br>(FFI, lj_carith_divi64, 2, N, I64, 0x0400) IRCALLCI(FFI, lj_carith_divu64<br>, 2, N, U64, 0x0400) IRCALLCI(FFI, lj_carith_modi64, 2, N, I64<br>, 0x0400) IRCALLCI(FFI, lj_carith_modu64, 2, N, U64, 0x0400) IRCALLCI<br>(FFI, lj_carith_powi64, 2, N, I64, 0x0400) IRCALLCI(FFI, lj_carith_powu64<br>, 2, N, U64, 0x0400) IRCALLCI(FFI, lj_cdata_setfin, 2, FN, P32<br>, 0x0100) IRCALLCI(FFI, strlen, 1, L, INTP, 0) IRCALLCI(FFI, memcpy<br>, 3, S, PTR, 0) IRCALLCI(FFI, memset, 3, S, PTR, 0) IRCALLCI(<br>FFI, lj_vm_errno, 0, S, INT, 0x0400) IRCALLCI(FFI32, lj_carith_mul64<br>, 2, N, I64, 0x0400)</span></span></td></tr>
+<tr class="codeline" data-linenumber="63"><td class="num" id="LN63">63</td><td class="line"><span class='directive'>#undef IRCALLCI</span></td></tr>
+<tr class="codeline" data-linenumber="64"><td class="num" id="LN64">64</td><td class="line">  { <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>, 0 }</td></tr>
+<tr class="codeline" data-linenumber="65"><td class="num" id="LN65">65</td><td class="line">};</td></tr>
+<tr class="codeline" data-linenumber="66"><td class="num" id="LN66">66</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="67"><td class="num" id="LN67">67</td><td class="line"><span class='comment'>/* -- IR emitter ---------------------------------------------------------- */</span></td></tr>
+<tr class="codeline" data-linenumber="68"><td class="num" id="LN68">68</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="69"><td class="num" id="LN69">69</td><td class="line"><span class='comment'>/* Grow IR buffer at the top. */</span></td></tr>
+<tr class="codeline" data-linenumber="70"><td class="num" id="LN70">70</td><td class="line"><span class='keyword'>void</span> LJ_FASTCALL lj_ir_growtop(jit_State *J)</td></tr>
+<tr class="codeline" data-linenumber="71"><td class="num" id="LN71">71</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="72"><td class="num" id="LN72">72</td><td class="line">  IRIns *baseir = J-&gt;irbuf + J-&gt;irbotlim;</td></tr>
+<tr class="codeline" data-linenumber="73"><td class="num" id="LN73">73</td><td class="line">  MSize szins = J-&gt;irtoplim - J-&gt;irbotlim;</td></tr>
+<tr class="codeline" data-linenumber="74"><td class="num" id="LN74">74</td><td class="line">  <span class='keyword'>if</span> (szins) {</td></tr>
+<tr class="codeline" data-linenumber="75"><td class="num" id="LN75">75</td><td class="line">    baseir = (IRIns *)lj_mem_realloc(J-&gt;L, baseir, szins*<span class='keyword'>sizeof</span>(IRIns),</td></tr>
+<tr class="codeline" data-linenumber="76"><td class="num" id="LN76">76</td><td class="line">				     2*szins*<span class='keyword'>sizeof</span>(IRIns));</td></tr>
+<tr class="codeline" data-linenumber="77"><td class="num" id="LN77">77</td><td class="line">    J-&gt;irtoplim = J-&gt;irbotlim + 2*szins;</td></tr>
+<tr class="codeline" data-linenumber="78"><td class="num" id="LN78">78</td><td class="line">  } <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="79"><td class="num" id="LN79">79</td><td class="line">    baseir = (IRIns *)lj_mem_realloc(J-&gt;L, <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>, 0, <span class='macro'>LJ_MIN_IRSZ<span class='macro_popup'>32</span></span>*<span class='keyword'>sizeof</span>(IRIns));</td></tr>
+<tr class="codeline" data-linenumber="80"><td class="num" id="LN80">80</td><td class="line">    J-&gt;irbotlim = REF_BASE - <span class='macro'>LJ_MIN_IRSZ<span class='macro_popup'>32</span></span>/4;</td></tr>
+<tr class="codeline" data-linenumber="81"><td class="num" id="LN81">81</td><td class="line">    J-&gt;irtoplim = J-&gt;irbotlim + <span class='macro'>LJ_MIN_IRSZ<span class='macro_popup'>32</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="82"><td class="num" id="LN82">82</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="83"><td class="num" id="LN83">83</td><td class="line">  J-&gt;cur.ir = J-&gt;irbuf = baseir - J-&gt;irbotlim;</td></tr>
+<tr class="codeline" data-linenumber="84"><td class="num" id="LN84">84</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="85"><td class="num" id="LN85">85</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="86"><td class="num" id="LN86">86</td><td class="line"><span class='comment'>/* Grow IR buffer at the bottom or shift it up. */</span></td></tr>
+<tr class="codeline" data-linenumber="87"><td class="num" id="LN87">87</td><td class="line"><span class='keyword'>static</span> <span class='keyword'>void</span> lj_ir_growbot(jit_State *J)</td></tr>
+<tr class="codeline" data-linenumber="88"><td class="num" id="LN88">88</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="89"><td class="num" id="LN89">89</td><td class="line">  IRIns *baseir = J-&gt;irbuf + J-&gt;irbotlim;</td></tr>
+<tr class="codeline" data-linenumber="90"><td class="num" id="LN90">90</td><td class="line">  MSize szins = J-&gt;irtoplim - J-&gt;irbotlim;</td></tr>
+<tr class="codeline" data-linenumber="91"><td class="num" id="LN91">91</td><td class="line">  <span class='macro'>lua_assert(szins != 0)<span class='macro_popup'>((void)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="92"><td class="num" id="LN92">92</td><td class="line">  <span class='macro'>lua_assert(J-&gt;cur.nk == J-&gt;irbotlim)<span class='macro_popup'>((void)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="93"><td class="num" id="LN93">93</td><td class="line">  <span class='keyword'>if</span> (J-&gt;cur.nins + (szins &gt;&gt; 1) &lt; J-&gt;irtoplim) {</td></tr>
+<tr class="codeline" data-linenumber="94"><td class="num" id="LN94">94</td><td class="line">    <span class='comment'>/* More than half of the buffer is free on top: shift up by a quarter. */</span></td></tr>
+<tr class="codeline" data-linenumber="95"><td class="num" id="LN95">95</td><td class="line">    MSize ofs = szins &gt;&gt; 2;</td></tr>
+<tr class="codeline" data-linenumber="96"><td class="num" id="LN96">96</td><td class="line">    memmove(baseir + ofs, baseir, (J-&gt;cur.nins - J-&gt;irbotlim)*<span class='keyword'>sizeof</span>(IRIns));</td></tr>
+<tr class="codeline" data-linenumber="97"><td class="num" id="LN97">97</td><td class="line">    J-&gt;irbotlim -= ofs;</td></tr>
+<tr class="codeline" data-linenumber="98"><td class="num" id="LN98">98</td><td class="line">    J-&gt;irtoplim -= ofs;</td></tr>
+<tr class="codeline" data-linenumber="99"><td class="num" id="LN99">99</td><td class="line">    J-&gt;cur.ir = J-&gt;irbuf = baseir - J-&gt;irbotlim;</td></tr>
+<tr class="codeline" data-linenumber="100"><td class="num" id="LN100">100</td><td class="line">  } <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="101"><td class="num" id="LN101">101</td><td class="line">    <span class='comment'>/* Double the buffer size, but split the growth amongst top/bottom. */</span></td></tr>
+<tr class="codeline" data-linenumber="102"><td class="num" id="LN102">102</td><td class="line">    IRIns *newbase = <span class='macro'>lj_mem_newt(J-&gt;L, 2*szins*<span class='keyword'>sizeof</span>(IRIns), IRIns)<span class='macro_popup'>((IRIns *)lj_mem_realloc(J-&gt;L, ((void*)0), 0, ((2*szins*sizeof<br>(IRIns)))))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="103"><td class="num" id="LN103">103</td><td class="line">    MSize ofs = szins &gt;= 256 ? 128 : (szins &gt;&gt; 1);  <span class='comment'>/* Limit bottom growth. */</span></td></tr>
+<tr class="codeline" data-linenumber="104"><td class="num" id="LN104">104</td><td class="line">    <span class="mrange">memcpy</span>(newbase + ofs, baseir, (J-&gt;cur.nins - J-&gt;irbotlim)*<span class='keyword'>sizeof</span>(IRIns));</td></tr>
+<tr><td class="num"></td><td class="line"><div id="EndPath" class="msg msgEvent" style="margin-left:5ex; max-width:58em">Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11</div></td></tr>
+<tr class="codeline" data-linenumber="105"><td class="num" id="LN105">105</td><td class="line">    lj_mem_free(<span class='macro'>G(J-&gt;L)<span class='macro_popup'>(((global_State *)(void *)(uintptr_t)(J-&gt;L-&gt;glref).ptr32<br>))</span></span>, baseir, szins*<span class='keyword'>sizeof</span>(IRIns));</td></tr>
+<tr class="codeline" data-linenumber="106"><td class="num" id="LN106">106</td><td class="line">    J-&gt;irbotlim -= ofs;</td></tr>
+<tr class="codeline" data-linenumber="107"><td class="num" id="LN107">107</td><td class="line">    J-&gt;irtoplim = J-&gt;irbotlim + 2*szins;</td></tr>
+<tr class="codeline" data-linenumber="108"><td class="num" id="LN108">108</td><td class="line">    J-&gt;cur.ir = J-&gt;irbuf = newbase - J-&gt;irbotlim;</td></tr>
+<tr class="codeline" data-linenumber="109"><td class="num" id="LN109">109</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="110"><td class="num" id="LN110">110</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="111"><td class="num" id="LN111">111</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="112"><td class="num" id="LN112">112</td><td class="line"><span class='comment'>/* Emit IR without any optimizations. */</span></td></tr>
+<tr class="codeline" data-linenumber="113"><td class="num" id="LN113">113</td><td class="line">TRef LJ_FASTCALL lj_ir_emit(jit_State *J)</td></tr>
+<tr class="codeline" data-linenumber="114"><td class="num" id="LN114">114</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="115"><td class="num" id="LN115">115</td><td class="line">  IRRef ref = lj_ir_nextins(J);</td></tr>
+<tr class="codeline" data-linenumber="116"><td class="num" id="LN116">116</td><td class="line">  IRIns *ir = IR(ref);</td></tr>
+<tr class="codeline" data-linenumber="117"><td class="num" id="LN117">117</td><td class="line">  IROp op = fins-&gt;o;</td></tr>
+<tr class="codeline" data-linenumber="118"><td class="num" id="LN118">118</td><td class="line">  ir-&gt;prev = J-&gt;chain[op];</td></tr>
+<tr class="codeline" data-linenumber="119"><td class="num" id="LN119">119</td><td class="line">  J-&gt;chain[op] = (IRRef1)ref;</td></tr>
+<tr class="codeline" data-linenumber="120"><td class="num" id="LN120">120</td><td class="line">  ir-&gt;o = op;</td></tr>
+<tr class="codeline" data-linenumber="121"><td class="num" id="LN121">121</td><td class="line">  ir-&gt;op1 = fins-&gt;op1;</td></tr>
+<tr class="codeline" data-linenumber="122"><td class="num" id="LN122">122</td><td class="line">  ir-&gt;op2 = fins-&gt;op2;</td></tr>
+<tr class="codeline" data-linenumber="123"><td class="num" id="LN123">123</td><td class="line">  J-&gt;guardemit.irt |= fins-&gt;t.irt;</td></tr>
+<tr class="codeline" data-linenumber="124"><td class="num" id="LN124">124</td><td class="line">  <span class='keyword'>return</span> <span class='macro'>TREF(ref, irt_t((ir-&gt;t = fins-&gt;t)))<span class='macro_popup'>((TRef)((ref) + ((((IRType)((ir-&gt;t = fins-&gt;t)).irt))&lt;&lt;<br>24)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="125"><td class="num" id="LN125">125</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="126"><td class="num" id="LN126">126</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="127"><td class="num" id="LN127">127</td><td class="line"><span class='comment'>/* Emit call to a C function. */</span></td></tr>
+<tr class="codeline" data-linenumber="128"><td class="num" id="LN128">128</td><td class="line">TRef lj_ir_call(jit_State *J, IRCallID id, ...)</td></tr>
+<tr class="codeline" data-linenumber="129"><td class="num" id="LN129">129</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="130"><td class="num" id="LN130">130</td><td class="line">  <span class='keyword'>const</span> CCallInfo *ci = &amp;lj_ir_callinfo[id];</td></tr>
+<tr class="codeline" data-linenumber="131"><td class="num" id="LN131">131</td><td class="line">  uint32_t n = <span class='macro'>CCI_NARGS(ci)<span class='macro_popup'>((ci)-&gt;flags &amp; 0xff)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="132"><td class="num" id="LN132">132</td><td class="line">  TRef tr = <span class='macro'>TREF_NIL<span class='macro_popup'>((((TRef)((REF_NIL-(IRT_NIL)) + (((IRT_NIL))&lt;&lt;24)))))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="133"><td class="num" id="LN133">133</td><td class="line">  va_list argp;</td></tr>
+<tr class="codeline" data-linenumber="134"><td class="num" id="LN134">134</td><td class="line">  <span class='macro'>va_start(argp, id)<span class='macro_popup'>__builtin_va_start(argp, id)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="135"><td class="num" id="LN135">135</td><td class="line">  <span class='keyword'>if</span> ((ci-&gt;flags &amp; <span class='macro'>CCI_L<span class='macro_popup'>0x0100</span></span>)) n--;</td></tr>
+<tr class="codeline" data-linenumber="136"><td class="num" id="LN136">136</td><td class="line">  <span class='keyword'>if</span> (n &gt; 0)</td></tr>
+<tr class="codeline" data-linenumber="137"><td class="num" id="LN137">137</td><td class="line">    tr = <span class='macro'>va_arg(argp, IRRef)<span class='macro_popup'>__builtin_va_arg(argp, IRRef)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="138"><td class="num" id="LN138">138</td><td class="line">  <span class='keyword'>while</span> (n-- &gt; 1)</td></tr>
+<tr class="codeline" data-linenumber="139"><td class="num" id="LN139">139</td><td class="line">    tr = emitir(<span class='macro'>IRT(IR_CARG, IRT_NIL)<span class='macro_popup'>((uint32_t)(((IR_CARG)&lt;&lt;8) | (IRT_NIL)))</span></span>, tr, <span class='macro'>va_arg(argp, IRRef)<span class='macro_popup'>__builtin_va_arg(argp, IRRef)</span></span>);</td></tr>
+<tr class="codeline" data-linenumber="140"><td class="num" id="LN140">140</td><td class="line">  <span class='macro'>va_end(argp)<span class='macro_popup'>__builtin_va_end(argp)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="141"><td class="num" id="LN141">141</td><td class="line">  <span class='keyword'>if</span> (<span class='macro'>CCI_OP(ci)<span class='macro_popup'>((ci)-&gt;flags &gt;&gt; 24)</span></span> == IR_CALLS)</td></tr>
+<tr class="codeline" data-linenumber="142"><td class="num" id="LN142">142</td><td class="line">    J-&gt;needsnap = 1;  <span class='comment'>/* Need snapshot after call with side effect. */</span></td></tr>
+<tr class="codeline" data-linenumber="143"><td class="num" id="LN143">143</td><td class="line">  <span class='keyword'>return</span> emitir(<span class='macro'>CCI_OPTYPE(ci)<span class='macro_popup'>((ci)-&gt;flags &gt;&gt; 16)</span></span>, tr, id);</td></tr>
+<tr class="codeline" data-linenumber="144"><td class="num" id="LN144">144</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="145"><td class="num" id="LN145">145</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="146"><td class="num" id="LN146">146</td><td class="line"><span class='comment'>/* -- Interning of constants ---------------------------------------------- */</span></td></tr>
+<tr class="codeline" data-linenumber="147"><td class="num" id="LN147">147</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="148"><td class="num" id="LN148">148</td><td class="line"><span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="149"><td class="num" id="LN149">149</td><td class="line"><span class='comment'>** IR instructions for constants are kept between J-&gt;cur.nk &gt;= ref &lt; REF_BIAS.</span></td></tr>
+<tr class="codeline" data-linenumber="150"><td class="num" id="LN150">150</td><td class="line"><span class='comment'>** They are chained like all other instructions, but grow downwards.</span></td></tr>
+<tr class="codeline" data-linenumber="151"><td class="num" id="LN151">151</td><td class="line"><span class='comment'>** The are interned (like strings in the VM) to facilitate reference</span></td></tr>
+<tr class="codeline" data-linenumber="152"><td class="num" id="LN152">152</td><td class="line"><span class='comment'>** comparisons. The same constant must get the same reference.</span></td></tr>
+<tr class="codeline" data-linenumber="153"><td class="num" id="LN153">153</td><td class="line"><span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="154"><td class="num" id="LN154">154</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="155"><td class="num" id="LN155">155</td><td class="line"><span class='comment'>/* Get ref of next IR constant and optionally grow IR.</span></td></tr>
+<tr class="codeline" data-linenumber="156"><td class="num" id="LN156">156</td><td class="line"><span class='comment'>** Note: this may invalidate all IRIns *!</span></td></tr>
+<tr class="codeline" data-linenumber="157"><td class="num" id="LN157">157</td><td class="line"><span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="158"><td class="num" id="LN158">158</td><td class="line"><span class='keyword'>static</span> <span class='macro'>LJ_AINLINE<span class='macro_popup'>inline __attribute__((always_inline))</span></span> IRRef ir_nextk(jit_State *J)</td></tr>
+<tr class="codeline" data-linenumber="159"><td class="num" id="LN159">159</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="160"><td class="num" id="LN160">160</td><td class="line">  IRRef ref = J-&gt;cur.nk;</td></tr>
+<tr class="codeline" data-linenumber="161"><td class="num" id="LN161">161</td><td class="line">  <span class='keyword'>if</span> (<span class='macro'>LJ_UNLIKELY(ref &lt;= J-&gt;irbotlim)<span class='macro_popup'>__builtin_expect(!!(ref &lt;= J-&gt;irbotlim), 0)</span></span>) lj_ir_growbot(J);</td></tr>
+<tr class="codeline" data-linenumber="162"><td class="num" id="LN162">162</td><td class="line">  J-&gt;cur.nk = --ref;</td></tr>
+<tr class="codeline" data-linenumber="163"><td class="num" id="LN163">163</td><td class="line">  <span class='keyword'>return</span> ref;</td></tr>
+<tr class="codeline" data-linenumber="164"><td class="num" id="LN164">164</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="165"><td class="num" id="LN165">165</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="166"><td class="num" id="LN166">166</td><td class="line"><span class='comment'>/* Intern int32_t constant. */</span></td></tr>
+<tr class="codeline" data-linenumber="167"><td class="num" id="LN167">167</td><td class="line">TRef LJ_FASTCALL lj_ir_kint(jit_State *J, int32_t k)</td></tr>
+<tr class="codeline" data-linenumber="168"><td class="num" id="LN168">168</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="169"><td class="num" id="LN169">169</td><td class="line">  IRIns *ir, *cir = J-&gt;cur.ir;</td></tr>
+<tr class="codeline" data-linenumber="170"><td class="num" id="LN170">170</td><td class="line">  IRRef ref;</td></tr>
+<tr class="codeline" data-linenumber="171"><td class="num" id="LN171">171</td><td class="line">  <span class='keyword'>for</span> (ref = J-&gt;chain[IR_KINT]; ref; ref = cir[ref].prev)</td></tr>
+<tr class="codeline" data-linenumber="172"><td class="num" id="LN172">172</td><td class="line">    <span class='keyword'>if</span> (cir[ref].i == k)</td></tr>
+<tr class="codeline" data-linenumber="173"><td class="num" id="LN173">173</td><td class="line">      <span class='keyword'>goto</span> found;</td></tr>
+<tr class="codeline" data-linenumber="174"><td class="num" id="LN174">174</td><td class="line">  ref = ir_nextk(J);</td></tr>
+<tr class="codeline" data-linenumber="175"><td class="num" id="LN175">175</td><td class="line">  ir = IR(ref);</td></tr>
+<tr class="codeline" data-linenumber="176"><td class="num" id="LN176">176</td><td class="line">  ir-&gt;i = k;</td></tr>
+<tr class="codeline" data-linenumber="177"><td class="num" id="LN177">177</td><td class="line">  ir-&gt;t.irt = IRT_INT;</td></tr>
+<tr class="codeline" data-linenumber="178"><td class="num" id="LN178">178</td><td class="line">  ir-&gt;o = IR_KINT;</td></tr>
+<tr class="codeline" data-linenumber="179"><td class="num" id="LN179">179</td><td class="line">  ir-&gt;prev = J-&gt;chain[IR_KINT];</td></tr>
+<tr class="codeline" data-linenumber="180"><td class="num" id="LN180">180</td><td class="line">  J-&gt;chain[IR_KINT] = (IRRef1)ref;</td></tr>
+<tr class="codeline" data-linenumber="181"><td class="num" id="LN181">181</td><td class="line">found:</td></tr>
+<tr class="codeline" data-linenumber="182"><td class="num" id="LN182">182</td><td class="line">  <span class='keyword'>return</span> <span class='macro'>TREF(ref, IRT_INT)<span class='macro_popup'>((TRef)((ref) + ((IRT_INT)&lt;&lt;24)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="183"><td class="num" id="LN183">183</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="184"><td class="num" id="LN184">184</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="185"><td class="num" id="LN185">185</td><td class="line"><span class='comment'>/* The MRef inside the KNUM/KINT64 IR instructions holds the address of the</span></td></tr>
+<tr class="codeline" data-linenumber="186"><td class="num" id="LN186">186</td><td class="line"><span class='comment'>** 64 bit constant. The constants themselves are stored in a chained array</span></td></tr>
+<tr class="codeline" data-linenumber="187"><td class="num" id="LN187">187</td><td class="line"><span class='comment'>** and shared across traces.</span></td></tr>
+<tr class="codeline" data-linenumber="188"><td class="num" id="LN188">188</td><td class="line"><span class='comment'>**</span></td></tr>
+<tr class="codeline" data-linenumber="189"><td class="num" id="LN189">189</td><td class="line"><span class='comment'>** Rationale for choosing this data structure:</span></td></tr>
+<tr class="codeline" data-linenumber="190"><td class="num" id="LN190">190</td><td class="line"><span class='comment'>** - The address of the constants is embedded in the generated machine code</span></td></tr>
+<tr class="codeline" data-linenumber="191"><td class="num" id="LN191">191</td><td class="line"><span class='comment'>**   and must never move. A resizable array or hash table wouldn't work.</span></td></tr>
+<tr class="codeline" data-linenumber="192"><td class="num" id="LN192">192</td><td class="line"><span class='comment'>** - Most apps need very few non-32 bit integer constants (less than a dozen).</span></td></tr>
+<tr class="codeline" data-linenumber="193"><td class="num" id="LN193">193</td><td class="line"><span class='comment'>** - Linear search is hard to beat in terms of speed and low complexity.</span></td></tr>
+<tr class="codeline" data-linenumber="194"><td class="num" id="LN194">194</td><td class="line"><span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="195"><td class="num" id="LN195">195</td><td class="line"><span class='keyword'>typedef</span> <span class='keyword'>struct</span> K64Array {</td></tr>
+<tr class="codeline" data-linenumber="196"><td class="num" id="LN196">196</td><td class="line">  MRef next;			<span class='comment'>/* Pointer to next list. */</span></td></tr>
+<tr class="codeline" data-linenumber="197"><td class="num" id="LN197">197</td><td class="line">  MSize numk;			<span class='comment'>/* Number of used elements in this array. */</span></td></tr>
+<tr class="codeline" data-linenumber="198"><td class="num" id="LN198">198</td><td class="line">  TValue k[<span class='macro'>LJ_MIN_K64SZ<span class='macro_popup'>16</span></span>];	<span class='comment'>/* Array of constants. */</span></td></tr>
+<tr class="codeline" data-linenumber="199"><td class="num" id="LN199">199</td><td class="line">} K64Array;</td></tr>
+<tr class="codeline" data-linenumber="200"><td class="num" id="LN200">200</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="201"><td class="num" id="LN201">201</td><td class="line"><span class='comment'>/* Free all chained arrays. */</span></td></tr>
+<tr class="codeline" data-linenumber="202"><td class="num" id="LN202">202</td><td class="line"><span class='keyword'>void</span> lj_ir_k64_freeall(jit_State *J)</td></tr>
+<tr class="codeline" data-linenumber="203"><td class="num" id="LN203">203</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="204"><td class="num" id="LN204">204</td><td class="line">  K64Array *k;</td></tr>
+<tr class="codeline" data-linenumber="205"><td class="num" id="LN205">205</td><td class="line">  <span class='keyword'>for</span> (k = <span class='macro'>mref(J-&gt;k64, K64Array)<span class='macro_popup'>((K64Array *)(void *)(uintptr_t)(J-&gt;k64).ptr32)</span></span>; k; ) {</td></tr>
+<tr class="codeline" data-linenumber="206"><td class="num" id="LN206">206</td><td class="line">    K64Array *next = <span class='macro'>mref(k-&gt;next, K64Array)<span class='macro_popup'>((K64Array *)(void *)(uintptr_t)(k-&gt;next).ptr32)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="207"><td class="num" id="LN207">207</td><td class="line">    lj_mem_free(<span class='macro'>J2G(J)<span class='macro_popup'>(&amp;((GG_State *)((char *)(J) - ((int)__builtin_offsetof(GG_State<br>, J))))-&gt;g)</span></span>, k, <span class='keyword'>sizeof</span>(K64Array));</td></tr>
+<tr class="codeline" data-linenumber="208"><td class="num" id="LN208">208</td><td class="line">    k = next;</td></tr>
+<tr class="codeline" data-linenumber="209"><td class="num" id="LN209">209</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="210"><td class="num" id="LN210">210</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="211"><td class="num" id="LN211">211</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="212"><td class="num" id="LN212">212</td><td class="line"><span class='comment'>/* Find 64 bit constant in chained array or add it. */</span></td></tr>
+<tr class="codeline" data-linenumber="213"><td class="num" id="LN213">213</td><td class="line">cTValue *lj_ir_k64_find(jit_State *J, uint64_t u64)</td></tr>
+<tr class="codeline" data-linenumber="214"><td class="num" id="LN214">214</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="215"><td class="num" id="LN215">215</td><td class="line">  K64Array *k, *kp = <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="216"><td class="num" id="LN216">216</td><td class="line">  TValue *ntv;</td></tr>
+<tr class="codeline" data-linenumber="217"><td class="num" id="LN217">217</td><td class="line">  MSize idx;</td></tr>
+<tr class="codeline" data-linenumber="218"><td class="num" id="LN218">218</td><td class="line">  <span class='comment'>/* Search for the constant in the whole chain of arrays. */</span></td></tr>
+<tr class="codeline" data-linenumber="219"><td class="num" id="LN219">219</td><td class="line">  <span class='keyword'>for</span> (k = <span class='macro'>mref(J-&gt;k64, K64Array)<span class='macro_popup'>((K64Array *)(void *)(uintptr_t)(J-&gt;k64).ptr32)</span></span>; k; k = <span class='macro'>mref(k-&gt;next, K64Array)<span class='macro_popup'>((K64Array *)(void *)(uintptr_t)(k-&gt;next).ptr32)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="220"><td class="num" id="LN220">220</td><td class="line">    kp = k;  <span class='comment'>/* Remember previous element in list. */</span></td></tr>
+<tr class="codeline" data-linenumber="221"><td class="num" id="LN221">221</td><td class="line">    <span class='keyword'>for</span> (idx = 0; idx &lt; k-&gt;numk; idx++) {  <span class='comment'>/* Search one array. */</span></td></tr>
+<tr class="codeline" data-linenumber="222"><td class="num" id="LN222">222</td><td class="line">      TValue *tv = &amp;k-&gt;k[idx];</td></tr>
+<tr class="codeline" data-linenumber="223"><td class="num" id="LN223">223</td><td class="line">      <span class='keyword'>if</span> (tv-&gt;u64 == u64)  <span class='comment'>/* Needed for +-0/NaN/absmask. */</span></td></tr>
+<tr class="codeline" data-linenumber="224"><td class="num" id="LN224">224</td><td class="line">	<span class='keyword'>return</span> tv;</td></tr>
+<tr class="codeline" data-linenumber="225"><td class="num" id="LN225">225</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="226"><td class="num" id="LN226">226</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="227"><td class="num" id="LN227">227</td><td class="line">  <span class='comment'>/* Constant was not found, need to add it. */</span></td></tr>
+<tr class="codeline" data-linenumber="228"><td class="num" id="LN228">228</td><td class="line">  <span class='keyword'>if</span> (!(kp &amp;&amp; kp-&gt;numk &lt; <span class='macro'>LJ_MIN_K64SZ<span class='macro_popup'>16</span></span>)) {  <span class='comment'>/* Allocate a new array. */</span></td></tr>
+<tr class="codeline" data-linenumber="229"><td class="num" id="LN229">229</td><td class="line">    K64Array *kn = <span class='macro'>lj_mem_newt(J-&gt;L, <span class='keyword'>sizeof</span>(K64Array), K64Array)<span class='macro_popup'>((K64Array *)lj_mem_realloc(J-&gt;L, ((void*)0), 0, ((sizeof(<br>K64Array)))))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="230"><td class="num" id="LN230">230</td><td class="line">    <span class='macro'>setmref(kn-&gt;next, NULL)<span class='macro_popup'>((kn-&gt;next).ptr32 = (uint32_t)(uintptr_t)(void *)(((void*)<br>0)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="231"><td class="num" id="LN231">231</td><td class="line">    kn-&gt;numk = 0;</td></tr>
+<tr class="codeline" data-linenumber="232"><td class="num" id="LN232">232</td><td class="line">    <span class='keyword'>if</span> (kp)</td></tr>
+<tr class="codeline" data-linenumber="233"><td class="num" id="LN233">233</td><td class="line">      <span class='macro'>setmref(kp-&gt;next, kn)<span class='macro_popup'>((kp-&gt;next).ptr32 = (uint32_t)(uintptr_t)(void *)(kn))</span></span>;  <span class='comment'>/* Chain to the end of the list. */</span></td></tr>
+<tr class="codeline" data-linenumber="234"><td class="num" id="LN234">234</td><td class="line">    <span class='keyword'>else</span></td></tr>
+<tr class="codeline" data-linenumber="235"><td class="num" id="LN235">235</td><td class="line">      <span class='macro'>setmref(J-&gt;k64, kn)<span class='macro_popup'>((J-&gt;k64).ptr32 = (uint32_t)(uintptr_t)(void *)(kn))</span></span>;  <span class='comment'>/* Link first array. */</span></td></tr>
+<tr class="codeline" data-linenumber="236"><td class="num" id="LN236">236</td><td class="line">    kp = kn;</td></tr>
+<tr class="codeline" data-linenumber="237"><td class="num" id="LN237">237</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="238"><td class="num" id="LN238">238</td><td class="line">  ntv = &amp;kp-&gt;k[kp-&gt;numk++];  <span class='comment'>/* Add to current array. */</span></td></tr>
+<tr class="codeline" data-linenumber="239"><td class="num" id="LN239">239</td><td class="line">  ntv-&gt;u64 = u64;</td></tr>
+<tr class="codeline" data-linenumber="240"><td class="num" id="LN240">240</td><td class="line">  <span class='keyword'>return</span> ntv;</td></tr>
+<tr class="codeline" data-linenumber="241"><td class="num" id="LN241">241</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="242"><td class="num" id="LN242">242</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="243"><td class="num" id="LN243">243</td><td class="line"><span class='comment'>/* Intern 64 bit constant, given by its address. */</span></td></tr>
+<tr class="codeline" data-linenumber="244"><td class="num" id="LN244">244</td><td class="line">TRef lj_ir_k64(jit_State *J, IROp op, cTValue *tv)</td></tr>
+<tr class="codeline" data-linenumber="245"><td class="num" id="LN245">245</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="246"><td class="num" id="LN246">246</td><td class="line">  IRIns *ir, *cir = J-&gt;cur.ir;</td></tr>
+<tr class="codeline" data-linenumber="247"><td class="num" id="LN247">247</td><td class="line">  IRRef ref;</td></tr>
+<tr class="codeline" data-linenumber="248"><td class="num" id="LN248">248</td><td class="line">  IRType t = op == IR_KNUM ? IRT_NUM : IRT_I64;</td></tr>
+<tr class="codeline" data-linenumber="249"><td class="num" id="LN249">249</td><td class="line">  <span class='keyword'>for</span> (ref = J-&gt;chain[op]; ref; ref = cir[ref].prev)</td></tr>
+<tr class="codeline" data-linenumber="250"><td class="num" id="LN250">250</td><td class="line">    <span class='keyword'>if</span> (<span class='macro'>ir_k64(&amp;cir[ref])<span class='macro_popup'>(((cTValue *)(void *)(uintptr_t)((&amp;cir[ref])-&gt;ptr).ptr32<br>))</span></span> == tv)</td></tr>
+<tr class="codeline" data-linenumber="251"><td class="num" id="LN251">251</td><td class="line">      <span class='keyword'>goto</span> found;</td></tr>
+<tr class="codeline" data-linenumber="252"><td class="num" id="LN252">252</td><td class="line">  ref = ir_nextk(J);</td></tr>
+<tr class="codeline" data-linenumber="253"><td class="num" id="LN253">253</td><td class="line">  ir = IR(ref);</td></tr>
+<tr class="codeline" data-linenumber="254"><td class="num" id="LN254">254</td><td class="line">  <span class='macro'>lua_assert(checkptr32(tv))<span class='macro_popup'>((void)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="255"><td class="num" id="LN255">255</td><td class="line">  <span class='macro'>setmref(ir-&gt;ptr, tv)<span class='macro_popup'>((ir-&gt;ptr).ptr32 = (uint32_t)(uintptr_t)(void *)(tv))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="256"><td class="num" id="LN256">256</td><td class="line">  ir-&gt;t.irt = t;</td></tr>
+<tr class="codeline" data-linenumber="257"><td class="num" id="LN257">257</td><td class="line">  ir-&gt;o = op;</td></tr>
+<tr class="codeline" data-linenumber="258"><td class="num" id="LN258">258</td><td class="line">  ir-&gt;prev = J-&gt;chain[op];</td></tr>
+<tr class="codeline" data-linenumber="259"><td class="num" id="LN259">259</td><td class="line">  J-&gt;chain[op] = (IRRef1)ref;</td></tr>
+<tr class="codeline" data-linenumber="260"><td class="num" id="LN260">260</td><td class="line">found:</td></tr>
+<tr class="codeline" data-linenumber="261"><td class="num" id="LN261">261</td><td class="line">  <span class='keyword'>return</span> <span class='macro'>TREF(ref, t)<span class='macro_popup'>((TRef)((ref) + ((t)&lt;&lt;24)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="262"><td class="num" id="LN262">262</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="263"><td class="num" id="LN263">263</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="264"><td class="num" id="LN264">264</td><td class="line"><span class='comment'>/* Intern FP constant, given by its 64 bit pattern. */</span></td></tr>
+<tr class="codeline" data-linenumber="265"><td class="num" id="LN265">265</td><td class="line">TRef lj_ir_knum_u64(jit_State *J, uint64_t u64)</td></tr>
+<tr class="codeline" data-linenumber="266"><td class="num" id="LN266">266</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="267"><td class="num" id="LN267">267</td><td class="line">  <span class='keyword'>return</span> lj_ir_k64(J, IR_KNUM, lj_ir_k64_find(J, u64));</td></tr>
+<tr class="codeline" data-linenumber="268"><td class="num" id="LN268">268</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="269"><td class="num" id="LN269">269</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="270"><td class="num" id="LN270">270</td><td class="line"><span class='comment'>/* Intern 64 bit integer constant. */</span></td></tr>
+<tr class="codeline" data-linenumber="271"><td class="num" id="LN271">271</td><td class="line">TRef lj_ir_kint64(jit_State *J, uint64_t u64)</td></tr>
+<tr class="codeline" data-linenumber="272"><td class="num" id="LN272">272</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="273"><td class="num" id="LN273">273</td><td class="line">  <span class='keyword'>return</span> lj_ir_k64(J, IR_KINT64, lj_ir_k64_find(J, u64));</td></tr>
+<tr class="codeline" data-linenumber="274"><td class="num" id="LN274">274</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="275"><td class="num" id="LN275">275</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="276"><td class="num" id="LN276">276</td><td class="line"><span class='comment'>/* Check whether a number is int and return it. -0 is NOT considered an int. */</span></td></tr>
+<tr class="codeline" data-linenumber="277"><td class="num" id="LN277">277</td><td class="line"><span class='keyword'>static</span> <span class='keyword'>int</span> numistrueint(lua_Number n, int32_t *kp)</td></tr>
+<tr class="codeline" data-linenumber="278"><td class="num" id="LN278">278</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="279"><td class="num" id="LN279">279</td><td class="line">  int32_t k = <span class='macro'>lj_num2int(n)<span class='macro_popup'>((int32_t)(n))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="280"><td class="num" id="LN280">280</td><td class="line">  <span class='keyword'>if</span> (n == (lua_Number)k) {</td></tr>
+<tr class="codeline" data-linenumber="281"><td class="num" id="LN281">281</td><td class="line">    <span class='keyword'>if</span> (kp) *kp = k;</td></tr>
+<tr class="codeline" data-linenumber="282"><td class="num" id="LN282">282</td><td class="line">    <span class='keyword'>if</span> (k == 0) {  <span class='comment'>/* Special check for -0. */</span></td></tr>
+<tr class="codeline" data-linenumber="283"><td class="num" id="LN283">283</td><td class="line">      TValue tv;</td></tr>
+<tr class="codeline" data-linenumber="284"><td class="num" id="LN284">284</td><td class="line">      <span class='macro'>setnumV(&amp;tv, n)<span class='macro_popup'>((&amp;tv)-&gt;n = (n))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="285"><td class="num" id="LN285">285</td><td class="line">      <span class='keyword'>if</span> (tv.u32.hi != 0)</td></tr>
+<tr class="codeline" data-linenumber="286"><td class="num" id="LN286">286</td><td class="line">	<span class='keyword'>return</span> 0;</td></tr>
+<tr class="codeline" data-linenumber="287"><td class="num" id="LN287">287</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="288"><td class="num" id="LN288">288</td><td class="line">    <span class='keyword'>return</span> 1;</td></tr>
+<tr class="codeline" data-linenumber="289"><td class="num" id="LN289">289</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="290"><td class="num" id="LN290">290</td><td class="line">  <span class='keyword'>return</span> 0;</td></tr>
+<tr class="codeline" data-linenumber="291"><td class="num" id="LN291">291</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="292"><td class="num" id="LN292">292</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="293"><td class="num" id="LN293">293</td><td class="line"><span class='comment'>/* Intern number as int32_t constant if possible, otherwise as FP constant. */</span></td></tr>
+<tr class="codeline" data-linenumber="294"><td class="num" id="LN294">294</td><td class="line">TRef lj_ir_knumint(jit_State *J, lua_Number n)</td></tr>
+<tr class="codeline" data-linenumber="295"><td class="num" id="LN295">295</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="296"><td class="num" id="LN296">296</td><td class="line">  int32_t k;</td></tr>
+<tr class="codeline" data-linenumber="297"><td class="num" id="LN297">297</td><td class="line">  <span class='keyword'>if</span> (numistrueint(n, &amp;k))</td></tr>
+<tr class="codeline" data-linenumber="298"><td class="num" id="LN298">298</td><td class="line">    <span class='keyword'>return</span> lj_ir_kint(J, k);</td></tr>
+<tr class="codeline" data-linenumber="299"><td class="num" id="LN299">299</td><td class="line">  <span class='keyword'>else</span></td></tr>
+<tr class="codeline" data-linenumber="300"><td class="num" id="LN300">300</td><td class="line">    <span class='keyword'>return</span> lj_ir_knum(J, n);</td></tr>
+<tr class="codeline" data-linenumber="301"><td class="num" id="LN301">301</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="302"><td class="num" id="LN302">302</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="303"><td class="num" id="LN303">303</td><td class="line"><span class='comment'>/* Intern GC object "constant". */</span></td></tr>
+<tr class="codeline" data-linenumber="304"><td class="num" id="LN304">304</td><td class="line">TRef lj_ir_kgc(jit_State *J, GCobj *o, IRType t)</td></tr>
+<tr class="codeline" data-linenumber="305"><td class="num" id="LN305">305</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="306"><td class="num" id="LN306">306</td><td class="line">  IRIns *ir, *cir = J-&gt;cur.ir;</td></tr>
+<tr class="codeline" data-linenumber="307"><td class="num" id="LN307">307</td><td class="line">  IRRef ref;</td></tr>
+<tr class="codeline" data-linenumber="308"><td class="num" id="LN308">308</td><td class="line">  <span class='macro'>lua_assert(!isdead(J2G(J), o))<span class='macro_popup'>((void)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="309"><td class="num" id="LN309">309</td><td class="line">  <span class='keyword'>for</span> (ref = J-&gt;chain[IR_KGC]; ref; ref = cir[ref].prev)</td></tr>
+<tr class="codeline" data-linenumber="310"><td class="num" id="LN310">310</td><td class="line">    <span class='keyword'>if</span> (<span class='macro'>ir_kgc(&amp;cir[ref])<span class='macro_popup'>(((GCobj *)(uintptr_t)((&amp;cir[ref])-&gt;gcr).gcptr32))</span></span> == o)</td></tr>
+<tr class="codeline" data-linenumber="311"><td class="num" id="LN311">311</td><td class="line">      <span class='keyword'>goto</span> found;</td></tr>
+<tr class="codeline" data-linenumber="312"><td class="num" id="LN312">312</td><td class="line">  ref = ir_nextk(J);</td></tr>
+<tr class="codeline" data-linenumber="313"><td class="num" id="LN313">313</td><td class="line">  ir = IR(ref);</td></tr>
+<tr class="codeline" data-linenumber="314"><td class="num" id="LN314">314</td><td class="line">  <span class='comment'>/* NOBARRIER: Current trace is a GC root. */</span></td></tr>
+<tr class="codeline" data-linenumber="315"><td class="num" id="LN315">315</td><td class="line">  <span class='macro'>setgcref(ir-&gt;gcr, o)<span class='macro_popup'>((ir-&gt;gcr).gcptr32 = (uint32_t)(uintptr_t)&amp;(o)-&gt;gch<br>)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="316"><td class="num" id="LN316">316</td><td class="line">  ir-&gt;t.irt = (uint8_t)t;</td></tr>
+<tr class="codeline" data-linenumber="317"><td class="num" id="LN317">317</td><td class="line">  ir-&gt;o = IR_KGC;</td></tr>
+<tr class="codeline" data-linenumber="318"><td class="num" id="LN318">318</td><td class="line">  ir-&gt;prev = J-&gt;chain[IR_KGC];</td></tr>
+<tr class="codeline" data-linenumber="319"><td class="num" id="LN319">319</td><td class="line">  J-&gt;chain[IR_KGC] = (IRRef1)ref;</td></tr>
+<tr class="codeline" data-linenumber="320"><td class="num" id="LN320">320</td><td class="line">found:</td></tr>
+<tr class="codeline" data-linenumber="321"><td class="num" id="LN321">321</td><td class="line">  <span class='keyword'>return</span> <span class='macro'>TREF(ref, t)<span class='macro_popup'>((TRef)((ref) + ((t)&lt;&lt;24)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="322"><td class="num" id="LN322">322</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="323"><td class="num" id="LN323">323</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="324"><td class="num" id="LN324">324</td><td class="line"><span class='comment'>/* Intern 32 bit pointer constant. */</span></td></tr>
+<tr class="codeline" data-linenumber="325"><td class="num" id="LN325">325</td><td class="line">TRef lj_ir_kptr_(jit_State *J, IROp op, <span class='keyword'>void</span> *ptr)</td></tr>
+<tr class="codeline" data-linenumber="326"><td class="num" id="LN326">326</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="327"><td class="num" id="LN327">327</td><td class="line">  IRIns *ir, *cir = J-&gt;cur.ir;</td></tr>
+<tr class="codeline" data-linenumber="328"><td class="num" id="LN328">328</td><td class="line">  IRRef ref;</td></tr>
+<tr class="codeline" data-linenumber="329"><td class="num" id="LN329">329</td><td class="line">  <span class='macro'>lua_assert((<span class='keyword'>void</span> *)(intptr_t)i32ptr(ptr) == ptr)<span class='macro_popup'>((void)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="330"><td class="num" id="LN330">330</td><td class="line">  <span class='keyword'>for</span> (ref = J-&gt;chain[op]; ref; ref = cir[ref].prev)</td></tr>
+<tr class="codeline" data-linenumber="331"><td class="num" id="LN331">331</td><td class="line">    <span class='keyword'>if</span> (<span class='macro'>mref(cir[ref].ptr, <span class='keyword'>void</span>)<span class='macro_popup'>((void *)(void *)(uintptr_t)(cir[ref].ptr).ptr32)</span></span> == ptr)</td></tr>
+<tr class="codeline" data-linenumber="332"><td class="num" id="LN332">332</td><td class="line">      <span class='keyword'>goto</span> found;</td></tr>
+<tr class="codeline" data-linenumber="333"><td class="num" id="LN333">333</td><td class="line">  ref = ir_nextk(J);</td></tr>
+<tr class="codeline" data-linenumber="334"><td class="num" id="LN334">334</td><td class="line">  ir = IR(ref);</td></tr>
+<tr class="codeline" data-linenumber="335"><td class="num" id="LN335">335</td><td class="line">  <span class='macro'>setmref(ir-&gt;ptr, ptr)<span class='macro_popup'>((ir-&gt;ptr).ptr32 = (uint32_t)(uintptr_t)(void *)(ptr))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="336"><td class="num" id="LN336">336</td><td class="line">  ir-&gt;t.irt = IRT_P32;</td></tr>
+<tr class="codeline" data-linenumber="337"><td class="num" id="LN337">337</td><td class="line">  ir-&gt;o = op;</td></tr>
+<tr class="codeline" data-linenumber="338"><td class="num" id="LN338">338</td><td class="line">  ir-&gt;prev = J-&gt;chain[op];</td></tr>
+<tr class="codeline" data-linenumber="339"><td class="num" id="LN339">339</td><td class="line">  J-&gt;chain[op] = (IRRef1)ref;</td></tr>
+<tr class="codeline" data-linenumber="340"><td class="num" id="LN340">340</td><td class="line">found:</td></tr>
+<tr class="codeline" data-linenumber="341"><td class="num" id="LN341">341</td><td class="line">  <span class='keyword'>return</span> <span class='macro'>TREF(ref, IRT_P32)<span class='macro_popup'>((TRef)((ref) + ((IRT_P32)&lt;&lt;24)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="342"><td class="num" id="LN342">342</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="343"><td class="num" id="LN343">343</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="344"><td class="num" id="LN344">344</td><td class="line"><span class='comment'>/* Intern typed NULL constant. */</span></td></tr>
+<tr class="codeline" data-linenumber="345"><td class="num" id="LN345">345</td><td class="line">TRef lj_ir_knull(jit_State *J, IRType t)</td></tr>
+<tr class="codeline" data-linenumber="346"><td class="num" id="LN346">346</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="347"><td class="num" id="LN347">347</td><td class="line">  IRIns *ir, *cir = J-&gt;cur.ir;</td></tr>
+<tr class="codeline" data-linenumber="348"><td class="num" id="LN348">348</td><td class="line">  IRRef ref;</td></tr>
+<tr class="codeline" data-linenumber="349"><td class="num" id="LN349">349</td><td class="line">  <span class='keyword'>for</span> (ref = J-&gt;chain[IR_KNULL]; ref; ref = cir[ref].prev)</td></tr>
+<tr class="codeline" data-linenumber="350"><td class="num" id="LN350">350</td><td class="line">    <span class='keyword'>if</span> (<span class='macro'>irt_t(cir[ref].t)<span class='macro_popup'>((IRType)(cir[ref].t).irt)</span></span> == t)</td></tr>
+<tr class="codeline" data-linenumber="351"><td class="num" id="LN351">351</td><td class="line">      <span class='keyword'>goto</span> found;</td></tr>
+<tr class="codeline" data-linenumber="352"><td class="num" id="LN352">352</td><td class="line">  ref = ir_nextk(J);</td></tr>
+<tr class="codeline" data-linenumber="353"><td class="num" id="LN353">353</td><td class="line">  ir = IR(ref);</td></tr>
+<tr class="codeline" data-linenumber="354"><td class="num" id="LN354">354</td><td class="line">  ir-&gt;i = 0;</td></tr>
+<tr class="codeline" data-linenumber="355"><td class="num" id="LN355">355</td><td class="line">  ir-&gt;t.irt = (uint8_t)t;</td></tr>
+<tr class="codeline" data-linenumber="356"><td class="num" id="LN356">356</td><td class="line">  ir-&gt;o = IR_KNULL;</td></tr>
+<tr class="codeline" data-linenumber="357"><td class="num" id="LN357">357</td><td class="line">  ir-&gt;prev = J-&gt;chain[IR_KNULL];</td></tr>
+<tr class="codeline" data-linenumber="358"><td class="num" id="LN358">358</td><td class="line">  J-&gt;chain[IR_KNULL] = (IRRef1)ref;</td></tr>
+<tr class="codeline" data-linenumber="359"><td class="num" id="LN359">359</td><td class="line">found:</td></tr>
+<tr class="codeline" data-linenumber="360"><td class="num" id="LN360">360</td><td class="line">  <span class='keyword'>return</span> <span class='macro'>TREF(ref, t)<span class='macro_popup'>((TRef)((ref) + ((t)&lt;&lt;24)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="361"><td class="num" id="LN361">361</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="362"><td class="num" id="LN362">362</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="363"><td class="num" id="LN363">363</td><td class="line"><span class='comment'>/* Intern key slot. */</span></td></tr>
+<tr class="codeline" data-linenumber="364"><td class="num" id="LN364">364</td><td class="line">TRef lj_ir_kslot(jit_State *J, TRef key, IRRef slot)</td></tr>
+<tr class="codeline" data-linenumber="365"><td class="num" id="LN365">365</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="366"><td class="num" id="LN366">366</td><td class="line">  IRIns *ir, *cir = J-&gt;cur.ir;</td></tr>
+<tr class="codeline" data-linenumber="367"><td class="num" id="LN367">367</td><td class="line">  IRRef2 op12 = <span class='macro'>IRREF2((IRRef1)key, (IRRef1)slot)<span class='macro_popup'>((IRRef2)((IRRef1)key) | ((IRRef2)((IRRef1)slot) &lt;&lt; 16)<br>)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="368"><td class="num" id="LN368">368</td><td class="line">  IRRef ref;</td></tr>
+<tr class="codeline" data-linenumber="369"><td class="num" id="LN369">369</td><td class="line">  <span class='comment'>/* Const part is not touched by CSE/DCE, so 0-65535 is ok for IRMlit here. */</span></td></tr>
+<tr class="codeline" data-linenumber="370"><td class="num" id="LN370">370</td><td class="line">  <span class='macro'>lua_assert(tref_isk(key) &amp;&amp; slot == (IRRef)(IRRef1)slot)<span class='macro_popup'>((void)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="371"><td class="num" id="LN371">371</td><td class="line">  <span class='keyword'>for</span> (ref = J-&gt;chain[IR_KSLOT]; ref; ref = cir[ref].prev)</td></tr>
+<tr class="codeline" data-linenumber="372"><td class="num" id="LN372">372</td><td class="line">    <span class='keyword'>if</span> (cir[ref].op12 == op12)</td></tr>
+<tr class="codeline" data-linenumber="373"><td class="num" id="LN373">373</td><td class="line">      <span class='keyword'>goto</span> found;</td></tr>
+<tr class="codeline" data-linenumber="374"><td class="num" id="LN374">374</td><td class="line">  ref = ir_nextk(J);</td></tr>
+<tr class="codeline" data-linenumber="375"><td class="num" id="LN375">375</td><td class="line">  ir = IR(ref);</td></tr>
+<tr class="codeline" data-linenumber="376"><td class="num" id="LN376">376</td><td class="line">  ir-&gt;op12 = op12;</td></tr>
+<tr class="codeline" data-linenumber="377"><td class="num" id="LN377">377</td><td class="line">  ir-&gt;t.irt = IRT_P32;</td></tr>
+<tr class="codeline" data-linenumber="378"><td class="num" id="LN378">378</td><td class="line">  ir-&gt;o = IR_KSLOT;</td></tr>
+<tr class="codeline" data-linenumber="379"><td class="num" id="LN379">379</td><td class="line">  ir-&gt;prev = J-&gt;chain[IR_KSLOT];</td></tr>
+<tr class="codeline" data-linenumber="380"><td class="num" id="LN380">380</td><td class="line">  J-&gt;chain[IR_KSLOT] = (IRRef1)ref;</td></tr>
+<tr class="codeline" data-linenumber="381"><td class="num" id="LN381">381</td><td class="line">found:</td></tr>
+<tr class="codeline" data-linenumber="382"><td class="num" id="LN382">382</td><td class="line">  <span class='keyword'>return</span> <span class='macro'>TREF(ref, IRT_P32)<span class='macro_popup'>((TRef)((ref) + ((IRT_P32)&lt;&lt;24)))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="383"><td class="num" id="LN383">383</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="384"><td class="num" id="LN384">384</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="385"><td class="num" id="LN385">385</td><td class="line"><span class='comment'>/* -- Access to IR constants ---------------------------------------------- */</span></td></tr>
+<tr class="codeline" data-linenumber="386"><td class="num" id="LN386">386</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="387"><td class="num" id="LN387">387</td><td class="line"><span class='comment'>/* Copy value of IR constant. */</span></td></tr>
+<tr class="codeline" data-linenumber="388"><td class="num" id="LN388">388</td><td class="line"><span class='keyword'>void</span> lj_ir_kvalue(lua_State *L, TValue *tv, <span class='keyword'>const</span> IRIns *ir)</td></tr>
+<tr class="codeline" data-linenumber="389"><td class="num" id="LN389">389</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="390"><td class="num" id="LN390">390</td><td class="line">  <span class='macro'>UNUSED(L)<span class='macro_popup'>((void)(L))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="391"><td class="num" id="LN391">391</td><td class="line">  <span class='macro'>lua_assert(ir-&gt;o != IR_KSLOT)<span class='macro_popup'>((void)0)</span></span>;  <span class='comment'>/* Common mistake. */</span></td></tr>
+<tr class="codeline" data-linenumber="392"><td class="num" id="LN392">392</td><td class="line">  <span class='keyword'>switch</span> (ir-&gt;o) {</td></tr>
+<tr class="codeline" data-linenumber="393"><td class="num" id="LN393">393</td><td class="line">  <span class='keyword'>case</span> IR_KPRI: <span class='macro'>setitype(tv, irt_toitype(ir-&gt;t))<span class='macro_popup'>((tv)-&gt;it = (irt_toitype_(((IRType)(((ir-&gt;t)).irt &amp;<br> IRT_TYPE)))))</span></span>; <span class='keyword'>break</span>;</td></tr>
+<tr class="codeline" data-linenumber="394"><td class="num" id="LN394">394</td><td class="line">  <span class='keyword'>case</span> IR_KINT: setintV(tv, ir-&gt;i); <span class='keyword'>break</span>;</td></tr>
+<tr class="codeline" data-linenumber="395"><td class="num" id="LN395">395</td><td class="line">  <span class='keyword'>case</span> IR_KGC: setgcV(L, tv, <span class='macro'>ir_kgc(ir)<span class='macro_popup'>(((GCobj *)(uintptr_t)((ir)-&gt;gcr).gcptr32))</span></span>, <span class='macro'>irt_toitype(ir-&gt;t)<span class='macro_popup'>irt_toitype_(((IRType)(((ir-&gt;t)).irt &amp; IRT_TYPE)))</span></span>); <span class='keyword'>break</span>;</td></tr>
+<tr class="codeline" data-linenumber="396"><td class="num" id="LN396">396</td><td class="line">  <span class='keyword'>case</span> IR_KPTR: <span class='keyword'>case</span> IR_KKPTR: <span class='keyword'>case</span> IR_KNULL:</td></tr>
+<tr class="codeline" data-linenumber="397"><td class="num" id="LN397">397</td><td class="line">    setlightudV(tv, <span class='macro'>mref(ir-&gt;ptr, <span class='keyword'>void</span>)<span class='macro_popup'>((void *)(void *)(uintptr_t)(ir-&gt;ptr).ptr32)</span></span>);</td></tr>
+<tr class="codeline" data-linenumber="398"><td class="num" id="LN398">398</td><td class="line">    <span class='keyword'>break</span>;</td></tr>
+<tr class="codeline" data-linenumber="399"><td class="num" id="LN399">399</td><td class="line">  <span class='keyword'>case</span> IR_KNUM: <span class='macro'>setnumV(tv, ir_knum(ir)-&gt;n)<span class='macro_popup'>((tv)-&gt;n = ((((cTValue *)(void *)(uintptr_t)((ir)-&gt;ptr)<br>.ptr32))-&gt;n))</span></span>; <span class='keyword'>break</span>;</td></tr>
+<tr class="codeline" data-linenumber="400"><td class="num" id="LN400">400</td><td class="line"><span class='directive'>#if <span class='macro'>LJ_HASFFI<span class='macro_popup'>1</span></span></span></td></tr>
+<tr class="codeline" data-linenumber="401"><td class="num" id="LN401">401</td><td class="line">  <span class='keyword'>case</span> IR_KINT64: {</td></tr>
+<tr class="codeline" data-linenumber="402"><td class="num" id="LN402">402</td><td class="line">    GCcdata *cd = lj_cdata_new_(L, CTID_INT64, 8);</td></tr>
+<tr class="codeline" data-linenumber="403"><td class="num" id="LN403">403</td><td class="line">    *(uint64_t *)<span class='macro'>cdataptr(cd)<span class='macro_popup'>((void *)((cd)+1))</span></span> = <span class='macro'>ir_kint64(ir)<span class='macro_popup'>(((cTValue *)(void *)(uintptr_t)((ir)-&gt;ptr).ptr32))</span></span>-&gt;u64;</td></tr>
+<tr class="codeline" data-linenumber="404"><td class="num" id="LN404">404</td><td class="line">    setcdataV(L, tv, cd);</td></tr>
+<tr class="codeline" data-linenumber="405"><td class="num" id="LN405">405</td><td class="line">    <span class='keyword'>break</span>;</td></tr>
+<tr class="codeline" data-linenumber="406"><td class="num" id="LN406">406</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="407"><td class="num" id="LN407">407</td><td class="line"><span class='directive'>#endif</span></td></tr>
+<tr class="codeline" data-linenumber="408"><td class="num" id="LN408">408</td><td class="line">  <span class='keyword'>default</span>: <span class='macro'>lua_assert(0)<span class='macro_popup'>((void)0)</span></span>; <span class='keyword'>break</span>;</td></tr>
+<tr class="codeline" data-linenumber="409"><td class="num" id="LN409">409</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="410"><td class="num" id="LN410">410</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="411"><td class="num" id="LN411">411</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="412"><td class="num" id="LN412">412</td><td class="line"><span class='comment'>/* -- Convert IR operand types -------------------------------------------- */</span></td></tr>
+<tr class="codeline" data-linenumber="413"><td class="num" id="LN413">413</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="414"><td class="num" id="LN414">414</td><td class="line"><span class='comment'>/* Convert from string to number. */</span></td></tr>
+<tr class="codeline" data-linenumber="415"><td class="num" id="LN415">415</td><td class="line">TRef LJ_FASTCALL lj_ir_tonumber(jit_State *J, TRef tr)</td></tr>
+<tr class="codeline" data-linenumber="416"><td class="num" id="LN416">416</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="417"><td class="num" id="LN417">417</td><td class="line">  <span class='keyword'>if</span> (!<span class='macro'>tref_isnumber(tr)<span class='macro_popup'>((((((tr))&gt;&gt;24) &amp; IRT_TYPE) - (TRef)(IRT_NUM) &lt;=<br> (TRef)(IRT_INT-IRT_NUM)))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="418"><td class="num" id="LN418">418</td><td class="line">    <span class='keyword'>if</span> (<span class='macro'>tref_isstr(tr)<span class='macro_popup'>(((((tr)) &amp; (IRT_TYPE&lt;&lt;24)) == ((IRT_STR)&lt;&lt;24<br>)))</span></span>)</td></tr>
+<tr class="codeline" data-linenumber="419"><td class="num" id="LN419">419</td><td class="line">      tr = emitir(<span class='macro'>IRTG(IR_STRTO, IRT_NUM)<span class='macro_popup'>(((uint32_t)((((IR_STRTO))&lt;&lt;8) | (IRT_GUARD|(IRT_NUM)))<br>))</span></span>, tr, 0);</td></tr>
+<tr class="codeline" data-linenumber="420"><td class="num" id="LN420">420</td><td class="line">    <span class='keyword'>else</span></td></tr>
+<tr class="codeline" data-linenumber="421"><td class="num" id="LN421">421</td><td class="line">      lj_trace_err(J, LJ_TRERR_BADTYPE);</td></tr>
+<tr class="codeline" data-linenumber="422"><td class="num" id="LN422">422</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="423"><td class="num" id="LN423">423</td><td class="line">  <span class='keyword'>return</span> tr;</td></tr>
+<tr class="codeline" data-linenumber="424"><td class="num" id="LN424">424</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="425"><td class="num" id="LN425">425</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="426"><td class="num" id="LN426">426</td><td class="line"><span class='comment'>/* Convert from integer or string to number. */</span></td></tr>
+<tr class="codeline" data-linenumber="427"><td class="num" id="LN427">427</td><td class="line">TRef LJ_FASTCALL lj_ir_tonum(jit_State *J, TRef tr)</td></tr>
+<tr class="codeline" data-linenumber="428"><td class="num" id="LN428">428</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="429"><td class="num" id="LN429">429</td><td class="line">  <span class='keyword'>if</span> (!<span class='macro'>tref_isnum(tr)<span class='macro_popup'>(((((tr)) &amp; (IRT_TYPE&lt;&lt;24)) == ((IRT_NUM)&lt;&lt;24<br>)))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="430"><td class="num" id="LN430">430</td><td class="line">    <span class='keyword'>if</span> (<span class='macro'>tref_isinteger(tr)<span class='macro_popup'>((((((tr))&gt;&gt;24) &amp; IRT_TYPE) - (TRef)(IRT_I8) &lt;= (<br>TRef)(IRT_INT-IRT_I8)))</span></span>)</td></tr>
+<tr class="codeline" data-linenumber="431"><td class="num" id="LN431">431</td><td class="line">      tr = emitir(<span class='macro'>IRTN(IR_CONV)<span class='macro_popup'>(((uint32_t)((((IR_CONV))&lt;&lt;8) | (IRT_NUM))))</span></span>, tr, <span class='macro'>IRCONV_NUM_INT<span class='macro_popup'>((IRT_NUM&lt;&lt;5)|IRT_INT)</span></span>);</td></tr>
+<tr class="codeline" data-linenumber="432"><td class="num" id="LN432">432</td><td class="line">    <span class='keyword'>else</span> <span class='keyword'>if</span> (<span class='macro'>tref_isstr(tr)<span class='macro_popup'>(((((tr)) &amp; (IRT_TYPE&lt;&lt;24)) == ((IRT_STR)&lt;&lt;24<br>)))</span></span>)</td></tr>
+<tr class="codeline" data-linenumber="433"><td class="num" id="LN433">433</td><td class="line">      tr = emitir(<span class='macro'>IRTG(IR_STRTO, IRT_NUM)<span class='macro_popup'>(((uint32_t)((((IR_STRTO))&lt;&lt;8) | (IRT_GUARD|(IRT_NUM)))<br>))</span></span>, tr, 0);</td></tr>
+<tr class="codeline" data-linenumber="434"><td class="num" id="LN434">434</td><td class="line">    <span class='keyword'>else</span></td></tr>
+<tr class="codeline" data-linenumber="435"><td class="num" id="LN435">435</td><td class="line">      lj_trace_err(J, LJ_TRERR_BADTYPE);</td></tr>
+<tr class="codeline" data-linenumber="436"><td class="num" id="LN436">436</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="437"><td class="num" id="LN437">437</td><td class="line">  <span class='keyword'>return</span> tr;</td></tr>
+<tr class="codeline" data-linenumber="438"><td class="num" id="LN438">438</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="439"><td class="num" id="LN439">439</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="440"><td class="num" id="LN440">440</td><td class="line"><span class='comment'>/* Convert from integer or number to string. */</span></td></tr>
+<tr class="codeline" data-linenumber="441"><td class="num" id="LN441">441</td><td class="line">TRef LJ_FASTCALL lj_ir_tostr(jit_State *J, TRef tr)</td></tr>
+<tr class="codeline" data-linenumber="442"><td class="num" id="LN442">442</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="443"><td class="num" id="LN443">443</td><td class="line">  <span class='keyword'>if</span> (!<span class='macro'>tref_isstr(tr)<span class='macro_popup'>(((((tr)) &amp; (IRT_TYPE&lt;&lt;24)) == ((IRT_STR)&lt;&lt;24<br>)))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="444"><td class="num" id="LN444">444</td><td class="line">    <span class='keyword'>if</span> (!<span class='macro'>tref_isnumber(tr)<span class='macro_popup'>((((((tr))&gt;&gt;24) &amp; IRT_TYPE) - (TRef)(IRT_NUM) &lt;=<br> (TRef)(IRT_INT-IRT_NUM)))</span></span>)</td></tr>
+<tr class="codeline" data-linenumber="445"><td class="num" id="LN445">445</td><td class="line">      lj_trace_err(J, LJ_TRERR_BADTYPE);</td></tr>
+<tr class="codeline" data-linenumber="446"><td class="num" id="LN446">446</td><td class="line">    tr = emitir(<span class='macro'>IRT(IR_TOSTR, IRT_STR)<span class='macro_popup'>((uint32_t)(((IR_TOSTR)&lt;&lt;8) | (IRT_STR)))</span></span>, tr, 0);</td></tr>
+<tr class="codeline" data-linenumber="447"><td class="num" id="LN447">447</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="448"><td class="num" id="LN448">448</td><td class="line">  <span class='keyword'>return</span> tr;</td></tr>
+<tr class="codeline" data-linenumber="449"><td class="num" id="LN449">449</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="450"><td class="num" id="LN450">450</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="451"><td class="num" id="LN451">451</td><td class="line"><span class='comment'>/* -- Miscellaneous IR ops ------------------------------------------------ */</span></td></tr>
+<tr class="codeline" data-linenumber="452"><td class="num" id="LN452">452</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="453"><td class="num" id="LN453">453</td><td class="line"><span class='comment'>/* Evaluate numeric comparison. */</span></td></tr>
+<tr class="codeline" data-linenumber="454"><td class="num" id="LN454">454</td><td class="line"><span class='keyword'>int</span> lj_ir_numcmp(lua_Number a, lua_Number b, IROp op)</td></tr>
+<tr class="codeline" data-linenumber="455"><td class="num" id="LN455">455</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="456"><td class="num" id="LN456">456</td><td class="line">  <span class='keyword'>switch</span> (op) {</td></tr>
+<tr class="codeline" data-linenumber="457"><td class="num" id="LN457">457</td><td class="line">  <span class='keyword'>case</span> IR_EQ: <span class='keyword'>return</span> (a == b);</td></tr>
+<tr class="codeline" data-linenumber="458"><td class="num" id="LN458">458</td><td class="line">  <span class='keyword'>case</span> IR_NE: <span class='keyword'>return</span> (a != b);</td></tr>
+<tr class="codeline" data-linenumber="459"><td class="num" id="LN459">459</td><td class="line">  <span class='keyword'>case</span> IR_LT: <span class='keyword'>return</span> (a &lt; b);</td></tr>
+<tr class="codeline" data-linenumber="460"><td class="num" id="LN460">460</td><td class="line">  <span class='keyword'>case</span> IR_GE: <span class='keyword'>return</span> (a &gt;= b);</td></tr>
+<tr class="codeline" data-linenumber="461"><td class="num" id="LN461">461</td><td class="line">  <span class='keyword'>case</span> IR_LE: <span class='keyword'>return</span> (a &lt;= b);</td></tr>
+<tr class="codeline" data-linenumber="462"><td class="num" id="LN462">462</td><td class="line">  <span class='keyword'>case</span> IR_GT: <span class='keyword'>return</span> (a &gt; b);</td></tr>
+<tr class="codeline" data-linenumber="463"><td class="num" id="LN463">463</td><td class="line">  <span class='keyword'>case</span> IR_ULT: <span class='keyword'>return</span> !(a &gt;= b);</td></tr>
+<tr class="codeline" data-linenumber="464"><td class="num" id="LN464">464</td><td class="line">  <span class='keyword'>case</span> IR_UGE: <span class='keyword'>return</span> !(a &lt; b);</td></tr>
+<tr class="codeline" data-linenumber="465"><td class="num" id="LN465">465</td><td class="line">  <span class='keyword'>case</span> IR_ULE: <span class='keyword'>return</span> !(a &gt; b);</td></tr>
+<tr class="codeline" data-linenumber="466"><td class="num" id="LN466">466</td><td class="line">  <span class='keyword'>case</span> IR_UGT: <span class='keyword'>return</span> !(a &lt;= b);</td></tr>
+<tr class="codeline" data-linenumber="467"><td class="num" id="LN467">467</td><td class="line">  <span class='keyword'>default</span>: <span class='macro'>lua_assert(0)<span class='macro_popup'>((void)0)</span></span>; <span class='keyword'>return</span> 0;</td></tr>
+<tr class="codeline" data-linenumber="468"><td class="num" id="LN468">468</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="469"><td class="num" id="LN469">469</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="470"><td class="num" id="LN470">470</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="471"><td class="num" id="LN471">471</td><td class="line"><span class='comment'>/* Evaluate string comparison. */</span></td></tr>
+<tr class="codeline" data-linenumber="472"><td class="num" id="LN472">472</td><td class="line"><span class='keyword'>int</span> lj_ir_strcmp(GCstr *a, GCstr *b, IROp op)</td></tr>
+<tr class="codeline" data-linenumber="473"><td class="num" id="LN473">473</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="474"><td class="num" id="LN474">474</td><td class="line">  <span class='keyword'>int</span> res = lj_str_cmp(a, b);</td></tr>
+<tr class="codeline" data-linenumber="475"><td class="num" id="LN475">475</td><td class="line">  <span class='keyword'>switch</span> (op) {</td></tr>
+<tr class="codeline" data-linenumber="476"><td class="num" id="LN476">476</td><td class="line">  <span class='keyword'>case</span> IR_LT: <span class='keyword'>return</span> (res &lt; 0);</td></tr>
+<tr class="codeline" data-linenumber="477"><td class="num" id="LN477">477</td><td class="line">  <span class='keyword'>case</span> IR_GE: <span class='keyword'>return</span> (res &gt;= 0);</td></tr>
+<tr class="codeline" data-linenumber="478"><td class="num" id="LN478">478</td><td class="line">  <span class='keyword'>case</span> IR_LE: <span class='keyword'>return</span> (res &lt;= 0);</td></tr>
+<tr class="codeline" data-linenumber="479"><td class="num" id="LN479">479</td><td class="line">  <span class='keyword'>case</span> IR_GT: <span class='keyword'>return</span> (res &gt; 0);</td></tr>
+<tr class="codeline" data-linenumber="480"><td class="num" id="LN480">480</td><td class="line">  <span class='keyword'>default</span>: <span class='macro'>lua_assert(0)<span class='macro_popup'>((void)0)</span></span>; <span class='keyword'>return</span> 0;</td></tr>
+<tr class="codeline" data-linenumber="481"><td class="num" id="LN481">481</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="482"><td class="num" id="LN482">482</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="483"><td class="num" id="LN483">483</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="484"><td class="num" id="LN484">484</td><td class="line"><span class='comment'>/* Rollback IR to previous state. */</span></td></tr>
+<tr class="codeline" data-linenumber="485"><td class="num" id="LN485">485</td><td class="line"><span class='keyword'>void</span> lj_ir_rollback(jit_State *J, IRRef ref)</td></tr>
+<tr class="codeline" data-linenumber="486"><td class="num" id="LN486">486</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="487"><td class="num" id="LN487">487</td><td class="line">  IRRef nins = J-&gt;cur.nins;</td></tr>
+<tr class="codeline" data-linenumber="488"><td class="num" id="LN488">488</td><td class="line">  <span class='keyword'>while</span> (nins &gt; ref) {</td></tr>
+<tr class="codeline" data-linenumber="489"><td class="num" id="LN489">489</td><td class="line">    IRIns *ir;</td></tr>
+<tr class="codeline" data-linenumber="490"><td class="num" id="LN490">490</td><td class="line">    nins--;</td></tr>
+<tr class="codeline" data-linenumber="491"><td class="num" id="LN491">491</td><td class="line">    ir = IR(nins);</td></tr>
+<tr class="codeline" data-linenumber="492"><td class="num" id="LN492">492</td><td class="line">    J-&gt;chain[ir-&gt;o] = ir-&gt;prev;</td></tr>
+<tr class="codeline" data-linenumber="493"><td class="num" id="LN493">493</td><td class="line">  }</td></tr>
+<tr class="codeline" data-linenumber="494"><td class="num" id="LN494">494</td><td class="line">  J-&gt;cur.nins = nins;</td></tr>
+<tr class="codeline" data-linenumber="495"><td class="num" id="LN495">495</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="496"><td class="num" id="LN496">496</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="497"><td class="num" id="LN497">497</td><td class="line"><span class='directive'>#undef IR</span></td></tr>
+<tr class="codeline" data-linenumber="498"><td class="num" id="LN498">498</td><td class="line"><span class='directive'>#undef fins</span></td></tr>
+<tr class="codeline" data-linenumber="499"><td class="num" id="LN499">499</td><td class="line"><span class='directive'>#undef emitir</span></td></tr>
+<tr class="codeline" data-linenumber="500"><td class="num" id="LN500">500</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="501"><td class="num" id="LN501">501</td><td class="line"><span class='directive'>#endif</span></td></tr>
+</table></body></html>

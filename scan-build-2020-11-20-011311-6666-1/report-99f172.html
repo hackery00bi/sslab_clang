@@ -1,0 +1,881 @@
+<!doctype html>
+<html>
+<head>
+<title>ssl/s3_cbc.c</title>
+
+<style type="text/css">
+body { color:#000000; background-color:#ffffff }
+body { font-family:Helvetica, sans-serif; font-size:10pt }
+h1 { font-size:14pt }
+.FileName { margin-top: 5px; margin-bottom: 5px; display: inline; }
+.FileNav { margin-left: 5px; margin-right: 5px; display: inline; }
+.FileNav a { text-decoration:none; font-size: larger; }
+.divider { margin-top: 30px; margin-bottom: 30px; height: 15px; }
+.divider { background-color: gray; }
+.code { border-collapse:collapse; width:100%; }
+.code { font-family: "Monospace", monospace; font-size:10pt }
+.code { line-height: 1.2em }
+.comment { color: green; font-style: oblique }
+.keyword { color: blue }
+.string_literal { color: red }
+.directive { color: darkmagenta }
+
+/* Macros and variables could have pop-up notes hidden by default.
+  - Macro pop-up:    expansion of the macro
+  - Variable pop-up: value (table) of the variable */
+.macro_popup, .variable_popup { display: none; }
+
+/* Pop-up appears on mouse-hover event. */
+.macro:hover .macro_popup, .variable:hover .variable_popup {
+  display: block;
+  padding: 2px;
+  -webkit-border-radius:5px;
+  -webkit-box-shadow:1px 1px 7px #000;
+  border-radius:5px;
+  box-shadow:1px 1px 7px #000;
+  position: absolute;
+  top: -1em;
+  left:10em;
+  z-index: 1
+}
+
+.macro_popup {
+  border: 2px solid red;
+  background-color:#FFF0F0;
+  font-weight: normal;
+}
+
+.variable_popup {
+  border: 2px solid blue;
+  background-color:#F0F0FF;
+  font-weight: bold;
+  font-family: Helvetica, sans-serif;
+  font-size: 9pt;
+}
+
+/* Pop-up notes needs a relative position as a base where they pops up. */
+.macro, .variable {
+  background-color: PaleGoldenRod;
+  position: relative;
+}
+.macro { color: DarkMagenta; }
+
+#tooltiphint {
+  position: fixed;
+  width: 50em;
+  margin-left: -25em;
+  left: 50%;
+  padding: 10px;
+  border: 1px solid #b0b0b0;
+  border-radius: 2px;
+  box-shadow: 1px 1px 7px black;
+  background-color: #c0c0c0;
+  z-index: 2;
+}
+
+.num { width:2.5em; padding-right:2ex; background-color:#eeeeee }
+.num { text-align:right; font-size:8pt }
+.num { color:#444444 }
+.line { padding-left: 1ex; border-left: 3px solid #ccc }
+.line { white-space: pre }
+.msg { -webkit-box-shadow:1px 1px 7px #000 }
+.msg { box-shadow:1px 1px 7px #000 }
+.msg { -webkit-border-radius:5px }
+.msg { border-radius:5px }
+.msg { font-family:Helvetica, sans-serif; font-size:8pt }
+.msg { float:left }
+.msg { padding:0.25em 1ex 0.25em 1ex }
+.msg { margin-top:10px; margin-bottom:10px }
+.msg { font-weight:bold }
+.msg { max-width:60em; word-wrap: break-word; white-space: pre-wrap }
+.msgT { padding:0x; spacing:0x }
+.msgEvent { background-color:#fff8b4; color:#000000 }
+.msgControl { background-color:#bbbbbb; color:#000000 }
+.msgNote { background-color:#ddeeff; color:#000000 }
+.mrange { background-color:#dfddf3 }
+.mrange { border-bottom:1px solid #6F9DBE }
+.PathIndex { font-weight: bold; padding:0px 5px; margin-right:5px; }
+.PathIndex { -webkit-border-radius:8px }
+.PathIndex { border-radius:8px }
+.PathIndexEvent { background-color:#bfba87 }
+.PathIndexControl { background-color:#8c8c8c }
+.PathIndexPopUp { background-color: #879abc; }
+.PathNav a { text-decoration:none; font-size: larger }
+.CodeInsertionHint { font-weight: bold; background-color: #10dd10 }
+.CodeRemovalHint { background-color:#de1010 }
+.CodeRemovalHint { border-bottom:1px solid #6F9DBE }
+.selected{ background-color:orange !important; }
+
+table.simpletable {
+  padding: 5px;
+  font-size:12pt;
+  margin:20px;
+  border-collapse: collapse; border-spacing: 0px;
+}
+td.rowname {
+  text-align: right;
+  vertical-align: top;
+  font-weight: bold;
+  color:#444444;
+  padding-right:2ex;
+}
+
+/* Hidden text. */
+input.spoilerhider + label {
+  cursor: pointer;
+  text-decoration: underline;
+  display: block;
+}
+input.spoilerhider {
+ display: none;
+}
+input.spoilerhider ~ .spoiler {
+  overflow: hidden;
+  margin: 10px auto 0;
+  height: 0;
+  opacity: 0;
+}
+input.spoilerhider:checked + label + .spoiler{
+  height: auto;
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+<!-- BUGDESC Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 -->
+
+<!-- BUGTYPE Potential insecure memory buffer bounds restriction in call 'memcpy' -->
+
+<!-- BUGCATEGORY Security -->
+
+<!-- BUGFILE /tmp/real/c_wrk/wrk0/obj/openssl-1.1.0g/ssl/s3_cbc.c -->
+
+<!-- FILENAME s3_cbc.c -->
+
+<!-- FUNCTIONNAME ssl3_cbc_digest_record -->
+
+<!-- ISSUEHASHCONTENTOFLINEINCONTEXT 81f85370e29f0777d32b2c59c7bc3e7f -->
+
+<!-- BUGLINE 376 -->
+
+<!-- BUGCOLUMN 13 -->
+
+<!-- BUGPATHLENGTH 1 -->
+
+<!-- BUGMETAEND -->
+<!-- REPORTHEADER -->
+<h3>Bug Summary</h3>
+<table class="simpletable">
+<tr><td class="rowname">File:</td><td>obj/openssl-1.1.0g/ssl/s3_cbc.c</td></tr>
+<tr><td class="rowname">Warning:</td><td><a href="#EndPath">line 376, column 13</a><br />Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11</td></tr>
+
+</table>
+<!-- REPORTSUMMARYEXTRA -->
+<h3>Annotated Source Code</h3>
+<p>Press <a href="#" onclick="toggleHelp(); return false;">'?'</a>
+   to see keyboard shortcuts</p>
+<input type="checkbox" class="spoilerhider" id="showinvocation" />
+<label for="showinvocation" >Show analyzer invocation</label>
+<div class="spoiler">clang -cc1 -cc1 -triple x86_64-unknown-linux-gnu -analyze -disable-free -main-file-name s3_cbc.c -analyzer-store=region -analyzer-opt-analyze-nested-blocks -analyzer-checker=core -analyzer-checker=apiModeling -analyzer-checker=unix -analyzer-checker=deadcode -analyzer-checker=security.insecureAPI.UncheckedReturn -analyzer-checker=security.insecureAPI.getpw -analyzer-checker=security.insecureAPI.gets -analyzer-checker=security.insecureAPI.mktemp -analyzer-checker=security.insecureAPI.mkstemp -analyzer-checker=security.insecureAPI.vfork -analyzer-checker=nullability.NullPassedToNonnull -analyzer-checker=nullability.NullReturnedFromNonnull -analyzer-output plist -w -setup-static-analyzer -mrelocation-model pic -pic-level 2 -mframe-pointer=none -fmath-errno -fno-rounding-math -mconstructor-aliases -munwind-tables -target-cpu x86-64 -fno-split-dwarf-inlining -debugger-tuning=gdb -resource-dir /llvm-project/build/lib/clang/12.0.0 -I . -I include -D DSO_DLFCN -D HAVE_DLFCN_H -D NDEBUG -D OPENSSL_THREADS -D OPENSSL_NO_DYNAMIC_ENGINE -D OPENSSL_PIC -D OPENSSL_IA32_SSE2 -D OPENSSL_BN_ASM_MONT -D OPENSSL_BN_ASM_MONT5 -D OPENSSL_BN_ASM_GF2m -D SHA1_ASM -D SHA256_ASM -D SHA512_ASM -D RC4_ASM -D MD5_ASM -D AES_ASM -D VPAES_ASM -D BSAES_ASM -D GHASH_ASM -D ECP_NISTZ256_ASM -D PADLOCK_ASM -D POLY1305_ASM -D OPENSSLDIR="/tmp/real/c_wrk/wrk0/obj/ssl" -D ENGINESDIR="/tmp/real/c_wrk/wrk0/obj/lib/engines-1.1" -D L_ENDIAN -D OPENSSL_USE_NODELETE -internal-isystem /usr/local/include -internal-isystem /llvm-project/build/lib/clang/12.0.0/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -O3 -fdebug-compilation-dir /tmp/real/c_wrk/wrk0/obj/openssl-1.1.0g -ferror-limit 19 -fgnuc-version=4.2.1 -vectorize-loops -vectorize-slp -analyzer-checker core -analyzer-checker cplusplus -analyzer-checker nullability -analyzer-checker optin -analyzer-checker security -analyzer-checker unix -analyzer-checker osx -analyzer-checker fuchsia -analyzer-checker webkit -analyzer-output=html -faddrsig -o /tmp/scan-build-2020-11-20-011311-6666-1 -x c ssl/s3_cbc.c
+</div>
+<div id='tooltiphint' hidden="true">
+  <p>Keyboard shortcuts: </p>
+  <ul>
+    <li>Use 'j/k' keys for keyboard navigation</li>
+    <li>Use 'Shift+S' to show/hide relevant lines</li>
+    <li>Use '?' to toggle this window</li>
+  </ul>
+  <a href="#" onclick="toggleHelp(); return false;">Close</a>
+</div>
+<script type='text/javascript'>
+var relevant_lines = {"1": {"376": 1}};
+
+var filterCounterexample = function (hide) {
+  var tables = document.getElementsByClassName("code");
+  for (var t=0; t<tables.length; t++) {
+    var table = tables[t];
+    var file_id = table.getAttribute("data-fileid");
+    var lines_in_fid = relevant_lines[file_id];
+    if (!lines_in_fid) {
+      lines_in_fid = {};
+    }
+    var lines = table.getElementsByClassName("codeline");
+    for (var i=0; i<lines.length; i++) {
+        var el = lines[i];
+        var lineNo = el.getAttribute("data-linenumber");
+        if (!lines_in_fid[lineNo]) {
+          if (hide) {
+            el.setAttribute("hidden", "");
+          } else {
+            el.removeAttribute("hidden");
+          }
+        }
+    }
+  }
+}
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "S") {
+    var checked = document.getElementsByName("showCounterexample")[0].checked;
+    filterCounterexample(!checked);
+    document.getElementsByName("showCounterexample")[0].checked = !checked;
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('input[name="showCounterexample"]').onchange=
+        function (event) {
+      filterCounterexample(this.checked);
+    };
+});
+</script>
+
+<form>
+    <input type="checkbox" name="showCounterexample" id="showCounterexample" />
+    <label for="showCounterexample">
+       Show only relevant lines
+    </label>
+</form>
+
+<script type='text/javascript'>
+var digitMatcher = new RegExp("[0-9]+");
+
+var querySelectorAllArray = function(selector) {
+  return Array.prototype.slice.call(
+    document.querySelectorAll(selector));
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    querySelectorAllArray(".PathNav > a").forEach(
+        function(currentValue, currentIndex) {
+            var hrefValue = currentValue.getAttribute("href");
+            currentValue.onclick = function() {
+                scrollTo(document.querySelector(hrefValue));
+                return false;
+            };
+        });
+});
+
+var findNum = function() {
+    var s = document.querySelector(".selected");
+    if (!s || s.id == "EndPath") {
+        return 0;
+    }
+    var out = parseInt(digitMatcher.exec(s.id)[0]);
+    return out;
+};
+
+var scrollTo = function(el) {
+    querySelectorAllArray(".selected").forEach(function(s) {
+        s.classList.remove("selected");
+    });
+    el.classList.add("selected");
+    window.scrollBy(0, el.getBoundingClientRect().top -
+        (window.innerHeight / 2));
+}
+
+var move = function(num, up, numItems) {
+  if (num == 1 && up || num == numItems - 1 && !up) {
+    return 0;
+  } else if (num == 0 && up) {
+    return numItems - 1;
+  } else if (num == 0 && !up) {
+    return 1 % numItems;
+  }
+  return up ? num - 1 : num + 1;
+}
+
+var numToId = function(num) {
+  if (num == 0) {
+    return document.getElementById("EndPath")
+  }
+  return document.getElementById("Path" + num);
+};
+
+var navigateTo = function(up) {
+  var numItems = document.querySelectorAll(
+      ".line > .msgEvent, .line > .msgControl").length;
+  var currentSelected = findNum();
+  var newSelected = move(currentSelected, up, numItems);
+  var newEl = numToId(newSelected, numItems);
+
+  // Scroll element into center.
+  scrollTo(newEl);
+};
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "j") {
+    navigateTo(/*up=*/false);
+  } else if (event.key == "k") {
+    navigateTo(/*up=*/true);
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+</script>
+  
+<script type='text/javascript'>
+
+var toggleHelp = function() {
+    var hint = document.querySelector("#tooltiphint");
+    var attributeName = "hidden";
+    if (hint.hasAttribute(attributeName)) {
+      hint.removeAttribute(attributeName);
+    } else {
+      hint.setAttribute("hidden", "true");
+    }
+};
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "?") {
+    toggleHelp();
+  } else {
+    return;
+  }
+  event.preventDefault();
+});
+</script>
+<table class="code" data-fileid="1">
+<tr class="codeline" data-linenumber="1"><td class="num" id="LN1">1</td><td class="line"><span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="2"><td class="num" id="LN2">2</td><td class="line"> <span class='comment'>* Copyright 2012-2016 The OpenSSL Project Authors. All Rights Reserved.</span></td></tr>
+<tr class="codeline" data-linenumber="3"><td class="num" id="LN3">3</td><td class="line"> <span class='comment'>*</span></td></tr>
+<tr class="codeline" data-linenumber="4"><td class="num" id="LN4">4</td><td class="line"> <span class='comment'>* Licensed under the OpenSSL license (the "License").  You may not use</span></td></tr>
+<tr class="codeline" data-linenumber="5"><td class="num" id="LN5">5</td><td class="line"> <span class='comment'>* this file except in compliance with the License.  You can obtain a copy</span></td></tr>
+<tr class="codeline" data-linenumber="6"><td class="num" id="LN6">6</td><td class="line"> <span class='comment'>* in the file LICENSE in the source distribution or at</span></td></tr>
+<tr class="codeline" data-linenumber="7"><td class="num" id="LN7">7</td><td class="line"> <span class='comment'>* https://www.openssl.org/source/license.html</span></td></tr>
+<tr class="codeline" data-linenumber="8"><td class="num" id="LN8">8</td><td class="line"> <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="9"><td class="num" id="LN9">9</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="10"><td class="num" id="LN10">10</td><td class="line"><span class='directive'>#include "internal/constant_time_locl.h"</span></td></tr>
+<tr class="codeline" data-linenumber="11"><td class="num" id="LN11">11</td><td class="line"><span class='directive'>#include "ssl_locl.h"</span></td></tr>
+<tr class="codeline" data-linenumber="12"><td class="num" id="LN12">12</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="13"><td class="num" id="LN13">13</td><td class="line"><span class='directive'>#include &lt;openssl/md5.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="14"><td class="num" id="LN14">14</td><td class="line"><span class='directive'>#include &lt;openssl/sha.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="15"><td class="num" id="LN15">15</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="16"><td class="num" id="LN16">16</td><td class="line"><span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="17"><td class="num" id="LN17">17</td><td class="line"> <span class='comment'>* MAX_HASH_BIT_COUNT_BYTES is the maximum number of bytes in the hash's</span></td></tr>
+<tr class="codeline" data-linenumber="18"><td class="num" id="LN18">18</td><td class="line"> <span class='comment'>* length field. (SHA-384/512 have 128-bit length.)</span></td></tr>
+<tr class="codeline" data-linenumber="19"><td class="num" id="LN19">19</td><td class="line"> <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="20"><td class="num" id="LN20">20</td><td class="line"><span class='directive'>#define <span class='macro'>MAX_HASH_BIT_COUNT_BYTES<span class='macro_popup'>16</span></span> 16</span></td></tr>
+<tr class="codeline" data-linenumber="21"><td class="num" id="LN21">21</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="22"><td class="num" id="LN22">22</td><td class="line"><span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="23"><td class="num" id="LN23">23</td><td class="line"> <span class='comment'>* MAX_HASH_BLOCK_SIZE is the maximum hash block size that we'll support.</span></td></tr>
+<tr class="codeline" data-linenumber="24"><td class="num" id="LN24">24</td><td class="line"> <span class='comment'>* Currently SHA-384/512 has a 128-byte block size and that's the largest</span></td></tr>
+<tr class="codeline" data-linenumber="25"><td class="num" id="LN25">25</td><td class="line"> <span class='comment'>* supported by TLS.)</span></td></tr>
+<tr class="codeline" data-linenumber="26"><td class="num" id="LN26">26</td><td class="line"> <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="27"><td class="num" id="LN27">27</td><td class="line"><span class='directive'>#define <span class='macro'>MAX_HASH_BLOCK_SIZE<span class='macro_popup'>128</span></span> 128</span></td></tr>
+<tr class="codeline" data-linenumber="28"><td class="num" id="LN28">28</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="29"><td class="num" id="LN29">29</td><td class="line"><span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="30"><td class="num" id="LN30">30</td><td class="line"> <span class='comment'>* u32toLE serialises an unsigned, 32-bit number (n) as four bytes at (p) in</span></td></tr>
+<tr class="codeline" data-linenumber="31"><td class="num" id="LN31">31</td><td class="line"> <span class='comment'>* little-endian order. The value of p is advanced by four.</span></td></tr>
+<tr class="codeline" data-linenumber="32"><td class="num" id="LN32">32</td><td class="line"> <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="33"><td class="num" id="LN33">33</td><td class="line"><span class='directive'>#define <span class='macro'>u32toLE(n, p)<span class='macro_popup'>(*((p)++)=(unsigned char)(n), *((p)++)=(unsigned char)(n&gt;&gt;<br>8), *((p)++)=(unsigned char)(n&gt;&gt;16), *((p)++)=(unsigned<br> char)(n&gt;&gt;24))</span></span> \</span></td></tr>
+<tr class="codeline" data-linenumber="34"><td class="num" id="LN34">34</td><td class="line">        <span class='directive'>(*((p)++)=(unsigned char)(n), \</span></td></tr>
+<tr class="codeline" data-linenumber="35"><td class="num" id="LN35">35</td><td class="line">         <span class='directive'>*((p)++)=(unsigned char)(n&gt;&gt;8), \</span></td></tr>
+<tr class="codeline" data-linenumber="36"><td class="num" id="LN36">36</td><td class="line">         <span class='directive'>*((p)++)=(unsigned char)(n&gt;&gt;16), \</span></td></tr>
+<tr class="codeline" data-linenumber="37"><td class="num" id="LN37">37</td><td class="line">         <span class='directive'>*((p)++)=(unsigned char)(n&gt;&gt;24))</span></td></tr>
+<tr class="codeline" data-linenumber="38"><td class="num" id="LN38">38</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="39"><td class="num" id="LN39">39</td><td class="line"><span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="40"><td class="num" id="LN40">40</td><td class="line"> <span class='comment'>* These functions serialize the state of a hash and thus perform the</span></td></tr>
+<tr class="codeline" data-linenumber="41"><td class="num" id="LN41">41</td><td class="line"> <span class='comment'>* standard "final" operation without adding the padding and length that such</span></td></tr>
+<tr class="codeline" data-linenumber="42"><td class="num" id="LN42">42</td><td class="line"> <span class='comment'>* a function typically does.</span></td></tr>
+<tr class="codeline" data-linenumber="43"><td class="num" id="LN43">43</td><td class="line"> <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="44"><td class="num" id="LN44">44</td><td class="line"><span class='keyword'>static</span> <span class='keyword'>void</span> tls1_md5_final_raw(<span class='keyword'>void</span> *ctx, <span class='keyword'>unsigned</span> <span class='keyword'>char</span> *md_out)</td></tr>
+<tr class="codeline" data-linenumber="45"><td class="num" id="LN45">45</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="46"><td class="num" id="LN46">46</td><td class="line">    MD5_CTX *md5 = ctx;</td></tr>
+<tr class="codeline" data-linenumber="47"><td class="num" id="LN47">47</td><td class="line">    <span class='macro'>u32toLE(md5-&gt;A, md_out)<span class='macro_popup'>(*((md_out)++)=(unsigned char)(md5-&gt;A), *((md_out)++)=(unsigned<br> char)(md5-&gt;A&gt;&gt;8), *((md_out)++)=(unsigned char)(md5<br>-&gt;A&gt;&gt;16), *((md_out)++)=(unsigned char)(md5-&gt;A&gt;&gt;<br>24))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="48"><td class="num" id="LN48">48</td><td class="line">    <span class='macro'>u32toLE(md5-&gt;B, md_out)<span class='macro_popup'>(*((md_out)++)=(unsigned char)(md5-&gt;B), *((md_out)++)=(unsigned<br> char)(md5-&gt;B&gt;&gt;8), *((md_out)++)=(unsigned char)(md5<br>-&gt;B&gt;&gt;16), *((md_out)++)=(unsigned char)(md5-&gt;B&gt;&gt;<br>24))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="49"><td class="num" id="LN49">49</td><td class="line">    <span class='macro'>u32toLE(md5-&gt;C, md_out)<span class='macro_popup'>(*((md_out)++)=(unsigned char)(md5-&gt;C), *((md_out)++)=(unsigned<br> char)(md5-&gt;C&gt;&gt;8), *((md_out)++)=(unsigned char)(md5<br>-&gt;C&gt;&gt;16), *((md_out)++)=(unsigned char)(md5-&gt;C&gt;&gt;<br>24))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="50"><td class="num" id="LN50">50</td><td class="line">    <span class='macro'>u32toLE(md5-&gt;D, md_out)<span class='macro_popup'>(*((md_out)++)=(unsigned char)(md5-&gt;D), *((md_out)++)=(unsigned<br> char)(md5-&gt;D&gt;&gt;8), *((md_out)++)=(unsigned char)(md5<br>-&gt;D&gt;&gt;16), *((md_out)++)=(unsigned char)(md5-&gt;D&gt;&gt;<br>24))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="51"><td class="num" id="LN51">51</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="52"><td class="num" id="LN52">52</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="53"><td class="num" id="LN53">53</td><td class="line"><span class='keyword'>static</span> <span class='keyword'>void</span> tls1_sha1_final_raw(<span class='keyword'>void</span> *ctx, <span class='keyword'>unsigned</span> <span class='keyword'>char</span> *md_out)</td></tr>
+<tr class="codeline" data-linenumber="54"><td class="num" id="LN54">54</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="55"><td class="num" id="LN55">55</td><td class="line">    SHA_CTX *sha1 = ctx;</td></tr>
+<tr class="codeline" data-linenumber="56"><td class="num" id="LN56">56</td><td class="line">    <span class='macro'>l2n(sha1-&gt;h0, md_out)<span class='macro_popup'>(*((md_out)++)=(unsigned char)(((sha1-&gt;h0)&gt;&gt;24)&amp;<br>0xff), *((md_out)++)=(unsigned char)(((sha1-&gt;h0)&gt;&gt;16<br>)&amp;0xff), *((md_out)++)=(unsigned char)(((sha1-&gt;h0)&gt;&gt;<br> 8)&amp;0xff), *((md_out)++)=(unsigned char)(((sha1-&gt;h0) )<br>&amp;0xff))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="57"><td class="num" id="LN57">57</td><td class="line">    <span class='macro'>l2n(sha1-&gt;h1, md_out)<span class='macro_popup'>(*((md_out)++)=(unsigned char)(((sha1-&gt;h1)&gt;&gt;24)&amp;<br>0xff), *((md_out)++)=(unsigned char)(((sha1-&gt;h1)&gt;&gt;16<br>)&amp;0xff), *((md_out)++)=(unsigned char)(((sha1-&gt;h1)&gt;&gt;<br> 8)&amp;0xff), *((md_out)++)=(unsigned char)(((sha1-&gt;h1) )<br>&amp;0xff))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="58"><td class="num" id="LN58">58</td><td class="line">    <span class='macro'>l2n(sha1-&gt;h2, md_out)<span class='macro_popup'>(*((md_out)++)=(unsigned char)(((sha1-&gt;h2)&gt;&gt;24)&amp;<br>0xff), *((md_out)++)=(unsigned char)(((sha1-&gt;h2)&gt;&gt;16<br>)&amp;0xff), *((md_out)++)=(unsigned char)(((sha1-&gt;h2)&gt;&gt;<br> 8)&amp;0xff), *((md_out)++)=(unsigned char)(((sha1-&gt;h2) )<br>&amp;0xff))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="59"><td class="num" id="LN59">59</td><td class="line">    <span class='macro'>l2n(sha1-&gt;h3, md_out)<span class='macro_popup'>(*((md_out)++)=(unsigned char)(((sha1-&gt;h3)&gt;&gt;24)&amp;<br>0xff), *((md_out)++)=(unsigned char)(((sha1-&gt;h3)&gt;&gt;16<br>)&amp;0xff), *((md_out)++)=(unsigned char)(((sha1-&gt;h3)&gt;&gt;<br> 8)&amp;0xff), *((md_out)++)=(unsigned char)(((sha1-&gt;h3) )<br>&amp;0xff))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="60"><td class="num" id="LN60">60</td><td class="line">    <span class='macro'>l2n(sha1-&gt;h4, md_out)<span class='macro_popup'>(*((md_out)++)=(unsigned char)(((sha1-&gt;h4)&gt;&gt;24)&amp;<br>0xff), *((md_out)++)=(unsigned char)(((sha1-&gt;h4)&gt;&gt;16<br>)&amp;0xff), *((md_out)++)=(unsigned char)(((sha1-&gt;h4)&gt;&gt;<br> 8)&amp;0xff), *((md_out)++)=(unsigned char)(((sha1-&gt;h4) )<br>&amp;0xff))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="61"><td class="num" id="LN61">61</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="62"><td class="num" id="LN62">62</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="63"><td class="num" id="LN63">63</td><td class="line"><span class='keyword'>static</span> <span class='keyword'>void</span> tls1_sha256_final_raw(<span class='keyword'>void</span> *ctx, <span class='keyword'>unsigned</span> <span class='keyword'>char</span> *md_out)</td></tr>
+<tr class="codeline" data-linenumber="64"><td class="num" id="LN64">64</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="65"><td class="num" id="LN65">65</td><td class="line">    SHA256_CTX *sha256 = ctx;</td></tr>
+<tr class="codeline" data-linenumber="66"><td class="num" id="LN66">66</td><td class="line">    <span class='keyword'>unsigned</span> i;</td></tr>
+<tr class="codeline" data-linenumber="67"><td class="num" id="LN67">67</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="68"><td class="num" id="LN68">68</td><td class="line">    <span class='keyword'>for</span> (i = 0; i &lt; 8; i++) {</td></tr>
+<tr class="codeline" data-linenumber="69"><td class="num" id="LN69">69</td><td class="line">        <span class='macro'>l2n(sha256-&gt;h[i], md_out)<span class='macro_popup'>(*((md_out)++)=(unsigned char)(((sha256-&gt;h[i])&gt;&gt;24)&amp;<br>0xff), *((md_out)++)=(unsigned char)(((sha256-&gt;h[i])&gt;&gt;<br>16)&amp;0xff), *((md_out)++)=(unsigned char)(((sha256-&gt;h[i<br>])&gt;&gt; 8)&amp;0xff), *((md_out)++)=(unsigned char)(((sha256<br>-&gt;h[i]) )&amp;0xff))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="70"><td class="num" id="LN70">70</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="71"><td class="num" id="LN71">71</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="72"><td class="num" id="LN72">72</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="73"><td class="num" id="LN73">73</td><td class="line"><span class='keyword'>static</span> <span class='keyword'>void</span> tls1_sha512_final_raw(<span class='keyword'>void</span> *ctx, <span class='keyword'>unsigned</span> <span class='keyword'>char</span> *md_out)</td></tr>
+<tr class="codeline" data-linenumber="74"><td class="num" id="LN74">74</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="75"><td class="num" id="LN75">75</td><td class="line">    SHA512_CTX *sha512 = ctx;</td></tr>
+<tr class="codeline" data-linenumber="76"><td class="num" id="LN76">76</td><td class="line">    <span class='keyword'>unsigned</span> i;</td></tr>
+<tr class="codeline" data-linenumber="77"><td class="num" id="LN77">77</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="78"><td class="num" id="LN78">78</td><td class="line">    <span class='keyword'>for</span> (i = 0; i &lt; 8; i++) {</td></tr>
+<tr class="codeline" data-linenumber="79"><td class="num" id="LN79">79</td><td class="line">        <span class='macro'>l2n8(sha512-&gt;h[i], md_out)<span class='macro_popup'>(*((md_out)++)=(unsigned char)(((sha512-&gt;h[i])&gt;&gt;56)&amp;<br>0xff), *((md_out)++)=(unsigned char)(((sha512-&gt;h[i])&gt;&gt;<br>48)&amp;0xff), *((md_out)++)=(unsigned char)(((sha512-&gt;h[i<br>])&gt;&gt;40)&amp;0xff), *((md_out)++)=(unsigned char)(((sha512<br>-&gt;h[i])&gt;&gt;32)&amp;0xff), *((md_out)++)=(unsigned char<br>)(((sha512-&gt;h[i])&gt;&gt;24)&amp;0xff), *((md_out)++)=(unsigned<br> char)(((sha512-&gt;h[i])&gt;&gt;16)&amp;0xff), *((md_out)++)<br>=(unsigned char)(((sha512-&gt;h[i])&gt;&gt; 8)&amp;0xff), *((<br>md_out)++)=(unsigned char)(((sha512-&gt;h[i]) )&amp;0xff))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="80"><td class="num" id="LN80">80</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="81"><td class="num" id="LN81">81</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="82"><td class="num" id="LN82">82</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="83"><td class="num" id="LN83">83</td><td class="line"><span class='directive'>#undef  <span class='macro'>LARGEST_DIGEST_CTX<span class='macro_popup'>SHA512_CTX</span></span></span></td></tr>
+<tr class="codeline" data-linenumber="84"><td class="num" id="LN84">84</td><td class="line"><span class='directive'>#define <span class='macro'>LARGEST_DIGEST_CTX<span class='macro_popup'>SHA512_CTX</span></span> SHA512_CTX</span></td></tr>
+<tr class="codeline" data-linenumber="85"><td class="num" id="LN85">85</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="86"><td class="num" id="LN86">86</td><td class="line"><span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="87"><td class="num" id="LN87">87</td><td class="line"> <span class='comment'>* ssl3_cbc_record_digest_supported returns 1 iff |ctx| uses a hash function</span></td></tr>
+<tr class="codeline" data-linenumber="88"><td class="num" id="LN88">88</td><td class="line"> <span class='comment'>* which ssl3_cbc_digest_record supports.</span></td></tr>
+<tr class="codeline" data-linenumber="89"><td class="num" id="LN89">89</td><td class="line"> <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="90"><td class="num" id="LN90">90</td><td class="line"><span class='keyword'>char</span> ssl3_cbc_record_digest_supported(<span class='keyword'>const</span> EVP_MD_CTX *ctx)</td></tr>
+<tr class="codeline" data-linenumber="91"><td class="num" id="LN91">91</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="92"><td class="num" id="LN92">92</td><td class="line">    <span class='keyword'>if</span> (FIPS_mode())</td></tr>
+<tr class="codeline" data-linenumber="93"><td class="num" id="LN93">93</td><td class="line">        <span class='keyword'>return</span> 0;</td></tr>
+<tr class="codeline" data-linenumber="94"><td class="num" id="LN94">94</td><td class="line">    <span class='keyword'>switch</span> (<span class='macro'>EVP_MD_CTX_type(ctx)<span class='macro_popup'>EVP_MD_type(EVP_MD_CTX_md(ctx))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="95"><td class="num" id="LN95">95</td><td class="line">    <span class='keyword'>case</span> <span class='macro'>NID_md5<span class='macro_popup'>4</span></span>:</td></tr>
+<tr class="codeline" data-linenumber="96"><td class="num" id="LN96">96</td><td class="line">    <span class='keyword'>case</span> <span class='macro'>NID_sha1<span class='macro_popup'>64</span></span>:</td></tr>
+<tr class="codeline" data-linenumber="97"><td class="num" id="LN97">97</td><td class="line">    <span class='keyword'>case</span> <span class='macro'>NID_sha224<span class='macro_popup'>675</span></span>:</td></tr>
+<tr class="codeline" data-linenumber="98"><td class="num" id="LN98">98</td><td class="line">    <span class='keyword'>case</span> <span class='macro'>NID_sha256<span class='macro_popup'>672</span></span>:</td></tr>
+<tr class="codeline" data-linenumber="99"><td class="num" id="LN99">99</td><td class="line">    <span class='keyword'>case</span> <span class='macro'>NID_sha384<span class='macro_popup'>673</span></span>:</td></tr>
+<tr class="codeline" data-linenumber="100"><td class="num" id="LN100">100</td><td class="line">    <span class='keyword'>case</span> <span class='macro'>NID_sha512<span class='macro_popup'>674</span></span>:</td></tr>
+<tr class="codeline" data-linenumber="101"><td class="num" id="LN101">101</td><td class="line">        <span class='keyword'>return</span> 1;</td></tr>
+<tr class="codeline" data-linenumber="102"><td class="num" id="LN102">102</td><td class="line">    <span class='keyword'>default</span>:</td></tr>
+<tr class="codeline" data-linenumber="103"><td class="num" id="LN103">103</td><td class="line">        <span class='keyword'>return</span> 0;</td></tr>
+<tr class="codeline" data-linenumber="104"><td class="num" id="LN104">104</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="105"><td class="num" id="LN105">105</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="106"><td class="num" id="LN106">106</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="107"><td class="num" id="LN107">107</td><td class="line"><span class='comment'>/*-</span></td></tr>
+<tr class="codeline" data-linenumber="108"><td class="num" id="LN108">108</td><td class="line"> <span class='comment'>* ssl3_cbc_digest_record computes the MAC of a decrypted, padded SSLv3/TLS</span></td></tr>
+<tr class="codeline" data-linenumber="109"><td class="num" id="LN109">109</td><td class="line"> <span class='comment'>* record.</span></td></tr>
+<tr class="codeline" data-linenumber="110"><td class="num" id="LN110">110</td><td class="line"> <span class='comment'>*</span></td></tr>
+<tr class="codeline" data-linenumber="111"><td class="num" id="LN111">111</td><td class="line"> <span class='comment'>*   ctx: the EVP_MD_CTX from which we take the hash function.</span></td></tr>
+<tr class="codeline" data-linenumber="112"><td class="num" id="LN112">112</td><td class="line"> <span class='comment'>*     ssl3_cbc_record_digest_supported must return true for this EVP_MD_CTX.</span></td></tr>
+<tr class="codeline" data-linenumber="113"><td class="num" id="LN113">113</td><td class="line"> <span class='comment'>*   md_out: the digest output. At most EVP_MAX_MD_SIZE bytes will be written.</span></td></tr>
+<tr class="codeline" data-linenumber="114"><td class="num" id="LN114">114</td><td class="line"> <span class='comment'>*   md_out_size: if non-NULL, the number of output bytes is written here.</span></td></tr>
+<tr class="codeline" data-linenumber="115"><td class="num" id="LN115">115</td><td class="line"> <span class='comment'>*   header: the 13-byte, TLS record header.</span></td></tr>
+<tr class="codeline" data-linenumber="116"><td class="num" id="LN116">116</td><td class="line"> <span class='comment'>*   data: the record data itself, less any preceding explicit IV.</span></td></tr>
+<tr class="codeline" data-linenumber="117"><td class="num" id="LN117">117</td><td class="line"> <span class='comment'>*   data_plus_mac_size: the secret, reported length of the data and MAC</span></td></tr>
+<tr class="codeline" data-linenumber="118"><td class="num" id="LN118">118</td><td class="line"> <span class='comment'>*     once the padding has been removed.</span></td></tr>
+<tr class="codeline" data-linenumber="119"><td class="num" id="LN119">119</td><td class="line"> <span class='comment'>*   data_plus_mac_plus_padding_size: the public length of the whole</span></td></tr>
+<tr class="codeline" data-linenumber="120"><td class="num" id="LN120">120</td><td class="line"> <span class='comment'>*     record, including padding.</span></td></tr>
+<tr class="codeline" data-linenumber="121"><td class="num" id="LN121">121</td><td class="line"> <span class='comment'>*   is_sslv3: non-zero if we are to use SSLv3. Otherwise, TLS.</span></td></tr>
+<tr class="codeline" data-linenumber="122"><td class="num" id="LN122">122</td><td class="line"> <span class='comment'>*</span></td></tr>
+<tr class="codeline" data-linenumber="123"><td class="num" id="LN123">123</td><td class="line"> <span class='comment'>* On entry: by virtue of having been through one of the remove_padding</span></td></tr>
+<tr class="codeline" data-linenumber="124"><td class="num" id="LN124">124</td><td class="line"> <span class='comment'>* functions, above, we know that data_plus_mac_size is large enough to contain</span></td></tr>
+<tr class="codeline" data-linenumber="125"><td class="num" id="LN125">125</td><td class="line"> <span class='comment'>* a padding byte and MAC. (If the padding was invalid, it might contain the</span></td></tr>
+<tr class="codeline" data-linenumber="126"><td class="num" id="LN126">126</td><td class="line"> <span class='comment'>* padding too. )</span></td></tr>
+<tr class="codeline" data-linenumber="127"><td class="num" id="LN127">127</td><td class="line"> <span class='comment'>* Returns 1 on success or 0 on error</span></td></tr>
+<tr class="codeline" data-linenumber="128"><td class="num" id="LN128">128</td><td class="line"> <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="129"><td class="num" id="LN129">129</td><td class="line"><span class='keyword'>int</span> ssl3_cbc_digest_record(<span class='keyword'>const</span> EVP_MD_CTX *ctx,</td></tr>
+<tr class="codeline" data-linenumber="130"><td class="num" id="LN130">130</td><td class="line">                           <span class='keyword'>unsigned</span> <span class='keyword'>char</span> *md_out,</td></tr>
+<tr class="codeline" data-linenumber="131"><td class="num" id="LN131">131</td><td class="line">                           size_t *md_out_size,</td></tr>
+<tr class="codeline" data-linenumber="132"><td class="num" id="LN132">132</td><td class="line">                           <span class='keyword'>const</span> <span class='keyword'>unsigned</span> <span class='keyword'>char</span> header[13],</td></tr>
+<tr class="codeline" data-linenumber="133"><td class="num" id="LN133">133</td><td class="line">                           <span class='keyword'>const</span> <span class='keyword'>unsigned</span> <span class='keyword'>char</span> *data,</td></tr>
+<tr class="codeline" data-linenumber="134"><td class="num" id="LN134">134</td><td class="line">                           size_t data_plus_mac_size,</td></tr>
+<tr class="codeline" data-linenumber="135"><td class="num" id="LN135">135</td><td class="line">                           size_t data_plus_mac_plus_padding_size,</td></tr>
+<tr class="codeline" data-linenumber="136"><td class="num" id="LN136">136</td><td class="line">                           <span class='keyword'>const</span> <span class='keyword'>unsigned</span> <span class='keyword'>char</span> *mac_secret,</td></tr>
+<tr class="codeline" data-linenumber="137"><td class="num" id="LN137">137</td><td class="line">                           <span class='keyword'>unsigned</span> mac_secret_length, <span class='keyword'>char</span> is_sslv3)</td></tr>
+<tr class="codeline" data-linenumber="138"><td class="num" id="LN138">138</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="139"><td class="num" id="LN139">139</td><td class="line">    <span class='keyword'>union</span> {</td></tr>
+<tr class="codeline" data-linenumber="140"><td class="num" id="LN140">140</td><td class="line">        <span class='keyword'>double</span> align;</td></tr>
+<tr class="codeline" data-linenumber="141"><td class="num" id="LN141">141</td><td class="line">        <span class='keyword'>unsigned</span> <span class='keyword'>char</span> c[<span class='keyword'>sizeof</span>(<span class='macro'>LARGEST_DIGEST_CTX<span class='macro_popup'>SHA512_CTX</span></span>)];</td></tr>
+<tr class="codeline" data-linenumber="142"><td class="num" id="LN142">142</td><td class="line">    } md_state;</td></tr>
+<tr class="codeline" data-linenumber="143"><td class="num" id="LN143">143</td><td class="line">    <span class='keyword'>void</span> (*md_final_raw) (<span class='keyword'>void</span> *ctx, <span class='keyword'>unsigned</span> <span class='keyword'>char</span> *md_out);</td></tr>
+<tr class="codeline" data-linenumber="144"><td class="num" id="LN144">144</td><td class="line">    <span class='keyword'>void</span> (*md_transform) (<span class='keyword'>void</span> *ctx, <span class='keyword'>const</span> <span class='keyword'>unsigned</span> <span class='keyword'>char</span> *block);</td></tr>
+<tr class="codeline" data-linenumber="145"><td class="num" id="LN145">145</td><td class="line">    <span class='keyword'>unsigned</span> md_size, md_block_size = 64;</td></tr>
+<tr class="codeline" data-linenumber="146"><td class="num" id="LN146">146</td><td class="line">    <span class='keyword'>unsigned</span> sslv3_pad_length = 40, header_length, variance_blocks,</td></tr>
+<tr class="codeline" data-linenumber="147"><td class="num" id="LN147">147</td><td class="line">        len, max_mac_bytes, num_blocks,</td></tr>
+<tr class="codeline" data-linenumber="148"><td class="num" id="LN148">148</td><td class="line">        num_starting_blocks, k, mac_end_offset, c, index_a, index_b;</td></tr>
+<tr class="codeline" data-linenumber="149"><td class="num" id="LN149">149</td><td class="line">    <span class='keyword'>unsigned</span> <span class='keyword'>int</span> bits;          <span class='comment'>/* at most 18 bits */</span></td></tr>
+<tr class="codeline" data-linenumber="150"><td class="num" id="LN150">150</td><td class="line">    <span class='keyword'>unsigned</span> <span class='keyword'>char</span> length_bytes[<span class='macro'>MAX_HASH_BIT_COUNT_BYTES<span class='macro_popup'>16</span></span>];</td></tr>
+<tr class="codeline" data-linenumber="151"><td class="num" id="LN151">151</td><td class="line">    <span class='comment'>/* hmac_pad is the masked HMAC key. */</span></td></tr>
+<tr class="codeline" data-linenumber="152"><td class="num" id="LN152">152</td><td class="line">    <span class='keyword'>unsigned</span> <span class='keyword'>char</span> hmac_pad[<span class='macro'>MAX_HASH_BLOCK_SIZE<span class='macro_popup'>128</span></span>];</td></tr>
+<tr class="codeline" data-linenumber="153"><td class="num" id="LN153">153</td><td class="line">    <span class='keyword'>unsigned</span> <span class='keyword'>char</span> first_block[<span class='macro'>MAX_HASH_BLOCK_SIZE<span class='macro_popup'>128</span></span>];</td></tr>
+<tr class="codeline" data-linenumber="154"><td class="num" id="LN154">154</td><td class="line">    <span class='keyword'>unsigned</span> <span class='keyword'>char</span> mac_out[<span class='macro'>EVP_MAX_MD_SIZE<span class='macro_popup'>64</span></span>];</td></tr>
+<tr class="codeline" data-linenumber="155"><td class="num" id="LN155">155</td><td class="line">    <span class='keyword'>unsigned</span> i, j, md_out_size_u;</td></tr>
+<tr class="codeline" data-linenumber="156"><td class="num" id="LN156">156</td><td class="line">    EVP_MD_CTX *md_ctx = <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="157"><td class="num" id="LN157">157</td><td class="line">    <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="158"><td class="num" id="LN158">158</td><td class="line">     <span class='comment'>* mdLengthSize is the number of bytes in the length field that</span></td></tr>
+<tr class="codeline" data-linenumber="159"><td class="num" id="LN159">159</td><td class="line">     <span class='comment'>* terminates * the hash.</span></td></tr>
+<tr class="codeline" data-linenumber="160"><td class="num" id="LN160">160</td><td class="line">     <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="161"><td class="num" id="LN161">161</td><td class="line">    <span class='keyword'>unsigned</span> md_length_size = 8;</td></tr>
+<tr class="codeline" data-linenumber="162"><td class="num" id="LN162">162</td><td class="line">    <span class='keyword'>char</span> length_is_big_endian = 1;</td></tr>
+<tr class="codeline" data-linenumber="163"><td class="num" id="LN163">163</td><td class="line">    <span class='keyword'>int</span> ret;</td></tr>
+<tr class="codeline" data-linenumber="164"><td class="num" id="LN164">164</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="165"><td class="num" id="LN165">165</td><td class="line">    <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="166"><td class="num" id="LN166">166</td><td class="line">     <span class='comment'>* This is a, hopefully redundant, check that allows us to forget about</span></td></tr>
+<tr class="codeline" data-linenumber="167"><td class="num" id="LN167">167</td><td class="line">     <span class='comment'>* many possible overflows later in this function.</span></td></tr>
+<tr class="codeline" data-linenumber="168"><td class="num" id="LN168">168</td><td class="line">     <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="169"><td class="num" id="LN169">169</td><td class="line">    <span class='macro'>OPENSSL_assert(data_plus_mac_plus_padding_size &lt; 1024 * 1024)<span class='macro_popup'>(void)((data_plus_mac_plus_padding_size &lt; 1024 * 1024) ? 0<br> : (OPENSSL_die("assertion failed: " "data_plus_mac_plus_padding_size &lt; 1024 * 1024"<br>, "ssl/s3_cbc.c", 169), 1))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="170"><td class="num" id="LN170">170</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="171"><td class="num" id="LN171">171</td><td class="line">    <span class='keyword'>switch</span> (<span class='macro'>EVP_MD_CTX_type(ctx)<span class='macro_popup'>EVP_MD_type(EVP_MD_CTX_md(ctx))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="172"><td class="num" id="LN172">172</td><td class="line">    <span class='keyword'>case</span> <span class='macro'>NID_md5<span class='macro_popup'>4</span></span>:</td></tr>
+<tr class="codeline" data-linenumber="173"><td class="num" id="LN173">173</td><td class="line">        <span class='keyword'>if</span> (MD5_Init((MD5_CTX *)md_state.c) &lt;= 0)</td></tr>
+<tr class="codeline" data-linenumber="174"><td class="num" id="LN174">174</td><td class="line">            <span class='keyword'>return</span> 0;</td></tr>
+<tr class="codeline" data-linenumber="175"><td class="num" id="LN175">175</td><td class="line">        md_final_raw = tls1_md5_final_raw;</td></tr>
+<tr class="codeline" data-linenumber="176"><td class="num" id="LN176">176</td><td class="line">        md_transform =</td></tr>
+<tr class="codeline" data-linenumber="177"><td class="num" id="LN177">177</td><td class="line">            (<span class='keyword'>void</span> (*)(<span class='keyword'>void</span> *ctx, <span class='keyword'>const</span> <span class='keyword'>unsigned</span> <span class='keyword'>char</span> *block))MD5_Transform;</td></tr>
+<tr class="codeline" data-linenumber="178"><td class="num" id="LN178">178</td><td class="line">        md_size = 16;</td></tr>
+<tr class="codeline" data-linenumber="179"><td class="num" id="LN179">179</td><td class="line">        sslv3_pad_length = 48;</td></tr>
+<tr class="codeline" data-linenumber="180"><td class="num" id="LN180">180</td><td class="line">        length_is_big_endian = 0;</td></tr>
+<tr class="codeline" data-linenumber="181"><td class="num" id="LN181">181</td><td class="line">        <span class='keyword'>break</span>;</td></tr>
+<tr class="codeline" data-linenumber="182"><td class="num" id="LN182">182</td><td class="line">    <span class='keyword'>case</span> <span class='macro'>NID_sha1<span class='macro_popup'>64</span></span>:</td></tr>
+<tr class="codeline" data-linenumber="183"><td class="num" id="LN183">183</td><td class="line">        <span class='keyword'>if</span> (SHA1_Init((SHA_CTX *)md_state.c) &lt;= 0)</td></tr>
+<tr class="codeline" data-linenumber="184"><td class="num" id="LN184">184</td><td class="line">            <span class='keyword'>return</span> 0;</td></tr>
+<tr class="codeline" data-linenumber="185"><td class="num" id="LN185">185</td><td class="line">        md_final_raw = tls1_sha1_final_raw;</td></tr>
+<tr class="codeline" data-linenumber="186"><td class="num" id="LN186">186</td><td class="line">        md_transform =</td></tr>
+<tr class="codeline" data-linenumber="187"><td class="num" id="LN187">187</td><td class="line">            (<span class='keyword'>void</span> (*)(<span class='keyword'>void</span> *ctx, <span class='keyword'>const</span> <span class='keyword'>unsigned</span> <span class='keyword'>char</span> *block))SHA1_Transform;</td></tr>
+<tr class="codeline" data-linenumber="188"><td class="num" id="LN188">188</td><td class="line">        md_size = 20;</td></tr>
+<tr class="codeline" data-linenumber="189"><td class="num" id="LN189">189</td><td class="line">        <span class='keyword'>break</span>;</td></tr>
+<tr class="codeline" data-linenumber="190"><td class="num" id="LN190">190</td><td class="line">    <span class='keyword'>case</span> <span class='macro'>NID_sha224<span class='macro_popup'>675</span></span>:</td></tr>
+<tr class="codeline" data-linenumber="191"><td class="num" id="LN191">191</td><td class="line">        <span class='keyword'>if</span> (SHA224_Init((SHA256_CTX *)md_state.c) &lt;= 0)</td></tr>
+<tr class="codeline" data-linenumber="192"><td class="num" id="LN192">192</td><td class="line">            <span class='keyword'>return</span> 0;</td></tr>
+<tr class="codeline" data-linenumber="193"><td class="num" id="LN193">193</td><td class="line">        md_final_raw = tls1_sha256_final_raw;</td></tr>
+<tr class="codeline" data-linenumber="194"><td class="num" id="LN194">194</td><td class="line">        md_transform =</td></tr>
+<tr class="codeline" data-linenumber="195"><td class="num" id="LN195">195</td><td class="line">            (<span class='keyword'>void</span> (*)(<span class='keyword'>void</span> *ctx, <span class='keyword'>const</span> <span class='keyword'>unsigned</span> <span class='keyword'>char</span> *block))SHA256_Transform;</td></tr>
+<tr class="codeline" data-linenumber="196"><td class="num" id="LN196">196</td><td class="line">        md_size = 224 / 8;</td></tr>
+<tr class="codeline" data-linenumber="197"><td class="num" id="LN197">197</td><td class="line">        <span class='keyword'>break</span>;</td></tr>
+<tr class="codeline" data-linenumber="198"><td class="num" id="LN198">198</td><td class="line">    <span class='keyword'>case</span> <span class='macro'>NID_sha256<span class='macro_popup'>672</span></span>:</td></tr>
+<tr class="codeline" data-linenumber="199"><td class="num" id="LN199">199</td><td class="line">        <span class='keyword'>if</span> (SHA256_Init((SHA256_CTX *)md_state.c) &lt;= 0)</td></tr>
+<tr class="codeline" data-linenumber="200"><td class="num" id="LN200">200</td><td class="line">            <span class='keyword'>return</span> 0;</td></tr>
+<tr class="codeline" data-linenumber="201"><td class="num" id="LN201">201</td><td class="line">        md_final_raw = tls1_sha256_final_raw;</td></tr>
+<tr class="codeline" data-linenumber="202"><td class="num" id="LN202">202</td><td class="line">        md_transform =</td></tr>
+<tr class="codeline" data-linenumber="203"><td class="num" id="LN203">203</td><td class="line">            (<span class='keyword'>void</span> (*)(<span class='keyword'>void</span> *ctx, <span class='keyword'>const</span> <span class='keyword'>unsigned</span> <span class='keyword'>char</span> *block))SHA256_Transform;</td></tr>
+<tr class="codeline" data-linenumber="204"><td class="num" id="LN204">204</td><td class="line">        md_size = 32;</td></tr>
+<tr class="codeline" data-linenumber="205"><td class="num" id="LN205">205</td><td class="line">        <span class='keyword'>break</span>;</td></tr>
+<tr class="codeline" data-linenumber="206"><td class="num" id="LN206">206</td><td class="line">    <span class='keyword'>case</span> <span class='macro'>NID_sha384<span class='macro_popup'>673</span></span>:</td></tr>
+<tr class="codeline" data-linenumber="207"><td class="num" id="LN207">207</td><td class="line">        <span class='keyword'>if</span> (SHA384_Init((SHA512_CTX *)md_state.c) &lt;= 0)</td></tr>
+<tr class="codeline" data-linenumber="208"><td class="num" id="LN208">208</td><td class="line">            <span class='keyword'>return</span> 0;</td></tr>
+<tr class="codeline" data-linenumber="209"><td class="num" id="LN209">209</td><td class="line">        md_final_raw = tls1_sha512_final_raw;</td></tr>
+<tr class="codeline" data-linenumber="210"><td class="num" id="LN210">210</td><td class="line">        md_transform =</td></tr>
+<tr class="codeline" data-linenumber="211"><td class="num" id="LN211">211</td><td class="line">            (<span class='keyword'>void</span> (*)(<span class='keyword'>void</span> *ctx, <span class='keyword'>const</span> <span class='keyword'>unsigned</span> <span class='keyword'>char</span> *block))SHA512_Transform;</td></tr>
+<tr class="codeline" data-linenumber="212"><td class="num" id="LN212">212</td><td class="line">        md_size = 384 / 8;</td></tr>
+<tr class="codeline" data-linenumber="213"><td class="num" id="LN213">213</td><td class="line">        md_block_size = 128;</td></tr>
+<tr class="codeline" data-linenumber="214"><td class="num" id="LN214">214</td><td class="line">        md_length_size = 16;</td></tr>
+<tr class="codeline" data-linenumber="215"><td class="num" id="LN215">215</td><td class="line">        <span class='keyword'>break</span>;</td></tr>
+<tr class="codeline" data-linenumber="216"><td class="num" id="LN216">216</td><td class="line">    <span class='keyword'>case</span> <span class='macro'>NID_sha512<span class='macro_popup'>674</span></span>:</td></tr>
+<tr class="codeline" data-linenumber="217"><td class="num" id="LN217">217</td><td class="line">        <span class='keyword'>if</span> (SHA512_Init((SHA512_CTX *)md_state.c) &lt;= 0)</td></tr>
+<tr class="codeline" data-linenumber="218"><td class="num" id="LN218">218</td><td class="line">            <span class='keyword'>return</span> 0;</td></tr>
+<tr class="codeline" data-linenumber="219"><td class="num" id="LN219">219</td><td class="line">        md_final_raw = tls1_sha512_final_raw;</td></tr>
+<tr class="codeline" data-linenumber="220"><td class="num" id="LN220">220</td><td class="line">        md_transform =</td></tr>
+<tr class="codeline" data-linenumber="221"><td class="num" id="LN221">221</td><td class="line">            (<span class='keyword'>void</span> (*)(<span class='keyword'>void</span> *ctx, <span class='keyword'>const</span> <span class='keyword'>unsigned</span> <span class='keyword'>char</span> *block))SHA512_Transform;</td></tr>
+<tr class="codeline" data-linenumber="222"><td class="num" id="LN222">222</td><td class="line">        md_size = 64;</td></tr>
+<tr class="codeline" data-linenumber="223"><td class="num" id="LN223">223</td><td class="line">        md_block_size = 128;</td></tr>
+<tr class="codeline" data-linenumber="224"><td class="num" id="LN224">224</td><td class="line">        md_length_size = 16;</td></tr>
+<tr class="codeline" data-linenumber="225"><td class="num" id="LN225">225</td><td class="line">        <span class='keyword'>break</span>;</td></tr>
+<tr class="codeline" data-linenumber="226"><td class="num" id="LN226">226</td><td class="line">    <span class='keyword'>default</span>:</td></tr>
+<tr class="codeline" data-linenumber="227"><td class="num" id="LN227">227</td><td class="line">        <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="228"><td class="num" id="LN228">228</td><td class="line">         <span class='comment'>* ssl3_cbc_record_digest_supported should have been called first to</span></td></tr>
+<tr class="codeline" data-linenumber="229"><td class="num" id="LN229">229</td><td class="line">         <span class='comment'>* check that the hash function is supported.</span></td></tr>
+<tr class="codeline" data-linenumber="230"><td class="num" id="LN230">230</td><td class="line">         <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="231"><td class="num" id="LN231">231</td><td class="line">        <span class='macro'>OPENSSL_assert(0)<span class='macro_popup'>(void)((0) ? 0 : (OPENSSL_die("assertion failed: " "0", "ssl/s3_cbc.c"<br>, 231), 1))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="232"><td class="num" id="LN232">232</td><td class="line">        <span class='keyword'>if</span> (md_out_size)</td></tr>
+<tr class="codeline" data-linenumber="233"><td class="num" id="LN233">233</td><td class="line">            *md_out_size = 0;</td></tr>
+<tr class="codeline" data-linenumber="234"><td class="num" id="LN234">234</td><td class="line">        <span class='keyword'>return</span> 0;</td></tr>
+<tr class="codeline" data-linenumber="235"><td class="num" id="LN235">235</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="236"><td class="num" id="LN236">236</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="237"><td class="num" id="LN237">237</td><td class="line">    <span class='macro'>OPENSSL_assert(md_length_size &lt;= MAX_HASH_BIT_COUNT_BYTES)<span class='macro_popup'>(void)((md_length_size &lt;= 16) ? 0 : (OPENSSL_die("assertion failed: "<br> "md_length_size &lt;= MAX_HASH_BIT_COUNT_BYTES", "ssl/s3_cbc.c"<br>, 237), 1))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="238"><td class="num" id="LN238">238</td><td class="line">    <span class='macro'>OPENSSL_assert(md_block_size &lt;= MAX_HASH_BLOCK_SIZE)<span class='macro_popup'>(void)((md_block_size &lt;= 128) ? 0 : (OPENSSL_die("assertion failed: "<br> "md_block_size &lt;= MAX_HASH_BLOCK_SIZE", "ssl/s3_cbc.c", 238<br>), 1))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="239"><td class="num" id="LN239">239</td><td class="line">    <span class='macro'>OPENSSL_assert(md_size &lt;= EVP_MAX_MD_SIZE)<span class='macro_popup'>(void)((md_size &lt;= 64) ? 0 : (OPENSSL_die("assertion failed: "<br> "md_size &lt;= EVP_MAX_MD_SIZE", "ssl/s3_cbc.c", 239), 1))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="240"><td class="num" id="LN240">240</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="241"><td class="num" id="LN241">241</td><td class="line">    header_length = 13;</td></tr>
+<tr class="codeline" data-linenumber="242"><td class="num" id="LN242">242</td><td class="line">    <span class='keyword'>if</span> (is_sslv3) {</td></tr>
+<tr class="codeline" data-linenumber="243"><td class="num" id="LN243">243</td><td class="line">        header_length = mac_secret_length + sslv3_pad_length + 8 <span class='comment'>/* sequence</span></td></tr>
+<tr class="codeline" data-linenumber="244"><td class="num" id="LN244">244</td><td class="line">                                                                  <span class='comment'>* number */</span>  +</td></tr>
+<tr class="codeline" data-linenumber="245"><td class="num" id="LN245">245</td><td class="line">            1 <span class='comment'>/* record type */</span>  +</td></tr>
+<tr class="codeline" data-linenumber="246"><td class="num" id="LN246">246</td><td class="line">            2 <span class='comment'>/* record length */</span> ;</td></tr>
+<tr class="codeline" data-linenumber="247"><td class="num" id="LN247">247</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="248"><td class="num" id="LN248">248</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="249"><td class="num" id="LN249">249</td><td class="line">    <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="250"><td class="num" id="LN250">250</td><td class="line">     <span class='comment'>* variance_blocks is the number of blocks of the hash that we have to</span></td></tr>
+<tr class="codeline" data-linenumber="251"><td class="num" id="LN251">251</td><td class="line">     <span class='comment'>* calculate in constant time because they could be altered by the</span></td></tr>
+<tr class="codeline" data-linenumber="252"><td class="num" id="LN252">252</td><td class="line">     <span class='comment'>* padding value. In SSLv3, the padding must be minimal so the end of</span></td></tr>
+<tr class="codeline" data-linenumber="253"><td class="num" id="LN253">253</td><td class="line">     <span class='comment'>* the plaintext varies by, at most, 15+20 = 35 bytes. (We conservatively</span></td></tr>
+<tr class="codeline" data-linenumber="254"><td class="num" id="LN254">254</td><td class="line">     <span class='comment'>* assume that the MAC size varies from 0..20 bytes.) In case the 9 bytes</span></td></tr>
+<tr class="codeline" data-linenumber="255"><td class="num" id="LN255">255</td><td class="line">     <span class='comment'>* of hash termination (0x80 + 64-bit length) don't fit in the final</span></td></tr>
+<tr class="codeline" data-linenumber="256"><td class="num" id="LN256">256</td><td class="line">     <span class='comment'>* block, we say that the final two blocks can vary based on the padding.</span></td></tr>
+<tr class="codeline" data-linenumber="257"><td class="num" id="LN257">257</td><td class="line">     <span class='comment'>* TLSv1 has MACs up to 48 bytes long (SHA-384) and the padding is not</span></td></tr>
+<tr class="codeline" data-linenumber="258"><td class="num" id="LN258">258</td><td class="line">     <span class='comment'>* required to be minimal. Therefore we say that the final six blocks can</span></td></tr>
+<tr class="codeline" data-linenumber="259"><td class="num" id="LN259">259</td><td class="line">     <span class='comment'>* vary based on the padding. Later in the function, if the message is</span></td></tr>
+<tr class="codeline" data-linenumber="260"><td class="num" id="LN260">260</td><td class="line">     <span class='comment'>* short and there obviously cannot be this many blocks then</span></td></tr>
+<tr class="codeline" data-linenumber="261"><td class="num" id="LN261">261</td><td class="line">     <span class='comment'>* variance_blocks can be reduced.</span></td></tr>
+<tr class="codeline" data-linenumber="262"><td class="num" id="LN262">262</td><td class="line">     <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="263"><td class="num" id="LN263">263</td><td class="line">    variance_blocks = is_sslv3 ? 2 : 6;</td></tr>
+<tr class="codeline" data-linenumber="264"><td class="num" id="LN264">264</td><td class="line">    <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="265"><td class="num" id="LN265">265</td><td class="line">     <span class='comment'>* From now on we're dealing with the MAC, which conceptually has 13</span></td></tr>
+<tr class="codeline" data-linenumber="266"><td class="num" id="LN266">266</td><td class="line">     <span class='comment'>* bytes of `header' before the start of the data (TLS) or 71/75 bytes</span></td></tr>
+<tr class="codeline" data-linenumber="267"><td class="num" id="LN267">267</td><td class="line">     <span class='comment'>* (SSLv3)</span></td></tr>
+<tr class="codeline" data-linenumber="268"><td class="num" id="LN268">268</td><td class="line">     <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="269"><td class="num" id="LN269">269</td><td class="line">    len = data_plus_mac_plus_padding_size + header_length;</td></tr>
+<tr class="codeline" data-linenumber="270"><td class="num" id="LN270">270</td><td class="line">    <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="271"><td class="num" id="LN271">271</td><td class="line">     <span class='comment'>* max_mac_bytes contains the maximum bytes of bytes in the MAC,</span></td></tr>
+<tr class="codeline" data-linenumber="272"><td class="num" id="LN272">272</td><td class="line">     <span class='comment'>* including * |header|, assuming that there's no padding.</span></td></tr>
+<tr class="codeline" data-linenumber="273"><td class="num" id="LN273">273</td><td class="line">     <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="274"><td class="num" id="LN274">274</td><td class="line">    max_mac_bytes = len - md_size - 1;</td></tr>
+<tr class="codeline" data-linenumber="275"><td class="num" id="LN275">275</td><td class="line">    <span class='comment'>/* num_blocks is the maximum number of hash blocks. */</span></td></tr>
+<tr class="codeline" data-linenumber="276"><td class="num" id="LN276">276</td><td class="line">    num_blocks =</td></tr>
+<tr class="codeline" data-linenumber="277"><td class="num" id="LN277">277</td><td class="line">        (max_mac_bytes + 1 + md_length_size + md_block_size -</td></tr>
+<tr class="codeline" data-linenumber="278"><td class="num" id="LN278">278</td><td class="line">         1) / md_block_size;</td></tr>
+<tr class="codeline" data-linenumber="279"><td class="num" id="LN279">279</td><td class="line">    <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="280"><td class="num" id="LN280">280</td><td class="line">     <span class='comment'>* In order to calculate the MAC in constant time we have to handle the</span></td></tr>
+<tr class="codeline" data-linenumber="281"><td class="num" id="LN281">281</td><td class="line">     <span class='comment'>* final blocks specially because the padding value could cause the end</span></td></tr>
+<tr class="codeline" data-linenumber="282"><td class="num" id="LN282">282</td><td class="line">     <span class='comment'>* to appear somewhere in the final |variance_blocks| blocks and we can't</span></td></tr>
+<tr class="codeline" data-linenumber="283"><td class="num" id="LN283">283</td><td class="line">     <span class='comment'>* leak where. However, |num_starting_blocks| worth of data can be hashed</span></td></tr>
+<tr class="codeline" data-linenumber="284"><td class="num" id="LN284">284</td><td class="line">     <span class='comment'>* right away because no padding value can affect whether they are</span></td></tr>
+<tr class="codeline" data-linenumber="285"><td class="num" id="LN285">285</td><td class="line">     <span class='comment'>* plaintext.</span></td></tr>
+<tr class="codeline" data-linenumber="286"><td class="num" id="LN286">286</td><td class="line">     <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="287"><td class="num" id="LN287">287</td><td class="line">    num_starting_blocks = 0;</td></tr>
+<tr class="codeline" data-linenumber="288"><td class="num" id="LN288">288</td><td class="line">    <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="289"><td class="num" id="LN289">289</td><td class="line">     <span class='comment'>* k is the starting byte offset into the conceptual header||data where</span></td></tr>
+<tr class="codeline" data-linenumber="290"><td class="num" id="LN290">290</td><td class="line">     <span class='comment'>* we start processing.</span></td></tr>
+<tr class="codeline" data-linenumber="291"><td class="num" id="LN291">291</td><td class="line">     <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="292"><td class="num" id="LN292">292</td><td class="line">    k = 0;</td></tr>
+<tr class="codeline" data-linenumber="293"><td class="num" id="LN293">293</td><td class="line">    <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="294"><td class="num" id="LN294">294</td><td class="line">     <span class='comment'>* mac_end_offset is the index just past the end of the data to be MACed.</span></td></tr>
+<tr class="codeline" data-linenumber="295"><td class="num" id="LN295">295</td><td class="line">     <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="296"><td class="num" id="LN296">296</td><td class="line">    mac_end_offset = data_plus_mac_size + header_length - md_size;</td></tr>
+<tr class="codeline" data-linenumber="297"><td class="num" id="LN297">297</td><td class="line">    <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="298"><td class="num" id="LN298">298</td><td class="line">     <span class='comment'>* c is the index of the 0x80 byte in the final hash block that contains</span></td></tr>
+<tr class="codeline" data-linenumber="299"><td class="num" id="LN299">299</td><td class="line">     <span class='comment'>* application data.</span></td></tr>
+<tr class="codeline" data-linenumber="300"><td class="num" id="LN300">300</td><td class="line">     <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="301"><td class="num" id="LN301">301</td><td class="line">    c = mac_end_offset % md_block_size;</td></tr>
+<tr class="codeline" data-linenumber="302"><td class="num" id="LN302">302</td><td class="line">    <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="303"><td class="num" id="LN303">303</td><td class="line">     <span class='comment'>* index_a is the hash block number that contains the 0x80 terminating</span></td></tr>
+<tr class="codeline" data-linenumber="304"><td class="num" id="LN304">304</td><td class="line">     <span class='comment'>* value.</span></td></tr>
+<tr class="codeline" data-linenumber="305"><td class="num" id="LN305">305</td><td class="line">     <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="306"><td class="num" id="LN306">306</td><td class="line">    index_a = mac_end_offset / md_block_size;</td></tr>
+<tr class="codeline" data-linenumber="307"><td class="num" id="LN307">307</td><td class="line">    <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="308"><td class="num" id="LN308">308</td><td class="line">     <span class='comment'>* index_b is the hash block number that contains the 64-bit hash length,</span></td></tr>
+<tr class="codeline" data-linenumber="309"><td class="num" id="LN309">309</td><td class="line">     <span class='comment'>* in bits.</span></td></tr>
+<tr class="codeline" data-linenumber="310"><td class="num" id="LN310">310</td><td class="line">     <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="311"><td class="num" id="LN311">311</td><td class="line">    index_b = (mac_end_offset + md_length_size) / md_block_size;</td></tr>
+<tr class="codeline" data-linenumber="312"><td class="num" id="LN312">312</td><td class="line">    <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="313"><td class="num" id="LN313">313</td><td class="line">     <span class='comment'>* bits is the hash-length in bits. It includes the additional hash block</span></td></tr>
+<tr class="codeline" data-linenumber="314"><td class="num" id="LN314">314</td><td class="line">     <span class='comment'>* for the masked HMAC key, or whole of |header| in the case of SSLv3.</span></td></tr>
+<tr class="codeline" data-linenumber="315"><td class="num" id="LN315">315</td><td class="line">     <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="316"><td class="num" id="LN316">316</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="317"><td class="num" id="LN317">317</td><td class="line">    <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="318"><td class="num" id="LN318">318</td><td class="line">     <span class='comment'>* For SSLv3, if we're going to have any starting blocks then we need at</span></td></tr>
+<tr class="codeline" data-linenumber="319"><td class="num" id="LN319">319</td><td class="line">     <span class='comment'>* least two because the header is larger than a single block.</span></td></tr>
+<tr class="codeline" data-linenumber="320"><td class="num" id="LN320">320</td><td class="line">     <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="321"><td class="num" id="LN321">321</td><td class="line">    <span class='keyword'>if</span> (num_blocks &gt; variance_blocks + (is_sslv3 ? 1 : 0)) {</td></tr>
+<tr class="codeline" data-linenumber="322"><td class="num" id="LN322">322</td><td class="line">        num_starting_blocks = num_blocks - variance_blocks;</td></tr>
+<tr class="codeline" data-linenumber="323"><td class="num" id="LN323">323</td><td class="line">        k = md_block_size * num_starting_blocks;</td></tr>
+<tr class="codeline" data-linenumber="324"><td class="num" id="LN324">324</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="325"><td class="num" id="LN325">325</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="326"><td class="num" id="LN326">326</td><td class="line">    bits = 8 * mac_end_offset;</td></tr>
+<tr class="codeline" data-linenumber="327"><td class="num" id="LN327">327</td><td class="line">    <span class='keyword'>if</span> (!is_sslv3) {</td></tr>
+<tr class="codeline" data-linenumber="328"><td class="num" id="LN328">328</td><td class="line">        <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="329"><td class="num" id="LN329">329</td><td class="line">         <span class='comment'>* Compute the initial HMAC block. For SSLv3, the padding and secret</span></td></tr>
+<tr class="codeline" data-linenumber="330"><td class="num" id="LN330">330</td><td class="line">         <span class='comment'>* bytes are included in |header| because they take more than a</span></td></tr>
+<tr class="codeline" data-linenumber="331"><td class="num" id="LN331">331</td><td class="line">         <span class='comment'>* single block.</span></td></tr>
+<tr class="codeline" data-linenumber="332"><td class="num" id="LN332">332</td><td class="line">         <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="333"><td class="num" id="LN333">333</td><td class="line">        bits += 8 * md_block_size;</td></tr>
+<tr class="codeline" data-linenumber="334"><td class="num" id="LN334">334</td><td class="line">        memset(hmac_pad, 0, md_block_size);</td></tr>
+<tr class="codeline" data-linenumber="335"><td class="num" id="LN335">335</td><td class="line">        <span class='macro'>OPENSSL_assert(mac_secret_length &lt;= <span class='keyword'>sizeof</span>(hmac_pad))<span class='macro_popup'>(void)((mac_secret_length &lt;= sizeof(hmac_pad)) ? 0 : (OPENSSL_die<br>("assertion failed: " "mac_secret_length &lt;= sizeof(hmac_pad)"<br>, "ssl/s3_cbc.c", 335), 1))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="336"><td class="num" id="LN336">336</td><td class="line">        memcpy(hmac_pad, mac_secret, mac_secret_length);</td></tr>
+<tr class="codeline" data-linenumber="337"><td class="num" id="LN337">337</td><td class="line">        <span class='keyword'>for</span> (i = 0; i &lt; md_block_size; i++)</td></tr>
+<tr class="codeline" data-linenumber="338"><td class="num" id="LN338">338</td><td class="line">            hmac_pad[i] ^= 0x36;</td></tr>
+<tr class="codeline" data-linenumber="339"><td class="num" id="LN339">339</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="340"><td class="num" id="LN340">340</td><td class="line">        md_transform(md_state.c, hmac_pad);</td></tr>
+<tr class="codeline" data-linenumber="341"><td class="num" id="LN341">341</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="342"><td class="num" id="LN342">342</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="343"><td class="num" id="LN343">343</td><td class="line">    <span class='keyword'>if</span> (length_is_big_endian) {</td></tr>
+<tr class="codeline" data-linenumber="344"><td class="num" id="LN344">344</td><td class="line">        memset(length_bytes, 0, md_length_size - 4);</td></tr>
+<tr class="codeline" data-linenumber="345"><td class="num" id="LN345">345</td><td class="line">        length_bytes[md_length_size - 4] = (<span class='keyword'>unsigned</span> <span class='keyword'>char</span>)(bits &gt;&gt; 24);</td></tr>
+<tr class="codeline" data-linenumber="346"><td class="num" id="LN346">346</td><td class="line">        length_bytes[md_length_size - 3] = (<span class='keyword'>unsigned</span> <span class='keyword'>char</span>)(bits &gt;&gt; 16);</td></tr>
+<tr class="codeline" data-linenumber="347"><td class="num" id="LN347">347</td><td class="line">        length_bytes[md_length_size - 2] = (<span class='keyword'>unsigned</span> <span class='keyword'>char</span>)(bits &gt;&gt; 8);</td></tr>
+<tr class="codeline" data-linenumber="348"><td class="num" id="LN348">348</td><td class="line">        length_bytes[md_length_size - 1] = (<span class='keyword'>unsigned</span> <span class='keyword'>char</span>)bits;</td></tr>
+<tr class="codeline" data-linenumber="349"><td class="num" id="LN349">349</td><td class="line">    } <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="350"><td class="num" id="LN350">350</td><td class="line">        memset(length_bytes, 0, md_length_size);</td></tr>
+<tr class="codeline" data-linenumber="351"><td class="num" id="LN351">351</td><td class="line">        length_bytes[md_length_size - 5] = (<span class='keyword'>unsigned</span> <span class='keyword'>char</span>)(bits &gt;&gt; 24);</td></tr>
+<tr class="codeline" data-linenumber="352"><td class="num" id="LN352">352</td><td class="line">        length_bytes[md_length_size - 6] = (<span class='keyword'>unsigned</span> <span class='keyword'>char</span>)(bits &gt;&gt; 16);</td></tr>
+<tr class="codeline" data-linenumber="353"><td class="num" id="LN353">353</td><td class="line">        length_bytes[md_length_size - 7] = (<span class='keyword'>unsigned</span> <span class='keyword'>char</span>)(bits &gt;&gt; 8);</td></tr>
+<tr class="codeline" data-linenumber="354"><td class="num" id="LN354">354</td><td class="line">        length_bytes[md_length_size - 8] = (<span class='keyword'>unsigned</span> <span class='keyword'>char</span>)bits;</td></tr>
+<tr class="codeline" data-linenumber="355"><td class="num" id="LN355">355</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="356"><td class="num" id="LN356">356</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="357"><td class="num" id="LN357">357</td><td class="line">    <span class='keyword'>if</span> (k &gt; 0) {</td></tr>
+<tr class="codeline" data-linenumber="358"><td class="num" id="LN358">358</td><td class="line">        <span class='keyword'>if</span> (is_sslv3) {</td></tr>
+<tr class="codeline" data-linenumber="359"><td class="num" id="LN359">359</td><td class="line">            <span class='keyword'>unsigned</span> overhang;</td></tr>
+<tr class="codeline" data-linenumber="360"><td class="num" id="LN360">360</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="361"><td class="num" id="LN361">361</td><td class="line">            <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="362"><td class="num" id="LN362">362</td><td class="line">             <span class='comment'>* The SSLv3 header is larger than a single block. overhang is</span></td></tr>
+<tr class="codeline" data-linenumber="363"><td class="num" id="LN363">363</td><td class="line">             <span class='comment'>* the number of bytes beyond a single block that the header</span></td></tr>
+<tr class="codeline" data-linenumber="364"><td class="num" id="LN364">364</td><td class="line">             <span class='comment'>* consumes: either 7 bytes (SHA1) or 11 bytes (MD5). There are no</span></td></tr>
+<tr class="codeline" data-linenumber="365"><td class="num" id="LN365">365</td><td class="line">             <span class='comment'>* ciphersuites in SSLv3 that are not SHA1 or MD5 based and</span></td></tr>
+<tr class="codeline" data-linenumber="366"><td class="num" id="LN366">366</td><td class="line">             <span class='comment'>* therefore we can be confident that the header_length will be</span></td></tr>
+<tr class="codeline" data-linenumber="367"><td class="num" id="LN367">367</td><td class="line">             <span class='comment'>* greater than |md_block_size|. However we add a sanity check just</span></td></tr>
+<tr class="codeline" data-linenumber="368"><td class="num" id="LN368">368</td><td class="line">             <span class='comment'>* in case</span></td></tr>
+<tr class="codeline" data-linenumber="369"><td class="num" id="LN369">369</td><td class="line">             <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="370"><td class="num" id="LN370">370</td><td class="line">            <span class='keyword'>if</span> (header_length &lt;= md_block_size) {</td></tr>
+<tr class="codeline" data-linenumber="371"><td class="num" id="LN371">371</td><td class="line">                <span class='comment'>/* Should never happen */</span></td></tr>
+<tr class="codeline" data-linenumber="372"><td class="num" id="LN372">372</td><td class="line">                <span class='keyword'>return</span> 0;</td></tr>
+<tr class="codeline" data-linenumber="373"><td class="num" id="LN373">373</td><td class="line">            }</td></tr>
+<tr class="codeline" data-linenumber="374"><td class="num" id="LN374">374</td><td class="line">            overhang = header_length - md_block_size;</td></tr>
+<tr class="codeline" data-linenumber="375"><td class="num" id="LN375">375</td><td class="line">            md_transform(md_state.c, header);</td></tr>
+<tr class="codeline" data-linenumber="376"><td class="num" id="LN376">376</td><td class="line">            <span class="mrange">memcpy</span>(first_block, header + md_block_size, overhang);</td></tr>
+<tr><td class="num"></td><td class="line"><div id="EndPath" class="msg msgEvent" style="margin-left:13ex; max-width:58em">Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11</div></td></tr>
+<tr class="codeline" data-linenumber="377"><td class="num" id="LN377">377</td><td class="line">            memcpy(first_block + overhang, data, md_block_size - overhang);</td></tr>
+<tr class="codeline" data-linenumber="378"><td class="num" id="LN378">378</td><td class="line">            md_transform(md_state.c, first_block);</td></tr>
+<tr class="codeline" data-linenumber="379"><td class="num" id="LN379">379</td><td class="line">            <span class='keyword'>for</span> (i = 1; i &lt; k / md_block_size - 1; i++)</td></tr>
+<tr class="codeline" data-linenumber="380"><td class="num" id="LN380">380</td><td class="line">                md_transform(md_state.c, data + md_block_size * i - overhang);</td></tr>
+<tr class="codeline" data-linenumber="381"><td class="num" id="LN381">381</td><td class="line">        } <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="382"><td class="num" id="LN382">382</td><td class="line">            <span class='comment'>/* k is a multiple of md_block_size. */</span></td></tr>
+<tr class="codeline" data-linenumber="383"><td class="num" id="LN383">383</td><td class="line">            memcpy(first_block, header, 13);</td></tr>
+<tr class="codeline" data-linenumber="384"><td class="num" id="LN384">384</td><td class="line">            memcpy(first_block + 13, data, md_block_size - 13);</td></tr>
+<tr class="codeline" data-linenumber="385"><td class="num" id="LN385">385</td><td class="line">            md_transform(md_state.c, first_block);</td></tr>
+<tr class="codeline" data-linenumber="386"><td class="num" id="LN386">386</td><td class="line">            <span class='keyword'>for</span> (i = 1; i &lt; k / md_block_size; i++)</td></tr>
+<tr class="codeline" data-linenumber="387"><td class="num" id="LN387">387</td><td class="line">                md_transform(md_state.c, data + md_block_size * i - 13);</td></tr>
+<tr class="codeline" data-linenumber="388"><td class="num" id="LN388">388</td><td class="line">        }</td></tr>
+<tr class="codeline" data-linenumber="389"><td class="num" id="LN389">389</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="390"><td class="num" id="LN390">390</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="391"><td class="num" id="LN391">391</td><td class="line">    memset(mac_out, 0, <span class='keyword'>sizeof</span>(mac_out));</td></tr>
+<tr class="codeline" data-linenumber="392"><td class="num" id="LN392">392</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="393"><td class="num" id="LN393">393</td><td class="line">    <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="394"><td class="num" id="LN394">394</td><td class="line">     <span class='comment'>* We now process the final hash blocks. For each block, we construct it</span></td></tr>
+<tr class="codeline" data-linenumber="395"><td class="num" id="LN395">395</td><td class="line">     <span class='comment'>* in constant time. If the |i==index_a| then we'll include the 0x80</span></td></tr>
+<tr class="codeline" data-linenumber="396"><td class="num" id="LN396">396</td><td class="line">     <span class='comment'>* bytes and zero pad etc. For each block we selectively copy it, in</span></td></tr>
+<tr class="codeline" data-linenumber="397"><td class="num" id="LN397">397</td><td class="line">     <span class='comment'>* constant time, to |mac_out|.</span></td></tr>
+<tr class="codeline" data-linenumber="398"><td class="num" id="LN398">398</td><td class="line">     <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="399"><td class="num" id="LN399">399</td><td class="line">    <span class='keyword'>for</span> (i = num_starting_blocks; i &lt;= num_starting_blocks + variance_blocks;</td></tr>
+<tr class="codeline" data-linenumber="400"><td class="num" id="LN400">400</td><td class="line">         i++) {</td></tr>
+<tr class="codeline" data-linenumber="401"><td class="num" id="LN401">401</td><td class="line">        <span class='keyword'>unsigned</span> <span class='keyword'>char</span> block[<span class='macro'>MAX_HASH_BLOCK_SIZE<span class='macro_popup'>128</span></span>];</td></tr>
+<tr class="codeline" data-linenumber="402"><td class="num" id="LN402">402</td><td class="line">        <span class='keyword'>unsigned</span> <span class='keyword'>char</span> is_block_a = constant_time_eq_8(i, index_a);</td></tr>
+<tr class="codeline" data-linenumber="403"><td class="num" id="LN403">403</td><td class="line">        <span class='keyword'>unsigned</span> <span class='keyword'>char</span> is_block_b = constant_time_eq_8(i, index_b);</td></tr>
+<tr class="codeline" data-linenumber="404"><td class="num" id="LN404">404</td><td class="line">        <span class='keyword'>for</span> (j = 0; j &lt; md_block_size; j++) {</td></tr>
+<tr class="codeline" data-linenumber="405"><td class="num" id="LN405">405</td><td class="line">            <span class='keyword'>unsigned</span> <span class='keyword'>char</span> b = 0, is_past_c, is_past_cp1;</td></tr>
+<tr class="codeline" data-linenumber="406"><td class="num" id="LN406">406</td><td class="line">            <span class='keyword'>if</span> (k &lt; header_length)</td></tr>
+<tr class="codeline" data-linenumber="407"><td class="num" id="LN407">407</td><td class="line">                b = header[k];</td></tr>
+<tr class="codeline" data-linenumber="408"><td class="num" id="LN408">408</td><td class="line">            <span class='keyword'>else</span> <span class='keyword'>if</span> (k &lt; data_plus_mac_plus_padding_size + header_length)</td></tr>
+<tr class="codeline" data-linenumber="409"><td class="num" id="LN409">409</td><td class="line">                b = data[k - header_length];</td></tr>
+<tr class="codeline" data-linenumber="410"><td class="num" id="LN410">410</td><td class="line">            k++;</td></tr>
+<tr class="codeline" data-linenumber="411"><td class="num" id="LN411">411</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="412"><td class="num" id="LN412">412</td><td class="line">            is_past_c = is_block_a &amp; constant_time_ge_8(j, c);</td></tr>
+<tr class="codeline" data-linenumber="413"><td class="num" id="LN413">413</td><td class="line">            is_past_cp1 = is_block_a &amp; constant_time_ge_8(j, c + 1);</td></tr>
+<tr class="codeline" data-linenumber="414"><td class="num" id="LN414">414</td><td class="line">            <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="415"><td class="num" id="LN415">415</td><td class="line">             <span class='comment'>* If this is the block containing the end of the application</span></td></tr>
+<tr class="codeline" data-linenumber="416"><td class="num" id="LN416">416</td><td class="line">             <span class='comment'>* data, and we are at the offset for the 0x80 value, then</span></td></tr>
+<tr class="codeline" data-linenumber="417"><td class="num" id="LN417">417</td><td class="line">             <span class='comment'>* overwrite b with 0x80.</span></td></tr>
+<tr class="codeline" data-linenumber="418"><td class="num" id="LN418">418</td><td class="line">             <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="419"><td class="num" id="LN419">419</td><td class="line">            b = constant_time_select_8(is_past_c, 0x80, b);</td></tr>
+<tr class="codeline" data-linenumber="420"><td class="num" id="LN420">420</td><td class="line">            <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="421"><td class="num" id="LN421">421</td><td class="line">             <span class='comment'>* If this the the block containing the end of the application</span></td></tr>
+<tr class="codeline" data-linenumber="422"><td class="num" id="LN422">422</td><td class="line">             <span class='comment'>* data and we're past the 0x80 value then just write zero.</span></td></tr>
+<tr class="codeline" data-linenumber="423"><td class="num" id="LN423">423</td><td class="line">             <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="424"><td class="num" id="LN424">424</td><td class="line">            b = b &amp; ~is_past_cp1;</td></tr>
+<tr class="codeline" data-linenumber="425"><td class="num" id="LN425">425</td><td class="line">            <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="426"><td class="num" id="LN426">426</td><td class="line">             <span class='comment'>* If this is index_b (the final block), but not index_a (the end</span></td></tr>
+<tr class="codeline" data-linenumber="427"><td class="num" id="LN427">427</td><td class="line">             <span class='comment'>* of the data), then the 64-bit length didn't fit into index_a</span></td></tr>
+<tr class="codeline" data-linenumber="428"><td class="num" id="LN428">428</td><td class="line">             <span class='comment'>* and we're having to add an extra block of zeros.</span></td></tr>
+<tr class="codeline" data-linenumber="429"><td class="num" id="LN429">429</td><td class="line">             <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="430"><td class="num" id="LN430">430</td><td class="line">            b &amp;= ~is_block_b | is_block_a;</td></tr>
+<tr class="codeline" data-linenumber="431"><td class="num" id="LN431">431</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="432"><td class="num" id="LN432">432</td><td class="line">            <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="433"><td class="num" id="LN433">433</td><td class="line">             <span class='comment'>* The final bytes of one of the blocks contains the length.</span></td></tr>
+<tr class="codeline" data-linenumber="434"><td class="num" id="LN434">434</td><td class="line">             <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="435"><td class="num" id="LN435">435</td><td class="line">            <span class='keyword'>if</span> (j &gt;= md_block_size - md_length_size) {</td></tr>
+<tr class="codeline" data-linenumber="436"><td class="num" id="LN436">436</td><td class="line">                <span class='comment'>/* If this is index_b, write a length byte. */</span></td></tr>
+<tr class="codeline" data-linenumber="437"><td class="num" id="LN437">437</td><td class="line">                b = constant_time_select_8(is_block_b,</td></tr>
+<tr class="codeline" data-linenumber="438"><td class="num" id="LN438">438</td><td class="line">                                           length_bytes[j -</td></tr>
+<tr class="codeline" data-linenumber="439"><td class="num" id="LN439">439</td><td class="line">                                                        (md_block_size -</td></tr>
+<tr class="codeline" data-linenumber="440"><td class="num" id="LN440">440</td><td class="line">                                                         md_length_size)], b);</td></tr>
+<tr class="codeline" data-linenumber="441"><td class="num" id="LN441">441</td><td class="line">            }</td></tr>
+<tr class="codeline" data-linenumber="442"><td class="num" id="LN442">442</td><td class="line">            block[j] = b;</td></tr>
+<tr class="codeline" data-linenumber="443"><td class="num" id="LN443">443</td><td class="line">        }</td></tr>
+<tr class="codeline" data-linenumber="444"><td class="num" id="LN444">444</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="445"><td class="num" id="LN445">445</td><td class="line">        md_transform(md_state.c, block);</td></tr>
+<tr class="codeline" data-linenumber="446"><td class="num" id="LN446">446</td><td class="line">        md_final_raw(md_state.c, block);</td></tr>
+<tr class="codeline" data-linenumber="447"><td class="num" id="LN447">447</td><td class="line">        <span class='comment'>/* If this is index_b, copy the hash value to |mac_out|. */</span></td></tr>
+<tr class="codeline" data-linenumber="448"><td class="num" id="LN448">448</td><td class="line">        <span class='keyword'>for</span> (j = 0; j &lt; md_size; j++)</td></tr>
+<tr class="codeline" data-linenumber="449"><td class="num" id="LN449">449</td><td class="line">            mac_out[j] |= block[j] &amp; is_block_b;</td></tr>
+<tr class="codeline" data-linenumber="450"><td class="num" id="LN450">450</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="451"><td class="num" id="LN451">451</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="452"><td class="num" id="LN452">452</td><td class="line">    md_ctx = EVP_MD_CTX_new();</td></tr>
+<tr class="codeline" data-linenumber="453"><td class="num" id="LN453">453</td><td class="line">    <span class='keyword'>if</span> (md_ctx == <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>)</td></tr>
+<tr class="codeline" data-linenumber="454"><td class="num" id="LN454">454</td><td class="line">        <span class='keyword'>goto</span> err;</td></tr>
+<tr class="codeline" data-linenumber="455"><td class="num" id="LN455">455</td><td class="line">    <span class='keyword'>if</span> (EVP_DigestInit_ex(md_ctx, EVP_MD_CTX_md(ctx), <span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span> <span class='comment'>/* engine */</span> ) &lt;= 0)</td></tr>
+<tr class="codeline" data-linenumber="456"><td class="num" id="LN456">456</td><td class="line">        <span class='keyword'>goto</span> err;</td></tr>
+<tr class="codeline" data-linenumber="457"><td class="num" id="LN457">457</td><td class="line">    <span class='keyword'>if</span> (is_sslv3) {</td></tr>
+<tr class="codeline" data-linenumber="458"><td class="num" id="LN458">458</td><td class="line">        <span class='comment'>/* We repurpose |hmac_pad| to contain the SSLv3 pad2 block. */</span></td></tr>
+<tr class="codeline" data-linenumber="459"><td class="num" id="LN459">459</td><td class="line">        memset(hmac_pad, 0x5c, sslv3_pad_length);</td></tr>
+<tr class="codeline" data-linenumber="460"><td class="num" id="LN460">460</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="461"><td class="num" id="LN461">461</td><td class="line">        <span class='keyword'>if</span> (EVP_DigestUpdate(md_ctx, mac_secret, mac_secret_length) &lt;= 0</td></tr>
+<tr class="codeline" data-linenumber="462"><td class="num" id="LN462">462</td><td class="line">            || EVP_DigestUpdate(md_ctx, hmac_pad, sslv3_pad_length) &lt;= 0</td></tr>
+<tr class="codeline" data-linenumber="463"><td class="num" id="LN463">463</td><td class="line">            || EVP_DigestUpdate(md_ctx, mac_out, md_size) &lt;= 0)</td></tr>
+<tr class="codeline" data-linenumber="464"><td class="num" id="LN464">464</td><td class="line">            <span class='keyword'>goto</span> err;</td></tr>
+<tr class="codeline" data-linenumber="465"><td class="num" id="LN465">465</td><td class="line">    } <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="466"><td class="num" id="LN466">466</td><td class="line">        <span class='comment'>/* Complete the HMAC in the standard manner. */</span></td></tr>
+<tr class="codeline" data-linenumber="467"><td class="num" id="LN467">467</td><td class="line">        <span class='keyword'>for</span> (i = 0; i &lt; md_block_size; i++)</td></tr>
+<tr class="codeline" data-linenumber="468"><td class="num" id="LN468">468</td><td class="line">            hmac_pad[i] ^= 0x6a;</td></tr>
+<tr class="codeline" data-linenumber="469"><td class="num" id="LN469">469</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="470"><td class="num" id="LN470">470</td><td class="line">        <span class='keyword'>if</span> (EVP_DigestUpdate(md_ctx, hmac_pad, md_block_size) &lt;= 0</td></tr>
+<tr class="codeline" data-linenumber="471"><td class="num" id="LN471">471</td><td class="line">            || EVP_DigestUpdate(md_ctx, mac_out, md_size) &lt;= 0)</td></tr>
+<tr class="codeline" data-linenumber="472"><td class="num" id="LN472">472</td><td class="line">            <span class='keyword'>goto</span> err;</td></tr>
+<tr class="codeline" data-linenumber="473"><td class="num" id="LN473">473</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="474"><td class="num" id="LN474">474</td><td class="line">    ret = EVP_DigestFinal(md_ctx, md_out, &amp;md_out_size_u);</td></tr>
+<tr class="codeline" data-linenumber="475"><td class="num" id="LN475">475</td><td class="line">    <span class='keyword'>if</span> (ret &amp;&amp; md_out_size)</td></tr>
+<tr class="codeline" data-linenumber="476"><td class="num" id="LN476">476</td><td class="line">        *md_out_size = md_out_size_u;</td></tr>
+<tr class="codeline" data-linenumber="477"><td class="num" id="LN477">477</td><td class="line">    EVP_MD_CTX_free(md_ctx);</td></tr>
+<tr class="codeline" data-linenumber="478"><td class="num" id="LN478">478</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="479"><td class="num" id="LN479">479</td><td class="line">    <span class='keyword'>return</span> 1;</td></tr>
+<tr class="codeline" data-linenumber="480"><td class="num" id="LN480">480</td><td class="line"> err:</td></tr>
+<tr class="codeline" data-linenumber="481"><td class="num" id="LN481">481</td><td class="line">    EVP_MD_CTX_free(md_ctx);</td></tr>
+<tr class="codeline" data-linenumber="482"><td class="num" id="LN482">482</td><td class="line">    <span class='keyword'>return</span> 0;</td></tr>
+<tr class="codeline" data-linenumber="483"><td class="num" id="LN483">483</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="484"><td class="num" id="LN484">484</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="485"><td class="num" id="LN485">485</td><td class="line"><span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="486"><td class="num" id="LN486">486</td><td class="line"> <span class='comment'>* Due to the need to use EVP in FIPS mode we can't reimplement digests but</span></td></tr>
+<tr class="codeline" data-linenumber="487"><td class="num" id="LN487">487</td><td class="line"> <span class='comment'>* we can ensure the number of blocks processed is equal for all cases by</span></td></tr>
+<tr class="codeline" data-linenumber="488"><td class="num" id="LN488">488</td><td class="line"> <span class='comment'>* digesting additional data.</span></td></tr>
+<tr class="codeline" data-linenumber="489"><td class="num" id="LN489">489</td><td class="line"> <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="490"><td class="num" id="LN490">490</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="491"><td class="num" id="LN491">491</td><td class="line"><span class='keyword'>int</span> tls_fips_digest_extra(<span class='keyword'>const</span> EVP_CIPHER_CTX *cipher_ctx,</td></tr>
+<tr class="codeline" data-linenumber="492"><td class="num" id="LN492">492</td><td class="line">                          EVP_MD_CTX *mac_ctx, <span class='keyword'>const</span> <span class='keyword'>unsigned</span> <span class='keyword'>char</span> *data,</td></tr>
+<tr class="codeline" data-linenumber="493"><td class="num" id="LN493">493</td><td class="line">                          size_t data_len, size_t orig_len)</td></tr>
+<tr class="codeline" data-linenumber="494"><td class="num" id="LN494">494</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="495"><td class="num" id="LN495">495</td><td class="line">    size_t block_size, digest_pad, blocks_data, blocks_orig;</td></tr>
+<tr class="codeline" data-linenumber="496"><td class="num" id="LN496">496</td><td class="line">    <span class='keyword'>if</span> (<span class='macro'>EVP_CIPHER_CTX_mode(cipher_ctx)<span class='macro_popup'>(EVP_CIPHER_flags(EVP_CIPHER_CTX_cipher(cipher_ctx)) &amp; 0xF0007<br>)</span></span> != <span class='macro'>EVP_CIPH_CBC_MODE<span class='macro_popup'>0x2</span></span>)</td></tr>
+<tr class="codeline" data-linenumber="497"><td class="num" id="LN497">497</td><td class="line">        <span class='keyword'>return</span> 1;</td></tr>
+<tr class="codeline" data-linenumber="498"><td class="num" id="LN498">498</td><td class="line">    block_size = <span class='macro'>EVP_MD_CTX_block_size(mac_ctx)<span class='macro_popup'>EVP_MD_block_size(EVP_MD_CTX_md(mac_ctx))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="499"><td class="num" id="LN499">499</td><td class="line">    <span class='comment'>/*-</span></td></tr>
+<tr class="codeline" data-linenumber="500"><td class="num" id="LN500">500</td><td class="line">     <span class='comment'>* We are in FIPS mode if we get this far so we know we have only SHA*</span></td></tr>
+<tr class="codeline" data-linenumber="501"><td class="num" id="LN501">501</td><td class="line">     <span class='comment'>* digests and TLS to deal with.</span></td></tr>
+<tr class="codeline" data-linenumber="502"><td class="num" id="LN502">502</td><td class="line">     <span class='comment'>* Minimum digest padding length is 17 for SHA384/SHA512 and 9</span></td></tr>
+<tr class="codeline" data-linenumber="503"><td class="num" id="LN503">503</td><td class="line">     <span class='comment'>* otherwise.</span></td></tr>
+<tr class="codeline" data-linenumber="504"><td class="num" id="LN504">504</td><td class="line">     <span class='comment'>* Additional header is 13 bytes. To get the number of digest blocks</span></td></tr>
+<tr class="codeline" data-linenumber="505"><td class="num" id="LN505">505</td><td class="line">     <span class='comment'>* processed round up the amount of data plus padding to the nearest</span></td></tr>
+<tr class="codeline" data-linenumber="506"><td class="num" id="LN506">506</td><td class="line">     <span class='comment'>* block length. Block length is 128 for SHA384/SHA512 and 64 otherwise.</span></td></tr>
+<tr class="codeline" data-linenumber="507"><td class="num" id="LN507">507</td><td class="line">     <span class='comment'>* So we have:</span></td></tr>
+<tr class="codeline" data-linenumber="508"><td class="num" id="LN508">508</td><td class="line">     <span class='comment'>* blocks = (payload_len + digest_pad + 13 + block_size - 1)/block_size</span></td></tr>
+<tr class="codeline" data-linenumber="509"><td class="num" id="LN509">509</td><td class="line">     <span class='comment'>* equivalently:</span></td></tr>
+<tr class="codeline" data-linenumber="510"><td class="num" id="LN510">510</td><td class="line">     <span class='comment'>* blocks = (payload_len + digest_pad + 12)/block_size + 1</span></td></tr>
+<tr class="codeline" data-linenumber="511"><td class="num" id="LN511">511</td><td class="line">     <span class='comment'>* HMAC adds a constant overhead.</span></td></tr>
+<tr class="codeline" data-linenumber="512"><td class="num" id="LN512">512</td><td class="line">     <span class='comment'>* We're ultimately only interested in differences so this becomes</span></td></tr>
+<tr class="codeline" data-linenumber="513"><td class="num" id="LN513">513</td><td class="line">     <span class='comment'>* blocks = (payload_len + 29)/128</span></td></tr>
+<tr class="codeline" data-linenumber="514"><td class="num" id="LN514">514</td><td class="line">     <span class='comment'>* for SHA384/SHA512 and</span></td></tr>
+<tr class="codeline" data-linenumber="515"><td class="num" id="LN515">515</td><td class="line">     <span class='comment'>* blocks = (payload_len + 21)/64</span></td></tr>
+<tr class="codeline" data-linenumber="516"><td class="num" id="LN516">516</td><td class="line">     <span class='comment'>* otherwise.</span></td></tr>
+<tr class="codeline" data-linenumber="517"><td class="num" id="LN517">517</td><td class="line">     <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="518"><td class="num" id="LN518">518</td><td class="line">    digest_pad = block_size == 64 ? 21 : 29;</td></tr>
+<tr class="codeline" data-linenumber="519"><td class="num" id="LN519">519</td><td class="line">    blocks_orig = (orig_len + digest_pad) / block_size;</td></tr>
+<tr class="codeline" data-linenumber="520"><td class="num" id="LN520">520</td><td class="line">    blocks_data = (data_len + digest_pad) / block_size;</td></tr>
+<tr class="codeline" data-linenumber="521"><td class="num" id="LN521">521</td><td class="line">    <span class='comment'>/*</span></td></tr>
+<tr class="codeline" data-linenumber="522"><td class="num" id="LN522">522</td><td class="line">     <span class='comment'>* MAC enough blocks to make up the difference between the original and</span></td></tr>
+<tr class="codeline" data-linenumber="523"><td class="num" id="LN523">523</td><td class="line">     <span class='comment'>* actual lengths plus one extra block to ensure this is never a no op.</span></td></tr>
+<tr class="codeline" data-linenumber="524"><td class="num" id="LN524">524</td><td class="line">     <span class='comment'>* The "data" pointer should always have enough space to perform this</span></td></tr>
+<tr class="codeline" data-linenumber="525"><td class="num" id="LN525">525</td><td class="line">     <span class='comment'>* operation as it is large enough for a maximum length TLS buffer.</span></td></tr>
+<tr class="codeline" data-linenumber="526"><td class="num" id="LN526">526</td><td class="line">     <span class='comment'>*/</span></td></tr>
+<tr class="codeline" data-linenumber="527"><td class="num" id="LN527">527</td><td class="line">    <span class='keyword'>return</span> <span class='macro'>EVP_DigestSignUpdate(mac_ctx, data,<span class='macro_popup'>EVP_DigestUpdate(mac_ctx,data,(blocks_orig - blocks_data + 1)<br> * block_size)</span></span></td></tr>
+<tr class="codeline" data-linenumber="528"><td class="num" id="LN528">528</td><td class="line">                                <span class='macro'>(blocks_orig - blocks_data + 1) * block_size)<span class='macro_popup'>EVP_DigestUpdate(mac_ctx,data,(blocks_orig - blocks_data + 1)<br> * block_size)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="529"><td class="num" id="LN529">529</td><td class="line">}</td></tr>
+</table></body></html>

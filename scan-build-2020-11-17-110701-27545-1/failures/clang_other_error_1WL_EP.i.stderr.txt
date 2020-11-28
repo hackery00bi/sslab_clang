@@ -1,0 +1,5 @@
+In file included from enumerator.c:16:
+./internal.h:104:11: fatal error: 'sanitizer/asan_interface.h' file not found
+# include <sanitizer/asan_interface.h>
+          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~
+1 error generated.

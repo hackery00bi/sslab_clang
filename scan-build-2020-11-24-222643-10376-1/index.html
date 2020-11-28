@@ -1,0 +1,1339 @@
+<html>
+<head>
+<title>s01 - scan-build results</title>
+<link type="text/css" rel="stylesheet" href="scanview.css"/>
+<script src="sorttable.js"></script>
+<script language='javascript' type="text/javascript">
+function SetDisplay(RowClass, DisplayVal)
+{
+  var Rows = document.getElementsByTagName("tr");
+  for ( var i = 0 ; i < Rows.length; ++i ) {
+    if (Rows[i].className == RowClass) {
+      Rows[i].style.display = DisplayVal;
+    }
+  }
+}
+
+function CopyCheckedStateToCheckButtons(SummaryCheckButton) {
+  var Inputs = document.getElementsByTagName("input");
+  for ( var i = 0 ; i < Inputs.length; ++i ) {
+    if (Inputs[i].type == "checkbox") {
+      if(Inputs[i] != SummaryCheckButton) {
+        Inputs[i].checked = SummaryCheckButton.checked;
+        Inputs[i].onclick();
+      }
+    }
+  }
+}
+
+function returnObjById( id ) {
+    if (document.getElementById)
+        var returnVar = document.getElementById(id);
+    else if (document.all)
+        var returnVar = document.all[id];
+    else if (document.layers)
+        var returnVar = document.layers[id];
+    return returnVar;
+}
+
+var NumUnchecked = 0;
+
+function ToggleDisplay(CheckButton, ClassName) {
+  if (CheckButton.checked) {
+    SetDisplay(ClassName, "");
+    if (--NumUnchecked == 0) {
+      returnObjById("AllBugsCheck").checked = true;
+    }
+  }
+  else {
+    SetDisplay(ClassName, "none");
+    NumUnchecked++;
+    returnObjById("AllBugsCheck").checked = false;
+  }
+}
+</script>
+<!-- SUMMARYENDHEAD -->
+</head>
+<body>
+<h1>s01 - scan-build results</h1>
+
+<table>
+<tr><th>User:</th><td>root@57bc4409cbaf</td></tr>
+<tr><th>Working Directory:</th><td>/root/dohyun/C/testcases/CWE369_Divide_by_Zero/s01</td></tr>
+<tr><th>Command Line:</th><td>gcc -c CWE369_Divide_by_Zero__float_connect_socket_01.c CWE369_Divide_by_Zero__float_connect_socket_02.c CWE369_Divide_by_Zero__float_connect_socket_03.c CWE369_Divide_by_Zero__float_connect_socket_04.c CWE369_Divide_by_Zero__float_connect_socket_05.c CWE369_Divide_by_Zero__float_connect_socket_06.c CWE369_Divide_by_Zero__float_connect_socket_07.c CWE369_Divide_by_Zero__float_connect_socket_08.c CWE369_Divide_by_Zero__float_connect_socket_09.c CWE369_Divide_by_Zero__float_connect_socket_10.c CWE369_Divide_by_Zero__float_connect_socket_11.c CWE369_Divide_by_Zero__float_connect_socket_12.c CWE369_Divide_by_Zero__float_connect_socket_13.c CWE369_Divide_by_Zero__float_connect_socket_14.c CWE369_Divide_by_Zero__float_connect_socket_15.c CWE369_Divide_by_Zero__float_connect_socket_16.c CWE369_Divide_by_Zero__float_connect_socket_17.c CWE369_Divide_by_Zero__float_connect_socket_18.c CWE369_Divide_by_Zero__float_connect_socket_21.c CWE369_Divide_by_Zero__float_connect_socket_22a.c CWE369_Divide_by_Zero__float_connect_socket_22b.c CWE369_Divide_by_Zero__float_connect_socket_31.c CWE369_Divide_by_Zero__float_connect_socket_32.c CWE369_Divide_by_Zero__float_connect_socket_34.c CWE369_Divide_by_Zero__float_connect_socket_41.c CWE369_Divide_by_Zero__float_connect_socket_42.c CWE369_Divide_by_Zero__float_connect_socket_44.c CWE369_Divide_by_Zero__float_connect_socket_45.c CWE369_Divide_by_Zero__float_connect_socket_51a.c CWE369_Divide_by_Zero__float_connect_socket_51b.c CWE369_Divide_by_Zero__float_connect_socket_52a.c CWE369_Divide_by_Zero__float_connect_socket_52b.c CWE369_Divide_by_Zero__float_connect_socket_52c.c CWE369_Divide_by_Zero__float_connect_socket_53a.c CWE369_Divide_by_Zero__float_connect_socket_53b.c CWE369_Divide_by_Zero__float_connect_socket_53c.c CWE369_Divide_by_Zero__float_connect_socket_53d.c CWE369_Divide_by_Zero__float_connect_socket_54a.c CWE369_Divide_by_Zero__float_connect_socket_54b.c CWE369_Divide_by_Zero__float_connect_socket_54c.c CWE369_Divide_by_Zero__float_connect_socket_54d.c CWE369_Divide_by_Zero__float_connect_socket_54e.c CWE369_Divide_by_Zero__float_connect_socket_61a.c CWE369_Divide_by_Zero__float_connect_socket_61b.c CWE369_Divide_by_Zero__float_connect_socket_63a.c CWE369_Divide_by_Zero__float_connect_socket_63b.c CWE369_Divide_by_Zero__float_connect_socket_64a.c CWE369_Divide_by_Zero__float_connect_socket_64b.c CWE369_Divide_by_Zero__float_connect_socket_65a.c CWE369_Divide_by_Zero__float_connect_socket_65b.c CWE369_Divide_by_Zero__float_connect_socket_66a.c CWE369_Divide_by_Zero__float_connect_socket_66b.c CWE369_Divide_by_Zero__float_connect_socket_67a.c CWE369_Divide_by_Zero__float_connect_socket_67b.c CWE369_Divide_by_Zero__float_connect_socket_68a.c CWE369_Divide_by_Zero__float_connect_socket_68b.c CWE369_Divide_by_Zero__float_fgets_01.c CWE369_Divide_by_Zero__float_fgets_02.c CWE369_Divide_by_Zero__float_fgets_03.c CWE369_Divide_by_Zero__float_fgets_04.c CWE369_Divide_by_Zero__float_fgets_05.c CWE369_Divide_by_Zero__float_fgets_06.c CWE369_Divide_by_Zero__float_fgets_07.c CWE369_Divide_by_Zero__float_fgets_08.c CWE369_Divide_by_Zero__float_fgets_09.c CWE369_Divide_by_Zero__float_fgets_10.c CWE369_Divide_by_Zero__float_fgets_11.c CWE369_Divide_by_Zero__float_fgets_12.c CWE369_Divide_by_Zero__float_fgets_13.c CWE369_Divide_by_Zero__float_fgets_14.c CWE369_Divide_by_Zero__float_fgets_15.c CWE369_Divide_by_Zero__float_fgets_16.c CWE369_Divide_by_Zero__float_fgets_17.c CWE369_Divide_by_Zero__float_fgets_18.c CWE369_Divide_by_Zero__float_fgets_21.c CWE369_Divide_by_Zero__float_fgets_22a.c CWE369_Divide_by_Zero__float_fgets_22b.c CWE369_Divide_by_Zero__float_fgets_31.c CWE369_Divide_by_Zero__float_fgets_32.c CWE369_Divide_by_Zero__float_fgets_34.c CWE369_Divide_by_Zero__float_fgets_41.c CWE369_Divide_by_Zero__float_fgets_42.c CWE369_Divide_by_Zero__float_fgets_44.c CWE369_Divide_by_Zero__float_fgets_45.c CWE369_Divide_by_Zero__float_fgets_51a.c CWE369_Divide_by_Zero__float_fgets_51b.c CWE369_Divide_by_Zero__float_fgets_52a.c CWE369_Divide_by_Zero__float_fgets_52b.c CWE369_Divide_by_Zero__float_fgets_52c.c CWE369_Divide_by_Zero__float_fgets_53a.c CWE369_Divide_by_Zero__float_fgets_53b.c CWE369_Divide_by_Zero__float_fgets_53c.c CWE369_Divide_by_Zero__float_fgets_53d.c CWE369_Divide_by_Zero__float_fgets_54a.c CWE369_Divide_by_Zero__float_fgets_54b.c CWE369_Divide_by_Zero__float_fgets_54c.c CWE369_Divide_by_Zero__float_fgets_54d.c CWE369_Divide_by_Zero__float_fgets_54e.c CWE369_Divide_by_Zero__float_fgets_61a.c CWE369_Divide_by_Zero__float_fgets_61b.c CWE369_Divide_by_Zero__float_fgets_63a.c CWE369_Divide_by_Zero__float_fgets_63b.c CWE369_Divide_by_Zero__float_fgets_64a.c CWE369_Divide_by_Zero__float_fgets_64b.c CWE369_Divide_by_Zero__float_fgets_65a.c CWE369_Divide_by_Zero__float_fgets_65b.c CWE369_Divide_by_Zero__float_fgets_66a.c CWE369_Divide_by_Zero__float_fgets_66b.c CWE369_Divide_by_Zero__float_fgets_67a.c CWE369_Divide_by_Zero__float_fgets_67b.c CWE369_Divide_by_Zero__float_fgets_68a.c CWE369_Divide_by_Zero__float_fgets_68b.c CWE369_Divide_by_Zero__float_fscanf_01.c CWE369_Divide_by_Zero__float_fscanf_02.c CWE369_Divide_by_Zero__float_fscanf_03.c CWE369_Divide_by_Zero__float_fscanf_04.c CWE369_Divide_by_Zero__float_fscanf_05.c CWE369_Divide_by_Zero__float_fscanf_06.c CWE369_Divide_by_Zero__float_fscanf_07.c CWE369_Divide_by_Zero__float_fscanf_08.c CWE369_Divide_by_Zero__float_fscanf_09.c CWE369_Divide_by_Zero__float_fscanf_10.c CWE369_Divide_by_Zero__float_fscanf_11.c CWE369_Divide_by_Zero__float_fscanf_12.c CWE369_Divide_by_Zero__float_fscanf_13.c CWE369_Divide_by_Zero__float_fscanf_14.c CWE369_Divide_by_Zero__float_fscanf_15.c CWE369_Divide_by_Zero__float_fscanf_16.c CWE369_Divide_by_Zero__float_fscanf_17.c CWE369_Divide_by_Zero__float_fscanf_18.c CWE369_Divide_by_Zero__float_fscanf_21.c CWE369_Divide_by_Zero__float_fscanf_22a.c CWE369_Divide_by_Zero__float_fscanf_22b.c CWE369_Divide_by_Zero__float_fscanf_31.c CWE369_Divide_by_Zero__float_fscanf_32.c CWE369_Divide_by_Zero__float_fscanf_34.c CWE369_Divide_by_Zero__float_fscanf_41.c CWE369_Divide_by_Zero__float_fscanf_42.c CWE369_Divide_by_Zero__float_fscanf_44.c CWE369_Divide_by_Zero__float_fscanf_45.c CWE369_Divide_by_Zero__float_fscanf_51a.c CWE369_Divide_by_Zero__float_fscanf_51b.c CWE369_Divide_by_Zero__float_fscanf_52a.c CWE369_Divide_by_Zero__float_fscanf_52b.c CWE369_Divide_by_Zero__float_fscanf_52c.c CWE369_Divide_by_Zero__float_fscanf_53a.c CWE369_Divide_by_Zero__float_fscanf_53b.c CWE369_Divide_by_Zero__float_fscanf_53c.c CWE369_Divide_by_Zero__float_fscanf_53d.c CWE369_Divide_by_Zero__float_fscanf_54a.c CWE369_Divide_by_Zero__float_fscanf_54b.c CWE369_Divide_by_Zero__float_fscanf_54c.c CWE369_Divide_by_Zero__float_fscanf_54d.c CWE369_Divide_by_Zero__float_fscanf_54e.c CWE369_Divide_by_Zero__float_fscanf_61a.c CWE369_Divide_by_Zero__float_fscanf_61b.c CWE369_Divide_by_Zero__float_fscanf_63a.c CWE369_Divide_by_Zero__float_fscanf_63b.c CWE369_Divide_by_Zero__float_fscanf_64a.c CWE369_Divide_by_Zero__float_fscanf_64b.c CWE369_Divide_by_Zero__float_fscanf_65a.c CWE369_Divide_by_Zero__float_fscanf_65b.c CWE369_Divide_by_Zero__float_fscanf_66a.c CWE369_Divide_by_Zero__float_fscanf_66b.c CWE369_Divide_by_Zero__float_fscanf_67a.c CWE369_Divide_by_Zero__float_fscanf_67b.c CWE369_Divide_by_Zero__float_fscanf_68a.c CWE369_Divide_by_Zero__float_fscanf_68b.c CWE369_Divide_by_Zero__float_listenSocket_01.c CWE369_Divide_by_Zero__float_listenSocket_02.c CWE369_Divide_by_Zero__float_listenSocket_03.c CWE369_Divide_by_Zero__float_listenSocket_04.c CWE369_Divide_by_Zero__float_listenSocket_05.c CWE369_Divide_by_Zero__float_listenSocket_06.c CWE369_Divide_by_Zero__float_listenSocket_07.c CWE369_Divide_by_Zero__float_listenSocket_08.c CWE369_Divide_by_Zero__float_listenSocket_09.c CWE369_Divide_by_Zero__float_listenSocket_10.c CWE369_Divide_by_Zero__float_listenSocket_11.c CWE369_Divide_by_Zero__float_listenSocket_12.c CWE369_Divide_by_Zero__float_listenSocket_13.c CWE369_Divide_by_Zero__float_listenSocket_14.c CWE369_Divide_by_Zero__float_listenSocket_15.c CWE369_Divide_by_Zero__float_listenSocket_16.c CWE369_Divide_by_Zero__float_listenSocket_17.c CWE369_Divide_by_Zero__float_listenSocket_18.c CWE369_Divide_by_Zero__float_listenSocket_21.c CWE369_Divide_by_Zero__float_listenSocket_22a.c CWE369_Divide_by_Zero__float_listenSocket_22b.c CWE369_Divide_by_Zero__float_listenSocket_31.c CWE369_Divide_by_Zero__float_listenSocket_32.c CWE369_Divide_by_Zero__float_listenSocket_34.c CWE369_Divide_by_Zero__float_listenSocket_41.c CWE369_Divide_by_Zero__float_listenSocket_42.c CWE369_Divide_by_Zero__float_listenSocket_44.c CWE369_Divide_by_Zero__float_listenSocket_45.c CWE369_Divide_by_Zero__float_listenSocket_51a.c CWE369_Divide_by_Zero__float_listenSocket_51b.c CWE369_Divide_by_Zero__float_listenSocket_52a.c CWE369_Divide_by_Zero__float_listenSocket_52b.c CWE369_Divide_by_Zero__float_listenSocket_52c.c CWE369_Divide_by_Zero__float_listenSocket_53a.c CWE369_Divide_by_Zero__float_listenSocket_53b.c CWE369_Divide_by_Zero__float_listenSocket_53c.c CWE369_Divide_by_Zero__float_listenSocket_53d.c CWE369_Divide_by_Zero__float_listenSocket_54a.c CWE369_Divide_by_Zero__float_listenSocket_54b.c CWE369_Divide_by_Zero__float_listenSocket_54c.c CWE369_Divide_by_Zero__float_listenSocket_54d.c CWE369_Divide_by_Zero__float_listenSocket_54e.c CWE369_Divide_by_Zero__float_listenSocket_61a.c CWE369_Divide_by_Zero__float_listenSocket_61b.c CWE369_Divide_by_Zero__float_listenSocket_63a.c CWE369_Divide_by_Zero__float_listenSocket_63b.c CWE369_Divide_by_Zero__float_listenSocket_64a.c CWE369_Divide_by_Zero__float_listenSocket_64b.c CWE369_Divide_by_Zero__float_listenSocket_65a.c CWE369_Divide_by_Zero__float_listenSocket_65b.c CWE369_Divide_by_Zero__float_listenSocket_66a.c CWE369_Divide_by_Zero__float_listenSocket_66b.c CWE369_Divide_by_Zero__float_listenSocket_67a.c CWE369_Divide_by_Zero__float_listenSocket_67b.c CWE369_Divide_by_Zero__float_listenSocket_68a.c CWE369_Divide_by_Zero__float_listenSocket_68b.c CWE369_Divide_by_Zero__float_rand_01.c CWE369_Divide_by_Zero__float_rand_02.c CWE369_Divide_by_Zero__float_rand_03.c CWE369_Divide_by_Zero__float_rand_04.c CWE369_Divide_by_Zero__float_rand_05.c CWE369_Divide_by_Zero__float_rand_06.c CWE369_Divide_by_Zero__float_rand_07.c CWE369_Divide_by_Zero__float_rand_08.c CWE369_Divide_by_Zero__float_rand_09.c CWE369_Divide_by_Zero__float_rand_10.c CWE369_Divide_by_Zero__float_rand_11.c CWE369_Divide_by_Zero__float_rand_12.c CWE369_Divide_by_Zero__float_rand_13.c CWE369_Divide_by_Zero__float_rand_14.c CWE369_Divide_by_Zero__float_rand_15.c CWE369_Divide_by_Zero__float_rand_16.c CWE369_Divide_by_Zero__float_rand_17.c CWE369_Divide_by_Zero__float_rand_18.c CWE369_Divide_by_Zero__float_rand_21.c CWE369_Divide_by_Zero__float_rand_22a.c CWE369_Divide_by_Zero__float_rand_22b.c CWE369_Divide_by_Zero__float_rand_31.c CWE369_Divide_by_Zero__float_rand_32.c CWE369_Divide_by_Zero__float_rand_34.c CWE369_Divide_by_Zero__float_rand_41.c CWE369_Divide_by_Zero__float_rand_42.c CWE369_Divide_by_Zero__float_rand_44.c CWE369_Divide_by_Zero__float_rand_45.c CWE369_Divide_by_Zero__float_rand_51a.c CWE369_Divide_by_Zero__float_rand_51b.c CWE369_Divide_by_Zero__float_rand_52a.c CWE369_Divide_by_Zero__float_rand_52b.c CWE369_Divide_by_Zero__float_rand_52c.c CWE369_Divide_by_Zero__float_rand_53a.c CWE369_Divide_by_Zero__float_rand_53b.c CWE369_Divide_by_Zero__float_rand_53c.c CWE369_Divide_by_Zero__float_rand_53d.c CWE369_Divide_by_Zero__float_rand_54a.c CWE369_Divide_by_Zero__float_rand_54b.c CWE369_Divide_by_Zero__float_rand_54c.c CWE369_Divide_by_Zero__float_rand_54d.c CWE369_Divide_by_Zero__float_rand_54e.c CWE369_Divide_by_Zero__float_rand_61a.c CWE369_Divide_by_Zero__float_rand_61b.c CWE369_Divide_by_Zero__float_rand_63a.c CWE369_Divide_by_Zero__float_rand_63b.c CWE369_Divide_by_Zero__float_rand_64a.c CWE369_Divide_by_Zero__float_rand_64b.c CWE369_Divide_by_Zero__float_rand_65a.c CWE369_Divide_by_Zero__float_rand_65b.c CWE369_Divide_by_Zero__float_rand_66a.c CWE369_Divide_by_Zero__float_rand_66b.c CWE369_Divide_by_Zero__float_rand_67a.c CWE369_Divide_by_Zero__float_rand_67b.c CWE369_Divide_by_Zero__float_rand_68a.c CWE369_Divide_by_Zero__float_rand_68b.c CWE369_Divide_by_Zero__float_zero_01.c CWE369_Divide_by_Zero__float_zero_02.c CWE369_Divide_by_Zero__float_zero_03.c CWE369_Divide_by_Zero__float_zero_04.c CWE369_Divide_by_Zero__float_zero_05.c CWE369_Divide_by_Zero__float_zero_06.c CWE369_Divide_by_Zero__float_zero_07.c CWE369_Divide_by_Zero__float_zero_08.c CWE369_Divide_by_Zero__float_zero_09.c CWE369_Divide_by_Zero__float_zero_10.c CWE369_Divide_by_Zero__float_zero_11.c CWE369_Divide_by_Zero__float_zero_12.c CWE369_Divide_by_Zero__float_zero_13.c CWE369_Divide_by_Zero__float_zero_14.c CWE369_Divide_by_Zero__float_zero_15.c CWE369_Divide_by_Zero__float_zero_16.c CWE369_Divide_by_Zero__float_zero_17.c CWE369_Divide_by_Zero__float_zero_18.c CWE369_Divide_by_Zero__float_zero_21.c CWE369_Divide_by_Zero__float_zero_22a.c CWE369_Divide_by_Zero__float_zero_22b.c CWE369_Divide_by_Zero__float_zero_31.c CWE369_Divide_by_Zero__float_zero_32.c CWE369_Divide_by_Zero__float_zero_34.c CWE369_Divide_by_Zero__float_zero_41.c CWE369_Divide_by_Zero__float_zero_42.c CWE369_Divide_by_Zero__float_zero_44.c CWE369_Divide_by_Zero__float_zero_45.c CWE369_Divide_by_Zero__float_zero_51a.c CWE369_Divide_by_Zero__float_zero_51b.c CWE369_Divide_by_Zero__float_zero_52a.c CWE369_Divide_by_Zero__float_zero_52b.c CWE369_Divide_by_Zero__float_zero_52c.c CWE369_Divide_by_Zero__float_zero_53a.c CWE369_Divide_by_Zero__float_zero_53b.c CWE369_Divide_by_Zero__float_zero_53c.c CWE369_Divide_by_Zero__float_zero_53d.c CWE369_Divide_by_Zero__float_zero_54a.c CWE369_Divide_by_Zero__float_zero_54b.c CWE369_Divide_by_Zero__float_zero_54c.c CWE369_Divide_by_Zero__float_zero_54d.c CWE369_Divide_by_Zero__float_zero_54e.c CWE369_Divide_by_Zero__float_zero_61a.c CWE369_Divide_by_Zero__float_zero_61b.c CWE369_Divide_by_Zero__float_zero_63a.c CWE369_Divide_by_Zero__float_zero_63b.c CWE369_Divide_by_Zero__float_zero_64a.c CWE369_Divide_by_Zero__float_zero_64b.c CWE369_Divide_by_Zero__float_zero_65a.c CWE369_Divide_by_Zero__float_zero_65b.c CWE369_Divide_by_Zero__float_zero_66a.c CWE369_Divide_by_Zero__float_zero_66b.c CWE369_Divide_by_Zero__float_zero_67a.c CWE369_Divide_by_Zero__float_zero_67b.c CWE369_Divide_by_Zero__float_zero_68a.c CWE369_Divide_by_Zero__float_zero_68b.c CWE369_Divide_by_Zero__int_connect_socket_divide_01.c CWE369_Divide_by_Zero__int_connect_socket_divide_02.c CWE369_Divide_by_Zero__int_connect_socket_divide_03.c CWE369_Divide_by_Zero__int_connect_socket_divide_04.c CWE369_Divide_by_Zero__int_connect_socket_divide_05.c CWE369_Divide_by_Zero__int_connect_socket_divide_06.c CWE369_Divide_by_Zero__int_connect_socket_divide_07.c CWE369_Divide_by_Zero__int_connect_socket_divide_08.c CWE369_Divide_by_Zero__int_connect_socket_divide_09.c CWE369_Divide_by_Zero__int_connect_socket_divide_10.c CWE369_Divide_by_Zero__int_connect_socket_divide_11.c CWE369_Divide_by_Zero__int_connect_socket_divide_12.c CWE369_Divide_by_Zero__int_connect_socket_divide_13.c CWE369_Divide_by_Zero__int_connect_socket_divide_14.c CWE369_Divide_by_Zero__int_connect_socket_divide_15.c CWE369_Divide_by_Zero__int_connect_socket_divide_16.c CWE369_Divide_by_Zero__int_connect_socket_divide_17.c CWE369_Divide_by_Zero__int_connect_socket_divide_18.c CWE369_Divide_by_Zero__int_connect_socket_divide_21.c CWE369_Divide_by_Zero__int_connect_socket_divide_22a.c CWE369_Divide_by_Zero__int_connect_socket_divide_22b.c CWE369_Divide_by_Zero__int_connect_socket_divide_31.c CWE369_Divide_by_Zero__int_connect_socket_divide_32.c CWE369_Divide_by_Zero__int_connect_socket_divide_34.c CWE369_Divide_by_Zero__int_connect_socket_divide_41.c CWE369_Divide_by_Zero__int_connect_socket_divide_42.c CWE369_Divide_by_Zero__int_connect_socket_divide_44.c CWE369_Divide_by_Zero__int_connect_socket_divide_45.c CWE369_Divide_by_Zero__int_connect_socket_divide_51a.c CWE369_Divide_by_Zero__int_connect_socket_divide_51b.c CWE369_Divide_by_Zero__int_connect_socket_divide_52a.c CWE369_Divide_by_Zero__int_connect_socket_divide_52b.c CWE369_Divide_by_Zero__int_connect_socket_divide_52c.c CWE369_Divide_by_Zero__int_connect_socket_divide_53a.c CWE369_Divide_by_Zero__int_connect_socket_divide_53b.c CWE369_Divide_by_Zero__int_connect_socket_divide_53c.c CWE369_Divide_by_Zero__int_connect_socket_divide_53d.c CWE369_Divide_by_Zero__int_connect_socket_divide_54a.c CWE369_Divide_by_Zero__int_connect_socket_divide_54b.c CWE369_Divide_by_Zero__int_connect_socket_divide_54c.c CWE369_Divide_by_Zero__int_connect_socket_divide_54d.c CWE369_Divide_by_Zero__int_connect_socket_divide_54e.c CWE369_Divide_by_Zero__int_connect_socket_divide_61a.c CWE369_Divide_by_Zero__int_connect_socket_divide_61b.c CWE369_Divide_by_Zero__int_connect_socket_divide_63a.c CWE369_Divide_by_Zero__int_connect_socket_divide_63b.c CWE369_Divide_by_Zero__int_connect_socket_divide_64a.c CWE369_Divide_by_Zero__int_connect_socket_divide_64b.c CWE369_Divide_by_Zero__int_connect_socket_divide_65a.c CWE369_Divide_by_Zero__int_connect_socket_divide_65b.c CWE369_Divide_by_Zero__int_connect_socket_divide_66a.c CWE369_Divide_by_Zero__int_connect_socket_divide_66b.c CWE369_Divide_by_Zero__int_connect_socket_divide_67a.c CWE369_Divide_by_Zero__int_connect_socket_divide_67b.c CWE369_Divide_by_Zero__int_connect_socket_divide_68a.c CWE369_Divide_by_Zero__int_connect_socket_divide_68b.c CWE369_Divide_by_Zero__int_connect_socket_modulo_01.c CWE369_Divide_by_Zero__int_connect_socket_modulo_02.c CWE369_Divide_by_Zero__int_connect_socket_modulo_03.c CWE369_Divide_by_Zero__int_connect_socket_modulo_04.c CWE369_Divide_by_Zero__int_connect_socket_modulo_05.c CWE369_Divide_by_Zero__int_connect_socket_modulo_06.c CWE369_Divide_by_Zero__int_connect_socket_modulo_07.c CWE369_Divide_by_Zero__int_connect_socket_modulo_08.c CWE369_Divide_by_Zero__int_connect_socket_modulo_09.c CWE369_Divide_by_Zero__int_connect_socket_modulo_10.c CWE369_Divide_by_Zero__int_connect_socket_modulo_11.c CWE369_Divide_by_Zero__int_connect_socket_modulo_12.c CWE369_Divide_by_Zero__int_connect_socket_modulo_13.c CWE369_Divide_by_Zero__int_connect_socket_modulo_14.c CWE369_Divide_by_Zero__int_connect_socket_modulo_15.c CWE369_Divide_by_Zero__int_connect_socket_modulo_16.c CWE369_Divide_by_Zero__int_connect_socket_modulo_17.c CWE369_Divide_by_Zero__int_connect_socket_modulo_18.c CWE369_Divide_by_Zero__int_connect_socket_modulo_21.c CWE369_Divide_by_Zero__int_connect_socket_modulo_22a.c CWE369_Divide_by_Zero__int_connect_socket_modulo_22b.c CWE369_Divide_by_Zero__int_connect_socket_modulo_31.c CWE369_Divide_by_Zero__int_connect_socket_modulo_32.c CWE369_Divide_by_Zero__int_connect_socket_modulo_34.c CWE369_Divide_by_Zero__int_connect_socket_modulo_41.c CWE369_Divide_by_Zero__int_connect_socket_modulo_42.c CWE369_Divide_by_Zero__int_connect_socket_modulo_44.c CWE369_Divide_by_Zero__int_connect_socket_modulo_45.c CWE369_Divide_by_Zero__int_connect_socket_modulo_51a.c CWE369_Divide_by_Zero__int_connect_socket_modulo_51b.c CWE369_Divide_by_Zero__int_connect_socket_modulo_52a.c CWE369_Divide_by_Zero__int_connect_socket_modulo_52b.c CWE369_Divide_by_Zero__int_connect_socket_modulo_52c.c CWE369_Divide_by_Zero__int_connect_socket_modulo_53a.c CWE369_Divide_by_Zero__int_connect_socket_modulo_53b.c CWE369_Divide_by_Zero__int_connect_socket_modulo_53c.c CWE369_Divide_by_Zero__int_connect_socket_modulo_53d.c CWE369_Divide_by_Zero__int_connect_socket_modulo_54a.c CWE369_Divide_by_Zero__int_connect_socket_modulo_54b.c CWE369_Divide_by_Zero__int_connect_socket_modulo_54c.c CWE369_Divide_by_Zero__int_connect_socket_modulo_54d.c CWE369_Divide_by_Zero__int_connect_socket_modulo_54e.c CWE369_Divide_by_Zero__int_connect_socket_modulo_61a.c CWE369_Divide_by_Zero__int_connect_socket_modulo_61b.c CWE369_Divide_by_Zero__int_connect_socket_modulo_63a.c CWE369_Divide_by_Zero__int_connect_socket_modulo_63b.c CWE369_Divide_by_Zero__int_connect_socket_modulo_64a.c CWE369_Divide_by_Zero__int_connect_socket_modulo_64b.c CWE369_Divide_by_Zero__int_connect_socket_modulo_65a.c CWE369_Divide_by_Zero__int_connect_socket_modulo_65b.c CWE369_Divide_by_Zero__int_connect_socket_modulo_66a.c CWE369_Divide_by_Zero__int_connect_socket_modulo_66b.c CWE369_Divide_by_Zero__int_connect_socket_modulo_67a.c CWE369_Divide_by_Zero__int_connect_socket_modulo_67b.c CWE369_Divide_by_Zero__int_connect_socket_modulo_68a.c CWE369_Divide_by_Zero__int_connect_socket_modulo_68b.c CWE369_Divide_by_Zero__int_fgets_divide_01.c CWE369_Divide_by_Zero__int_fgets_divide_02.c CWE369_Divide_by_Zero__int_fgets_divide_03.c CWE369_Divide_by_Zero__int_fgets_divide_04.c CWE369_Divide_by_Zero__int_fgets_divide_05.c CWE369_Divide_by_Zero__int_fgets_divide_06.c CWE369_Divide_by_Zero__int_fgets_divide_07.c CWE369_Divide_by_Zero__int_fgets_divide_08.c CWE369_Divide_by_Zero__int_fgets_divide_09.c CWE369_Divide_by_Zero__int_fgets_divide_10.c CWE369_Divide_by_Zero__int_fgets_divide_11.c CWE369_Divide_by_Zero__int_fgets_divide_12.c CWE369_Divide_by_Zero__int_fgets_divide_13.c CWE369_Divide_by_Zero__int_fgets_divide_14.c CWE369_Divide_by_Zero__int_fgets_divide_15.c CWE369_Divide_by_Zero__int_fgets_divide_16.c CWE369_Divide_by_Zero__int_fgets_divide_17.c CWE369_Divide_by_Zero__int_fgets_divide_18.c CWE369_Divide_by_Zero__int_fgets_divide_21.c CWE369_Divide_by_Zero__int_fgets_divide_22a.c CWE369_Divide_by_Zero__int_fgets_divide_22b.c CWE369_Divide_by_Zero__int_fgets_divide_31.c CWE369_Divide_by_Zero__int_fgets_divide_32.c CWE369_Divide_by_Zero__int_fgets_divide_34.c CWE369_Divide_by_Zero__int_fgets_divide_41.c CWE369_Divide_by_Zero__int_fgets_divide_42.c CWE369_Divide_by_Zero__int_fgets_divide_44.c CWE369_Divide_by_Zero__int_fgets_divide_45.c CWE369_Divide_by_Zero__int_fgets_divide_51a.c CWE369_Divide_by_Zero__int_fgets_divide_51b.c CWE369_Divide_by_Zero__int_fgets_divide_52a.c CWE369_Divide_by_Zero__int_fgets_divide_52b.c CWE369_Divide_by_Zero__int_fgets_divide_52c.c CWE369_Divide_by_Zero__int_fgets_divide_53a.c CWE369_Divide_by_Zero__int_fgets_divide_53b.c CWE369_Divide_by_Zero__int_fgets_divide_53c.c CWE369_Divide_by_Zero__int_fgets_divide_53d.c CWE369_Divide_by_Zero__int_fgets_divide_54a.c CWE369_Divide_by_Zero__int_fgets_divide_54b.c CWE369_Divide_by_Zero__int_fgets_divide_54c.c CWE369_Divide_by_Zero__int_fgets_divide_54d.c CWE369_Divide_by_Zero__int_fgets_divide_54e.c CWE369_Divide_by_Zero__int_fgets_divide_61a.c CWE369_Divide_by_Zero__int_fgets_divide_61b.c CWE369_Divide_by_Zero__int_fgets_divide_63a.c CWE369_Divide_by_Zero__int_fgets_divide_63b.c CWE369_Divide_by_Zero__int_fgets_divide_64a.c CWE369_Divide_by_Zero__int_fgets_divide_64b.c CWE369_Divide_by_Zero__int_fgets_divide_65a.c CWE369_Divide_by_Zero__int_fgets_divide_65b.c CWE369_Divide_by_Zero__int_fgets_divide_66a.c CWE369_Divide_by_Zero__int_fgets_divide_66b.c CWE369_Divide_by_Zero__int_fgets_divide_67a.c CWE369_Divide_by_Zero__int_fgets_divide_67b.c CWE369_Divide_by_Zero__int_fgets_divide_68a.c CWE369_Divide_by_Zero__int_fgets_divide_68b.c CWE369_Divide_by_Zero__int_fgets_modulo_01.c CWE369_Divide_by_Zero__int_fgets_modulo_02.c CWE369_Divide_by_Zero__int_fgets_modulo_03.c CWE369_Divide_by_Zero__int_fgets_modulo_04.c CWE369_Divide_by_Zero__int_fgets_modulo_05.c CWE369_Divide_by_Zero__int_fgets_modulo_06.c CWE369_Divide_by_Zero__int_fgets_modulo_07.c CWE369_Divide_by_Zero__int_fgets_modulo_08.c CWE369_Divide_by_Zero__int_fgets_modulo_09.c CWE369_Divide_by_Zero__int_fgets_modulo_10.c CWE369_Divide_by_Zero__int_fgets_modulo_11.c CWE369_Divide_by_Zero__int_fgets_modulo_12.c CWE369_Divide_by_Zero__int_fgets_modulo_13.c CWE369_Divide_by_Zero__int_fgets_modulo_14.c CWE369_Divide_by_Zero__int_fgets_modulo_15.c CWE369_Divide_by_Zero__int_fgets_modulo_16.c CWE369_Divide_by_Zero__int_fgets_modulo_17.c CWE369_Divide_by_Zero__int_fgets_modulo_18.c CWE369_Divide_by_Zero__int_fgets_modulo_21.c CWE369_Divide_by_Zero__int_fgets_modulo_22a.c CWE369_Divide_by_Zero__int_fgets_modulo_22b.c CWE369_Divide_by_Zero__int_fgets_modulo_31.c CWE369_Divide_by_Zero__int_fgets_modulo_32.c CWE369_Divide_by_Zero__int_fgets_modulo_34.c CWE369_Divide_by_Zero__int_fgets_modulo_41.c CWE369_Divide_by_Zero__int_fgets_modulo_42.c CWE369_Divide_by_Zero__int_fgets_modulo_44.c CWE369_Divide_by_Zero__int_fgets_modulo_45.c CWE369_Divide_by_Zero__int_fgets_modulo_51a.c CWE369_Divide_by_Zero__int_fgets_modulo_51b.c CWE369_Divide_by_Zero__int_fgets_modulo_52a.c CWE369_Divide_by_Zero__int_fgets_modulo_52b.c CWE369_Divide_by_Zero__int_fgets_modulo_52c.c CWE369_Divide_by_Zero__int_fgets_modulo_53a.c CWE369_Divide_by_Zero__int_fgets_modulo_53b.c CWE369_Divide_by_Zero__int_fgets_modulo_53c.c CWE369_Divide_by_Zero__int_fgets_modulo_53d.c CWE369_Divide_by_Zero__int_fgets_modulo_54a.c CWE369_Divide_by_Zero__int_fgets_modulo_54b.c CWE369_Divide_by_Zero__int_fgets_modulo_54c.c CWE369_Divide_by_Zero__int_fgets_modulo_54d.c CWE369_Divide_by_Zero__int_fgets_modulo_54e.c CWE369_Divide_by_Zero__int_fgets_modulo_61a.c CWE369_Divide_by_Zero__int_fgets_modulo_61b.c CWE369_Divide_by_Zero__int_fgets_modulo_63a.c CWE369_Divide_by_Zero__int_fgets_modulo_63b.c CWE369_Divide_by_Zero__int_fgets_modulo_64a.c CWE369_Divide_by_Zero__int_fgets_modulo_64b.c CWE369_Divide_by_Zero__int_fgets_modulo_65a.c CWE369_Divide_by_Zero__int_fgets_modulo_65b.c CWE369_Divide_by_Zero__int_fgets_modulo_66a.c CWE369_Divide_by_Zero__int_fgets_modulo_66b.c CWE369_Divide_by_Zero__int_fgets_modulo_67a.c CWE369_Divide_by_Zero__int_fgets_modulo_67b.c CWE369_Divide_by_Zero__int_fgets_modulo_68a.c CWE369_Divide_by_Zero__int_fgets_modulo_68b.c CWE369_Divide_by_Zero__int_fscanf_divide_01.c CWE369_Divide_by_Zero__int_fscanf_divide_02.c CWE369_Divide_by_Zero__int_fscanf_divide_03.c CWE369_Divide_by_Zero__int_fscanf_divide_04.c CWE369_Divide_by_Zero__int_fscanf_divide_05.c CWE369_Divide_by_Zero__int_fscanf_divide_06.c CWE369_Divide_by_Zero__int_fscanf_divide_07.c CWE369_Divide_by_Zero__int_fscanf_divide_08.c CWE369_Divide_by_Zero__int_fscanf_divide_09.c CWE369_Divide_by_Zero__int_fscanf_divide_10.c CWE369_Divide_by_Zero__int_fscanf_divide_11.c CWE369_Divide_by_Zero__int_fscanf_divide_12.c CWE369_Divide_by_Zero__int_fscanf_divide_13.c CWE369_Divide_by_Zero__int_fscanf_divide_14.c CWE369_Divide_by_Zero__int_fscanf_divide_15.c CWE369_Divide_by_Zero__int_fscanf_divide_16.c CWE369_Divide_by_Zero__int_fscanf_divide_17.c CWE369_Divide_by_Zero__int_fscanf_divide_18.c CWE369_Divide_by_Zero__int_fscanf_divide_21.c CWE369_Divide_by_Zero__int_fscanf_divide_22a.c CWE369_Divide_by_Zero__int_fscanf_divide_22b.c CWE369_Divide_by_Zero__int_fscanf_divide_31.c CWE369_Divide_by_Zero__int_fscanf_divide_32.c CWE369_Divide_by_Zero__int_fscanf_divide_34.c CWE369_Divide_by_Zero__int_fscanf_divide_41.c CWE369_Divide_by_Zero__int_fscanf_divide_42.c CWE369_Divide_by_Zero__int_fscanf_divide_44.c CWE369_Divide_by_Zero__int_fscanf_divide_45.c CWE369_Divide_by_Zero__int_fscanf_divide_51a.c CWE369_Divide_by_Zero__int_fscanf_divide_51b.c CWE369_Divide_by_Zero__int_fscanf_divide_52a.c CWE369_Divide_by_Zero__int_fscanf_divide_52b.c CWE369_Divide_by_Zero__int_fscanf_divide_52c.c CWE369_Divide_by_Zero__int_fscanf_divide_53a.c CWE369_Divide_by_Zero__int_fscanf_divide_53b.c CWE369_Divide_by_Zero__int_fscanf_divide_53c.c CWE369_Divide_by_Zero__int_fscanf_divide_53d.c CWE369_Divide_by_Zero__int_fscanf_divide_54a.c CWE369_Divide_by_Zero__int_fscanf_divide_54b.c CWE369_Divide_by_Zero__int_fscanf_divide_54c.c CWE369_Divide_by_Zero__int_fscanf_divide_54d.c CWE369_Divide_by_Zero__int_fscanf_divide_54e.c CWE369_Divide_by_Zero__int_fscanf_divide_61a.c CWE369_Divide_by_Zero__int_fscanf_divide_61b.c CWE369_Divide_by_Zero__int_fscanf_divide_63a.c CWE369_Divide_by_Zero__int_fscanf_divide_63b.c CWE369_Divide_by_Zero__int_fscanf_divide_64a.c CWE369_Divide_by_Zero__int_fscanf_divide_64b.c CWE369_Divide_by_Zero__int_fscanf_divide_65a.c CWE369_Divide_by_Zero__int_fscanf_divide_65b.c CWE369_Divide_by_Zero__int_fscanf_divide_66a.c CWE369_Divide_by_Zero__int_fscanf_divide_66b.c CWE369_Divide_by_Zero__int_fscanf_divide_67a.c CWE369_Divide_by_Zero__int_fscanf_divide_67b.c CWE369_Divide_by_Zero__int_fscanf_divide_68a.c CWE369_Divide_by_Zero__int_fscanf_divide_68b.c io.c std_thread.c</td></tr>
+<tr><th>Clang Version:</th><td>clang version 12.0.0 (https://github.com/llvm/llvm-project.git 65936fed1490dd1ef8d9a0a88b7d305b0840eb05)
+</td></tr>
+<tr><th>Date:</th><td>Tue Nov 24 22:26:43 2020</td></tr>
+</table>
+<h2>Bug Summary</h2><table>
+<thead><tr><td>Bug Type</td><td>Quantity</td><td class="sorttable_nosort">Display?</td></tr></thead>
+<tr style="font-weight:bold"><td class="SUMM_DESC">All Bugs</td><td class="Q">403</td><td><center><input type="checkbox" id="AllBugsCheck" onClick="CopyCheckedStateToCheckButtons(this);" checked/></center></td></tr>
+<tr><th>Dead store</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Dead assignment</td><td class="Q">391</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_assignment');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dead initialization</td><td class="Q">12</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_initialization');" checked/></center></td></tr>
+</table>
+<h2>Reports</h2>
+
+<table class="sortable" style="table-layout:automatic">
+<thead><tr>
+  <td>Bug Group</td>
+  <td class="sorttable_sorted">Bug Type<span id="sorttable_sortfwdind">&nbsp;&#x25BE;</span></td>
+  <td>File</td>
+  <td>Function/Method</td>
+  <td class="Q">Line</td>
+  <td class="Q">Path Length</td>
+  <td class="sorttable_nosort"></td>
+  <!-- REPORTBUGCOL -->
+</tr></thead>
+<tbody>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_12.c</td><td class="DESC">CWE369_Divide_by_Zero__float_zero_12_bad</td><td class="Q">28</td><td class="Q">1</td><td><a href="report-00131b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-00131b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_54a.c</td><td class="DESC">goodG2B</td><td class="Q">124</td><td class="Q">1</td><td><a href="report-01043b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-01043b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_12.c</td><td class="DESC">goodG2B</td><td class="Q">146</td><td class="Q">1</td><td><a href="report-016a13.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-016a13.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_02.c</td><td class="DESC">goodG2B1</td><td class="Q">145</td><td class="Q">1</td><td><a href="report-022db8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-022db8.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_18.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_18_bad</td><td class="Q">28</td><td class="Q">1</td><td><a href="report-027c27.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-027c27.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_34.c</td><td class="DESC">goodB2G</td><td class="Q">79</td><td class="Q">1</td><td><a href="report-04e4da.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-04e4da.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_65a.c</td><td class="DESC">CWE369_Divide_by_Zero__float_zero_65_bad</td><td class="Q">33</td><td class="Q">1</td><td><a href="report-04ec48.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-04ec48.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_12.c</td><td class="DESC">goodB2G</td><td class="Q">73</td><td class="Q">1</td><td><a href="report-05044a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-05044a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_02.c</td><td class="DESC">goodB2G2</td><td class="Q">84</td><td class="Q">1</td><td><a href="report-06049e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-06049e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_04.c</td><td class="DESC">goodG2B1</td><td class="Q">293</td><td class="Q">1</td><td><a href="report-0665a4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0665a4.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_68a.c</td><td class="DESC">goodG2B</td><td class="Q">53</td><td class="Q">1</td><td><a href="report-070c92.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-070c92.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_52a.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_52_bad</td><td class="Q">31</td><td class="Q">1</td><td><a href="report-071e71.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-071e71.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_02.c</td><td class="DESC">goodG2B2</td><td class="Q">359</td><td class="Q">1</td><td><a href="report-08a875.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-08a875.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_01.c</td><td class="DESC">goodG2B</td><td class="Q">118</td><td class="Q">1</td><td><a href="report-0a3c28.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0a3c28.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_06.c</td><td class="DESC">goodG2B2</td><td class="Q">166</td><td class="Q">1</td><td><a href="report-0a7fcb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0a7fcb.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_31.c</td><td class="DESC">goodG2B</td><td class="Q">122</td><td class="Q">1</td><td><a href="report-0b44f4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0b44f4.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_31.c</td><td class="DESC">goodG2B</td><td class="Q">64</td><td class="Q">1</td><td><a href="report-0b53c1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0b53c1.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_02.c</td><td class="DESC">goodG2B1</td><td class="Q">287</td><td class="Q">1</td><td><a href="report-0b5b75.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0b5b75.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_67a.c</td><td class="DESC">goodG2B</td><td class="Q">54</td><td class="Q">1</td><td><a href="report-0c0533.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0c0533.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_16.c</td><td class="DESC">goodG2B</td><td class="Q">101</td><td class="Q">1</td><td><a href="report-0c2872.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0c2872.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_06.c</td><td class="DESC">goodG2B1</td><td class="Q">143</td><td class="Q">1</td><td><a href="report-0de179.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0de179.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_67a.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_67_bad</td><td class="Q">37</td><td class="Q">1</td><td><a href="report-0e42c9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0e42c9.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_06.c</td><td class="DESC">goodG2B2</td><td class="Q">131</td><td class="Q">1</td><td><a href="report-0e6534.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0e6534.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_45.c</td><td class="DESC">goodB2G</td><td class="Q">95</td><td class="Q">1</td><td><a href="report-0e6bb7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0e6bb7.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_54a.c</td><td class="DESC">goodG2B</td><td class="Q">59</td><td class="Q">1</td><td><a href="report-0ec598.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0ec598.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_06.c</td><td class="DESC">goodG2B1</td><td class="Q">115</td><td class="Q">1</td><td><a href="report-0ef578.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0ef578.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_44.c</td><td class="DESC">CWE369_Divide_by_Zero__float_zero_44_bad</td><td class="Q">39</td><td class="Q">1</td><td><a href="report-0ff61c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0ff61c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_04.c</td><td class="DESC">goodG2B1</td><td class="Q">300</td><td class="Q">1</td><td><a href="report-0ff6d9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0ff6d9.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_65a.c</td><td class="DESC">goodG2B</td><td class="Q">126</td><td class="Q">1</td><td><a href="report-106976.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-106976.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_18.c</td><td class="DESC">goodG2B</td><td class="Q">93</td><td class="Q">1</td><td><a href="report-10a103.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-10a103.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_52a.c</td><td class="DESC">goodG2B</td><td class="Q">59</td><td class="Q">1</td><td><a href="report-10a3d4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-10a3d4.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_41.c</td><td class="DESC">goodG2B</td><td class="Q">129</td><td class="Q">1</td><td><a href="report-11811c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-11811c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_18.c</td><td class="DESC">goodG2B</td><td class="Q">205</td><td class="Q">1</td><td><a href="report-12eb68.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-12eb68.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_12.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_12_bad</td><td class="Q">28</td><td class="Q">1</td><td><a href="report-133eeb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-133eeb.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_04.c</td><td class="DESC">goodB2G2</td><td class="Q">90</td><td class="Q">1</td><td><a href="report-13fe7e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-13fe7e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_16.c</td><td class="DESC">goodG2B</td><td class="Q">213</td><td class="Q">1</td><td><a href="report-1452f6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1452f6.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_68a.c</td><td class="DESC">goodB2G</td><td class="Q">67</td><td class="Q">1</td><td><a href="report-14d0bd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-14d0bd.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_66a.c</td><td class="DESC">goodG2B</td><td class="Q">65</td><td class="Q">1</td><td><a href="report-154d6b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-154d6b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_65a.c</td><td class="DESC">goodG2B</td><td class="Q">63</td><td class="Q">1</td><td><a href="report-15874a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-15874a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_54a.c</td><td class="DESC">goodG2B</td><td class="Q">122</td><td class="Q">1</td><td><a href="report-162ddb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-162ddb.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_54a.c</td><td class="DESC">goodG2B</td><td class="Q">61</td><td class="Q">1</td><td><a href="report-165474.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-165474.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_68a.c</td><td class="DESC">goodG2B</td><td class="Q">66</td><td class="Q">1</td><td><a href="report-16b651.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-16b651.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_15.c</td><td class="DESC">goodG2B2</td><td class="Q">358</td><td class="Q">1</td><td><a href="report-16c230.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-16c230.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_16.c</td><td class="DESC">goodG2B</td><td class="Q">239</td><td class="Q">1</td><td><a href="report-17023c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-17023c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_52a.c</td><td class="DESC">CWE369_Divide_by_Zero__float_zero_52_bad</td><td class="Q">31</td><td class="Q">1</td><td><a href="report-174ea1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-174ea1.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_34.c</td><td class="DESC">goodG2B</td><td class="Q">130</td><td class="Q">1</td><td><a href="report-175e0c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-175e0c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_45.c</td><td class="DESC">CWE369_Divide_by_Zero__float_zero_45_bad</td><td class="Q">42</td><td class="Q">1</td><td><a href="report-17af49.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-17af49.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_22a.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_22_bad</td><td class="Q">33</td><td class="Q">1</td><td><a href="report-1a889a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1a889a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_01.c</td><td class="DESC">goodG2B</td><td class="Q">55</td><td class="Q">1</td><td><a href="report-1ab93b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1ab93b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_53a.c</td><td class="DESC">goodG2B</td><td class="Q">48</td><td class="Q">1</td><td><a href="report-1b5778.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1b5778.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_21.c</td><td class="DESC">goodG2B</td><td class="Q">164</td><td class="Q">1</td><td><a href="report-1cd7e8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1cd7e8.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_06.c</td><td class="DESC">goodB2G2</td><td class="Q">89</td><td class="Q">1</td><td><a href="report-1d08df.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1d08df.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_45.c</td><td class="DESC">goodG2B</td><td class="Q">60</td><td class="Q">1</td><td><a href="report-1ddb45.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1ddb45.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_18.c</td><td class="DESC">goodG2B</td><td class="Q">199</td><td class="Q">1</td><td><a href="report-1e9670.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1e9670.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_41.c</td><td class="DESC">goodG2B</td><td class="Q">137</td><td class="Q">1</td><td><a href="report-1fbf89.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1fbf89.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_66a.c</td><td class="DESC">goodB2G</td><td class="Q">67</td><td class="Q">1</td><td><a href="report-1fc638.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1fc638.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_15.c</td><td class="DESC">goodG2B1</td><td class="Q">318</td><td class="Q">1</td><td><a href="report-203b48.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-203b48.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_66a.c</td><td class="DESC">goodG2B</td><td class="Q">63</td><td class="Q">1</td><td><a href="report-2135f1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2135f1.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_34.c</td><td class="DESC">goodG2B</td><td class="Q">59</td><td class="Q">1</td><td><a href="report-218a1c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-218a1c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_22a.c</td><td class="DESC">goodG2B</td><td class="Q">307</td><td class="Q">1</td><td><a href="report-21ba66.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-21ba66.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_22a.c</td><td class="DESC">goodG2B</td><td class="Q">266</td><td class="Q">1</td><td><a href="report-229487.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-229487.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_44.c</td><td class="DESC">goodG2B</td><td class="Q">65</td><td class="Q">1</td><td><a href="report-230674.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-230674.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_06.c</td><td class="DESC">goodG2B2</td><td class="Q">166</td><td class="Q">1</td><td><a href="report-24b23c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-24b23c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_01.c</td><td class="DESC">goodG2B</td><td class="Q">118</td><td class="Q">1</td><td><a href="report-24f53a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-24f53a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_21.c</td><td class="DESC">goodG2B</td><td class="Q">323</td><td class="Q">1</td><td><a href="report-265c01.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-265c01.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_65a.c</td><td class="DESC">goodB2G</td><td class="Q">66</td><td class="Q">1</td><td><a href="report-2afb83.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2afb83.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_16.c</td><td class="DESC">goodG2B</td><td class="Q">107</td><td class="Q">1</td><td><a href="report-2ba010.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2ba010.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_15.c</td><td class="DESC">goodG2B1</td><td class="Q">325</td><td class="Q">1</td><td><a href="report-2ba1a9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2ba1a9.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_03.c</td><td class="DESC">goodG2B1</td><td class="Q">287</td><td class="Q">1</td><td><a href="report-2ba530.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2ba530.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_04.c</td><td class="DESC">goodG2B2</td><td class="Q">316</td><td class="Q">1</td><td><a href="report-2c6dbc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2c6dbc.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_02.c</td><td class="DESC">goodG2B1</td><td class="Q">138</td><td class="Q">1</td><td><a href="report-2f1c27.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2f1c27.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_53a.c</td><td class="DESC">goodG2B</td><td class="Q">137</td><td class="Q">1</td><td><a href="report-2fa764.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2fa764.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_06.c</td><td class="DESC">goodG2B2</td><td class="Q">141</td><td class="Q">1</td><td><a href="report-30ef60.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-30ef60.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_66a.c</td><td class="DESC">goodG2B</td><td class="Q">52</td><td class="Q">1</td><td><a href="report-31bfa3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-31bfa3.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_21.c</td><td class="DESC">goodG2B</td><td class="Q">313</td><td class="Q">1</td><td><a href="report-31f125.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-31f125.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_21.c</td><td class="DESC">goodG2B</td><td class="Q">164</td><td class="Q">1</td><td><a href="report-329226.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-329226.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_53a.c</td><td class="DESC">goodG2B</td><td class="Q">48</td><td class="Q">1</td><td><a href="report-32e080.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-32e080.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_53a.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_53_bad</td><td class="Q">31</td><td class="Q">1</td><td><a href="report-32f629.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-32f629.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_12.c</td><td class="DESC">goodG2B</td><td class="Q">119</td><td class="Q">1</td><td><a href="report-330fab.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-330fab.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_22a.c</td><td class="DESC">goodB2G2</td><td class="Q">70</td><td class="Q">1</td><td><a href="report-33b635.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-33b635.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_02.c</td><td class="DESC">goodG2B2</td><td class="Q">136</td><td class="Q">1</td><td><a href="report-341982.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-341982.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_15.c</td><td class="DESC">goodG2B1</td><td class="Q">134</td><td class="Q">1</td><td><a href="report-34cff4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-34cff4.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_65a.c</td><td class="DESC">goodG2B</td><td class="Q">141</td><td class="Q">1</td><td><a href="report-3539b9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3539b9.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_66a.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_66_bad</td><td class="Q">32</td><td class="Q">1</td><td><a href="report-354d30.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-354d30.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_12.c</td><td class="DESC">goodG2B</td><td class="Q">303</td><td class="Q">1</td><td><a href="report-357a7e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-357a7e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_01.c</td><td class="DESC">CWE369_Divide_by_Zero__float_zero_01_bad</td><td class="Q">28</td><td class="Q">1</td><td><a href="report-361d41.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-361d41.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_34.c</td><td class="DESC">goodG2B</td><td class="Q">135</td><td class="Q">1</td><td><a href="report-3762c6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3762c6.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_01.c</td><td class="DESC">goodG2B</td><td class="Q">47</td><td class="Q">1</td><td><a href="report-376c67.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-376c67.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_41.c</td><td class="DESC">goodG2B</td><td class="Q">129</td><td class="Q">1</td><td><a href="report-378612.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-378612.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_45.c</td><td class="DESC">goodG2B</td><td class="Q">136</td><td class="Q">1</td><td><a href="report-378fdb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-378fdb.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_02.c</td><td class="DESC">goodG2B2</td><td class="Q">320</td><td class="Q">1</td><td><a href="report-37f529.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-37f529.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_06.c</td><td class="DESC">goodG2B1</td><td class="Q">108</td><td class="Q">1</td><td><a href="report-388dad.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-388dad.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_51a.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_51_bad</td><td class="Q">31</td><td class="Q">1</td><td><a href="report-393321.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-393321.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_21.c</td><td class="DESC">goodG2B</td><td class="Q">313</td><td class="Q">1</td><td><a href="report-39f8f1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-39f8f1.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_52a.c</td><td class="DESC">goodG2B</td><td class="Q">48</td><td class="Q">1</td><td><a href="report-3a52a0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3a52a0.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_18.c</td><td class="DESC">goodG2B</td><td class="Q">93</td><td class="Q">1</td><td><a href="report-3ad836.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3ad836.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_01.c</td><td class="DESC">goodG2B</td><td class="Q">123</td><td class="Q">1</td><td><a href="report-3b8015.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3b8015.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_52a.c</td><td class="DESC">goodG2B</td><td class="Q">61</td><td class="Q">1</td><td><a href="report-3bf4cc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3bf4cc.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_44.c</td><td class="DESC">goodG2B</td><td class="Q">141</td><td class="Q">1</td><td><a href="report-3e069b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3e069b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_34.c</td><td class="DESC">goodG2B</td><td class="Q">67</td><td class="Q">1</td><td><a href="report-3e8cf5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3e8cf5.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_54a.c</td><td class="DESC">goodG2B</td><td class="Q">46</td><td class="Q">1</td><td><a href="report-405a29.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-405a29.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_54a.c</td><td class="DESC">CWE369_Divide_by_Zero__float_zero_54_bad</td><td class="Q">31</td><td class="Q">1</td><td><a href="report-42fd05.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-42fd05.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_16.c</td><td class="DESC">goodG2B</td><td class="Q">207</td><td class="Q">1</td><td><a href="report-43fad0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-43fad0.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_02.c</td><td class="DESC">goodG2B2</td><td class="Q">161</td><td class="Q">1</td><td><a href="report-45b840.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-45b840.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_68a.c</td><td class="DESC">CWE369_Divide_by_Zero__float_zero_68_bad</td><td class="Q">35</td><td class="Q">1</td><td><a href="report-468e09.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-468e09.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_31.c</td><td class="DESC">goodG2B</td><td class="Q">122</td><td class="Q">1</td><td><a href="report-469e92.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-469e92.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_68a.c</td><td class="DESC">goodG2B</td><td class="Q">129</td><td class="Q">1</td><td><a href="report-477e37.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-477e37.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_54a.c</td><td class="DESC">goodG2B</td><td class="Q">59</td><td class="Q">1</td><td><a href="report-47c36a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-47c36a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_65a.c</td><td class="DESC">goodG2B</td><td class="Q">52</td><td class="Q">1</td><td><a href="report-47c3e4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-47c3e4.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_02.c</td><td class="DESC">goodG2B1</td><td class="Q">110</td><td class="Q">1</td><td><a href="report-48014e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-48014e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_03.c</td><td class="DESC">goodG2B2</td><td class="Q">320</td><td class="Q">1</td><td><a href="report-486525.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-486525.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_03.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_03_bad</td><td class="Q">28</td><td class="Q">1</td><td><a href="report-48b488.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-48b488.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_16.c</td><td class="DESC">goodG2B</td><td class="Q">83</td><td class="Q">1</td><td><a href="report-493332.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-493332.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_18.c</td><td class="DESC">goodG2B</td><td class="Q">99</td><td class="Q">1</td><td><a href="report-494f1c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-494f1c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_68a.c</td><td class="DESC">goodG2B</td><td class="Q">131</td><td class="Q">1</td><td><a href="report-496f4e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-496f4e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_02.c</td><td class="DESC">goodG2B2</td><td class="Q">310</td><td class="Q">1</td><td><a href="report-4a6c49.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4a6c49.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_04.c</td><td class="DESC">goodG2B2</td><td class="Q">326</td><td class="Q">1</td><td><a href="report-4b177d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4b177d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_66a.c</td><td class="DESC">CWE369_Divide_by_Zero__float_zero_66_bad</td><td class="Q">32</td><td class="Q">1</td><td><a href="report-4b5c51.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4b5c51.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_06.c</td><td class="DESC">goodG2B1</td><td class="Q">299</td><td class="Q">1</td><td><a href="report-4b9213.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4b9213.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_04.c</td><td class="DESC">goodG2B1</td><td class="Q">109</td><td class="Q">1</td><td><a href="report-4c35dd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4c35dd.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_12.c</td><td class="DESC">goodG2B</td><td class="Q">146</td><td class="Q">1</td><td><a href="report-4d1969.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4d1969.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_03.c</td><td class="DESC">goodG2B1</td><td class="Q">138</td><td class="Q">1</td><td><a href="report-4f2c0f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4f2c0f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_04.c</td><td class="DESC">goodG2B1</td><td class="Q">116</td><td class="Q">1</td><td><a href="report-4f3b6a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4f3b6a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_18.c</td><td class="DESC">goodG2B</td><td class="Q">75</td><td class="Q">1</td><td><a href="report-50306f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-50306f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_67a.c</td><td class="DESC">goodB2G</td><td class="Q">71</td><td class="Q">1</td><td><a href="report-506778.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-506778.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_04.c</td><td class="DESC">goodG2B1</td><td class="Q">116</td><td class="Q">1</td><td><a href="report-511085.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-511085.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_54a.c</td><td class="DESC">goodG2B</td><td class="Q">48</td><td class="Q">1</td><td><a href="report-51889b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-51889b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_31.c</td><td class="DESC">goodG2B</td><td class="Q">46</td><td class="Q">1</td><td><a href="report-521485.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-521485.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_51a.c</td><td class="DESC">goodG2B</td><td class="Q">122</td><td class="Q">1</td><td><a href="report-5404ac.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5404ac.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_03.c</td><td class="DESC">goodG2B1</td><td class="Q">294</td><td class="Q">1</td><td><a href="report-542011.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-542011.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_66a.c</td><td class="DESC">goodB2G</td><td class="Q">67</td><td class="Q">1</td><td><a href="report-544b39.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-544b39.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_67a.c</td><td class="DESC">goodG2B</td><td class="Q">145</td><td class="Q">1</td><td><a href="report-555107.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-555107.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_52a.c</td><td class="DESC">goodG2B</td><td class="Q">124</td><td class="Q">1</td><td><a href="report-560fdd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-560fdd.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_04.c</td><td class="DESC">goodG2B2</td><td class="Q">142</td><td class="Q">1</td><td><a href="report-56961d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-56961d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_03.c</td><td class="DESC">goodG2B2</td><td class="Q">359</td><td class="Q">1</td><td><a href="report-56a5bb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-56a5bb.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_45.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_45_bad</td><td class="Q">42</td><td class="Q">1</td><td><a href="report-59076e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-59076e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_03.c</td><td class="DESC">goodG2B2</td><td class="Q">161</td><td class="Q">1</td><td><a href="report-59141a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-59141a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_34.c</td><td class="DESC">goodG2B</td><td class="Q">148</td><td class="Q">1</td><td><a href="report-594cf8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-594cf8.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_06.c</td><td class="DESC">goodG2B1</td><td class="Q">115</td><td class="Q">1</td><td><a href="report-5970fc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5970fc.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_03.c</td><td class="DESC">goodB2G2</td><td class="Q">84</td><td class="Q">1</td><td><a href="report-598658.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-598658.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_06.c</td><td class="DESC">goodG2B2</td><td class="Q">315</td><td class="Q">1</td><td><a href="report-5a08d9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5a08d9.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_31.c</td><td class="DESC">goodG2B</td><td class="Q">59</td><td class="Q">1</td><td><a href="report-5a127d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5a127d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_44.c</td><td class="DESC">goodG2B</td><td class="Q">70</td><td class="Q">1</td><td><a href="report-5a8921.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5a8921.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_04.c</td><td class="DESC">goodG2B2</td><td class="Q">177</td><td class="Q">1</td><td><a href="report-5abdda.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5abdda.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_45.c</td><td class="DESC">goodG2B</td><td class="Q">68</td><td class="Q">1</td><td><a href="report-5b1cb1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5b1cb1.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_02.c</td><td class="DESC">goodG2B2</td><td class="Q">171</td><td class="Q">1</td><td><a href="report-5cb7fd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5cb7fd.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_44.c</td><td class="DESC">goodG2B</td><td class="Q">70</td><td class="Q">1</td><td><a href="report-5e12bf.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5e12bf.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_01.c</td><td class="DESC">goodG2B</td><td class="Q">60</td><td class="Q">1</td><td><a href="report-5e5315.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5e5315.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_51a.c</td><td class="DESC">goodG2B</td><td class="Q">59</td><td class="Q">1</td><td><a href="report-5e5d89.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5e5d89.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_12.c</td><td class="DESC">goodG2B</td><td class="Q">154</td><td class="Q">1</td><td><a href="report-5fd6fe.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5fd6fe.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_67a.c</td><td class="DESC">CWE369_Divide_by_Zero__float_zero_67_bad</td><td class="Q">37</td><td class="Q">1</td><td><a href="report-604791.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-604791.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_65a.c</td><td class="DESC">goodG2B</td><td class="Q">52</td><td class="Q">1</td><td><a href="report-607032.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-607032.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_67a.c</td><td class="DESC">goodG2B</td><td class="Q">56</td><td class="Q">1</td><td><a href="report-63409f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-63409f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_06.c</td><td class="DESC">goodB2G2</td><td class="Q">89</td><td class="Q">1</td><td><a href="report-63cd4d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-63cd4d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_03.c</td><td class="DESC">goodG2B1</td><td class="Q">110</td><td class="Q">1</td><td><a href="report-64bcc1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-64bcc1.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_15.c</td><td class="DESC">goodG2B1</td><td class="Q">169</td><td class="Q">1</td><td><a href="report-66c585.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-66c585.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_15.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_15_bad</td><td class="Q">28</td><td class="Q">1</td><td><a href="report-681851.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-681851.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_15.c</td><td class="DESC">goodG2B1</td><td class="Q">176</td><td class="Q">1</td><td><a href="report-6891b4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6891b4.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_06.c</td><td class="DESC">goodG2B2</td><td class="Q">325</td><td class="Q">1</td><td><a href="report-68c00d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-68c00d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_01.c</td><td class="DESC">goodB2G</td><td class="Q">62</td><td class="Q">1</td><td><a href="report-69f4ba.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-69f4ba.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_66a.c</td><td class="DESC">goodG2B</td><td class="Q">126</td><td class="Q">1</td><td><a href="report-6b1364.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6b1364.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_02.c</td><td class="DESC">goodB2G1</td><td class="Q">53</td><td class="Q">1</td><td><a href="report-6c0b77.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6c0b77.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_04.c</td><td class="DESC">goodG2B1</td><td class="Q">339</td><td class="Q">1</td><td><a href="report-6c7c23.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6c7c23.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_16.c</td><td class="DESC">goodG2B</td><td class="Q">83</td><td class="Q">1</td><td><a href="report-6cdb66.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6cdb66.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_52a.c</td><td class="DESC">goodG2B</td><td class="Q">122</td><td class="Q">1</td><td><a href="report-6cf267.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6cf267.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_53a.c</td><td class="DESC">goodB2G</td><td class="Q">61</td><td class="Q">1</td><td><a href="report-6d14aa.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6d14aa.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_41.c</td><td class="DESC">goodG2B</td><td class="Q">66</td><td class="Q">1</td><td><a href="report-6d59f1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6d59f1.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_53a.c</td><td class="DESC">goodG2B</td><td class="Q">122</td><td class="Q">1</td><td><a href="report-6d6344.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6d6344.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_68a.c</td><td class="DESC">goodG2B</td><td class="Q">55</td><td class="Q">1</td><td><a href="report-6e713a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6e713a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_52a.c</td><td class="DESC">goodG2B</td><td class="Q">48</td><td class="Q">1</td><td><a href="report-6fe471.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6fe471.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_15.c</td><td class="DESC">goodG2B2</td><td class="Q">348</td><td class="Q">1</td><td><a href="report-703bdd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-703bdd.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_65a.c</td><td class="DESC">goodG2B</td><td class="Q">65</td><td class="Q">1</td><td><a href="report-71972a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-71972a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_45.c</td><td class="DESC">goodG2B</td><td class="Q">68</td><td class="Q">1</td><td><a href="report-71bd2e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-71bd2e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_45.c</td><td class="DESC">goodG2B</td><td class="Q">68</td><td class="Q">1</td><td><a href="report-71c06a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-71c06a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_06.c</td><td class="DESC">goodG2B2</td><td class="Q">315</td><td class="Q">1</td><td><a href="report-71d77d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-71d77d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_02.c</td><td class="DESC">goodG2B1</td><td class="Q">103</td><td class="Q">1</td><td><a href="report-7238b0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7238b0.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_21.c</td><td class="DESC">goodB2G2</td><td class="Q">115</td><td class="Q">1</td><td><a href="report-7279db.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7279db.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_15.c</td><td class="DESC">goodG2B1</td><td class="Q">169</td><td class="Q">1</td><td><a href="report-734ae0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-734ae0.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_21.c</td><td class="DESC">goodG2B</td><td class="Q">174</td><td class="Q">1</td><td><a href="report-737e2f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-737e2f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_15.c</td><td class="DESC">goodG2B1</td><td class="Q">364</td><td class="Q">1</td><td><a href="report-745560.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-745560.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_06.c</td><td class="DESC">goodB2G1</td><td class="Q">58</td><td class="Q">1</td><td><a href="report-749502.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-749502.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_06.c</td><td class="DESC">goodG2B2</td><td class="Q">364</td><td class="Q">1</td><td><a href="report-757af2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-757af2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_45.c</td><td class="DESC">goodB2G</td><td class="Q">95</td><td class="Q">1</td><td><a href="report-79ee17.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-79ee17.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_15.c</td><td class="DESC">goodG2B1</td><td class="Q">141</td><td class="Q">1</td><td><a href="report-7c369e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7c369e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_22a.c</td><td class="DESC">goodG2B</td><td class="Q">117</td><td class="Q">1</td><td><a href="report-7d6a31.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7d6a31.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_65a.c</td><td class="DESC">goodG2B</td><td class="Q">52</td><td class="Q">1</td><td><a href="report-7dbfc7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7dbfc7.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_15.c</td><td class="DESC">goodG2B2</td><td class="Q">209</td><td class="Q">1</td><td><a href="report-7deb7d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7deb7d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_16.c</td><td class="DESC">goodB2G</td><td class="Q">55</td><td class="Q">1</td><td><a href="report-7eb425.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7eb425.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_66a.c</td><td class="DESC">goodG2B</td><td class="Q">63</td><td class="Q">1</td><td><a href="report-7ee11d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7ee11d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_06.c</td><td class="DESC">goodB2G1</td><td class="Q">58</td><td class="Q">1</td><td><a href="report-7f2a05.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7f2a05.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_03.c</td><td class="DESC">goodG2B1</td><td class="Q">103</td><td class="Q">1</td><td><a href="report-7fd75e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7fd75e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_03.c</td><td class="DESC">goodG2B2</td><td class="Q">136</td><td class="Q">1</td><td><a href="report-80a438.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-80a438.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_03.c</td><td class="DESC">goodG2B1</td><td class="Q">145</td><td class="Q">1</td><td><a href="report-81565f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-81565f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_15.c</td><td class="DESC">goodG2B2</td><td class="Q">164</td><td class="Q">1</td><td><a href="report-820ec2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-820ec2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_44.c</td><td class="DESC">goodG2B</td><td class="Q">57</td><td class="Q">1</td><td><a href="report-821549.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-821549.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_22a.c</td><td class="DESC">goodG2B</td><td class="Q">82</td><td class="Q">1</td><td><a href="report-8272d2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8272d2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_16.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_16_bad</td><td class="Q">28</td><td class="Q">1</td><td><a href="report-83f112.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-83f112.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_34.c</td><td class="DESC">goodG2B</td><td class="Q">72</td><td class="Q">1</td><td><a href="report-8468dc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8468dc.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_45.c</td><td class="DESC">goodG2B</td><td class="Q">136</td><td class="Q">1</td><td><a href="report-84c633.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-84c633.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_51a.c</td><td class="DESC">goodG2B</td><td class="Q">48</td><td class="Q">1</td><td><a href="report-860a52.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-860a52.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_01.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_01_bad</td><td class="Q">28</td><td class="Q">1</td><td><a href="report-86a4ec.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-86a4ec.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_02.c</td><td class="DESC">goodG2B1</td><td class="Q">333</td><td class="Q">1</td><td><a href="report-872419.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-872419.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_68a.c</td><td class="DESC">goodG2B</td><td class="Q">55</td><td class="Q">1</td><td><a href="report-875fbd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-875fbd.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_06.c</td><td class="DESC">goodG2B2</td><td class="Q">176</td><td class="Q">1</td><td><a href="report-879aaf.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-879aaf.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_68a.c</td><td class="DESC">goodB2G</td><td class="Q">67</td><td class="Q">1</td><td><a href="report-87dc83.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-87dc83.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_15.c</td><td class="DESC">goodG2B2</td><td class="Q">174</td><td class="Q">1</td><td><a href="report-88fa9e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-88fa9e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_51a.c</td><td class="DESC">goodB2G</td><td class="Q">61</td><td class="Q">1</td><td><a href="report-8a00db.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8a00db.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_66a.c</td><td class="DESC">goodG2B</td><td class="Q">128</td><td class="Q">1</td><td><a href="report-8a522a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8a522a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_06.c</td><td class="DESC">goodG2B1</td><td class="Q">292</td><td class="Q">1</td><td><a href="report-8a8cde.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8a8cde.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_22a.c</td><td class="DESC">goodG2B</td><td class="Q">84</td><td class="Q">1</td><td><a href="report-8a982a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8a982a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_02.c</td><td class="DESC">goodG2B2</td><td class="Q">126</td><td class="Q">1</td><td><a href="report-8b50d1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8b50d1.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_68a.c</td><td class="DESC">goodG2B</td><td class="Q">55</td><td class="Q">1</td><td><a href="report-8bb676.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8bb676.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_12.c</td><td class="DESC">goodG2B</td><td class="Q">342</td><td class="Q">1</td><td><a href="report-8c1af1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8c1af1.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_66a.c</td><td class="DESC">goodG2B</td><td class="Q">52</td><td class="Q">1</td><td><a href="report-8c5766.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8c5766.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_51a.c</td><td class="DESC">goodG2B</td><td class="Q">48</td><td class="Q">1</td><td><a href="report-8ea958.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8ea958.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_22a.c</td><td class="DESC">goodG2B</td><td class="Q">117</td><td class="Q">1</td><td><a href="report-8f5d65.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8f5d65.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_52a.c</td><td class="DESC">goodG2B</td><td class="Q">137</td><td class="Q">1</td><td><a href="report-8fee86.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8fee86.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_01.c</td><td class="DESC">goodG2B</td><td class="Q">42</td><td class="Q">1</td><td><a href="report-9112aa.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9112aa.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_67a.c</td><td class="DESC">goodG2B</td><td class="Q">130</td><td class="Q">1</td><td><a href="report-9142f4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9142f4.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_31.c</td><td class="DESC">goodG2B</td><td class="Q">51</td><td class="Q">1</td><td><a href="report-9164aa.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9164aa.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_02.c</td><td class="DESC">goodG2B1</td><td class="Q">138</td><td class="Q">1</td><td><a href="report-927dff.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-927dff.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_12.c</td><td class="DESC">goodG2B</td><td class="Q">119</td><td class="Q">1</td><td><a href="report-92af8c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-92af8c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_04.c</td><td class="DESC">goodB2G1</td><td class="Q">59</td><td class="Q">1</td><td><a href="report-92b3d7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-92b3d7.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_02.c</td><td class="DESC">goodG2B1</td><td class="Q">287</td><td class="Q">1</td><td><a href="report-92e3f4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-92e3f4.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_06.c</td><td class="DESC">goodG2B1</td><td class="Q">150</td><td class="Q">1</td><td><a href="report-92f965.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-92f965.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_22a.c</td><td class="DESC">goodG2B</td><td class="Q">84</td><td class="Q">1</td><td><a href="report-9476b4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9476b4.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_67a.c</td><td class="DESC">goodG2B</td><td class="Q">56</td><td class="Q">1</td><td><a href="report-951ffb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-951ffb.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_51a.c</td><td class="DESC">goodG2B</td><td class="Q">48</td><td class="Q">1</td><td><a href="report-95d37d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-95d37d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_41.c</td><td class="DESC">goodG2B</td><td class="Q">61</td><td class="Q">1</td><td><a href="report-95d872.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-95d872.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_04.c</td><td class="DESC">goodG2B1</td><td class="Q">144</td><td class="Q">1</td><td><a href="report-990621.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-990621.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_54a.c</td><td class="DESC">goodB2G</td><td class="Q">61</td><td class="Q">1</td><td><a href="report-99a4de.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-99a4de.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_41.c</td><td class="DESC">goodG2B</td><td class="Q">53</td><td class="Q">1</td><td><a href="report-9ac958.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9ac958.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_67a.c</td><td class="DESC">goodG2B</td><td class="Q">67</td><td class="Q">1</td><td><a href="report-9aebce.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9aebce.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_06.c</td><td class="DESC">goodG2B2</td><td class="Q">141</td><td class="Q">1</td><td><a href="report-9b91d2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9b91d2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_67a.c</td><td class="DESC">goodG2B</td><td class="Q">69</td><td class="Q">1</td><td><a href="report-9bf376.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9bf376.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_03.c</td><td class="DESC">goodB2G1</td><td class="Q">53</td><td class="Q">1</td><td><a href="report-9d27bc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9d27bc.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_06.c</td><td class="DESC">goodG2B2</td><td class="Q">141</td><td class="Q">1</td><td><a href="report-9d2fec.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9d2fec.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_31.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_31_bad</td><td class="Q">28</td><td class="Q">1</td><td><a href="report-9ec3e4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9ec3e4.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_41.c</td><td class="DESC">goodG2B</td><td class="Q">61</td><td class="Q">1</td><td><a href="report-9f06bb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9f06bb.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_18.c</td><td class="DESC">goodB2G</td><td class="Q">51</td><td class="Q">1</td><td><a href="report-9fdb47.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9fdb47.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_04.c</td><td class="DESC">goodG2B1</td><td class="Q">144</td><td class="Q">1</td><td><a href="report-9febf6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9febf6.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_44.c</td><td class="DESC">goodG2B</td><td class="Q">133</td><td class="Q">1</td><td><a href="report-a06003.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a06003.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_68a.c</td><td class="DESC">goodG2B</td><td class="Q">66</td><td class="Q">1</td><td><a href="report-a11e58.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a11e58.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_65a.c</td><td class="DESC">goodG2B</td><td class="Q">128</td><td class="Q">1</td><td><a href="report-a1a139.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a1a139.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_15.c</td><td class="DESC">goodG2B2</td><td class="Q">174</td><td class="Q">1</td><td><a href="report-a1b50a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a1b50a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_21.c</td><td class="DESC">goodG2B</td><td class="Q">139</td><td class="Q">1</td><td><a href="report-a2c6f2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a2c6f2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_41.c</td><td class="DESC">goodG2B</td><td class="Q">61</td><td class="Q">1</td><td><a href="report-a2cc76.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a2cc76.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_51a.c</td><td class="DESC">goodG2B</td><td class="Q">124</td><td class="Q">1</td><td><a href="report-a3619b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a3619b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_51a.c</td><td class="DESC">goodG2B</td><td class="Q">137</td><td class="Q">1</td><td><a href="report-a3d6f1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a3d6f1.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_01.c</td><td class="DESC">goodG2B</td><td class="Q">136</td><td class="Q">1</td><td><a href="report-a46bba.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a46bba.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_03.c</td><td class="DESC">goodG2B2</td><td class="Q">310</td><td class="Q">1</td><td><a href="report-a496e9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a496e9.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_68a.c</td><td class="DESC">goodG2B</td><td class="Q">129</td><td class="Q">1</td><td><a href="report-a4ae9d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a4ae9d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_68a.c</td><td class="DESC">goodG2B</td><td class="Q">144</td><td class="Q">1</td><td><a href="report-a5b909.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a5b909.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_01.c</td><td class="DESC">goodG2B</td><td class="Q">47</td><td class="Q">1</td><td><a href="report-a5e23f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a5e23f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_15.c</td><td class="DESC">goodB2G1</td><td class="Q">65</td><td class="Q">1</td><td><a href="report-a6468b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a6468b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_52a.c</td><td class="DESC">goodB2G</td><td class="Q">61</td><td class="Q">1</td><td><a href="report-a78abb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a78abb.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_44.c</td><td class="DESC">goodG2B</td><td class="Q">78</td><td class="Q">1</td><td><a href="report-a79649.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a79649.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_51a.c</td><td class="DESC">goodG2B</td><td class="Q">59</td><td class="Q">1</td><td><a href="report-a7f305.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a7f305.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_65a.c</td><td class="DESC">goodG2B</td><td class="Q">63</td><td class="Q">1</td><td><a href="report-a8c38f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a8c38f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_03.c</td><td class="DESC">goodG2B1</td><td class="Q">333</td><td class="Q">1</td><td><a href="report-a957b7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a957b7.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_02.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_02_bad</td><td class="Q">28</td><td class="Q">1</td><td><a href="report-a991ef.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a991ef.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_67a.c</td><td class="DESC">goodG2B</td><td class="Q">67</td><td class="Q">1</td><td><a href="report-a9c029.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a9c029.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_65a.c</td><td class="DESC">goodG2B</td><td class="Q">50</td><td class="Q">1</td><td><a href="report-a9e56e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a9e56e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_66a.c</td><td class="DESC">goodG2B</td><td class="Q">52</td><td class="Q">1</td><td><a href="report-aa1a59.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-aa1a59.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_41.c</td><td class="DESC">CWE369_Divide_by_Zero__float_zero_41_bad</td><td class="Q">37</td><td class="Q">1</td><td><a href="report-aa4c7a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-aa4c7a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_67a.c</td><td class="DESC">goodG2B</td><td class="Q">130</td><td class="Q">1</td><td><a href="report-ab7cc9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ab7cc9.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_04.c</td><td class="DESC">goodG2B2</td><td class="Q">316</td><td class="Q">1</td><td><a href="report-ab9174.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ab9174.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_12.c</td><td class="DESC">goodG2B</td><td class="Q">295</td><td class="Q">1</td><td><a href="report-ad9513.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ad9513.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_03.c</td><td class="DESC">goodG2B1</td><td class="Q">138</td><td class="Q">1</td><td><a href="report-adac3f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-adac3f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_04.c</td><td class="DESC">goodG2B2</td><td class="Q">142</td><td class="Q">1</td><td><a href="report-ae086d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ae086d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_21.c</td><td class="DESC">goodG2B</td><td class="Q">362</td><td class="Q">1</td><td><a href="report-aec818.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-aec818.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_03.c</td><td class="DESC">goodG2B2</td><td class="Q">310</td><td class="Q">1</td><td><a href="report-aecb5a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-aecb5a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_22a.c</td><td class="DESC">goodB2G1</td><td class="Q">56</td><td class="Q">1</td><td><a href="report-b00035.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b00035.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_51a.c</td><td class="DESC">CWE369_Divide_by_Zero__float_zero_51_bad</td><td class="Q">31</td><td class="Q">1</td><td><a href="report-b12936.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b12936.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_01.c</td><td class="DESC">goodG2B</td><td class="Q">47</td><td class="Q">1</td><td><a href="report-b21278.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b21278.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_41.c</td><td class="DESC">goodG2B</td><td class="Q">66</td><td class="Q">1</td><td><a href="report-b25b8c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b25b8c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_44.c</td><td class="DESC">goodG2B</td><td class="Q">65</td><td class="Q">1</td><td><a href="report-b37c71.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b37c71.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_53a.c</td><td class="DESC">goodG2B</td><td class="Q">59</td><td class="Q">1</td><td><a href="report-b42047.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b42047.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_45.c</td><td class="DESC">goodG2B</td><td class="Q">157</td><td class="Q">1</td><td><a href="report-b4fbb5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b4fbb5.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_21.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_21_bad</td><td class="Q">43</td><td class="Q">1</td><td><a href="report-b6932f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b6932f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_41.c</td><td class="DESC">goodG2B</td><td class="Q">74</td><td class="Q">1</td><td><a href="report-b69cfa.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b69cfa.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_65a.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_65_bad</td><td class="Q">33</td><td class="Q">1</td><td><a href="report-b8e596.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b8e596.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_12.c</td><td class="DESC">goodG2B</td><td class="Q">119</td><td class="Q">1</td><td><a href="report-b91a67.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b91a67.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_12.c</td><td class="DESC">goodG2B</td><td class="Q">295</td><td class="Q">1</td><td><a href="report-b994a0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b994a0.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_04.c</td><td class="DESC">goodG2B2</td><td class="Q">132</td><td class="Q">1</td><td><a href="report-ba4352.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ba4352.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_18.c</td><td class="DESC">goodG2B</td><td class="Q">231</td><td class="Q">1</td><td><a href="report-bb4bac.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bb4bac.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_52a.c</td><td class="DESC">goodG2B</td><td class="Q">122</td><td class="Q">1</td><td><a href="report-bd1e6d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bd1e6d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_01.c</td><td class="DESC">goodB2G</td><td class="Q">62</td><td class="Q">1</td><td><a href="report-be7ef9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-be7ef9.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_66a.c</td><td class="DESC">goodG2B</td><td class="Q">50</td><td class="Q">1</td><td><a href="report-bef8ed.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bef8ed.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_03.c</td><td class="DESC">goodG2B2</td><td class="Q">171</td><td class="Q">1</td><td><a href="report-c07922.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c07922.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_51a.c</td><td class="DESC">goodG2B</td><td class="Q">122</td><td class="Q">1</td><td><a href="report-c08966.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c08966.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_31.c</td><td class="DESC">goodB2G</td><td class="Q">70</td><td class="Q">1</td><td><a href="report-c23cc9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c23cc9.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_06.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_06_bad</td><td class="Q">33</td><td class="Q">1</td><td><a href="report-c23f0b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c23f0b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_06.c</td><td class="DESC">goodG2B1</td><td class="Q">338</td><td class="Q">1</td><td><a href="report-c2e72c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c2e72c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_41.c</td><td class="DESC">goodB2G</td><td class="Q">86</td><td class="Q">1</td><td><a href="report-c36a52.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c36a52.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_21.c</td><td class="DESC">goodG2B</td><td class="Q">129</td><td class="Q">1</td><td><a href="report-c384b2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c384b2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_31.c</td><td class="DESC">goodG2B</td><td class="Q">51</td><td class="Q">1</td><td><a href="report-c3f79a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c3f79a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_53a.c</td><td class="DESC">goodG2B</td><td class="Q">61</td><td class="Q">1</td><td><a href="report-c40a94.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c40a94.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_18.c</td><td class="DESC">goodG2B</td><td class="Q">75</td><td class="Q">1</td><td><a href="report-c48d5a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c48d5a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_41.c</td><td class="DESC">goodG2B</td><td class="Q">150</td><td class="Q">1</td><td><a href="report-c48df3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c48df3.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_04.c</td><td class="DESC">goodG2B1</td><td class="Q">151</td><td class="Q">1</td><td><a href="report-c4d4da.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c4d4da.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_53a.c</td><td class="DESC">CWE369_Divide_by_Zero__float_zero_53_bad</td><td class="Q">31</td><td class="Q">1</td><td><a href="report-c7b37c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c7b37c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_02.c</td><td class="DESC">goodG2B2</td><td class="Q">310</td><td class="Q">1</td><td><a href="report-c82a31.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c82a31.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_15.c</td><td class="DESC">goodG2B2</td><td class="Q">199</td><td class="Q">1</td><td><a href="report-c88539.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c88539.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_34.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_34_bad</td><td class="Q">35</td><td class="Q">1</td><td><a href="report-c9a5b2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c9a5b2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_02.c</td><td class="DESC">goodG2B2</td><td class="Q">161</td><td class="Q">1</td><td><a href="report-c9ca55.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c9ca55.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_03.c</td><td class="DESC">goodG2B2</td><td class="Q">161</td><td class="Q">1</td><td><a href="report-ca5cc6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ca5cc6.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_67a.c</td><td class="DESC">goodG2B</td><td class="Q">132</td><td class="Q">1</td><td><a href="report-ca8071.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ca8071.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_16.c</td><td class="DESC">goodG2B</td><td class="Q">207</td><td class="Q">1</td><td><a href="report-cb01fa.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cb01fa.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_12.c</td><td class="DESC">goodB2G</td><td class="Q">73</td><td class="Q">1</td><td><a href="report-cd56c4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cd56c4.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_53a.c</td><td class="DESC">goodG2B</td><td class="Q">122</td><td class="Q">1</td><td><a href="report-cd8615.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cd8615.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_45.c</td><td class="DESC">goodG2B</td><td class="Q">73</td><td class="Q">1</td><td><a href="report-cdd542.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cdd542.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_44.c</td><td class="DESC">goodB2G</td><td class="Q">91</td><td class="Q">1</td><td><a href="report-cea8c5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cea8c5.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_18.c</td><td class="DESC">goodG2B</td><td class="Q">199</td><td class="Q">1</td><td><a href="report-cf3ca7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cf3ca7.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_06.c</td><td class="DESC">goodG2B1</td><td class="Q">143</td><td class="Q">1</td><td><a href="report-d0c6d3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d0c6d3.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_54a.c</td><td class="DESC">goodG2B</td><td class="Q">137</td><td class="Q">1</td><td><a href="report-d20027.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d20027.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_45.c</td><td class="DESC">goodG2B</td><td class="Q">144</td><td class="Q">1</td><td><a href="report-d2f2e9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d2f2e9.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_68a.c</td><td class="DESC">goodG2B</td><td class="Q">68</td><td class="Q">1</td><td><a href="report-d3022b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d3022b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_31.c</td><td class="DESC">goodG2B</td><td class="Q">127</td><td class="Q">1</td><td><a href="report-d50a0a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d50a0a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_53a.c</td><td class="DESC">goodG2B</td><td class="Q">48</td><td class="Q">1</td><td><a href="report-da14dd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-da14dd.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_06.c</td><td class="DESC">goodG2B1</td><td class="Q">292</td><td class="Q">1</td><td><a href="report-da915b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-da915b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_12.c</td><td class="DESC">goodG2B</td><td class="Q">111</td><td class="Q">1</td><td><a href="report-db0b7a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-db0b7a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_16.c</td><td class="DESC">goodG2B</td><td class="Q">77</td><td class="Q">1</td><td><a href="report-db20a5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-db20a5.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_15.c</td><td class="DESC">goodB2G2</td><td class="Q">103</td><td class="Q">1</td><td><a href="report-dc3e16.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-dc3e16.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_02.c</td><td class="DESC">goodG2B1</td><td class="Q">110</td><td class="Q">1</td><td><a href="report-dc8e0e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-dc8e0e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_34.c</td><td class="DESC">goodG2B</td><td class="Q">130</td><td class="Q">1</td><td><a href="report-dcb4a9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-dcb4a9.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_18.c</td><td class="DESC">goodG2B</td><td class="Q">69</td><td class="Q">1</td><td><a href="report-de74df.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-de74df.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_15.c</td><td class="DESC">goodG2B2</td><td class="Q">199</td><td class="Q">1</td><td><a href="report-de8995.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-de8995.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_02.c</td><td class="DESC">goodG2B2</td><td class="Q">136</td><td class="Q">1</td><td><a href="report-debf3f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-debf3f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_68a.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_68_bad</td><td class="Q">35</td><td class="Q">1</td><td><a href="report-debf5e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-debf5e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_34.c</td><td class="DESC">goodG2B</td><td class="Q">59</td><td class="Q">1</td><td><a href="report-def2b5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-def2b5.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_01.c</td><td class="DESC">goodG2B</td><td class="Q">55</td><td class="Q">1</td><td><a href="report-e03df7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e03df7.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_04.c</td><td class="DESC">CWE369_Divide_by_Zero__float_zero_04_bad</td><td class="Q">34</td><td class="Q">1</td><td><a href="report-e091c2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e091c2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_21.c</td><td class="DESC">goodG2B</td><td class="Q">139</td><td class="Q">1</td><td><a href="report-e165e9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e165e9.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_06.c</td><td class="DESC">goodG2B1</td><td class="Q">115</td><td class="Q">1</td><td><a href="report-e1dd18.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e1dd18.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_03.c</td><td class="DESC">goodG2B2</td><td class="Q">126</td><td class="Q">1</td><td><a href="report-e1eea7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e1eea7.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_04.c</td><td class="DESC">goodG2B2</td><td class="Q">142</td><td class="Q">1</td><td><a href="report-e38f5a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e38f5a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_16.c</td><td class="DESC">goodG2B</td><td class="Q">101</td><td class="Q">1</td><td><a href="report-e3ce05.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e3ce05.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_03.c</td><td class="DESC">goodG2B1</td><td class="Q">110</td><td class="Q">1</td><td><a href="report-e3f316.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e3f316.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_54a.c</td><td class="DESC">goodG2B</td><td class="Q">122</td><td class="Q">1</td><td><a href="report-e4030c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e4030c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_65a.c</td><td class="DESC">goodB2G</td><td class="Q">66</td><td class="Q">1</td><td><a href="report-e4606f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e4606f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_15.c</td><td class="DESC">goodG2B2</td><td class="Q">348</td><td class="Q">1</td><td><a href="report-e520c3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e520c3.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_41.c</td><td class="DESC">goodB2G</td><td class="Q">86</td><td class="Q">1</td><td><a href="report-e5e69a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e5e69a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_66a.c</td><td class="DESC">goodG2B</td><td class="Q">141</td><td class="Q">1</td><td><a href="report-e5ffae.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e5ffae.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_44.c</td><td class="DESC">goodG2B</td><td class="Q">154</td><td class="Q">1</td><td><a href="report-e6c6c4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e6c6c4.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_22a.c</td><td class="DESC">goodG2B</td><td class="Q">119</td><td class="Q">1</td><td><a href="report-e743a8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e743a8.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_34.c</td><td class="DESC">goodG2B</td><td class="Q">54</td><td class="Q">1</td><td><a href="report-e8c931.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e8c931.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_52a.c</td><td class="DESC">goodB2G</td><td class="Q">61</td><td class="Q">1</td><td><a href="report-e8f41a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e8f41a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_02.c</td><td class="DESC">goodG2B1</td><td class="Q">294</td><td class="Q">1</td><td><a href="report-e95c5a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e95c5a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_65a.c</td><td class="DESC">goodG2B</td><td class="Q">126</td><td class="Q">1</td><td><a href="report-e9a74b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e9a74b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_03.c</td><td class="DESC">goodG2B2</td><td class="Q">136</td><td class="Q">1</td><td><a href="report-e9aea2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e9aea2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_53a.c</td><td class="DESC">goodG2B</td><td class="Q">124</td><td class="Q">1</td><td><a href="report-eaf98f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-eaf98f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_06.c</td><td class="DESC">CWE369_Divide_by_Zero__float_zero_06_bad</td><td class="Q">33</td><td class="Q">1</td><td><a href="report-eb63cd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-eb63cd.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_51a.c</td><td class="DESC">goodG2B</td><td class="Q">61</td><td class="Q">1</td><td><a href="report-ebd331.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ebd331.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_67a.c</td><td class="DESC">goodB2G</td><td class="Q">71</td><td class="Q">1</td><td><a href="report-ed3af8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ed3af8.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_04.c</td><td class="DESC">goodG2B1</td><td class="Q">116</td><td class="Q">1</td><td><a href="report-ed572f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ed572f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_44.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_44_bad</td><td class="Q">39</td><td class="Q">1</td><td><a href="report-ed637e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ed637e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_04.c</td><td class="DESC">goodG2B2</td><td class="Q">167</td><td class="Q">1</td><td><a href="report-edc692.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-edc692.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_connect_socket_22a.c</td><td class="DESC">goodG2B</td><td class="Q">268</td><td class="Q">1</td><td><a href="report-ef9461.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ef9461.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_34.c</td><td class="DESC">goodG2B</td><td class="Q">67</td><td class="Q">1</td><td><a href="report-efb4c8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-efb4c8.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_52a.c</td><td class="DESC">goodG2B</td><td class="Q">59</td><td class="Q">1</td><td><a href="report-efdb32.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-efdb32.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fscanf_44.c</td><td class="DESC">goodG2B</td><td class="Q">65</td><td class="Q">1</td><td><a href="report-f02e55.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f02e55.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_04.c</td><td class="DESC">goodG2B2</td><td class="Q">167</td><td class="Q">1</td><td><a href="report-f076f8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f076f8.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_04.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_04_bad</td><td class="Q">34</td><td class="Q">1</td><td><a href="report-f17374.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f17374.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_15.c</td><td class="DESC">goodG2B1</td><td class="Q">141</td><td class="Q">1</td><td><a href="report-f23020.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f23020.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_31.c</td><td class="DESC">goodG2B</td><td class="Q">140</td><td class="Q">1</td><td><a href="report-f470f8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f470f8.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_53a.c</td><td class="DESC">goodB2G</td><td class="Q">61</td><td class="Q">1</td><td><a href="report-f4780b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f4780b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_22a.c</td><td class="DESC">goodG2B</td><td class="Q">266</td><td class="Q">1</td><td><a href="report-f54dc9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f54dc9.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_04.c</td><td class="DESC">goodG2B2</td><td class="Q">365</td><td class="Q">1</td><td><a href="report-f63fc8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f63fc8.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_45.c</td><td class="DESC">goodG2B</td><td class="Q">73</td><td class="Q">1</td><td><a href="report-f74d28.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f74d28.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_divide_31.c</td><td class="DESC">goodG2B</td><td class="Q">59</td><td class="Q">1</td><td><a href="report-f83f1a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f83f1a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_44.c</td><td class="DESC">goodG2B</td><td class="Q">133</td><td class="Q">1</td><td><a href="report-f8461f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f8461f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_04.c</td><td class="DESC">goodG2B1</td><td class="Q">293</td><td class="Q">1</td><td><a href="report-f84a4b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f84a4b.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_41.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_41_bad</td><td class="Q">37</td><td class="Q">1</td><td><a href="report-f85386.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f85386.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_52a.c</td><td class="DESC">goodG2B</td><td class="Q">46</td><td class="Q">1</td><td><a href="report-f8bb5f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f8bb5f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_fgets_45.c</td><td class="DESC">goodG2B</td><td class="Q">81</td><td class="Q">1</td><td><a href="report-f8dc59.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f8dc59.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_21.c</td><td class="DESC">goodB2G1</td><td class="Q">86</td><td class="Q">1</td><td><a href="report-f91b8f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f91b8f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_04.c</td><td class="DESC">goodB2G1</td><td class="Q">59</td><td class="Q">1</td><td><a href="report-f9830d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f9830d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_15.c</td><td class="DESC">goodG2B1</td><td class="Q">318</td><td class="Q">1</td><td><a href="report-f9b781.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f9b781.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_44.c</td><td class="DESC">goodB2G</td><td class="Q">91</td><td class="Q">1</td><td><a href="report-fa4330.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fa4330.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_51a.c</td><td class="DESC">goodG2B</td><td class="Q">46</td><td class="Q">1</td><td><a href="report-fa4c29.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fa4c29.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_51a.c</td><td class="DESC">goodB2G</td><td class="Q">61</td><td class="Q">1</td><td><a href="report-fa5652.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fa5652.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_listenSocket_15.c</td><td class="DESC">goodG2B2</td><td class="Q">397</td><td class="Q">1</td><td><a href="report-fa5aae.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fa5aae.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_03.c</td><td class="DESC">goodG2B1</td><td class="Q">287</td><td class="Q">1</td><td><a href="report-fac690.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fac690.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_53a.c</td><td class="DESC">goodG2B</td><td class="Q">59</td><td class="Q">1</td><td><a href="report-fc2aac.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fc2aac.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_53a.c</td><td class="DESC">goodG2B</td><td class="Q">46</td><td class="Q">1</td><td><a href="report-fcaaeb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fcaaeb.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_rand_04.c</td><td class="DESC">goodB2G2</td><td class="Q">90</td><td class="Q">1</td><td><a href="report-fd5a94.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fd5a94.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_52a.c</td><td class="DESC">goodG2B</td><td class="Q">48</td><td class="Q">1</td><td><a href="report-fea1df.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fea1df.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_54a.c</td><td class="DESC">goodG2B</td><td class="Q">48</td><td class="Q">1</td><td><a href="report-ff5e48.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ff5e48.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_66a.c</td><td class="DESC">goodG2B</td><td class="Q">126</td><td class="Q">1</td><td><a href="report-ff6836.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ff6836.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE369_Divide_by_Zero__float_zero_67a.c</td><td class="DESC">goodG2B</td><td class="Q">56</td><td class="Q">1</td><td><a href="report-ff9b39.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ff9b39.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE369_Divide_by_Zero__float_connect_socket_32.c</td><td class="DESC">goodG2B</td><td class="Q">136</td><td class="Q">1</td><td><a href="report-08fe52.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-08fe52.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE369_Divide_by_Zero__float_fgets_32.c</td><td class="DESC">goodG2B</td><td class="Q">73</td><td class="Q">1</td><td><a href="report-26f25a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-26f25a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE369_Divide_by_Zero__int_fgets_modulo_32.c</td><td class="DESC">goodG2B</td><td class="Q">68</td><td class="Q">1</td><td><a href="report-2b5ac9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2b5ac9.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE369_Divide_by_Zero__float_rand_32.c</td><td class="DESC">CWE369_Divide_by_Zero__float_rand_32_bad</td><td class="Q">32</td><td class="Q">1</td><td><a href="report-53e1d7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-53e1d7.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE369_Divide_by_Zero__int_fscanf_divide_32.c</td><td class="DESC">goodG2B</td><td class="Q">55</td><td class="Q">1</td><td><a href="report-8a6ab8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8a6ab8.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE369_Divide_by_Zero__float_rand_32.c</td><td class="DESC">goodB2G</td><td class="Q">84</td><td class="Q">1</td><td><a href="report-941d2a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-941d2a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE369_Divide_by_Zero__int_connect_socket_modulo_32.c</td><td class="DESC">goodG2B</td><td class="Q">131</td><td class="Q">1</td><td><a href="report-9ea265.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9ea265.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE369_Divide_by_Zero__float_fscanf_32.c</td><td class="DESC">goodG2B</td><td class="Q">60</td><td class="Q">1</td><td><a href="report-aaa2ba.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-aaa2ba.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE369_Divide_by_Zero__int_fgets_divide_32.c</td><td class="DESC">goodG2B</td><td class="Q">68</td><td class="Q">1</td><td><a href="report-ac9edd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ac9edd.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE369_Divide_by_Zero__float_rand_32.c</td><td class="DESC">goodG2B</td><td class="Q">60</td><td class="Q">1</td><td><a href="report-b0faee.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b0faee.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE369_Divide_by_Zero__int_connect_socket_divide_32.c</td><td class="DESC">goodG2B</td><td class="Q">131</td><td class="Q">1</td><td><a href="report-cb898c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cb898c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE369_Divide_by_Zero__float_listenSocket_32.c</td><td class="DESC">goodG2B</td><td class="Q">149</td><td class="Q">1</td><td><a href="report-eaa080.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-eaa080.html" -->
+</tr>
+</tbody>
+</table>
+
+<h2>Analyzer Failures</h2>
+<p>The analyzer had problems processing the following files:</p>
+<table>
+<thead><tr><td>Problem</td><td>Source File</td><td>Preprocessed File</td><td>STDERR Output</td></tr></thead>
+<tr><td>Crash</td><td>CWE369_Divide_by_Zero__float_rand_54a.c</td><td><a href="failures/clang_crash_3f0qiT.i">clang_crash_3f0qiT.i</a></td><td><a href="failures/clang_crash_3f0qiT.i.stderr.txt">clang_crash_3f0qiT.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="CWE369_Divide_by_Zero__float_rand_54a.c" file="failures/clang_crash_3f0qiT.i" clangfile="failures/clang_crash_3f0qiT.clang.i" stderr="failures/clang_crash_3f0qiT.i.stderr.txt" info="failures/clang_crash_3f0qiT.i.info.txt" -->
+<tr><td>Crash</td><td>CWE369_Divide_by_Zero__float_zero_21.c</td><td><a href="failures/clang_crash_4M3YwH.i">clang_crash_4M3YwH.i</a></td><td><a href="failures/clang_crash_4M3YwH.i.stderr.txt">clang_crash_4M3YwH.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="CWE369_Divide_by_Zero__float_zero_21.c" file="failures/clang_crash_4M3YwH.i" clangfile="failures/clang_crash_4M3YwH.clang.i" stderr="failures/clang_crash_4M3YwH.i.stderr.txt" info="failures/clang_crash_4M3YwH.i.info.txt" -->
+<tr><td>Crash</td><td>CWE369_Divide_by_Zero__float_zero_18.c</td><td><a href="failures/clang_crash_4osJMV.i">clang_crash_4osJMV.i</a></td><td><a href="failures/clang_crash_4osJMV.i.stderr.txt">clang_crash_4osJMV.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="CWE369_Divide_by_Zero__float_zero_18.c" file="failures/clang_crash_4osJMV.i" clangfile="failures/clang_crash_4osJMV.clang.i" stderr="failures/clang_crash_4osJMV.i.stderr.txt" info="failures/clang_crash_4osJMV.i.info.txt" -->
+<tr><td>Crash</td><td>CWE369_Divide_by_Zero__float_zero_31.c</td><td><a href="failures/clang_crash_PbfQr0.i">clang_crash_PbfQr0.i</a></td><td><a href="failures/clang_crash_PbfQr0.i.stderr.txt">clang_crash_PbfQr0.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="CWE369_Divide_by_Zero__float_zero_31.c" file="failures/clang_crash_PbfQr0.i" clangfile="failures/clang_crash_PbfQr0.clang.i" stderr="failures/clang_crash_PbfQr0.i.stderr.txt" info="failures/clang_crash_PbfQr0.i.info.txt" -->
+<tr><td>Crash</td><td>CWE369_Divide_by_Zero__float_rand_63a.c</td><td><a href="failures/clang_crash__DFhrc.i">clang_crash__DFhrc.i</a></td><td><a href="failures/clang_crash__DFhrc.i.stderr.txt">clang_crash__DFhrc.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="CWE369_Divide_by_Zero__float_rand_63a.c" file="failures/clang_crash__DFhrc.i" clangfile="failures/clang_crash__DFhrc.clang.i" stderr="failures/clang_crash__DFhrc.i.stderr.txt" info="failures/clang_crash__DFhrc.i.info.txt" -->
+<tr><td>Crash</td><td>CWE369_Divide_by_Zero__float_zero_32.c</td><td><a href="failures/clang_crash__KRLua.i">clang_crash__KRLua.i</a></td><td><a href="failures/clang_crash__KRLua.i.stderr.txt">clang_crash__KRLua.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="CWE369_Divide_by_Zero__float_zero_32.c" file="failures/clang_crash__KRLua.i" clangfile="failures/clang_crash__KRLua.clang.i" stderr="failures/clang_crash__KRLua.i.stderr.txt" info="failures/clang_crash__KRLua.i.info.txt" -->
+<tr><td>Crash</td><td>CWE369_Divide_by_Zero__float_zero_15.c</td><td><a href="failures/clang_crash_jbfI1w.i">clang_crash_jbfI1w.i</a></td><td><a href="failures/clang_crash_jbfI1w.i.stderr.txt">clang_crash_jbfI1w.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="CWE369_Divide_by_Zero__float_zero_15.c" file="failures/clang_crash_jbfI1w.i" clangfile="failures/clang_crash_jbfI1w.clang.i" stderr="failures/clang_crash_jbfI1w.i.stderr.txt" info="failures/clang_crash_jbfI1w.i.info.txt" -->
+<tr><td>Crash</td><td>CWE369_Divide_by_Zero__float_zero_16.c</td><td><a href="failures/clang_crash_k_5_Gt.i">clang_crash_k_5_Gt.i</a></td><td><a href="failures/clang_crash_k_5_Gt.i.stderr.txt">clang_crash_k_5_Gt.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="CWE369_Divide_by_Zero__float_zero_16.c" file="failures/clang_crash_k_5_Gt.i" clangfile="failures/clang_crash_k_5_Gt.clang.i" stderr="failures/clang_crash_k_5_Gt.i.stderr.txt" info="failures/clang_crash_k_5_Gt.i.info.txt" -->
+<tr><td>Crash</td><td>CWE369_Divide_by_Zero__float_zero_22b.c</td><td><a href="failures/clang_crash_maSvZI.i">clang_crash_maSvZI.i</a></td><td><a href="failures/clang_crash_maSvZI.i.stderr.txt">clang_crash_maSvZI.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="CWE369_Divide_by_Zero__float_zero_22b.c" file="failures/clang_crash_maSvZI.i" clangfile="failures/clang_crash_maSvZI.clang.i" stderr="failures/clang_crash_maSvZI.i.stderr.txt" info="failures/clang_crash_maSvZI.i.info.txt" -->
+<tr><td>Crash</td><td>CWE369_Divide_by_Zero__float_rand_61a.c</td><td><a href="failures/clang_crash_mroz1m.i">clang_crash_mroz1m.i</a></td><td><a href="failures/clang_crash_mroz1m.i.stderr.txt">clang_crash_mroz1m.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="CWE369_Divide_by_Zero__float_rand_61a.c" file="failures/clang_crash_mroz1m.i" clangfile="failures/clang_crash_mroz1m.clang.i" stderr="failures/clang_crash_mroz1m.i.stderr.txt" info="failures/clang_crash_mroz1m.i.info.txt" -->
+<tr><td>Crash</td><td>CWE369_Divide_by_Zero__float_zero_17.c</td><td><a href="failures/clang_crash_n5IYt8.i">clang_crash_n5IYt8.i</a></td><td><a href="failures/clang_crash_n5IYt8.i.stderr.txt">clang_crash_n5IYt8.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="CWE369_Divide_by_Zero__float_zero_17.c" file="failures/clang_crash_n5IYt8.i" clangfile="failures/clang_crash_n5IYt8.clang.i" stderr="failures/clang_crash_n5IYt8.i.stderr.txt" info="failures/clang_crash_n5IYt8.i.info.txt" -->
+<tr><td>Crash</td><td>CWE369_Divide_by_Zero__float_rand_54e.c</td><td><a href="failures/clang_crash_pGNNSH.i">clang_crash_pGNNSH.i</a></td><td><a href="failures/clang_crash_pGNNSH.i.stderr.txt">clang_crash_pGNNSH.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="CWE369_Divide_by_Zero__float_rand_54e.c" file="failures/clang_crash_pGNNSH.i" clangfile="failures/clang_crash_pGNNSH.clang.i" stderr="failures/clang_crash_pGNNSH.i.stderr.txt" info="failures/clang_crash_pGNNSH.i.info.txt" -->
+<tr><td>Crash</td><td>CWE369_Divide_by_Zero__float_zero_03.c</td><td><a href="failures/clang_crash_rAZZvE.i">clang_crash_rAZZvE.i</a></td><td><a href="failures/clang_crash_rAZZvE.i.stderr.txt">clang_crash_rAZZvE.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="CWE369_Divide_by_Zero__float_zero_03.c" file="failures/clang_crash_rAZZvE.i" clangfile="failures/clang_crash_rAZZvE.clang.i" stderr="failures/clang_crash_rAZZvE.i.stderr.txt" info="failures/clang_crash_rAZZvE.i.info.txt" -->
+<tr><td>Crash</td><td>CWE369_Divide_by_Zero__float_zero_22a.c</td><td><a href="failures/clang_crash_sozosK.i">clang_crash_sozosK.i</a></td><td><a href="failures/clang_crash_sozosK.i.stderr.txt">clang_crash_sozosK.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="CWE369_Divide_by_Zero__float_zero_22a.c" file="failures/clang_crash_sozosK.i" clangfile="failures/clang_crash_sozosK.clang.i" stderr="failures/clang_crash_sozosK.i.stderr.txt" info="failures/clang_crash_sozosK.i.info.txt" -->
+<tr><td>Crash</td><td>CWE369_Divide_by_Zero__float_zero_02.c</td><td><a href="failures/clang_crash_vowbl1.i">clang_crash_vowbl1.i</a></td><td><a href="failures/clang_crash_vowbl1.i.stderr.txt">clang_crash_vowbl1.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="CWE369_Divide_by_Zero__float_zero_02.c" file="failures/clang_crash_vowbl1.i" clangfile="failures/clang_crash_vowbl1.clang.i" stderr="failures/clang_crash_vowbl1.i.stderr.txt" info="failures/clang_crash_vowbl1.i.info.txt" -->
+<tr><td>Crash</td><td>CWE369_Divide_by_Zero__float_zero_34.c</td><td><a href="failures/clang_crash_zLUS10.i">clang_crash_zLUS10.i</a></td><td><a href="failures/clang_crash_zLUS10.i.stderr.txt">clang_crash_zLUS10.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="CWE369_Divide_by_Zero__float_zero_34.c" file="failures/clang_crash_zLUS10.i" clangfile="failures/clang_crash_zLUS10.clang.i" stderr="failures/clang_crash_zLUS10.i.stderr.txt" info="failures/clang_crash_zLUS10.i.info.txt" -->
+</table>
+<p>Please consider submitting preprocessed files as <a href="http://clang-analyzer.llvm.org/filing_bugs.html">bug reports</a>. <!-- REPORTCRASHES --> </p>
+</body></html>

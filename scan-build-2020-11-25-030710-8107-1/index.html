@@ -1,0 +1,1296 @@
+<html>
+<head>
+<title>CWE476_NULL_Pointer_Dereference - scan-build results</title>
+<link type="text/css" rel="stylesheet" href="scanview.css"/>
+<script src="sorttable.js"></script>
+<script language='javascript' type="text/javascript">
+function SetDisplay(RowClass, DisplayVal)
+{
+  var Rows = document.getElementsByTagName("tr");
+  for ( var i = 0 ; i < Rows.length; ++i ) {
+    if (Rows[i].className == RowClass) {
+      Rows[i].style.display = DisplayVal;
+    }
+  }
+}
+
+function CopyCheckedStateToCheckButtons(SummaryCheckButton) {
+  var Inputs = document.getElementsByTagName("input");
+  for ( var i = 0 ; i < Inputs.length; ++i ) {
+    if (Inputs[i].type == "checkbox") {
+      if(Inputs[i] != SummaryCheckButton) {
+        Inputs[i].checked = SummaryCheckButton.checked;
+        Inputs[i].onclick();
+      }
+    }
+  }
+}
+
+function returnObjById( id ) {
+    if (document.getElementById)
+        var returnVar = document.getElementById(id);
+    else if (document.all)
+        var returnVar = document.all[id];
+    else if (document.layers)
+        var returnVar = document.layers[id];
+    return returnVar;
+}
+
+var NumUnchecked = 0;
+
+function ToggleDisplay(CheckButton, ClassName) {
+  if (CheckButton.checked) {
+    SetDisplay(ClassName, "");
+    if (--NumUnchecked == 0) {
+      returnObjById("AllBugsCheck").checked = true;
+    }
+  }
+  else {
+    SetDisplay(ClassName, "none");
+    NumUnchecked++;
+    returnObjById("AllBugsCheck").checked = false;
+  }
+}
+</script>
+<!-- SUMMARYENDHEAD -->
+</head>
+<body>
+<h1>CWE476_NULL_Pointer_Dereference - scan-build results</h1>
+
+<table>
+<tr><th>User:</th><td>root@57bc4409cbaf</td></tr>
+<tr><th>Working Directory:</th><td>/root/dohyun/C/testcases/CWE476_NULL_Pointer_Dereference</td></tr>
+<tr><th>Command Line:</th><td>gcc -c CWE476_NULL_Pointer_Dereference__binary_if_01.c CWE476_NULL_Pointer_Dereference__binary_if_02.c CWE476_NULL_Pointer_Dereference__binary_if_03.c CWE476_NULL_Pointer_Dereference__binary_if_04.c CWE476_NULL_Pointer_Dereference__binary_if_05.c CWE476_NULL_Pointer_Dereference__binary_if_06.c CWE476_NULL_Pointer_Dereference__binary_if_07.c CWE476_NULL_Pointer_Dereference__binary_if_08.c CWE476_NULL_Pointer_Dereference__binary_if_09.c CWE476_NULL_Pointer_Dereference__binary_if_10.c CWE476_NULL_Pointer_Dereference__binary_if_11.c CWE476_NULL_Pointer_Dereference__binary_if_12.c CWE476_NULL_Pointer_Dereference__binary_if_13.c CWE476_NULL_Pointer_Dereference__binary_if_14.c CWE476_NULL_Pointer_Dereference__binary_if_15.c CWE476_NULL_Pointer_Dereference__binary_if_16.c CWE476_NULL_Pointer_Dereference__binary_if_17.c CWE476_NULL_Pointer_Dereference__binary_if_18.c CWE476_NULL_Pointer_Dereference__char_01.c CWE476_NULL_Pointer_Dereference__char_02.c CWE476_NULL_Pointer_Dereference__char_03.c CWE476_NULL_Pointer_Dereference__char_04.c CWE476_NULL_Pointer_Dereference__char_05.c CWE476_NULL_Pointer_Dereference__char_06.c CWE476_NULL_Pointer_Dereference__char_07.c CWE476_NULL_Pointer_Dereference__char_08.c CWE476_NULL_Pointer_Dereference__char_09.c CWE476_NULL_Pointer_Dereference__char_10.c CWE476_NULL_Pointer_Dereference__char_11.c CWE476_NULL_Pointer_Dereference__char_12.c CWE476_NULL_Pointer_Dereference__char_13.c CWE476_NULL_Pointer_Dereference__char_14.c CWE476_NULL_Pointer_Dereference__char_15.c CWE476_NULL_Pointer_Dereference__char_16.c CWE476_NULL_Pointer_Dereference__char_17.c CWE476_NULL_Pointer_Dereference__char_18.c CWE476_NULL_Pointer_Dereference__char_21.c CWE476_NULL_Pointer_Dereference__char_22a.c CWE476_NULL_Pointer_Dereference__char_22b.c CWE476_NULL_Pointer_Dereference__char_31.c CWE476_NULL_Pointer_Dereference__char_32.c CWE476_NULL_Pointer_Dereference__char_34.c CWE476_NULL_Pointer_Dereference__char_41.c CWE476_NULL_Pointer_Dereference__char_44.c CWE476_NULL_Pointer_Dereference__char_45.c CWE476_NULL_Pointer_Dereference__char_51a.c CWE476_NULL_Pointer_Dereference__char_51b.c CWE476_NULL_Pointer_Dereference__char_52a.c CWE476_NULL_Pointer_Dereference__char_52b.c CWE476_NULL_Pointer_Dereference__char_52c.c CWE476_NULL_Pointer_Dereference__char_53a.c CWE476_NULL_Pointer_Dereference__char_53b.c CWE476_NULL_Pointer_Dereference__char_53c.c CWE476_NULL_Pointer_Dereference__char_53d.c CWE476_NULL_Pointer_Dereference__char_54a.c CWE476_NULL_Pointer_Dereference__char_54b.c CWE476_NULL_Pointer_Dereference__char_54c.c CWE476_NULL_Pointer_Dereference__char_54d.c CWE476_NULL_Pointer_Dereference__char_54e.c CWE476_NULL_Pointer_Dereference__char_63a.c CWE476_NULL_Pointer_Dereference__char_63b.c CWE476_NULL_Pointer_Dereference__char_64a.c CWE476_NULL_Pointer_Dereference__char_64b.c CWE476_NULL_Pointer_Dereference__char_65a.c CWE476_NULL_Pointer_Dereference__char_65b.c CWE476_NULL_Pointer_Dereference__char_66a.c CWE476_NULL_Pointer_Dereference__char_66b.c CWE476_NULL_Pointer_Dereference__char_67a.c CWE476_NULL_Pointer_Dereference__char_67b.c CWE476_NULL_Pointer_Dereference__char_68a.c CWE476_NULL_Pointer_Dereference__char_68b.c CWE476_NULL_Pointer_Dereference__deref_after_check_01.c CWE476_NULL_Pointer_Dereference__deref_after_check_02.c CWE476_NULL_Pointer_Dereference__deref_after_check_03.c CWE476_NULL_Pointer_Dereference__deref_after_check_04.c CWE476_NULL_Pointer_Dereference__deref_after_check_05.c CWE476_NULL_Pointer_Dereference__deref_after_check_06.c CWE476_NULL_Pointer_Dereference__deref_after_check_07.c CWE476_NULL_Pointer_Dereference__deref_after_check_08.c CWE476_NULL_Pointer_Dereference__deref_after_check_09.c CWE476_NULL_Pointer_Dereference__deref_after_check_10.c CWE476_NULL_Pointer_Dereference__deref_after_check_11.c CWE476_NULL_Pointer_Dereference__deref_after_check_12.c CWE476_NULL_Pointer_Dereference__deref_after_check_13.c CWE476_NULL_Pointer_Dereference__deref_after_check_14.c CWE476_NULL_Pointer_Dereference__deref_after_check_15.c CWE476_NULL_Pointer_Dereference__deref_after_check_16.c CWE476_NULL_Pointer_Dereference__deref_after_check_17.c CWE476_NULL_Pointer_Dereference__deref_after_check_18.c CWE476_NULL_Pointer_Dereference__int64_t_01.c CWE476_NULL_Pointer_Dereference__int64_t_02.c CWE476_NULL_Pointer_Dereference__int64_t_03.c CWE476_NULL_Pointer_Dereference__int64_t_04.c CWE476_NULL_Pointer_Dereference__int64_t_05.c CWE476_NULL_Pointer_Dereference__int64_t_06.c CWE476_NULL_Pointer_Dereference__int64_t_07.c CWE476_NULL_Pointer_Dereference__int64_t_08.c CWE476_NULL_Pointer_Dereference__int64_t_09.c CWE476_NULL_Pointer_Dereference__int64_t_10.c CWE476_NULL_Pointer_Dereference__int64_t_11.c CWE476_NULL_Pointer_Dereference__int64_t_12.c CWE476_NULL_Pointer_Dereference__int64_t_13.c CWE476_NULL_Pointer_Dereference__int64_t_14.c CWE476_NULL_Pointer_Dereference__int64_t_15.c CWE476_NULL_Pointer_Dereference__int64_t_16.c CWE476_NULL_Pointer_Dereference__int64_t_17.c CWE476_NULL_Pointer_Dereference__int64_t_18.c CWE476_NULL_Pointer_Dereference__int64_t_21.c CWE476_NULL_Pointer_Dereference__int64_t_22a.c CWE476_NULL_Pointer_Dereference__int64_t_22b.c CWE476_NULL_Pointer_Dereference__int64_t_31.c CWE476_NULL_Pointer_Dereference__int64_t_32.c CWE476_NULL_Pointer_Dereference__int64_t_34.c CWE476_NULL_Pointer_Dereference__int64_t_41.c CWE476_NULL_Pointer_Dereference__int64_t_44.c CWE476_NULL_Pointer_Dereference__int64_t_45.c CWE476_NULL_Pointer_Dereference__int64_t_51a.c CWE476_NULL_Pointer_Dereference__int64_t_51b.c CWE476_NULL_Pointer_Dereference__int64_t_52a.c CWE476_NULL_Pointer_Dereference__int64_t_52b.c CWE476_NULL_Pointer_Dereference__int64_t_52c.c CWE476_NULL_Pointer_Dereference__int64_t_53a.c CWE476_NULL_Pointer_Dereference__int64_t_53b.c CWE476_NULL_Pointer_Dereference__int64_t_53c.c CWE476_NULL_Pointer_Dereference__int64_t_53d.c CWE476_NULL_Pointer_Dereference__int64_t_54a.c CWE476_NULL_Pointer_Dereference__int64_t_54b.c CWE476_NULL_Pointer_Dereference__int64_t_54c.c CWE476_NULL_Pointer_Dereference__int64_t_54d.c CWE476_NULL_Pointer_Dereference__int64_t_54e.c CWE476_NULL_Pointer_Dereference__int64_t_63a.c CWE476_NULL_Pointer_Dereference__int64_t_63b.c CWE476_NULL_Pointer_Dereference__int64_t_64a.c CWE476_NULL_Pointer_Dereference__int64_t_64b.c CWE476_NULL_Pointer_Dereference__int64_t_65a.c CWE476_NULL_Pointer_Dereference__int64_t_65b.c CWE476_NULL_Pointer_Dereference__int64_t_66a.c CWE476_NULL_Pointer_Dereference__int64_t_66b.c CWE476_NULL_Pointer_Dereference__int64_t_67a.c CWE476_NULL_Pointer_Dereference__int64_t_67b.c CWE476_NULL_Pointer_Dereference__int64_t_68a.c CWE476_NULL_Pointer_Dereference__int64_t_68b.c CWE476_NULL_Pointer_Dereference__int_01.c CWE476_NULL_Pointer_Dereference__int_02.c CWE476_NULL_Pointer_Dereference__int_03.c CWE476_NULL_Pointer_Dereference__int_04.c CWE476_NULL_Pointer_Dereference__int_05.c CWE476_NULL_Pointer_Dereference__int_06.c CWE476_NULL_Pointer_Dereference__int_07.c CWE476_NULL_Pointer_Dereference__int_08.c CWE476_NULL_Pointer_Dereference__int_09.c CWE476_NULL_Pointer_Dereference__int_10.c CWE476_NULL_Pointer_Dereference__int_11.c CWE476_NULL_Pointer_Dereference__int_12.c CWE476_NULL_Pointer_Dereference__int_13.c CWE476_NULL_Pointer_Dereference__int_14.c CWE476_NULL_Pointer_Dereference__int_15.c CWE476_NULL_Pointer_Dereference__int_16.c CWE476_NULL_Pointer_Dereference__int_17.c CWE476_NULL_Pointer_Dereference__int_18.c CWE476_NULL_Pointer_Dereference__int_21.c CWE476_NULL_Pointer_Dereference__int_22a.c CWE476_NULL_Pointer_Dereference__int_22b.c CWE476_NULL_Pointer_Dereference__int_31.c CWE476_NULL_Pointer_Dereference__int_32.c CWE476_NULL_Pointer_Dereference__int_34.c CWE476_NULL_Pointer_Dereference__int_41.c CWE476_NULL_Pointer_Dereference__int_44.c CWE476_NULL_Pointer_Dereference__int_45.c CWE476_NULL_Pointer_Dereference__int_51a.c CWE476_NULL_Pointer_Dereference__int_51b.c CWE476_NULL_Pointer_Dereference__int_52a.c CWE476_NULL_Pointer_Dereference__int_52b.c CWE476_NULL_Pointer_Dereference__int_52c.c CWE476_NULL_Pointer_Dereference__int_53a.c CWE476_NULL_Pointer_Dereference__int_53b.c CWE476_NULL_Pointer_Dereference__int_53c.c CWE476_NULL_Pointer_Dereference__int_53d.c CWE476_NULL_Pointer_Dereference__int_54a.c CWE476_NULL_Pointer_Dereference__int_54b.c CWE476_NULL_Pointer_Dereference__int_54c.c CWE476_NULL_Pointer_Dereference__int_54d.c CWE476_NULL_Pointer_Dereference__int_54e.c CWE476_NULL_Pointer_Dereference__int_63a.c CWE476_NULL_Pointer_Dereference__int_63b.c CWE476_NULL_Pointer_Dereference__int_64a.c CWE476_NULL_Pointer_Dereference__int_64b.c CWE476_NULL_Pointer_Dereference__int_65a.c CWE476_NULL_Pointer_Dereference__int_65b.c CWE476_NULL_Pointer_Dereference__int_66a.c CWE476_NULL_Pointer_Dereference__int_66b.c CWE476_NULL_Pointer_Dereference__int_67a.c CWE476_NULL_Pointer_Dereference__int_67b.c CWE476_NULL_Pointer_Dereference__int_68a.c CWE476_NULL_Pointer_Dereference__int_68b.c CWE476_NULL_Pointer_Dereference__long_01.c CWE476_NULL_Pointer_Dereference__long_02.c CWE476_NULL_Pointer_Dereference__long_03.c CWE476_NULL_Pointer_Dereference__long_04.c CWE476_NULL_Pointer_Dereference__long_05.c CWE476_NULL_Pointer_Dereference__long_06.c CWE476_NULL_Pointer_Dereference__long_07.c CWE476_NULL_Pointer_Dereference__long_08.c CWE476_NULL_Pointer_Dereference__long_09.c CWE476_NULL_Pointer_Dereference__long_10.c CWE476_NULL_Pointer_Dereference__long_11.c CWE476_NULL_Pointer_Dereference__long_12.c CWE476_NULL_Pointer_Dereference__long_13.c CWE476_NULL_Pointer_Dereference__long_14.c CWE476_NULL_Pointer_Dereference__long_15.c CWE476_NULL_Pointer_Dereference__long_16.c CWE476_NULL_Pointer_Dereference__long_17.c CWE476_NULL_Pointer_Dereference__long_18.c CWE476_NULL_Pointer_Dereference__long_21.c CWE476_NULL_Pointer_Dereference__long_22a.c CWE476_NULL_Pointer_Dereference__long_22b.c CWE476_NULL_Pointer_Dereference__long_31.c CWE476_NULL_Pointer_Dereference__long_32.c CWE476_NULL_Pointer_Dereference__long_34.c CWE476_NULL_Pointer_Dereference__long_41.c CWE476_NULL_Pointer_Dereference__long_44.c CWE476_NULL_Pointer_Dereference__long_45.c CWE476_NULL_Pointer_Dereference__long_51a.c CWE476_NULL_Pointer_Dereference__long_51b.c CWE476_NULL_Pointer_Dereference__long_52a.c CWE476_NULL_Pointer_Dereference__long_52b.c CWE476_NULL_Pointer_Dereference__long_52c.c CWE476_NULL_Pointer_Dereference__long_53a.c CWE476_NULL_Pointer_Dereference__long_53b.c CWE476_NULL_Pointer_Dereference__long_53c.c CWE476_NULL_Pointer_Dereference__long_53d.c CWE476_NULL_Pointer_Dereference__long_54a.c CWE476_NULL_Pointer_Dereference__long_54b.c CWE476_NULL_Pointer_Dereference__long_54c.c CWE476_NULL_Pointer_Dereference__long_54d.c CWE476_NULL_Pointer_Dereference__long_54e.c CWE476_NULL_Pointer_Dereference__long_63a.c CWE476_NULL_Pointer_Dereference__long_63b.c CWE476_NULL_Pointer_Dereference__long_64a.c CWE476_NULL_Pointer_Dereference__long_64b.c CWE476_NULL_Pointer_Dereference__long_65a.c CWE476_NULL_Pointer_Dereference__long_65b.c CWE476_NULL_Pointer_Dereference__long_66a.c CWE476_NULL_Pointer_Dereference__long_66b.c CWE476_NULL_Pointer_Dereference__long_67a.c CWE476_NULL_Pointer_Dereference__long_67b.c CWE476_NULL_Pointer_Dereference__long_68a.c CWE476_NULL_Pointer_Dereference__long_68b.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_01.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_02.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_03.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_04.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_05.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_06.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_07.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_08.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_09.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_10.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_11.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_12.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_13.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_14.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_15.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_16.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_17.c CWE476_NULL_Pointer_Dereference__null_check_after_deref_18.c CWE476_NULL_Pointer_Dereference__struct_01.c CWE476_NULL_Pointer_Dereference__struct_02.c CWE476_NULL_Pointer_Dereference__struct_03.c CWE476_NULL_Pointer_Dereference__struct_04.c CWE476_NULL_Pointer_Dereference__struct_05.c CWE476_NULL_Pointer_Dereference__struct_06.c CWE476_NULL_Pointer_Dereference__struct_07.c CWE476_NULL_Pointer_Dereference__struct_08.c CWE476_NULL_Pointer_Dereference__struct_09.c CWE476_NULL_Pointer_Dereference__struct_10.c CWE476_NULL_Pointer_Dereference__struct_11.c CWE476_NULL_Pointer_Dereference__struct_12.c CWE476_NULL_Pointer_Dereference__struct_13.c CWE476_NULL_Pointer_Dereference__struct_14.c CWE476_NULL_Pointer_Dereference__struct_15.c CWE476_NULL_Pointer_Dereference__struct_16.c CWE476_NULL_Pointer_Dereference__struct_17.c CWE476_NULL_Pointer_Dereference__struct_18.c CWE476_NULL_Pointer_Dereference__struct_21.c CWE476_NULL_Pointer_Dereference__struct_22a.c CWE476_NULL_Pointer_Dereference__struct_22b.c CWE476_NULL_Pointer_Dereference__struct_31.c CWE476_NULL_Pointer_Dereference__struct_32.c CWE476_NULL_Pointer_Dereference__struct_34.c CWE476_NULL_Pointer_Dereference__struct_41.c CWE476_NULL_Pointer_Dereference__struct_44.c CWE476_NULL_Pointer_Dereference__struct_45.c CWE476_NULL_Pointer_Dereference__struct_51a.c CWE476_NULL_Pointer_Dereference__struct_51b.c CWE476_NULL_Pointer_Dereference__struct_52a.c CWE476_NULL_Pointer_Dereference__struct_52b.c CWE476_NULL_Pointer_Dereference__struct_52c.c CWE476_NULL_Pointer_Dereference__struct_53a.c CWE476_NULL_Pointer_Dereference__struct_53b.c CWE476_NULL_Pointer_Dereference__struct_53c.c CWE476_NULL_Pointer_Dereference__struct_53d.c CWE476_NULL_Pointer_Dereference__struct_54a.c CWE476_NULL_Pointer_Dereference__struct_54b.c CWE476_NULL_Pointer_Dereference__struct_54c.c CWE476_NULL_Pointer_Dereference__struct_54d.c CWE476_NULL_Pointer_Dereference__struct_54e.c CWE476_NULL_Pointer_Dereference__struct_63a.c CWE476_NULL_Pointer_Dereference__struct_63b.c CWE476_NULL_Pointer_Dereference__struct_64a.c CWE476_NULL_Pointer_Dereference__struct_64b.c CWE476_NULL_Pointer_Dereference__struct_65a.c CWE476_NULL_Pointer_Dereference__struct_65b.c CWE476_NULL_Pointer_Dereference__struct_66a.c CWE476_NULL_Pointer_Dereference__struct_66b.c CWE476_NULL_Pointer_Dereference__struct_67a.c CWE476_NULL_Pointer_Dereference__struct_67b.c CWE476_NULL_Pointer_Dereference__struct_68a.c CWE476_NULL_Pointer_Dereference__struct_68b.c CWE476_NULL_Pointer_Dereference__wchar_t_01.c CWE476_NULL_Pointer_Dereference__wchar_t_02.c CWE476_NULL_Pointer_Dereference__wchar_t_03.c CWE476_NULL_Pointer_Dereference__wchar_t_04.c CWE476_NULL_Pointer_Dereference__wchar_t_05.c CWE476_NULL_Pointer_Dereference__wchar_t_06.c CWE476_NULL_Pointer_Dereference__wchar_t_07.c CWE476_NULL_Pointer_Dereference__wchar_t_08.c CWE476_NULL_Pointer_Dereference__wchar_t_09.c CWE476_NULL_Pointer_Dereference__wchar_t_10.c CWE476_NULL_Pointer_Dereference__wchar_t_11.c CWE476_NULL_Pointer_Dereference__wchar_t_12.c CWE476_NULL_Pointer_Dereference__wchar_t_13.c CWE476_NULL_Pointer_Dereference__wchar_t_14.c CWE476_NULL_Pointer_Dereference__wchar_t_15.c CWE476_NULL_Pointer_Dereference__wchar_t_16.c CWE476_NULL_Pointer_Dereference__wchar_t_17.c CWE476_NULL_Pointer_Dereference__wchar_t_18.c CWE476_NULL_Pointer_Dereference__wchar_t_21.c CWE476_NULL_Pointer_Dereference__wchar_t_22a.c CWE476_NULL_Pointer_Dereference__wchar_t_22b.c CWE476_NULL_Pointer_Dereference__wchar_t_31.c CWE476_NULL_Pointer_Dereference__wchar_t_32.c CWE476_NULL_Pointer_Dereference__wchar_t_34.c CWE476_NULL_Pointer_Dereference__wchar_t_41.c CWE476_NULL_Pointer_Dereference__wchar_t_44.c CWE476_NULL_Pointer_Dereference__wchar_t_45.c CWE476_NULL_Pointer_Dereference__wchar_t_51a.c CWE476_NULL_Pointer_Dereference__wchar_t_51b.c CWE476_NULL_Pointer_Dereference__wchar_t_52a.c CWE476_NULL_Pointer_Dereference__wchar_t_52b.c CWE476_NULL_Pointer_Dereference__wchar_t_52c.c CWE476_NULL_Pointer_Dereference__wchar_t_53a.c CWE476_NULL_Pointer_Dereference__wchar_t_53b.c CWE476_NULL_Pointer_Dereference__wchar_t_53c.c CWE476_NULL_Pointer_Dereference__wchar_t_53d.c CWE476_NULL_Pointer_Dereference__wchar_t_54a.c CWE476_NULL_Pointer_Dereference__wchar_t_54b.c CWE476_NULL_Pointer_Dereference__wchar_t_54c.c CWE476_NULL_Pointer_Dereference__wchar_t_54d.c CWE476_NULL_Pointer_Dereference__wchar_t_54e.c CWE476_NULL_Pointer_Dereference__wchar_t_63a.c CWE476_NULL_Pointer_Dereference__wchar_t_63b.c CWE476_NULL_Pointer_Dereference__wchar_t_64a.c CWE476_NULL_Pointer_Dereference__wchar_t_64b.c CWE476_NULL_Pointer_Dereference__wchar_t_65a.c CWE476_NULL_Pointer_Dereference__wchar_t_65b.c CWE476_NULL_Pointer_Dereference__wchar_t_66a.c CWE476_NULL_Pointer_Dereference__wchar_t_66b.c CWE476_NULL_Pointer_Dereference__wchar_t_67a.c CWE476_NULL_Pointer_Dereference__wchar_t_67b.c CWE476_NULL_Pointer_Dereference__wchar_t_68a.c CWE476_NULL_Pointer_Dereference__wchar_t_68b.c CWE476_NULL_Pointer_Dereference__char_33.cpp CWE476_NULL_Pointer_Dereference__char_72a.cpp CWE476_NULL_Pointer_Dereference__char_72b.cpp CWE476_NULL_Pointer_Dereference__char_73a.cpp CWE476_NULL_Pointer_Dereference__char_73b.cpp CWE476_NULL_Pointer_Dereference__char_74a.cpp CWE476_NULL_Pointer_Dereference__char_74b.cpp CWE476_NULL_Pointer_Dereference__char_81_bad.cpp CWE476_NULL_Pointer_Dereference__char_81_goodB2G.cpp CWE476_NULL_Pointer_Dereference__char_81_goodG2B.cpp CWE476_NULL_Pointer_Dereference__char_81a.cpp CWE476_NULL_Pointer_Dereference__char_82_bad.cpp CWE476_NULL_Pointer_Dereference__char_82_goodB2G.cpp CWE476_NULL_Pointer_Dereference__char_82_goodG2B.cpp CWE476_NULL_Pointer_Dereference__char_82a.cpp CWE476_NULL_Pointer_Dereference__class_01.cpp CWE476_NULL_Pointer_Dereference__class_02.cpp CWE476_NULL_Pointer_Dereference__class_03.cpp CWE476_NULL_Pointer_Dereference__class_04.cpp CWE476_NULL_Pointer_Dereference__class_05.cpp CWE476_NULL_Pointer_Dereference__class_06.cpp CWE476_NULL_Pointer_Dereference__class_07.cpp CWE476_NULL_Pointer_Dereference__class_08.cpp CWE476_NULL_Pointer_Dereference__class_09.cpp CWE476_NULL_Pointer_Dereference__class_10.cpp CWE476_NULL_Pointer_Dereference__class_11.cpp CWE476_NULL_Pointer_Dereference__class_12.cpp CWE476_NULL_Pointer_Dereference__class_13.cpp CWE476_NULL_Pointer_Dereference__class_14.cpp CWE476_NULL_Pointer_Dereference__class_15.cpp CWE476_NULL_Pointer_Dereference__class_16.cpp CWE476_NULL_Pointer_Dereference__class_17.cpp CWE476_NULL_Pointer_Dereference__class_18.cpp CWE476_NULL_Pointer_Dereference__class_21.cpp CWE476_NULL_Pointer_Dereference__class_22a.cpp CWE476_NULL_Pointer_Dereference__class_22b.cpp CWE476_NULL_Pointer_Dereference__class_31.cpp CWE476_NULL_Pointer_Dereference__class_32.cpp CWE476_NULL_Pointer_Dereference__class_33.cpp CWE476_NULL_Pointer_Dereference__class_34.cpp CWE476_NULL_Pointer_Dereference__class_41.cpp CWE476_NULL_Pointer_Dereference__class_44.cpp CWE476_NULL_Pointer_Dereference__class_45.cpp CWE476_NULL_Pointer_Dereference__class_51a.cpp CWE476_NULL_Pointer_Dereference__class_51b.cpp CWE476_NULL_Pointer_Dereference__class_52a.cpp CWE476_NULL_Pointer_Dereference__class_52b.cpp CWE476_NULL_Pointer_Dereference__class_52c.cpp CWE476_NULL_Pointer_Dereference__class_53a.cpp CWE476_NULL_Pointer_Dereference__class_53b.cpp CWE476_NULL_Pointer_Dereference__class_53c.cpp CWE476_NULL_Pointer_Dereference__class_53d.cpp CWE476_NULL_Pointer_Dereference__class_54a.cpp CWE476_NULL_Pointer_Dereference__class_54b.cpp CWE476_NULL_Pointer_Dereference__class_54c.cpp CWE476_NULL_Pointer_Dereference__class_54d.cpp CWE476_NULL_Pointer_Dereference__class_54e.cpp CWE476_NULL_Pointer_Dereference__class_63a.cpp CWE476_NULL_Pointer_Dereference__class_63b.cpp CWE476_NULL_Pointer_Dereference__class_64a.cpp CWE476_NULL_Pointer_Dereference__class_64b.cpp CWE476_NULL_Pointer_Dereference__class_65a.cpp CWE476_NULL_Pointer_Dereference__class_65b.cpp CWE476_NULL_Pointer_Dereference__class_66a.cpp CWE476_NULL_Pointer_Dereference__class_66b.cpp CWE476_NULL_Pointer_Dereference__class_67a.cpp CWE476_NULL_Pointer_Dereference__class_67b.cpp CWE476_NULL_Pointer_Dereference__class_68a.cpp CWE476_NULL_Pointer_Dereference__class_68b.cpp CWE476_NULL_Pointer_Dereference__class_72a.cpp CWE476_NULL_Pointer_Dereference__class_72b.cpp CWE476_NULL_Pointer_Dereference__class_73a.cpp CWE476_NULL_Pointer_Dereference__class_73b.cpp CWE476_NULL_Pointer_Dereference__class_74a.cpp CWE476_NULL_Pointer_Dereference__class_74b.cpp CWE476_NULL_Pointer_Dereference__class_81_bad.cpp CWE476_NULL_Pointer_Dereference__class_81_goodB2G.cpp CWE476_NULL_Pointer_Dereference__class_81_goodG2B.cpp CWE476_NULL_Pointer_Dereference__class_81a.cpp CWE476_NULL_Pointer_Dereference__class_82_bad.cpp CWE476_NULL_Pointer_Dereference__class_82_goodB2G.cpp CWE476_NULL_Pointer_Dereference__class_82_goodG2B.cpp CWE476_NULL_Pointer_Dereference__class_82a.cpp CWE476_NULL_Pointer_Dereference__int64_t_33.cpp CWE476_NULL_Pointer_Dereference__int64_t_72a.cpp CWE476_NULL_Pointer_Dereference__int64_t_72b.cpp CWE476_NULL_Pointer_Dereference__int64_t_73a.cpp CWE476_NULL_Pointer_Dereference__int64_t_73b.cpp CWE476_NULL_Pointer_Dereference__int64_t_74a.cpp CWE476_NULL_Pointer_Dereference__int64_t_74b.cpp CWE476_NULL_Pointer_Dereference__int64_t_81_bad.cpp CWE476_NULL_Pointer_Dereference__int64_t_81_goodB2G.cpp CWE476_NULL_Pointer_Dereference__int64_t_81_goodG2B.cpp CWE476_NULL_Pointer_Dereference__int64_t_81a.cpp CWE476_NULL_Pointer_Dereference__int64_t_82_bad.cpp CWE476_NULL_Pointer_Dereference__int64_t_82_goodB2G.cpp CWE476_NULL_Pointer_Dereference__int64_t_82_goodG2B.cpp CWE476_NULL_Pointer_Dereference__int64_t_82a.cpp CWE476_NULL_Pointer_Dereference__int_33.cpp CWE476_NULL_Pointer_Dereference__int_72a.cpp CWE476_NULL_Pointer_Dereference__int_72b.cpp CWE476_NULL_Pointer_Dereference__int_73a.cpp CWE476_NULL_Pointer_Dereference__int_73b.cpp CWE476_NULL_Pointer_Dereference__int_74a.cpp CWE476_NULL_Pointer_Dereference__int_74b.cpp CWE476_NULL_Pointer_Dereference__int_81_bad.cpp CWE476_NULL_Pointer_Dereference__int_81_goodB2G.cpp CWE476_NULL_Pointer_Dereference__int_81_goodG2B.cpp CWE476_NULL_Pointer_Dereference__int_81a.cpp CWE476_NULL_Pointer_Dereference__int_82_bad.cpp CWE476_NULL_Pointer_Dereference__int_82_goodB2G.cpp CWE476_NULL_Pointer_Dereference__int_82_goodG2B.cpp CWE476_NULL_Pointer_Dereference__int_82a.cpp CWE476_NULL_Pointer_Dereference__long_33.cpp CWE476_NULL_Pointer_Dereference__long_72a.cpp CWE476_NULL_Pointer_Dereference__long_72b.cpp CWE476_NULL_Pointer_Dereference__long_73a.cpp CWE476_NULL_Pointer_Dereference__long_73b.cpp CWE476_NULL_Pointer_Dereference__long_74a.cpp CWE476_NULL_Pointer_Dereference__long_74b.cpp CWE476_NULL_Pointer_Dereference__long_81_bad.cpp CWE476_NULL_Pointer_Dereference__long_81_goodB2G.cpp CWE476_NULL_Pointer_Dereference__long_81_goodG2B.cpp CWE476_NULL_Pointer_Dereference__long_81a.cpp CWE476_NULL_Pointer_Dereference__long_82_bad.cpp CWE476_NULL_Pointer_Dereference__long_82_goodB2G.cpp CWE476_NULL_Pointer_Dereference__long_82_goodG2B.cpp CWE476_NULL_Pointer_Dereference__long_82a.cpp CWE476_NULL_Pointer_Dereference__struct_33.cpp CWE476_NULL_Pointer_Dereference__struct_72a.cpp CWE476_NULL_Pointer_Dereference__struct_72b.cpp CWE476_NULL_Pointer_Dereference__struct_73a.cpp CWE476_NULL_Pointer_Dereference__struct_73b.cpp CWE476_NULL_Pointer_Dereference__struct_74a.cpp CWE476_NULL_Pointer_Dereference__struct_74b.cpp CWE476_NULL_Pointer_Dereference__struct_81_bad.cpp CWE476_NULL_Pointer_Dereference__struct_81_goodB2G.cpp CWE476_NULL_Pointer_Dereference__struct_81_goodG2B.cpp CWE476_NULL_Pointer_Dereference__struct_81a.cpp CWE476_NULL_Pointer_Dereference__struct_82_bad.cpp CWE476_NULL_Pointer_Dereference__struct_82_goodB2G.cpp CWE476_NULL_Pointer_Dereference__struct_82_goodG2B.cpp CWE476_NULL_Pointer_Dereference__struct_82a.cpp CWE476_NULL_Pointer_Dereference__wchar_t_33.cpp CWE476_NULL_Pointer_Dereference__wchar_t_72a.cpp CWE476_NULL_Pointer_Dereference__wchar_t_72b.cpp CWE476_NULL_Pointer_Dereference__wchar_t_73a.cpp CWE476_NULL_Pointer_Dereference__wchar_t_73b.cpp CWE476_NULL_Pointer_Dereference__wchar_t_74a.cpp CWE476_NULL_Pointer_Dereference__wchar_t_74b.cpp CWE476_NULL_Pointer_Dereference__wchar_t_81_bad.cpp CWE476_NULL_Pointer_Dereference__wchar_t_81_goodB2G.cpp CWE476_NULL_Pointer_Dereference__wchar_t_81_goodG2B.cpp CWE476_NULL_Pointer_Dereference__wchar_t_81a.cpp CWE476_NULL_Pointer_Dereference__wchar_t_82_bad.cpp CWE476_NULL_Pointer_Dereference__wchar_t_82_goodB2G.cpp CWE476_NULL_Pointer_Dereference__wchar_t_82_goodG2B.cpp CWE476_NULL_Pointer_Dereference__wchar_t_82a.cpp main.cpp main_linux.cpp -I ../../testcasesupport/</td></tr>
+<tr><th>Clang Version:</th><td>clang version 12.0.0 (https://github.com/llvm/llvm-project.git 65936fed1490dd1ef8d9a0a88b7d305b0840eb05)
+</td></tr>
+<tr><th>Date:</th><td>Wed Nov 25 03:07:10 2020</td></tr>
+</table>
+<h2>Bug Summary</h2><table>
+<thead><tr><td>Bug Type</td><td>Quantity</td><td class="sorttable_nosort">Display?</td></tr></thead>
+<tr style="font-weight:bold"><td class="SUMM_DESC">All Bugs</td><td class="Q">399</td><td><center><input type="checkbox" id="AllBugsCheck" onClick="CopyCheckedStateToCheckButtons(this);" checked/></center></td></tr>
+<tr><th>Dead store</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Dead assignment</td><td class="Q">7</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_assignment');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dead initialization</td><td class="Q">21</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_initialization');" checked/></center></td></tr>
+<tr><th>Logic error</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Assigned value is garbage or undefined</td><td class="Q">21</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_assigned_value_is_garbage_or_undefined');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dereference of null pointer</td><td class="Q">204</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_dereference_of_null_pointer');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dereference of undefined pointer value</td><td class="Q">56</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_dereference_of_undefined_pointer_value');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Result of operation is garbage or undefined</td><td class="Q">35</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_result_of_operation_is_garbage_or_undefined');" checked/></center></td></tr>
+<tr><th>Memory error</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Memory leak</td><td class="Q">55</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_memory_error_memory_leak');" checked/></center></td></tr>
+</table>
+<h2>Reports</h2>
+
+<table class="sortable" style="table-layout:automatic">
+<thead><tr>
+  <td>Bug Group</td>
+  <td class="sorttable_sorted">Bug Type<span id="sorttable_sortfwdind">&nbsp;&#x25BE;</span></td>
+  <td>File</td>
+  <td>Function/Method</td>
+  <td class="Q">Line</td>
+  <td class="Q">Path Length</td>
+  <td class="sorttable_nosort"></td>
+  <!-- REPORTBUGCOL -->
+</tr></thead>
+<tbody>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__int64_t_32.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_32_bad</td><td class="Q">30</td><td class="Q">2</td><td><a href="report-1ecbb4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1ecbb4.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__char_32.c</td><td class="DESC">goodB2G</td><td class="Q">74</td><td class="Q">2</td><td><a href="report-267bed.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-267bed.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__struct_32.c</td><td class="DESC">goodB2G</td><td class="Q">77</td><td class="Q">2</td><td><a href="report-2a2d53.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2a2d53.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__char_32.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_32_bad</td><td class="Q">30</td><td class="Q">2</td><td><a href="report-407223.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-407223.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__int64_t_32.c</td><td class="DESC">goodG2B</td><td class="Q">54</td><td class="Q">3</td><td><a href="report-4aafc5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4aafc5.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__int_32.c</td><td class="DESC">goodG2B</td><td class="Q">54</td><td class="Q">3</td><td><a href="report-59b225.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-59b225.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__class_32.cpp</td><td class="DESC">bad</td><td class="Q">31</td><td class="Q">2</td><td><a href="report-6843a0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6843a0.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__int_32.c</td><td class="DESC">goodB2G</td><td class="Q">75</td><td class="Q">2</td><td><a href="report-7322e1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7322e1.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__struct_32.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_32_bad</td><td class="Q">30</td><td class="Q">2</td><td><a href="report-7798f8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7798f8.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__int64_t_32.c</td><td class="DESC">goodB2G</td><td class="Q">75</td><td class="Q">2</td><td><a href="report-8fa735.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8fa735.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__long_32.c</td><td class="DESC">goodG2B</td><td class="Q">54</td><td class="Q">3</td><td><a href="report-9fbee0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9fbee0.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_32.c</td><td class="DESC">goodG2B</td><td class="Q">54</td><td class="Q">3</td><td><a href="report-a3376b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a3376b.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_32.c</td><td class="DESC">goodB2G</td><td class="Q">74</td><td class="Q">2</td><td><a href="report-afe4cb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-afe4cb.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__long_32.c</td><td class="DESC">goodB2G</td><td class="Q">75</td><td class="Q">2</td><td><a href="report-b96862.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b96862.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__long_32.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_32_bad</td><td class="Q">30</td><td class="Q">2</td><td><a href="report-bdccef.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bdccef.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__class_32.cpp</td><td class="DESC">goodG2B</td><td class="Q">56</td><td class="Q">3</td><td><a href="report-be5389.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-be5389.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__int_32.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_32_bad</td><td class="Q">30</td><td class="Q">2</td><td><a href="report-cec4c5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cec4c5.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_32.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_32_bad</td><td class="Q">30</td><td class="Q">2</td><td><a href="report-d33143.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d33143.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__class_32.cpp</td><td class="DESC">goodB2G</td><td class="Q">82</td><td class="Q">2</td><td><a href="report-db5e43.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-db5e43.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__struct_32.c</td><td class="DESC">goodG2B</td><td class="Q">54</td><td class="Q">3</td><td><a href="report-ec1d74.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ec1d74.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__char_32.c</td><td class="DESC">goodG2B</td><td class="Q">54</td><td class="Q">3</td><td><a href="report-f4405a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f4405a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE476_NULL_Pointer_Dereference__int_33.cpp</td><td class="DESC">goodG2B</td><td class="Q">52</td><td class="Q">1</td><td><a href="report-13fc93.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-13fc93.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE476_NULL_Pointer_Dereference__class_33.cpp</td><td class="DESC">goodG2B</td><td class="Q">54</td><td class="Q">1</td><td><a href="report-29f578.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-29f578.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_33.cpp</td><td class="DESC">goodG2B</td><td class="Q">51</td><td class="Q">1</td><td><a href="report-5efa65.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5efa65.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE476_NULL_Pointer_Dereference__long_33.cpp</td><td class="DESC">goodG2B</td><td class="Q">52</td><td class="Q">1</td><td><a href="report-63242d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-63242d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE476_NULL_Pointer_Dereference__int64_t_33.cpp</td><td class="DESC">goodG2B</td><td class="Q">52</td><td class="Q">1</td><td><a href="report-9e0006.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9e0006.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE476_NULL_Pointer_Dereference__char_33.cpp</td><td class="DESC">goodG2B</td><td class="Q">51</td><td class="Q">1</td><td><a href="report-bb8318.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bb8318.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>CWE476_NULL_Pointer_Dereference__struct_33.cpp</td><td class="DESC">goodG2B</td><td class="Q">54</td><td class="Q">1</td><td><a href="report-cfb872.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cfb872.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__class_32.cpp</td><td class="DESC">bad</td><td class="Q">31</td><td class="Q">1</td><td><a href="report-00810d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-00810d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__long_32.c</td><td class="DESC">goodB2G</td><td class="Q">75</td><td class="Q">1</td><td><a href="report-01fdde.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-01fdde.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__int_32.c</td><td class="DESC">goodG2B</td><td class="Q">54</td><td class="Q">1</td><td><a href="report-183323.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-183323.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__char_32.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_32_bad</td><td class="Q">30</td><td class="Q">1</td><td><a href="report-318d1f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-318d1f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__struct_32.c</td><td class="DESC">goodG2B</td><td class="Q">54</td><td class="Q">1</td><td><a href="report-43162d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-43162d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__class_32.cpp</td><td class="DESC">goodG2B</td><td class="Q">56</td><td class="Q">1</td><td><a href="report-46a78d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-46a78d.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__int64_t_32.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_32_bad</td><td class="Q">30</td><td class="Q">1</td><td><a href="report-51a035.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-51a035.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__int64_t_32.c</td><td class="DESC">goodB2G</td><td class="Q">75</td><td class="Q">1</td><td><a href="report-55310e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-55310e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__struct_32.c</td><td class="DESC">goodB2G</td><td class="Q">77</td><td class="Q">1</td><td><a href="report-6cbf5a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6cbf5a.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__int_32.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_32_bad</td><td class="Q">30</td><td class="Q">1</td><td><a href="report-6d524c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6d524c.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__int64_t_32.c</td><td class="DESC">goodG2B</td><td class="Q">54</td><td class="Q">1</td><td><a href="report-7ef6d6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7ef6d6.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__long_32.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_32_bad</td><td class="Q">30</td><td class="Q">1</td><td><a href="report-8a313f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8a313f.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_32.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_32_bad</td><td class="Q">30</td><td class="Q">1</td><td><a href="report-8bd264.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8bd264.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__char_32.c</td><td class="DESC">goodB2G</td><td class="Q">74</td><td class="Q">1</td><td><a href="report-92d040.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-92d040.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__char_32.c</td><td class="DESC">goodG2B</td><td class="Q">54</td><td class="Q">1</td><td><a href="report-9bdbca.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9bdbca.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_32.c</td><td class="DESC">goodB2G</td><td class="Q">74</td><td class="Q">1</td><td><a href="report-a9edb2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a9edb2.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_32.c</td><td class="DESC">goodG2B</td><td class="Q">54</td><td class="Q">1</td><td><a href="report-aadb34.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-aadb34.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__int_32.c</td><td class="DESC">goodB2G</td><td class="Q">75</td><td class="Q">1</td><td><a href="report-aaf6eb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-aaf6eb.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__struct_32.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_32_bad</td><td class="Q">30</td><td class="Q">1</td><td><a href="report-cbeedf.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cbeedf.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__long_32.c</td><td class="DESC">goodG2B</td><td class="Q">54</td><td class="Q">1</td><td><a href="report-ebf4e8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ebf4e8.html" -->
+</tr>
+<tr class="bt_dead_store_dead_initialization"><td class="DESC">Dead store</td><td class="DESC">Dead initialization</td><td>CWE476_NULL_Pointer_Dereference__class_32.cpp</td><td class="DESC">goodB2G</td><td class="Q">82</td><td class="Q">1</td><td><a href="report-fbc3e6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fbc3e6.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_45.c</td><td class="DESC">badSink</td><td class="Q">32</td><td class="Q">5</td><td><a href="report-000289.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-000289.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_17.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_17_bad</td><td class="Q">36</td><td class="Q">5</td><td><a href="report-003285.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-003285.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_13.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_13_bad</td><td class="Q">28</td><td class="Q">4</td><td><a href="report-012e5c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-012e5c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_07.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_07_bad</td><td class="Q">41</td><td class="Q">6</td><td><a href="report-014bb0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-014bb0.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_09.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_09_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-04542e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-04542e.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_02.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_02_bad</td><td class="Q">35</td><td class="Q">4</td><td><a href="report-04b77b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-04b77b.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_05.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_05_bad</td><td class="Q">41</td><td class="Q">6</td><td><a href="report-08c2a9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-08c2a9.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_05.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_05_bad</td><td class="Q">41</td><td class="Q">6</td><td><a href="report-09d4e7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-09d4e7.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_31.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_31_bad</td><td class="Q">33</td><td class="Q">4</td><td><a href="report-09d98c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-09d98c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_02.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_02_bad</td><td class="Q">35</td><td class="Q">4</td><td><a href="report-0adf9d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0adf9d.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_12.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_12_bad</td><td class="Q">28</td><td class="Q">4</td><td><a href="report-0b07fd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0b07fd.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_07.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_07_bad</td><td class="Q">33</td><td class="Q">4</td><td><a href="report-0bc3c5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0bc3c5.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_01.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_01_bad</td><td class="Q">31</td><td class="Q">2</td><td><a href="report-0e7dc0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0e7dc0.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_07.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_07_bad</td><td class="Q">34</td><td class="Q">6</td><td><a href="report-0fe4ec.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0fe4ec.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_07.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_07_bad</td><td class="Q">40</td><td class="Q">6</td><td><a href="report-106e71.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-106e71.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_16.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_16_bad</td><td class="Q">29</td><td class="Q">5</td><td><a href="report-108564.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-108564.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_44.cpp</td><td class="DESC">badSink</td><td class="Q">28</td><td class="Q">4</td><td><a href="report-11822d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-11822d.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_04.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_04_bad</td><td class="Q">42</td><td class="Q">6</td><td><a href="report-13de3e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-13de3e.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_12.cpp</td><td class="DESC">bad</td><td class="Q">45</td><td class="Q">6</td><td><a href="report-17f06c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-17f06c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_16.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_16_bad</td><td class="Q">37</td><td class="Q">5</td><td><a href="report-18a0e3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-18a0e3.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_21.c</td><td class="DESC">badSink</td><td class="Q">32</td><td class="Q">6</td><td><a href="report-18b4bd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-18b4bd.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_01.cpp</td><td class="DESC">bad</td><td class="Q">31</td><td class="Q">2</td><td><a href="report-19d1a5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-19d1a5.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_09.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_09_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-1a76b7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1a76b7.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_31.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_31_bad</td><td class="Q">33</td><td class="Q">4</td><td><a href="report-1b2075.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1b2075.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_06.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_06_bad</td><td class="Q">41</td><td class="Q">6</td><td><a href="report-1e6c22.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1e6c22.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_07.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_07_bad</td><td class="Q">40</td><td class="Q">6</td><td><a href="report-1fbc81.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1fbc81.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_16.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_16_bad</td><td class="Q">37</td><td class="Q">5</td><td><a href="report-2578fd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2578fd.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_05.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_05_bad</td><td class="Q">34</td><td class="Q">4</td><td><a href="report-25c730.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-25c730.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_03.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_03_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-265e22.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-265e22.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_45.c</td><td class="DESC">badSink</td><td class="Q">32</td><td class="Q">5</td><td><a href="report-2863a1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2863a1.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_10.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_10_bad</td><td class="Q">36</td><td class="Q">6</td><td><a href="report-288894.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-288894.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_11.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_11_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-28de16.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-28de16.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_14.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_14_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-29b319.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-29b319.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_17.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_17_bad</td><td class="Q">37</td><td class="Q">5</td><td><a href="report-2cc2d9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2cc2d9.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_03.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_03_bad</td><td class="Q">28</td><td class="Q">4</td><td><a href="report-2d0bbc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2d0bbc.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_10.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_10_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-2f27a1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2f27a1.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_08.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_08_bad</td><td class="Q">49</td><td class="Q">10</td><td><a href="report-34b7c4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-34b7c4.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_02.cpp</td><td class="DESC">bad</td><td class="Q">36</td><td class="Q">4</td><td><a href="report-358293.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-358293.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_08.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_08_bad</td><td class="Q">41</td><td class="Q">6</td><td><a href="report-36d2af.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-36d2af.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_05.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_05_bad</td><td class="Q">42</td><td class="Q">6</td><td><a href="report-3871d0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3871d0.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_41.c</td><td class="DESC">badSink</td><td class="Q">28</td><td class="Q">4</td><td><a href="report-38b52c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-38b52c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_11.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_11_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-3a346e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3a346e.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_10.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_10_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-3b824c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3b824c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_44.c</td><td class="DESC">badSink</td><td class="Q">27</td><td class="Q">4</td><td><a href="report-3bba9f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3bba9f.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_07.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_07_bad</td><td class="Q">41</td><td class="Q">6</td><td><a href="report-400bff.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-400bff.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_01.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_01_bad</td><td class="Q">30</td><td class="Q">2</td><td><a href="report-41d529.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-41d529.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_15.cpp</td><td class="DESC">bad</td><td class="Q">42</td><td class="Q">5</td><td><a href="report-432b21.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-432b21.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_17.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_17_bad</td><td class="Q">29</td><td class="Q">3</td><td><a href="report-4350da.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4350da.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_45.c</td><td class="DESC">badSink</td><td class="Q">33</td><td class="Q">5</td><td><a href="report-462298.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-462298.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_04.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_04_bad</td><td class="Q">41</td><td class="Q">6</td><td><a href="report-482c91.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-482c91.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_21.c</td><td class="DESC">badSink</td><td class="Q">33</td><td class="Q">6</td><td><a href="report-48f31b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-48f31b.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_16.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_16_bad</td><td class="Q">36</td><td class="Q">5</td><td><a href="report-4a7c90.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4a7c90.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_12.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_12_bad</td><td class="Q">41</td><td class="Q">6</td><td><a href="report-4a83c5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4a83c5.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_33.cpp</td><td class="DESC">bad</td><td class="Q">34</td><td class="Q">5</td><td><a href="report-4aa248.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4aa248.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_01.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_01_bad</td><td class="Q">31</td><td class="Q">2</td><td><a href="report-4c508d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4c508d.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_17.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_17_bad</td><td class="Q">36</td><td class="Q">5</td><td><a href="report-4c5f64.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4c5f64.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_44.c</td><td class="DESC">badSink</td><td class="Q">27</td><td class="Q">4</td><td><a href="report-4ca0a1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4ca0a1.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_21.cpp</td><td class="DESC">badSink</td><td class="Q">33</td><td class="Q">6</td><td><a href="report-4d0995.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4d0995.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_08.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_08_bad</td><td class="Q">48</td><td class="Q">10</td><td><a href="report-4e9499.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4e9499.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_10.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_10_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-4e9b51.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4e9b51.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_02.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_02_bad</td><td class="Q">35</td><td class="Q">4</td><td><a href="report-4ec837.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4ec837.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_09.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_09_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-4ef333.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4ef333.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_09.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_09_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-503ff2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-503ff2.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_03.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_03_bad</td><td class="Q">36</td><td class="Q">6</td><td><a href="report-532320.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-532320.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_13.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_13_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-53ac6f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-53ac6f.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_33.cpp</td><td class="DESC">bad</td><td class="Q">37</td><td class="Q">5</td><td><a href="report-55c73e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-55c73e.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_06.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_06_bad</td><td class="Q">40</td><td class="Q">6</td><td><a href="report-57f1ed.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-57f1ed.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_11.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_11_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-591780.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-591780.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_13.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_13_bad</td><td class="Q">29</td><td class="Q">6</td><td><a href="report-597195.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-597195.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_17.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_17_bad</td><td class="Q">36</td><td class="Q">5</td><td><a href="report-5a1910.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5a1910.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_16.cpp</td><td class="DESC">bad</td><td class="Q">36</td><td class="Q">5</td><td><a href="report-5a39b9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5a39b9.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_11.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_11_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-5a6474.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5a6474.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_07.cpp</td><td class="DESC">bad</td><td class="Q">41</td><td class="Q">6</td><td><a href="report-5ae0c9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5ae0c9.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_01.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_01_bad</td><td class="Q">26</td><td class="Q">2</td><td><a href="report-5b7092.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5b7092.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_18.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_18_bad</td><td class="Q">34</td><td class="Q">4</td><td><a href="report-5d13b9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5d13b9.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_18.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_18_bad</td><td class="Q">29</td><td class="Q">5</td><td><a href="report-5dbb2d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5dbb2d.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_15.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_15_bad</td><td class="Q">42</td><td class="Q">5</td><td><a href="report-5dc9c2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5dc9c2.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_12.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_12_bad</td><td class="Q">45</td><td class="Q">6</td><td><a href="report-5dd1df.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5dd1df.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_08.cpp</td><td class="DESC">bad</td><td class="Q">49</td><td class="Q">10</td><td><a href="report-5e2a14.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5e2a14.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_21.c</td><td class="DESC">badSink</td><td class="Q">33</td><td class="Q">6</td><td><a href="report-5f73ab.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5f73ab.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_18.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_18_bad</td><td class="Q">34</td><td class="Q">4</td><td><a href="report-604bf7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-604bf7.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_21.c</td><td class="DESC">badSink</td><td class="Q">32</td><td class="Q">6</td><td><a href="report-6193ad.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6193ad.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_06.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_06_bad</td><td class="Q">33</td><td class="Q">4</td><td><a href="report-629449.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-629449.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_45.cpp</td><td class="DESC">badSink</td><td class="Q">33</td><td class="Q">5</td><td><a href="report-6371ee.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6371ee.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_17.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_17_bad</td><td class="Q">36</td><td class="Q">5</td><td><a href="report-637770.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-637770.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_15.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_15_bad</td><td class="Q">42</td><td class="Q">5</td><td><a href="report-63d6f4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-63d6f4.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_09.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_09_bad</td><td class="Q">36</td><td class="Q">6</td><td><a href="report-6402b2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6402b2.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_18.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_18_bad</td><td class="Q">34</td><td class="Q">4</td><td><a href="report-645429.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-645429.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_10.cpp</td><td class="DESC">bad</td><td class="Q">36</td><td class="Q">6</td><td><a href="report-6590a6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6590a6.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_12.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_12_bad</td><td class="Q">41</td><td class="Q">6</td><td><a href="report-666d5e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-666d5e.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_33.cpp</td><td class="DESC">bad</td><td class="Q">36</td><td class="Q">5</td><td><a href="report-6a0048.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6a0048.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_17.cpp</td><td class="DESC">bad</td><td class="Q">36</td><td class="Q">5</td><td><a href="report-6b2f8a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6b2f8a.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_13.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_13_bad</td><td class="Q">36</td><td class="Q">6</td><td><a href="report-6b9c72.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6b9c72.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_01.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_01_bad</td><td class="Q">27</td><td class="Q">4</td><td><a href="report-6c4aa9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6c4aa9.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_04.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_04_bad</td><td class="Q">41</td><td class="Q">6</td><td><a href="report-6c9693.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6c9693.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_05.cpp</td><td class="DESC">bad</td><td class="Q">42</td><td class="Q">6</td><td><a href="report-6e7696.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6e7696.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_04.cpp</td><td class="DESC">bad</td><td class="Q">42</td><td class="Q">6</td><td><a href="report-6e7e84.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6e7e84.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_31.cpp</td><td class="DESC">bad</td><td class="Q">34</td><td class="Q">4</td><td><a href="report-6fedb1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6fedb1.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_06.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_06_bad</td><td class="Q">40</td><td class="Q">6</td><td><a href="report-70b821.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-70b821.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_45.c</td><td class="DESC">badSink</td><td class="Q">32</td><td class="Q">5</td><td><a href="report-70ec2b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-70ec2b.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_17.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_17_bad</td><td class="Q">37</td><td class="Q">5</td><td><a href="report-726ec0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-726ec0.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_14.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_14_bad</td><td class="Q">29</td><td class="Q">6</td><td><a href="report-736aed.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-736aed.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_41.c</td><td class="DESC">badSink</td><td class="Q">27</td><td class="Q">4</td><td><a href="report-741288.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-741288.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_07.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_07_bad</td><td class="Q">40</td><td class="Q">6</td><td><a href="report-748cb9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-748cb9.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_06.cpp</td><td class="DESC">bad</td><td class="Q">41</td><td class="Q">6</td><td><a href="report-754ad2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-754ad2.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_16.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_16_bad</td><td class="Q">28</td><td class="Q">3</td><td><a href="report-76187d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-76187d.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_44.c</td><td class="DESC">badSink</td><td class="Q">27</td><td class="Q">4</td><td><a href="report-776fe9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-776fe9.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_16.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_16_bad</td><td class="Q">36</td><td class="Q">5</td><td><a href="report-7a1d81.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7a1d81.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_17.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_17_bad</td><td class="Q">30</td><td class="Q">5</td><td><a href="report-7a4c8a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7a4c8a.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_18.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_18_bad</td><td class="Q">35</td><td class="Q">4</td><td><a href="report-7ac996.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7ac996.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_08.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_08_bad</td><td class="Q">48</td><td class="Q">10</td><td><a href="report-7c1eda.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7c1eda.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_11.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_11_bad</td><td class="Q">36</td><td class="Q">6</td><td><a href="report-7c3683.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7c3683.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_14.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_14_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-7d6249.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7d6249.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_16.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_16_bad</td><td class="Q">36</td><td class="Q">5</td><td><a href="report-7ee694.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7ee694.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_02.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_02_bad</td><td class="Q">35</td><td class="Q">4</td><td><a href="report-82f10c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-82f10c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_44.c</td><td class="DESC">badSink</td><td class="Q">28</td><td class="Q">4</td><td><a href="report-83499b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-83499b.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_03.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_03_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-85c15f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-85c15f.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_08.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_08_bad</td><td class="Q">49</td><td class="Q">10</td><td><a href="report-869c58.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-869c58.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_07.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_07_bad</td><td class="Q">40</td><td class="Q">6</td><td><a href="report-86e3a2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-86e3a2.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_15.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_15_bad</td><td class="Q">43</td><td class="Q">5</td><td><a href="report-873859.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-873859.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_18.cpp</td><td class="DESC">bad</td><td class="Q">34</td><td class="Q">4</td><td><a href="report-89cac0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-89cac0.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_44.c</td><td class="DESC">badSink</td><td class="Q">27</td><td class="Q">4</td><td><a href="report-89d7be.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-89d7be.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_04.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_04_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-8abd74.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8abd74.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_12.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_12_bad</td><td class="Q">43</td><td class="Q">6</td><td><a href="report-8bc56a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8bc56a.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_06.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_06_bad</td><td class="Q">41</td><td class="Q">6</td><td><a href="report-8c7ad4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8c7ad4.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_11.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_11_bad</td><td class="Q">36</td><td class="Q">6</td><td><a href="report-8c9a6a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8c9a6a.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_41.c</td><td class="DESC">badSink</td><td class="Q">27</td><td class="Q">4</td><td><a href="report-8d6cc1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8d6cc1.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_03.cpp</td><td class="DESC">bad</td><td class="Q">36</td><td class="Q">6</td><td><a href="report-8e756f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8e756f.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_08.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_08_bad</td><td class="Q">42</td><td class="Q">8</td><td><a href="report-9036e0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9036e0.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_05.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_05_bad</td><td class="Q">41</td><td class="Q">6</td><td><a href="report-9049ab.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9049ab.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_13.cpp</td><td class="DESC">bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-923b07.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-923b07.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_06.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_06_bad</td><td class="Q">40</td><td class="Q">6</td><td><a href="report-926c62.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-926c62.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_11.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_11_bad</td><td class="Q">28</td><td class="Q">4</td><td><a href="report-931c26.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-931c26.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_09.cpp</td><td class="DESC">bad</td><td class="Q">36</td><td class="Q">6</td><td><a href="report-939b29.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-939b29.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_01.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_01_bad</td><td class="Q">30</td><td class="Q">2</td><td><a href="report-96dcf8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-96dcf8.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_45.c</td><td class="DESC">badSink</td><td class="Q">32</td><td class="Q">5</td><td><a href="report-9a740a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9a740a.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_21.c</td><td class="DESC">badSink</td><td class="Q">32</td><td class="Q">6</td><td><a href="report-9b35f6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9b35f6.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_33.cpp</td><td class="DESC">bad</td><td class="Q">36</td><td class="Q">5</td><td><a href="report-9d5113.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9d5113.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_45.c</td><td class="DESC">badSink</td><td class="Q">33</td><td class="Q">5</td><td><a href="report-a0bb8c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a0bb8c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_04.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_04_bad</td><td class="Q">34</td><td class="Q">4</td><td><a href="report-a1c2f3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a1c2f3.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_41.c</td><td class="DESC">badSink</td><td class="Q">27</td><td class="Q">4</td><td><a href="report-a3c9cb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a3c9cb.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_33.cpp</td><td class="DESC">bad</td><td class="Q">36</td><td class="Q">5</td><td><a href="report-a417d7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a417d7.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_09.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_09_bad</td><td class="Q">29</td><td class="Q">6</td><td><a href="report-a45bcd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a45bcd.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_11.cpp</td><td class="DESC">bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-a46968.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a46968.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_13.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_13_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-a8ee35.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a8ee35.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_15.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_15_bad</td><td class="Q">29</td><td class="Q">3</td><td><a href="report-aaf196.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-aaf196.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_08.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_08_bad</td><td class="Q">48</td><td class="Q">10</td><td><a href="report-ab46d9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ab46d9.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_02.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_02_bad</td><td class="Q">36</td><td class="Q">4</td><td><a href="report-acf16d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-acf16d.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_11.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_11_bad</td><td class="Q">29</td><td class="Q">6</td><td><a href="report-b1a04d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b1a04d.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_33.cpp</td><td class="DESC">bad</td><td class="Q">36</td><td class="Q">5</td><td><a href="report-b26d33.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b26d33.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_15.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_15_bad</td><td class="Q">30</td><td class="Q">5</td><td><a href="report-b2caf1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b2caf1.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_41.cpp</td><td class="DESC">badSink</td><td class="Q">28</td><td class="Q">4</td><td><a href="report-b2d627.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b2d627.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_41.c</td><td class="DESC">badSink</td><td class="Q">28</td><td class="Q">4</td><td><a href="report-b2eef6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b2eef6.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_14.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_14_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-b3ef6f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b3ef6f.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_12.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_12_bad</td><td class="Q">43</td><td class="Q">6</td><td><a href="report-b4e039.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b4e039.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_10.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_10_bad</td><td class="Q">29</td><td class="Q">6</td><td><a href="report-b5ae10.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b5ae10.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_13.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_13_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-b5b972.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b5b972.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_04.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_04_bad</td><td class="Q">41</td><td class="Q">6</td><td><a href="report-b7511d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b7511d.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_18.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_18_bad</td><td class="Q">35</td><td class="Q">4</td><td><a href="report-b87392.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b87392.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_15.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_15_bad</td><td class="Q">42</td><td class="Q">5</td><td><a href="report-b9f2ee.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b9f2ee.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_03.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_03_bad</td><td class="Q">29</td><td class="Q">6</td><td><a href="report-bb8305.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bb8305.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_04.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_04_bad</td><td class="Q">42</td><td class="Q">6</td><td><a href="report-be73ba.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-be73ba.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_03.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_03_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-be9308.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-be9308.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_05.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_05_bad</td><td class="Q">42</td><td class="Q">6</td><td><a href="report-bf0acd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bf0acd.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_10.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_10_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-c020f7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c020f7.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_12.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_12_bad</td><td class="Q">29</td><td class="Q">6</td><td><a href="report-c091d9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c091d9.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_21.c</td><td class="DESC">badSink</td><td class="Q">32</td><td class="Q">6</td><td><a href="report-c1d318.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c1d318.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_04.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_04_bad</td><td class="Q">41</td><td class="Q">6</td><td><a href="report-c3d5d1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c3d5d1.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_15.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_15_bad</td><td class="Q">42</td><td class="Q">5</td><td><a href="report-c45691.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c45691.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_05.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_05_bad</td><td class="Q">41</td><td class="Q">6</td><td><a href="report-c6602e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c6602e.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_31.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_31_bad</td><td class="Q">34</td><td class="Q">4</td><td><a href="report-c6696f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c6696f.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_05.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_05_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-cdae53.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cdae53.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_12.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_12_bad</td><td class="Q">43</td><td class="Q">6</td><td><a href="report-d05f7d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d05f7d.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_01.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_01_bad</td><td class="Q">30</td><td class="Q">2</td><td><a href="report-d145d6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d145d6.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_15.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_15_bad</td><td class="Q">43</td><td class="Q">5</td><td><a href="report-d23a30.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d23a30.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_33.cpp</td><td class="DESC">bad</td><td class="Q">37</td><td class="Q">5</td><td><a href="report-d3d545.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d3d545.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_13.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_13_bad</td><td class="Q">36</td><td class="Q">6</td><td><a href="report-d4346b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d4346b.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__struct_14.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_14_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-d55b55.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d55b55.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_10.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_10_bad</td><td class="Q">28</td><td class="Q">4</td><td><a href="report-d5a076.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d5a076.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_06.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_06_bad</td><td class="Q">40</td><td class="Q">6</td><td><a href="report-db1429.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-db1429.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_10.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_10_bad</td><td class="Q">36</td><td class="Q">6</td><td><a href="report-dce509.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-dce509.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_01.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_01_bad</td><td class="Q">30</td><td class="Q">2</td><td><a href="report-dde79c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-dde79c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_14.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_14_bad</td><td class="Q">36</td><td class="Q">6</td><td><a href="report-ddeca1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ddeca1.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_18.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_18_bad</td><td class="Q">28</td><td class="Q">3</td><td><a href="report-df5f4f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-df5f4f.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_31.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_31_bad</td><td class="Q">34</td><td class="Q">4</td><td><a href="report-e02fd3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e02fd3.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_44.c</td><td class="DESC">badSink</td><td class="Q">28</td><td class="Q">4</td><td><a href="report-e0364d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e0364d.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_14.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_14_bad</td><td class="Q">36</td><td class="Q">6</td><td><a href="report-e0e3f8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e0e3f8.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_13.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_13_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-e324e4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e324e4.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_14.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_14_bad</td><td class="Q">28</td><td class="Q">4</td><td><a href="report-e51ae4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e51ae4.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_09.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_09_bad</td><td class="Q">28</td><td class="Q">4</td><td><a href="report-e583ac.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e583ac.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_31.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_31_bad</td><td class="Q">33</td><td class="Q">4</td><td><a href="report-e5b87e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e5b87e.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_02.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_02_bad</td><td class="Q">29</td><td class="Q">5</td><td><a href="report-e5f4bd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e5f4bd.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_02.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_02_bad</td><td class="Q">36</td><td class="Q">4</td><td><a href="report-e99e1b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e99e1b.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_16.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_16_bad</td><td class="Q">36</td><td class="Q">5</td><td><a href="report-e9b4fa.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e9b4fa.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__char_03.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_03_bad</td><td class="Q">36</td><td class="Q">6</td><td><a href="report-eae6fd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-eae6fd.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_41.c</td><td class="DESC">badSink</td><td class="Q">27</td><td class="Q">4</td><td><a href="report-eea4a4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-eea4a4.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__deref_after_check_06.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__deref_after_check_06_bad</td><td class="Q">34</td><td class="Q">6</td><td><a href="report-efde3b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-efde3b.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__binary_if_02.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__binary_if_02_bad</td><td class="Q">28</td><td class="Q">3</td><td><a href="report-f0c717.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f0c717.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_03.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_03_bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-f23ca3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f23ca3.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_09.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_09_bad</td><td class="Q">36</td><td class="Q">6</td><td><a href="report-f3bfae.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f3bfae.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int64_t_31.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_31_bad</td><td class="Q">33</td><td class="Q">4</td><td><a href="report-f51a2c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f51a2c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__long_08.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_08_bad</td><td class="Q">48</td><td class="Q">10</td><td><a href="report-f9ea9b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f9ea9b.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__int_18.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_18_bad</td><td class="Q">34</td><td class="Q">4</td><td><a href="report-fb0776.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fb0776.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>CWE476_NULL_Pointer_Dereference__class_14.cpp</td><td class="DESC">bad</td><td class="Q">35</td><td class="Q">6</td><td><a href="report-fb9a78.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fb9a78.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__int_11.c</td><td class="DESC">goodG2B1</td><td class="Q">114</td><td class="Q">6</td><td><a href="report-0234c4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0234c4.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__long_14.c</td><td class="DESC">goodG2B1</td><td class="Q">114</td><td class="Q">6</td><td><a href="report-0a971f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0a971f.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__class_11.cpp</td><td class="DESC">goodG2B2</td><td class="Q">143</td><td class="Q">6</td><td><a href="report-0cc18a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0cc18a.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__long_11.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__long_11_bad</td><td class="Q">35</td><td class="Q">5</td><td><a href="report-135012.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-135012.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__char_10.c</td><td class="DESC">goodG2B1</td><td class="Q">115</td><td class="Q">6</td><td><a href="report-17de75.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-17de75.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__long_11.c</td><td class="DESC">goodG2B2</td><td class="Q">133</td><td class="Q">6</td><td><a href="report-19af8c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-19af8c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__struct_11.c</td><td class="DESC">goodG2B1</td><td class="Q">116</td><td class="Q">6</td><td><a href="report-1afc6b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1afc6b.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__class_05.cpp</td><td class="DESC">goodG2B1</td><td class="Q">127</td><td class="Q">6</td><td><a href="report-1c0e86.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1c0e86.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__class_11.cpp</td><td class="DESC">goodG2B1</td><td class="Q">120</td><td class="Q">6</td><td><a href="report-1cc748.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1cc748.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_11.c</td><td class="DESC">goodG2B1</td><td class="Q">115</td><td class="Q">6</td><td><a href="report-1ec361.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1ec361.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__struct_05.c</td><td class="DESC">goodG2B1</td><td class="Q">122</td><td class="Q">6</td><td><a href="report-24b8c8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-24b8c8.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__int64_t_11.c</td><td class="DESC">goodG2B2</td><td class="Q">133</td><td class="Q">6</td><td><a href="report-2584c0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2584c0.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__int64_t_07.c</td><td class="DESC">goodG2B1</td><td class="Q">119</td><td class="Q">6</td><td><a href="report-2974de.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2974de.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__class_07.cpp</td><td class="DESC">goodG2B1</td><td class="Q">126</td><td class="Q">6</td><td><a href="report-2e59c7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2e59c7.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_11.c</td><td class="DESC">goodG2B2</td><td class="Q">132</td><td class="Q">6</td><td><a href="report-2ed545.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2ed545.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__class_10.cpp</td><td class="DESC">goodG2B1</td><td class="Q">121</td><td class="Q">6</td><td><a href="report-2f234a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2f234a.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__int_11.c</td><td class="DESC">goodG2B2</td><td class="Q">133</td><td class="Q">6</td><td><a href="report-2fe634.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2fe634.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_05.c</td><td class="DESC">goodG2B1</td><td class="Q">121</td><td class="Q">6</td><td><a href="report-305f69.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-305f69.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__char_11.c</td><td class="DESC">goodG2B1</td><td class="Q">115</td><td class="Q">6</td><td><a href="report-311a2f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-311a2f.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__char_11.c</td><td class="DESC">goodG2B2</td><td class="Q">132</td><td class="Q">6</td><td><a href="report-3abc51.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3abc51.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_11.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__wchar_t_11_bad</td><td class="Q">36</td><td class="Q">5</td><td><a href="report-3b2ca3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3b2ca3.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__long_07.c</td><td class="DESC">goodG2B1</td><td class="Q">119</td><td class="Q">6</td><td><a href="report-3d683d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3d683d.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__class_11.cpp</td><td class="DESC">bad</td><td class="Q">35</td><td class="Q">5</td><td><a href="report-491ce3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-491ce3.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__long_09.c</td><td class="DESC">goodG2B1</td><td class="Q">114</td><td class="Q">12</td><td><a href="report-4bc952.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4bc952.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__int_11.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int_11_bad</td><td class="Q">35</td><td class="Q">5</td><td><a href="report-4f4ecf.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4f4ecf.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__struct_09.c</td><td class="DESC">goodG2B1</td><td class="Q">116</td><td class="Q">12</td><td><a href="report-56622c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-56622c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__char_11.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__char_11_bad</td><td class="Q">36</td><td class="Q">5</td><td><a href="report-668c67.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-668c67.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__class_09.cpp</td><td class="DESC">goodG2B1</td><td class="Q">121</td><td class="Q">12</td><td><a href="report-6aa9a1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6aa9a1.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__int64_t_09.c</td><td class="DESC">goodG2B1</td><td class="Q">114</td><td class="Q">12</td><td><a href="report-7200a7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7200a7.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_14.c</td><td class="DESC">goodG2B1</td><td class="Q">115</td><td class="Q">6</td><td><a href="report-746225.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-746225.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__struct_11.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__struct_11_bad</td><td class="Q">35</td><td class="Q">5</td><td><a href="report-78d1e0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-78d1e0.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__int_09.c</td><td class="DESC">goodG2B1</td><td class="Q">114</td><td class="Q">12</td><td><a href="report-7f6114.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7f6114.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__char_05.c</td><td class="DESC">goodG2B1</td><td class="Q">121</td><td class="Q">6</td><td><a href="report-8395cd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8395cd.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__struct_10.c</td><td class="DESC">goodG2B1</td><td class="Q">116</td><td class="Q">6</td><td><a href="report-84d5ad.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-84d5ad.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__int_07.c</td><td class="DESC">goodG2B1</td><td class="Q">119</td><td class="Q">6</td><td><a href="report-8af103.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8af103.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__struct_14.c</td><td class="DESC">goodG2B1</td><td class="Q">116</td><td class="Q">6</td><td><a href="report-91b3de.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-91b3de.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__char_09.c</td><td class="DESC">goodG2B1</td><td class="Q">115</td><td class="Q">12</td><td><a href="report-a3787f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a3787f.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__int64_t_10.c</td><td class="DESC">goodG2B1</td><td class="Q">114</td><td class="Q">6</td><td><a href="report-a7a59e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a7a59e.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__char_07.c</td><td class="DESC">goodG2B1</td><td class="Q">120</td><td class="Q">6</td><td><a href="report-ab9374.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ab9374.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__class_14.cpp</td><td class="DESC">goodG2B1</td><td class="Q">120</td><td class="Q">6</td><td><a href="report-ad1af7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ad1af7.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_07.c</td><td class="DESC">goodG2B1</td><td class="Q">120</td><td class="Q">6</td><td><a href="report-adc2e5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-adc2e5.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__int64_t_11.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__int64_t_11_bad</td><td class="Q">35</td><td class="Q">5</td><td><a href="report-b0e9ac.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b0e9ac.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__int64_t_05.c</td><td class="DESC">goodG2B1</td><td class="Q">120</td><td class="Q">6</td><td><a href="report-b2ac0a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b2ac0a.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__long_05.c</td><td class="DESC">goodG2B1</td><td class="Q">120</td><td class="Q">6</td><td><a href="report-b5356c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b5356c.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__struct_11.c</td><td class="DESC">goodG2B2</td><td class="Q">137</td><td class="Q">6</td><td><a href="report-bc510d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bc510d.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__struct_07.c</td><td class="DESC">goodG2B1</td><td class="Q">121</td><td class="Q">6</td><td><a href="report-c7b920.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c7b920.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_10.c</td><td class="DESC">goodG2B1</td><td class="Q">115</td><td class="Q">6</td><td><a href="report-cc3773.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cc3773.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__int_05.c</td><td class="DESC">goodG2B1</td><td class="Q">120</td><td class="Q">6</td><td><a href="report-cd46b3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cd46b3.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__int64_t_14.c</td><td class="DESC">goodG2B1</td><td class="Q">114</td><td class="Q">6</td><td><a href="report-ce2d9e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ce2d9e.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__char_14.c</td><td class="DESC">goodG2B1</td><td class="Q">115</td><td class="Q">6</td><td><a href="report-d1326b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d1326b.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__int_14.c</td><td class="DESC">goodG2B1</td><td class="Q">114</td><td class="Q">6</td><td><a href="report-d1e78b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d1e78b.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__int_10.c</td><td class="DESC">goodG2B1</td><td class="Q">114</td><td class="Q">6</td><td><a href="report-d3bbf7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d3bbf7.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__int64_t_11.c</td><td class="DESC">goodG2B1</td><td class="Q">114</td><td class="Q">6</td><td><a href="report-f1350e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f1350e.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_09.c</td><td class="DESC">goodG2B1</td><td class="Q">115</td><td class="Q">12</td><td><a href="report-f4f015.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f4f015.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__long_11.c</td><td class="DESC">goodG2B1</td><td class="Q">114</td><td class="Q">6</td><td><a href="report-f83772.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f83772.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_undefined_pointer_value"><td class="DESC">Logic error</td><td class="DESC">Dereference of undefined pointer value</td><td>CWE476_NULL_Pointer_Dereference__long_10.c</td><td class="DESC">goodG2B1</td><td class="Q">114</td><td class="Q">6</td><td><a href="report-f9da79.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f9da79.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_12.c</td><td class="DESC">good1</td><td class="Q">67</td><td class="Q">5</td><td><a href="report-0cbdf8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0cbdf8.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_05.c</td><td class="DESC">good2</td><td class="Q">83</td><td class="Q">5</td><td><a href="report-0ea873.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0ea873.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_15.c</td><td class="DESC">good2</td><td class="Q">85</td><td class="Q">3</td><td><a href="report-0f239c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0f239c.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_04.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_04_bad</td><td class="Q">40</td><td class="Q">6</td><td><a href="report-1091bd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1091bd.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__class_10.cpp</td><td class="DESC">goodG2B1</td><td class="Q">125</td><td class="Q">7</td><td><a href="report-1b0d76.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1b0d76.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__class_11.cpp</td><td class="DESC">goodG2B1</td><td class="Q">124</td><td class="Q">7</td><td><a href="report-1ec873.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1ec873.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_18.c</td><td class="DESC">good1</td><td class="Q">54</td><td class="Q">4</td><td><a href="report-208b8c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-208b8c.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_05.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_05_bad</td><td class="Q">40</td><td class="Q">6</td><td><a href="report-217d8c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-217d8c.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_12.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_12_bad</td><td class="Q">34</td><td class="Q">6</td><td><a href="report-258b10.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-258b10.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_14.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_14_bad</td><td class="Q">34</td><td class="Q">6</td><td><a href="report-270600.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-270600.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_11.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_11_bad</td><td class="Q">34</td><td class="Q">6</td><td><a href="report-290869.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-290869.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_07.c</td><td class="DESC">good2</td><td class="Q">82</td><td class="Q">5</td><td><a href="report-29a211.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-29a211.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_07.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_07_bad</td><td class="Q">39</td><td class="Q">6</td><td><a href="report-3a34ae.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3a34ae.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_03.c</td><td class="DESC">good2</td><td class="Q">77</td><td class="Q">5</td><td><a href="report-3c922d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3c922d.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_18.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_18_bad</td><td class="Q">34</td><td class="Q">5</td><td><a href="report-45dad3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-45dad3.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_11.c</td><td class="DESC">good2</td><td class="Q">77</td><td class="Q">5</td><td><a href="report-4772b5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4772b5.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_13.c</td><td class="DESC">good1</td><td class="Q">60</td><td class="Q">5</td><td><a href="report-4c2d3b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4c2d3b.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_15.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_15_bad</td><td class="Q">35</td><td class="Q">5</td><td><a href="report-50a834.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-50a834.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_04.c</td><td class="DESC">good2</td><td class="Q">83</td><td class="Q">5</td><td><a href="report-560956.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-560956.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_06.c</td><td class="DESC">good2</td><td class="Q">82</td><td class="Q">5</td><td><a href="report-577cd8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-577cd8.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_02.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_02_bad</td><td class="Q">34</td><td class="Q">5</td><td><a href="report-5808d1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5808d1.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_01.c</td><td class="DESC">good1</td><td class="Q">49</td><td class="Q">3</td><td><a href="report-5a0c93.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5a0c93.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__class_11.cpp</td><td class="DESC">goodG2B2</td><td class="Q">147</td><td class="Q">7</td><td><a href="report-5a7957.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5a7957.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_16.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_16_bad</td><td class="Q">34</td><td class="Q">5</td><td><a href="report-5c41aa.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5c41aa.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_12.c</td><td class="DESC">good1</td><td class="Q">79</td><td class="Q">5</td><td><a href="report-5e009e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5e009e.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_09.c</td><td class="DESC">good2</td><td class="Q">77</td><td class="Q">5</td><td><a href="report-6456d9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6456d9.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_12.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_12_bad</td><td class="Q">46</td><td class="Q">4</td><td><a href="report-6f9fe6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6f9fe6.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_17.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_17_bad</td><td class="Q">35</td><td class="Q">5</td><td><a href="report-70e779.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-70e779.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_03.c</td><td class="DESC">good1</td><td class="Q">60</td><td class="Q">5</td><td><a href="report-715c1b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-715c1b.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_03.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_03_bad</td><td class="Q">34</td><td class="Q">6</td><td><a href="report-782734.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-782734.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_05.c</td><td class="DESC">good1</td><td class="Q">66</td><td class="Q">5</td><td><a href="report-8e6311.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8e6311.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__class_34.cpp</td><td class="DESC">goodG2B</td><td class="Q">65</td><td class="Q">3</td><td><a href="report-91928f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-91928f.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_11.c</td><td class="DESC">good1</td><td class="Q">60</td><td class="Q">5</td><td><a href="report-95c9c6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-95c9c6.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_17.c</td><td class="DESC">good1</td><td class="Q">57</td><td class="Q">4</td><td><a href="report-95d023.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-95d023.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_13.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_13_bad</td><td class="Q">34</td><td class="Q">6</td><td><a href="report-991c47.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-991c47.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_06.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_06_bad</td><td class="Q">39</td><td class="Q">6</td><td><a href="report-9e3f79.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9e3f79.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_08.c</td><td class="DESC">good1</td><td class="Q">73</td><td class="Q">4</td><td><a href="report-a3dc6f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a3dc6f.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_10.c</td><td class="DESC">good2</td><td class="Q">77</td><td class="Q">5</td><td><a href="report-a68128.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a68128.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__class_05.cpp</td><td class="DESC">goodG2B1</td><td class="Q">131</td><td class="Q">7</td><td><a href="report-a96175.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a96175.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_09.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_09_bad</td><td class="Q">34</td><td class="Q">6</td><td><a href="report-ab82ed.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ab82ed.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_16.c</td><td class="DESC">good1</td><td class="Q">56</td><td class="Q">4</td><td><a href="report-adb46d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-adb46d.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_10.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_10_bad</td><td class="Q">34</td><td class="Q">6</td><td><a href="report-b0e1e1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b0e1e1.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_02.c</td><td class="DESC">good2</td><td class="Q">77</td><td class="Q">4</td><td><a href="report-bf2ced.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bf2ced.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_10.c</td><td class="DESC">good1</td><td class="Q">60</td><td class="Q">5</td><td><a href="report-c541c6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c541c6.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_01.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_01_bad</td><td class="Q">32</td><td class="Q">4</td><td><a href="report-c7da24.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c7da24.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_14.c</td><td class="DESC">good2</td><td class="Q">77</td><td class="Q">5</td><td><a href="report-cb6114.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cb6114.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_13.c</td><td class="DESC">good2</td><td class="Q">77</td><td class="Q">5</td><td><a href="report-d070c6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d070c6.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_09.c</td><td class="DESC">good1</td><td class="Q">60</td><td class="Q">5</td><td><a href="report-d0de27.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d0de27.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_08.c</td><td class="DESC">good2</td><td class="Q">90</td><td class="Q">4</td><td><a href="report-d2f98e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d2f98e.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_06.c</td><td class="DESC">good1</td><td class="Q">65</td><td class="Q">5</td><td><a href="report-d8b871.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d8b871.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_14.c</td><td class="DESC">good1</td><td class="Q">60</td><td class="Q">5</td><td><a href="report-da8927.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-da8927.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_04.c</td><td class="DESC">good1</td><td class="Q">66</td><td class="Q">5</td><td><a href="report-e3b47f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e3b47f.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_02.c</td><td class="DESC">good1</td><td class="Q">60</td><td class="Q">4</td><td><a href="report-eb213b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-eb213b.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_08.c</td><td class="DESC">CWE476_NULL_Pointer_Dereference__null_check_after_deref_08_bad</td><td class="Q">47</td><td class="Q">5</td><td><a href="report-f3b46d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f3b46d.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>CWE476_NULL_Pointer_Dereference__null_check_after_deref_07.c</td><td class="DESC">good1</td><td class="Q">65</td><td class="Q">5</td><td><a href="report-f43ac1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f43ac1.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__struct_09.c</td><td class="DESC">goodB2G1</td><td class="Q">60</td><td class="Q">7</td><td><a href="report-07b4c2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-07b4c2.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__long_10.c</td><td class="DESC">goodB2G1</td><td class="Q">60</td><td class="Q">7</td><td><a href="report-08441e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-08441e.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__int64_t_09.c</td><td class="DESC">goodB2G1</td><td class="Q">60</td><td class="Q">7</td><td><a href="report-0bb44f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0bb44f.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__int_11.c</td><td class="DESC">goodB2G2</td><td class="Q">83</td><td class="Q">7</td><td><a href="report-101636.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-101636.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__long_05.c</td><td class="DESC">goodB2G1</td><td class="Q">66</td><td class="Q">7</td><td><a href="report-129617.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-129617.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__class_10.cpp</td><td class="DESC">goodB2G1</td><td class="Q">63</td><td class="Q">7</td><td><a href="report-2039c5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2039c5.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__int_11.c</td><td class="DESC">goodB2G1</td><td class="Q">60</td><td class="Q">7</td><td><a href="report-241cf4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-241cf4.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__class_11.cpp</td><td class="DESC">goodB2G1</td><td class="Q">62</td><td class="Q">7</td><td><a href="report-2c4b0c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2c4b0c.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_10.c</td><td class="DESC">goodB2G1</td><td class="Q">61</td><td class="Q">7</td><td><a href="report-37651a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-37651a.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__int_09.c</td><td class="DESC">goodB2G1</td><td class="Q">60</td><td class="Q">7</td><td><a href="report-419512.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-419512.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__int64_t_11.c</td><td class="DESC">goodB2G1</td><td class="Q">60</td><td class="Q">7</td><td><a href="report-495808.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-495808.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__int_10.c</td><td class="DESC">goodB2G1</td><td class="Q">60</td><td class="Q">7</td><td><a href="report-4b704a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4b704a.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_05.c</td><td class="DESC">goodB2G1</td><td class="Q">67</td><td class="Q">7</td><td><a href="report-52f377.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-52f377.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__long_11.c</td><td class="DESC">goodB2G1</td><td class="Q">60</td><td class="Q">7</td><td><a href="report-55e7cd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-55e7cd.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__class_11.cpp</td><td class="DESC">goodB2G2</td><td class="Q">86</td><td class="Q">7</td><td><a href="report-681b6f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-681b6f.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_11.c</td><td class="DESC">goodB2G2</td><td class="Q">85</td><td class="Q">7</td><td><a href="report-7408bb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7408bb.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__struct_11.c</td><td class="DESC">goodB2G2</td><td class="Q">83</td><td class="Q">7</td><td><a href="report-8ded35.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8ded35.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__char_11.c</td><td class="DESC">goodB2G2</td><td class="Q">85</td><td class="Q">7</td><td><a href="report-946199.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-946199.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__int64_t_10.c</td><td class="DESC">goodB2G1</td><td class="Q">60</td><td class="Q">7</td><td><a href="report-9950c5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9950c5.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__struct_11.c</td><td class="DESC">goodB2G1</td><td class="Q">60</td><td class="Q">7</td><td><a href="report-9ee2b3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9ee2b3.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__struct_05.c</td><td class="DESC">goodB2G1</td><td class="Q">66</td><td class="Q">7</td><td><a href="report-a4033c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a4033c.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_09.c</td><td class="DESC">goodB2G1</td><td class="Q">61</td><td class="Q">7</td><td><a href="report-ad7eea.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ad7eea.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__char_10.c</td><td class="DESC">goodB2G1</td><td class="Q">61</td><td class="Q">7</td><td><a href="report-bd0a6a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bd0a6a.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__wchar_t_11.c</td><td class="DESC">goodB2G1</td><td class="Q">61</td><td class="Q">7</td><td><a href="report-c52eb4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c52eb4.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__long_11.c</td><td class="DESC">goodB2G2</td><td class="Q">83</td><td class="Q">7</td><td><a href="report-d19028.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d19028.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__class_05.cpp</td><td class="DESC">goodB2G1</td><td class="Q">69</td><td class="Q">7</td><td><a href="report-d53770.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d53770.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__char_09.c</td><td class="DESC">goodB2G1</td><td class="Q">61</td><td class="Q">7</td><td><a href="report-d746bf.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d746bf.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__struct_10.c</td><td class="DESC">goodB2G1</td><td class="Q">60</td><td class="Q">7</td><td><a href="report-d9c210.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d9c210.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__int64_t_05.c</td><td class="DESC">goodB2G1</td><td class="Q">66</td><td class="Q">7</td><td><a href="report-da2620.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-da2620.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__char_11.c</td><td class="DESC">goodB2G1</td><td class="Q">61</td><td class="Q">7</td><td><a href="report-dbc1b3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-dbc1b3.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__class_09.cpp</td><td class="DESC">goodB2G1</td><td class="Q">63</td><td class="Q">7</td><td><a href="report-dff65a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-dff65a.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__int64_t_11.c</td><td class="DESC">goodB2G2</td><td class="Q">83</td><td class="Q">7</td><td><a href="report-f2d2c0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f2d2c0.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__char_05.c</td><td class="DESC">goodB2G1</td><td class="Q">67</td><td class="Q">7</td><td><a href="report-f5068f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f5068f.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__long_09.c</td><td class="DESC">goodB2G1</td><td class="Q">60</td><td class="Q">7</td><td><a href="report-f54b56.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f54b56.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>CWE476_NULL_Pointer_Dereference__int_05.c</td><td class="DESC">goodB2G1</td><td class="Q">66</td><td class="Q">7</td><td><a href="report-fee491.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fee491.html" -->
+</tr>
+</tbody>
+</table>
+
+</body></html>

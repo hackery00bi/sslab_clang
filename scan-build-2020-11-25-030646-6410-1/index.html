@@ -1,0 +1,145 @@
+<html>
+<head>
+<title>CWE468_Incorrect_Pointer_Scaling - scan-build results</title>
+<link type="text/css" rel="stylesheet" href="scanview.css"/>
+<script src="sorttable.js"></script>
+<script language='javascript' type="text/javascript">
+function SetDisplay(RowClass, DisplayVal)
+{
+  var Rows = document.getElementsByTagName("tr");
+  for ( var i = 0 ; i < Rows.length; ++i ) {
+    if (Rows[i].className == RowClass) {
+      Rows[i].style.display = DisplayVal;
+    }
+  }
+}
+
+function CopyCheckedStateToCheckButtons(SummaryCheckButton) {
+  var Inputs = document.getElementsByTagName("input");
+  for ( var i = 0 ; i < Inputs.length; ++i ) {
+    if (Inputs[i].type == "checkbox") {
+      if(Inputs[i] != SummaryCheckButton) {
+        Inputs[i].checked = SummaryCheckButton.checked;
+        Inputs[i].onclick();
+      }
+    }
+  }
+}
+
+function returnObjById( id ) {
+    if (document.getElementById)
+        var returnVar = document.getElementById(id);
+    else if (document.all)
+        var returnVar = document.all[id];
+    else if (document.layers)
+        var returnVar = document.layers[id];
+    return returnVar;
+}
+
+var NumUnchecked = 0;
+
+function ToggleDisplay(CheckButton, ClassName) {
+  if (CheckButton.checked) {
+    SetDisplay(ClassName, "");
+    if (--NumUnchecked == 0) {
+      returnObjById("AllBugsCheck").checked = true;
+    }
+  }
+  else {
+    SetDisplay(ClassName, "none");
+    NumUnchecked++;
+    returnObjById("AllBugsCheck").checked = false;
+  }
+}
+</script>
+<!-- SUMMARYENDHEAD -->
+</head>
+<body>
+<h1>CWE468_Incorrect_Pointer_Scaling - scan-build results</h1>
+
+<table>
+<tr><th>User:</th><td>root@57bc4409cbaf</td></tr>
+<tr><th>Working Directory:</th><td>/root/dohyun/C/testcases/CWE468_Incorrect_Pointer_Scaling</td></tr>
+<tr><th>Command Line:</th><td>gcc -c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_01.c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_02.c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_03.c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_04.c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_05.c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_06.c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_07.c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_08.c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_09.c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_10.c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_11.c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_12.c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_13.c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_14.c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_15.c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_16.c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_17.c CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_18.c CWE468_Incorrect_Pointer_Scaling__int_01.c CWE468_Incorrect_Pointer_Scaling__int_02.c CWE468_Incorrect_Pointer_Scaling__int_03.c CWE468_Incorrect_Pointer_Scaling__int_04.c CWE468_Incorrect_Pointer_Scaling__int_05.c CWE468_Incorrect_Pointer_Scaling__int_06.c CWE468_Incorrect_Pointer_Scaling__int_07.c CWE468_Incorrect_Pointer_Scaling__int_08.c CWE468_Incorrect_Pointer_Scaling__int_09.c CWE468_Incorrect_Pointer_Scaling__int_10.c CWE468_Incorrect_Pointer_Scaling__int_11.c CWE468_Incorrect_Pointer_Scaling__int_12.c CWE468_Incorrect_Pointer_Scaling__int_13.c CWE468_Incorrect_Pointer_Scaling__int_14.c CWE468_Incorrect_Pointer_Scaling__int_15.c CWE468_Incorrect_Pointer_Scaling__int_16.c CWE468_Incorrect_Pointer_Scaling__int_17.c CWE468_Incorrect_Pointer_Scaling__int_18.c CWE468_Incorrect_Pointer_Scaling__class_01.cpp main.cpp main_linux.cpp -I ../../testcasesupport/</td></tr>
+<tr><th>Clang Version:</th><td>clang version 12.0.0 (https://github.com/llvm/llvm-project.git 65936fed1490dd1ef8d9a0a88b7d305b0840eb05)
+</td></tr>
+<tr><th>Date:</th><td>Wed Nov 25 03:06:46 2020</td></tr>
+</table>
+<h2>Bug Summary</h2><table>
+<thead><tr><td>Bug Type</td><td>Quantity</td><td class="sorttable_nosort">Display?</td></tr></thead>
+<tr style="font-weight:bold"><td class="SUMM_DESC">All Bugs</td><td class="Q">18</td><td><center><input type="checkbox" id="AllBugsCheck" onClick="CopyCheckedStateToCheckButtons(this);" checked/></center></td></tr>
+<tr><th>Logic error</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Assigned value is garbage or undefined</td><td class="Q">18</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_assigned_value_is_garbage_or_undefined');" checked/></center></td></tr>
+</table>
+<h2>Reports</h2>
+
+<table class="sortable" style="table-layout:automatic">
+<thead><tr>
+  <td>Bug Group</td>
+  <td class="sorttable_sorted">Bug Type<span id="sorttable_sortfwdind">&nbsp;&#x25BE;</span></td>
+  <td>File</td>
+  <td>Function/Method</td>
+  <td class="Q">Line</td>
+  <td class="Q">Path Length</td>
+  <td class="sorttable_nosort"></td>
+  <!-- REPORTBUGCOL -->
+</tr></thead>
+<tbody>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_18.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_18_bad</td><td class="Q">29</td><td class="Q">2</td><td><a href="report-0efc2b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0efc2b.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_08.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_08_bad</td><td class="Q">42</td><td class="Q">5</td><td><a href="report-27df34.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-27df34.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_02.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_02_bad</td><td class="Q">29</td><td class="Q">2</td><td><a href="report-418c29.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-418c29.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_13.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_13_bad</td><td class="Q">29</td><td class="Q">3</td><td><a href="report-47539f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-47539f.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_01.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_01_bad</td><td class="Q">27</td><td class="Q">1</td><td><a href="report-4ced03.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4ced03.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_04.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_04_bad</td><td class="Q">35</td><td class="Q">3</td><td><a href="report-53692d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-53692d.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_10.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_10_bad</td><td class="Q">29</td><td class="Q">3</td><td><a href="report-61b2cb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-61b2cb.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_15.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_15_bad</td><td class="Q">30</td><td class="Q">2</td><td><a href="report-7754aa.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7754aa.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_16.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_16_bad</td><td class="Q">29</td><td class="Q">2</td><td><a href="report-8dac7a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8dac7a.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_03.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_03_bad</td><td class="Q">29</td><td class="Q">3</td><td><a href="report-8ec028.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8ec028.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_12.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_12_bad</td><td class="Q">29</td><td class="Q">3</td><td><a href="report-927a4e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-927a4e.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_07.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_07_bad</td><td class="Q">34</td><td class="Q">3</td><td><a href="report-98e661.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-98e661.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_14.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_14_bad</td><td class="Q">29</td><td class="Q">3</td><td><a href="report-a42882.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a42882.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_17.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_17_bad</td><td class="Q">30</td><td class="Q">2</td><td><a href="report-a85120.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a85120.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_05.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_05_bad</td><td class="Q">35</td><td class="Q">3</td><td><a href="report-b1b38d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b1b38d.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_11.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_11_bad</td><td class="Q">29</td><td class="Q">3</td><td><a href="report-b74a38.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b74a38.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_09.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_09_bad</td><td class="Q">29</td><td class="Q">3</td><td><a href="report-d58a4f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d58a4f.html" -->
+</tr>
+<tr class="bt_logic_error_assigned_value_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Assigned value is garbage or undefined</td><td>CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_06.c</td><td class="DESC">CWE468_Incorrect_Pointer_Scaling__char_ptr_to_int_06_bad</td><td class="Q">34</td><td class="Q">3</td><td><a href="report-e8b6a9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e8b6a9.html" -->
+</tr>
+</tbody>
+</table>
+
+</body></html>

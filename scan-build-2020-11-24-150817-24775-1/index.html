@@ -1,0 +1,865 @@
+<html>
+<head>
+<title>masscan - scan-build results</title>
+<link type="text/css" rel="stylesheet" href="scanview.css"/>
+<script src="sorttable.js"></script>
+<script language='javascript' type="text/javascript">
+function SetDisplay(RowClass, DisplayVal)
+{
+  var Rows = document.getElementsByTagName("tr");
+  for ( var i = 0 ; i < Rows.length; ++i ) {
+    if (Rows[i].className == RowClass) {
+      Rows[i].style.display = DisplayVal;
+    }
+  }
+}
+
+function CopyCheckedStateToCheckButtons(SummaryCheckButton) {
+  var Inputs = document.getElementsByTagName("input");
+  for ( var i = 0 ; i < Inputs.length; ++i ) {
+    if (Inputs[i].type == "checkbox") {
+      if(Inputs[i] != SummaryCheckButton) {
+        Inputs[i].checked = SummaryCheckButton.checked;
+        Inputs[i].onclick();
+      }
+    }
+  }
+}
+
+function returnObjById( id ) {
+    if (document.getElementById)
+        var returnVar = document.getElementById(id);
+    else if (document.all)
+        var returnVar = document.all[id];
+    else if (document.layers)
+        var returnVar = document.layers[id];
+    return returnVar;
+}
+
+var NumUnchecked = 0;
+
+function ToggleDisplay(CheckButton, ClassName) {
+  if (CheckButton.checked) {
+    SetDisplay(ClassName, "");
+    if (--NumUnchecked == 0) {
+      returnObjById("AllBugsCheck").checked = true;
+    }
+  }
+  else {
+    SetDisplay(ClassName, "none");
+    NumUnchecked++;
+    returnObjById("AllBugsCheck").checked = false;
+  }
+}
+</script>
+<!-- SUMMARYENDHEAD -->
+</head>
+<body>
+<h1>masscan - scan-build results</h1>
+
+<table>
+<tr><th>User:</th><td>root@57bc4409cbaf</td></tr>
+<tr><th>Working Directory:</th><td>/tmp/sslab_clang/c_masscan/masscan</td></tr>
+<tr><th>Command Line:</th><td>make</td></tr>
+<tr><th>Clang Version:</th><td>clang version 12.0.0 (https://github.com/llvm/llvm-project.git 65936fed1490dd1ef8d9a0a88b7d305b0840eb05)
+</td></tr>
+<tr><th>Date:</th><td>Tue Nov 24 15:08:17 2020</td></tr>
+</table>
+<h2>Bug Summary</h2><table>
+<thead><tr><td>Bug Type</td><td>Quantity</td><td class="sorttable_nosort">Display?</td></tr></thead>
+<tr style="font-weight:bold"><td class="SUMM_DESC">All Bugs</td><td class="Q">252</td><td><center><input type="checkbox" id="AllBugsCheck" onClick="CopyCheckedStateToCheckButtons(this);" checked/></center></td></tr>
+<tr><th>API</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Argument with 'nonnull' attribute passed null</td><td class="Q">2</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_api_argument_with_nonnull_attribute_passed_null');" checked/></center></td></tr>
+<tr><th>Dead store</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Dead assignment</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_assignment');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Dead increment</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_dead_store_dead_increment');" checked/></center></td></tr>
+<tr><th>Logic error</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Dereference of null pointer</td><td class="Q">2</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_dereference_of_null_pointer');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Result of operation is garbage or undefined</td><td class="Q">4</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_result_of_operation_is_garbage_or_undefined');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Uninitialized argument value</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_logic_error_uninitialized_argument_value');" checked/></center></td></tr>
+<tr><th>Memory error</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Memory leak</td><td class="Q">9</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_memory_error_memory_leak');" checked/></center></td></tr>
+<tr><th>Performance</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Excessive Padding</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_performance_excessive_padding');" checked/></center></td></tr>
+<tr><th>Security</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td class="Q">80</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td class="Q">19</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td class="Q">87</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td class="Q">44</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_');" checked/></center></td></tr>
+<tr><th>Unix API</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Undefined allocation of 0 bytes (CERT MEM04-C; CWE-131)</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_unix_api_undefined_allocation_of_0_bytes_cert_mem04-c;_cwe-131_');" checked/></center></td></tr>
+</table>
+<h2>Reports</h2>
+
+<table class="sortable" style="table-layout:automatic">
+<thead><tr>
+  <td>Bug Group</td>
+  <td class="sorttable_sorted">Bug Type<span id="sorttable_sortfwdind">&nbsp;&#x25BE;</span></td>
+  <td>File</td>
+  <td>Function/Method</td>
+  <td class="Q">Line</td>
+  <td class="Q">Path Length</td>
+  <td class="sorttable_nosort"></td>
+  <!-- REPORTBUGCOL -->
+</tr></thead>
+<tbody>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>templ-payloads.c</td><td class="DESC">payload_add</td><td class="Q">443</td><td class="Q">14</td><td><a href="report-097e4a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-097e4a.html" -->
+</tr>
+<tr class="bt_api_argument_with_nonnull_attribute_passed_null"><td class="DESC">API</td><td class="DESC">Argument with 'nonnull' attribute passed null</td><td>ranges.c</td><td class="DESC">rangelist_add_range</td><td class="Q">112</td><td class="Q">10</td><td><a href="report-6d298e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6d298e.html" -->
+</tr>
+<tr class="bt_dead_store_dead_assignment"><td class="DESC">Dead store</td><td class="DESC">Dead assignment</td><td>proto-memcached.c</td><td class="DESC">memcached_tcp_parse</td><td class="Q">195</td><td class="Q">1</td><td><a href="report-fcf983.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fcf983.html" -->
+</tr>
+<tr class="bt_dead_store_dead_increment"><td class="DESC">Dead store</td><td class="DESC">Dead increment</td><td>proto-ntp.c</td><td class="DESC">ntp_modlist_parse</td><td class="Q">143</td><td class="Q">1</td><td><a href="report-584816.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-584816.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>event-timeout.h</td><td class="DESC">timeout_unlink</td><td class="Q">44</td><td class="Q">6</td><td><a href="report-4d64f4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4d64f4.html" -->
+</tr>
+<tr class="bt_logic_error_dereference_of_null_pointer"><td class="DESC">Logic error</td><td class="DESC">Dereference of null pointer</td><td>event-timeout.h</td><td class="DESC">timeout_unlink</td><td class="Q">44</td><td class="Q">20</td><td><a href="report-b711d8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b711d8.html" -->
+</tr>
+<tr class="bt_performance_excessive_padding"><td class="DESC">Performance</td><td class="DESC">Excessive Padding</td><td>main.c</td><td class="DESC">ThreadPair</td><td class="Q">91</td><td class="Q">1</td><td><a href="report-1c6cf9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1c6cf9.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>templ-pkt.c</td><td class="DESC">template_selftest</td><td class="Q">1106</td><td class="Q">20</td><td><a href="report-375076.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-375076.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>templ-pkt.c</td><td class="DESC">_template_init</td><td class="Q">791</td><td class="Q">15</td><td><a href="report-6891c8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6891c8.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>rawsock.c</td><td class="DESC">rawsock_init_adapter</td><td class="Q">651</td><td class="Q">20</td><td><a href="report-934abd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-934abd.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>templ-pkt.c</td><td class="DESC">_template_init</td><td class="Q">791</td><td class="Q">15</td><td><a href="report-95c53c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-95c53c.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>templ-pkt.c</td><td class="DESC">_template_init</td><td class="Q">791</td><td class="Q">15</td><td><a href="report-9e517e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9e517e.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>templ-pkt.c</td><td class="DESC">_template_init</td><td class="Q">791</td><td class="Q">15</td><td><a href="report-c589f0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c589f0.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>output.c</td><td class="DESC">output_selftest</td><td class="Q">952</td><td class="Q">21</td><td><a href="report-c9cec5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c9cec5.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>output.c</td><td class="DESC">output_selftest</td><td class="Q">959</td><td class="Q">20</td><td><a href="report-eed5cc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-eed5cc.html" -->
+</tr>
+<tr class="bt_memory_error_memory_leak"><td class="DESC">Memory error</td><td class="DESC">Memory leak</td><td>templ-pkt.c</td><td class="DESC">_template_init</td><td class="Q">791</td><td class="Q">15</td><td><a href="report-fb649e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fb649e.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-arp.c</td><td class="DESC">arp_resolve_sync</td><td class="Q">249</td><td class="Q">1</td><td><a href="report-00b068.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-00b068.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>templ-pkt.c</td><td class="DESC">_template_init</td><td class="Q">819</td><td class="Q">1</td><td><a href="report-0198a8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0198a8.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>templ-pkt.c</td><td class="DESC">templ_copy</td><td class="Q">348</td><td class="Q">1</td><td><a href="report-02df0e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-02df0e.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>proto-http.c</td><td class="DESC">http_change_field</td><td class="Q">97</td><td class="Q">1</td><td><a href="report-03f04a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-03f04a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>smack1.c</td><td class="DESC">swap_rows</td><td class="Q">1007</td><td class="Q">1</td><td><a href="report-04f23d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-04f23d.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>string_s.c</td><td class="DESC">gmtime_s</td><td class="Q">104</td><td class="Q">1</td><td><a href="report-0916f6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0916f6.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>templ-pkt.c</td><td class="DESC">templ_copy</td><td class="Q">354</td><td class="Q">1</td><td><a href="report-0db7e4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0db7e4.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>proto-ssl.c</td><td class="DESC">ssl_hello</td><td class="Q">1238</td><td class="Q">1</td><td><a href="report-0df2ed.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0df2ed.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>ranges.c</td><td class="DESC">rangelist_add_range</td><td class="Q">112</td><td class="Q">1</td><td><a href="report-0f8f81.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0f8f81.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-arp.c</td><td class="DESC">arp_response</td><td class="Q">322</td><td class="Q">1</td><td><a href="report-1db67f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1db67f.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>in-binary.c</td><td class="DESC">parse_status2</td><td class="Q">116</td><td class="Q">1</td><td><a href="report-23b7e2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-23b7e2.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>out-binary.c</td><td class="DESC">binary_out_banner</td><td class="Q">162</td><td class="Q">1</td><td><a href="report-259a04.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-259a04.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>smack1.c</td><td class="DESC">swap_rows</td><td class="Q">1011</td><td class="Q">1</td><td><a href="report-29c825.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-29c825.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>smack1.c</td><td class="DESC">smack_add_pattern</td><td class="Q">710</td><td class="Q">1</td><td><a href="report-2a406b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2a406b.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>smack1.c</td><td class="DESC">swap_rows</td><td class="Q">1008</td><td class="Q">1</td><td><a href="report-35775d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-35775d.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-arp.c</td><td class="DESC">arp_resolve_sync</td><td class="Q">134</td><td class="Q">1</td><td><a href="report-3c6a2a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3c6a2a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>proto-http.c</td><td class="DESC">http_init</td><td class="Q">193</td><td class="Q">1</td><td><a href="report-3d94ee.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3d94ee.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-arp.c</td><td class="DESC">arp_response</td><td class="Q">335</td><td class="Q">1</td><td><a href="report-3f3fdb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3f3fdb.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>templ-pkt.c</td><td class="DESC">tcp_create_packet</td><td class="Q">432</td><td class="Q">1</td><td><a href="report-435bea.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-435bea.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>templ-payloads.c</td><td class="DESC">payload_add</td><td class="Q">443</td><td class="Q">1</td><td><a href="report-4c167b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4c167b.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>proto-http.c</td><td class="DESC">http_change_field</td><td class="Q">103</td><td class="Q">1</td><td><a href="report-4ff18c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4ff18c.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-getmac.c</td><td class="DESC">rawsock_get_adapter_mac</td><td class="Q">51</td><td class="Q">1</td><td><a href="report-53c40e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-53c40e.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>smack1.c</td><td class="DESC">make_copy_of_pattern</td><td class="Q">638</td><td class="Q">1</td><td><a href="report-572fe0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-572fe0.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>main-conf.c</td><td class="DESC">masscan_command_line</td><td class="Q">1963</td><td class="Q">1</td><td><a href="report-595f86.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-595f86.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>in-report.c</td><td class="DESC">readscan_report</td><td class="Q">374</td><td class="Q">1</td><td><a href="report-5b980f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5b980f.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>smack1.c</td><td class="DESC">swap_rows</td><td class="Q">1006</td><td class="Q">1</td><td><a href="report-5c2df8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5c2df8.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>smack1.c</td><td class="DESC">swap_rows</td><td class="Q">1013</td><td class="Q">1</td><td><a href="report-64081f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-64081f.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>main-conf.c</td><td class="DESC">masscan_set_parameter</td><td class="Q">1444</td><td class="Q">1</td><td><a href="report-6447fb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6447fb.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>smack1.c</td><td class="DESC">swap_rows</td><td class="Q">1012</td><td class="Q">1</td><td><a href="report-6898e4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6898e4.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>proto-http.c</td><td class="DESC">http_change_field</td><td class="Q">106</td><td class="Q">1</td><td><a href="report-6a7980.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6a7980.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>main-conf.c</td><td class="DESC">masscan_set_parameter</td><td class="Q">1109</td><td class="Q">1</td><td><a href="report-6c079b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6c079b.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>main-conf.c</td><td class="DESC">masscan_set_parameter</td><td class="Q">1420</td><td class="Q">1</td><td><a href="report-6c80ae.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6c80ae.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>proto-http.c</td><td class="DESC">http_change_field</td><td class="Q">61</td><td class="Q">1</td><td><a href="report-6cd9d5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6cd9d5.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-pcapfile.c</td><td class="DESC">pcapfile_openappend</td><td class="Q">812</td><td class="Q">1</td><td><a href="report-6f2083.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6f2083.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>proto-dns.c</td><td class="DESC">dns_extract_name</td><td class="Q">164</td><td class="Q">1</td><td><a href="report-716534.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-716534.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-arp.c</td><td class="DESC">arp_resolve_sync</td><td class="Q">128</td><td class="Q">1</td><td><a href="report-7306d3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7306d3.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-pcapfile.c</td><td class="DESC">pcapfile_openappend</td><td class="Q">814</td><td class="Q">1</td><td><a href="report-7ddc72.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7ddc72.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-arp.c</td><td class="DESC">arp_response</td><td class="Q">319</td><td class="Q">1</td><td><a href="report-80268b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-80268b.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>templ-pkt.c</td><td class="DESC">_template_init</td><td class="Q">820</td><td class="Q">1</td><td><a href="report-81112d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-81112d.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>main-initadapter.c</td><td class="DESC">masscan_initialize_adapter</td><td class="Q">154</td><td class="Q">1</td><td><a href="report-8137f3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8137f3.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-pcap.c</td><td class="DESC">seterr</td><td class="Q">68</td><td class="Q">1</td><td><a href="report-81eee7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-81eee7.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-arp.c</td><td class="DESC">arp_resolve_sync</td><td class="Q">125</td><td class="Q">1</td><td><a href="report-83f9a8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-83f9a8.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>templ-payloads.c</td><td class="DESC">payload_add</td><td class="Q">457</td><td class="Q">1</td><td><a href="report-847d7c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-847d7c.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>templ-pkt.c</td><td class="DESC">template_set_target</td><td class="Q">608</td><td class="Q">1</td><td><a href="report-84cefa.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-84cefa.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-arp.c</td><td class="DESC">arp_resolve_sync</td><td class="Q">111</td><td class="Q">1</td><td><a href="report-87fa3c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-87fa3c.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>smack1.c</td><td class="DESC">smack_create</td><td class="Q">376</td><td class="Q">1</td><td><a href="report-8b5b7d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8b5b7d.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>output.c</td><td class="DESC">duplicate_string</td><td class="Q">319</td><td class="Q">1</td><td><a href="report-8c1290.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8c1290.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-arp.c</td><td class="DESC">arp_resolve_sync</td><td class="Q">144</td><td class="Q">1</td><td><a href="report-930a7a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-930a7a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>proto-zeroaccess.c</td><td class="DESC">generate_getL</td><td class="Q">146</td><td class="Q">1</td><td><a href="report-953658.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-953658.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>templ-pkt.c</td><td class="DESC">template_set_target</td><td class="Q">587</td><td class="Q">1</td><td><a href="report-98a4f8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-98a4f8.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-arp.c</td><td class="DESC">arp_resolve_sync</td><td class="Q">150</td><td class="Q">1</td><td><a href="report-9fd898.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9fd898.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>main-conf.c</td><td class="DESC">masscan_set_parameter</td><td class="Q">1096</td><td class="Q">1</td><td><a href="report-a0ae6b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a0ae6b.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>proto-banout.c</td><td class="DESC">banout_append</td><td class="Q">269</td><td class="Q">1</td><td><a href="report-a22f1a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a22f1a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>templ-pkt.c</td><td class="DESC">template_set_vlan</td><td class="Q">1067</td><td class="Q">1</td><td><a href="report-a28d33.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a28d33.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-arp.c</td><td class="DESC">arp_resolve_sync</td><td class="Q">124</td><td class="Q">1</td><td><a href="report-a613ae.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a613ae.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>templ-pkt.c</td><td class="DESC">_template_init</td><td class="Q">837</td><td class="Q">1</td><td><a href="report-ab2615.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ab2615.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-pcapfile.c</td><td class="DESC">pcapfile_openappend</td><td class="Q">813</td><td class="Q">1</td><td><a href="report-adca54.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-adca54.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>main-conf.c</td><td class="DESC">masscan_set_parameter</td><td class="Q">1433</td><td class="Q">1</td><td><a href="report-b1bb84.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b1bb84.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>proto-banout.c</td><td class="DESC">banout_expand</td><td class="Q">215</td><td class="Q">1</td><td><a href="report-b2831a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b2831a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>in-report.c</td><td class="DESC">cndb_add</td><td class="Q">64</td><td class="Q">1</td><td><a href="report-b43a34.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b43a34.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>in-binary.c</td><td class="DESC">parse_status</td><td class="Q">53</td><td class="Q">1</td><td><a href="report-b69f9b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b69f9b.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>proto-preprocess.c</td><td class="DESC">preprocess_frame</td><td class="Q">472</td><td class="Q">1</td><td><a href="report-b8b67b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b8b67b.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>templ-pkt.c</td><td class="DESC">tcp_create_packet</td><td class="Q">433</td><td class="Q">1</td><td><a href="report-bb5d2b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bb5d2b.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>templ-pkt.c</td><td class="DESC">template_set_vlan</td><td class="Q">1068</td><td class="Q">1</td><td><a href="report-bc696a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bc696a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>main-conf.c</td><td class="DESC">masscan_set_parameter</td><td class="Q">1209</td><td class="Q">1</td><td><a href="report-c00b7e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c00b7e.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>templ-pkt.c</td><td class="DESC">_template_init</td><td class="Q">796</td><td class="Q">1</td><td><a href="report-c3c144.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c3c144.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>proto-memcached.c</td><td class="DESC">memcached_init</td><td class="Q">240</td><td class="Q">1</td><td><a href="report-d0d1d1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d0d1d1.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>templ-pkt.c</td><td class="DESC">udp_payload_fixup</td><td class="Q">526</td><td class="Q">1</td><td><a href="report-d9da8d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d9da8d.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-arp.c</td><td class="DESC">arp_response</td><td class="Q">329</td><td class="Q">1</td><td><a href="report-db2b06.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-db2b06.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>string_s.c</td><td class="DESC">localtime_s</td><td class="Q">91</td><td class="Q">1</td><td><a href="report-ddb350.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ddb350.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>main-initadapter.c</td><td class="DESC">masscan_initialize_adapter</td><td class="Q">156</td><td class="Q">1</td><td><a href="report-e51377.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e51377.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>main-initadapter.c</td><td class="DESC">masscan_initialize_adapter</td><td class="Q">95</td><td class="Q">1</td><td><a href="report-e59273.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e59273.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-arp.c</td><td class="DESC">arp_response</td><td class="Q">320</td><td class="Q">1</td><td><a href="report-e9b991.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e9b991.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-arp.c</td><td class="DESC">arp_response</td><td class="Q">318</td><td class="Q">1</td><td><a href="report-edbe72.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-edbe72.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>proto-memcached.c</td><td class="DESC">memcached_init</td><td class="Q">270</td><td class="Q">1</td><td><a href="report-ee3967.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ee3967.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>proto-tcp.c</td><td class="DESC">tcpcon_create_tcb</td><td class="Q">631</td><td class="Q">1</td><td><a href="report-f09016.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f09016.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>proto-http.c</td><td class="DESC">http_change_field</td><td class="Q">100</td><td class="Q">1</td><td><a href="report-f22e92.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f22e92.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>main-conf.c</td><td class="DESC">masscan_set_parameter</td><td class="Q">1404</td><td class="Q">1</td><td><a href="report-f3d618.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f3d618.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>rawsock-arp.c</td><td class="DESC">arp_resolve_sync</td><td class="Q">137</td><td class="Q">1</td><td><a href="report-f70099.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f70099.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>pixie-timer.c</td><td class="DESC">pixie_usleep</td><td class="Q">172</td><td class="Q">1</td><td><a href="report-fc8a12.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fc8a12.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>main-conf.c</td><td class="DESC">trim</td><td class="Q">2267</td><td class="Q">1</td><td><a href="report-079dda.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-079dda.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>templ-payloads.c</td><td class="DESC">trim</td><td class="Q">253</td><td class="Q">1</td><td><a href="report-199311.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-199311.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>proto-http.c</td><td class="DESC">http_change_field</td><td class="Q">83</td><td class="Q">1</td><td><a href="report-2a2d9a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2a2d9a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>templ-payloads.c</td><td class="DESC">payload_add</td><td class="Q">475</td><td class="Q">1</td><td><a href="report-2ef57b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2ef57b.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>ranges.c</td><td class="DESC">todo_remove_at</td><td class="Q">40</td><td class="Q">1</td><td><a href="report-3bd1ed.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3bd1ed.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>templ-payloads.c</td><td class="DESC">payloads_read_file</td><td class="Q">639</td><td class="Q">1</td><td><a href="report-4d9ba0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4d9ba0.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>proto-http.c</td><td class="DESC">http_change_field</td><td class="Q">94</td><td class="Q">1</td><td><a href="report-580156.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-580156.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>templ-payloads.c</td><td class="DESC">payloads_read_file</td><td class="Q">614</td><td class="Q">1</td><td><a href="report-6ceda2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6ceda2.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>proto-ssl.c</td><td class="DESC">ssl_add_cipherspec_sslv3</td><td class="Q">1160</td><td class="Q">1</td><td><a href="report-768665.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-768665.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>main-dedup.c</td><td class="DESC">dedup_is_duplicate</td><td class="Q">99</td><td class="Q">1</td><td><a href="report-7c2c9e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7c2c9e.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>templ-payloads.c</td><td class="DESC">payloads_read_file</td><td class="Q">627</td><td class="Q">1</td><td><a href="report-7fe955.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7fe955.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>templ-payloads.c</td><td class="DESC">payloads_read_file</td><td class="Q">645</td><td class="Q">1</td><td><a href="report-8ce725.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8ce725.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>proto-x509.c</td><td class="DESC">ASN1_push</td><td class="Q">365</td><td class="Q">1</td><td><a href="report-a70466.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a70466.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>ranges.c</td><td class="DESC">rangelist_add_range</td><td class="Q">133</td><td class="Q">1</td><td><a href="report-b1be0d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b1be0d.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>proto-ssl.c</td><td class="DESC">ssl_add_cipherspec_sslv3</td><td class="Q">1153</td><td class="Q">1</td><td><a href="report-b6e586.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b6e586.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>templ-pkt.c</td><td class="DESC">_template_init</td><td class="Q">905</td><td class="Q">1</td><td><a href="report-b738b6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b738b6.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>proto-x509.c</td><td class="DESC">ASN1_pop</td><td class="Q">386</td><td class="Q">1</td><td><a href="report-c68863.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c68863.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>proto-x509.c</td><td class="DESC">ASN1_push</td><td class="Q">360</td><td class="Q">1</td><td><a href="report-d26ff8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d26ff8.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memmove_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memmove'</td><td>proto-x509.c</td><td class="DESC">ASN1_pop</td><td class="Q">389</td><td class="Q">1</td><td><a href="report-f5bcaa.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f5bcaa.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>output.c</td><td class="DESC">close_rotate</td><td class="Q">243</td><td class="Q">1</td><td><a href="report-01f11f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-01f11f.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>ranges.c</td><td class="DESC">ranges_selftest</td><td class="Q">681</td><td class="Q">1</td><td><a href="report-03d835.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-03d835.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-ssl.c</td><td class="DESC">ssl_selftest</td><td class="Q">1380</td><td class="Q">1</td><td><a href="report-0998f0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0998f0.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>output.c</td><td class="DESC">output_create</td><td class="Q">387</td><td class="Q">1</td><td><a href="report-099e97.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-099e97.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-memcached.c</td><td class="DESC">memcached_udp_parse</td><td class="Q">364</td><td class="Q">1</td><td><a href="report-0cbc24.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0cbc24.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rawsock-pcapfile.c</td><td class="DESC">pcapfile_openappend</td><td class="Q">826</td><td class="Q">1</td><td><a href="report-13cd5a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-13cd5a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>smack1.c</td><td class="DESC">create_matches_table</td><td class="Q">421</td><td class="Q">1</td><td><a href="report-147263.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-147263.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>smackqueue.c</td><td class="DESC">queue_create</td><td class="Q">30</td><td class="Q">1</td><td><a href="report-1bc093.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1bc093.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-zeroaccess.c</td><td class="DESC">zeroaccess_selftest</td><td class="Q">290</td><td class="Q">1</td><td><a href="report-1c83fc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-1c83fc.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>templ-pkt.c</td><td class="DESC">_template_init</td><td class="Q">849</td><td class="Q">1</td><td><a href="report-20195a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-20195a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>ranges.c</td><td class="DESC">ranges_selftest</td><td class="Q">792</td><td class="Q">1</td><td><a href="report-215f33.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-215f33.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>string_s.c</td><td class="DESC">localtime_s</td><td class="Q">88</td><td class="Q">1</td><td><a href="report-237591.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-237591.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rawsock-getroute.c</td><td class="DESC">rawsock_get_default_gateway</td><td class="Q">371</td><td class="Q">1</td><td><a href="report-26561b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-26561b.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-x509.c</td><td class="DESC">x509_decode</td><td class="Q">676</td><td class="Q">1</td><td><a href="report-29d068.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-29d068.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>main-conf.c</td><td class="DESC">masscan_set_parameter</td><td class="Q">1049</td><td class="Q">1</td><td><a href="report-2d6ea0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2d6ea0.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>templ-payloads.c</td><td class="DESC">payloads_create</td><td class="Q">704</td><td class="Q">1</td><td><a href="report-2dd629.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2dd629.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rte-ring.c</td><td class="DESC">rte_ring_create</td><td class="Q">147</td><td class="Q">1</td><td><a href="report-30ea41.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-30ea41.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rawsock.c</td><td class="DESC">rawsock_init_adapter</td><td class="Q">632</td><td class="Q">1</td><td><a href="report-316f6a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-316f6a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>xring.c</td><td class="DESC">run_test</td><td class="Q">156</td><td class="Q">1</td><td><a href="report-3205f7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3205f7.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-ssl.c</td><td class="DESC">ssl_selftest</td><td class="Q">1317</td><td class="Q">1</td><td><a href="report-35a015.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-35a015.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rawsock-arp.c</td><td class="DESC">arp_response</td><td class="Q">269</td><td class="Q">1</td><td><a href="report-394a47.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-394a47.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-zeroaccess.c</td><td class="DESC">generate_getL</td><td class="Q">144</td><td class="Q">1</td><td><a href="report-3aa833.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3aa833.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>in-report.c</td><td class="DESC">cndb_add</td><td class="Q">58</td><td class="Q">1</td><td><a href="report-3daac2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3daac2.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>main-status.c</td><td class="DESC">status_start</td><td class="Q">186</td><td class="Q">1</td><td><a href="report-3e7334.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3e7334.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>main-throttle.c</td><td class="DESC">throttler_start</td><td class="Q">33</td><td class="Q">1</td><td><a href="report-3fb1af.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3fb1af.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rand-lcg.c</td><td class="DESC">lcg_verify</td><td class="Q">183</td><td class="Q">1</td><td><a href="report-4364e6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4364e6.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rawsock-arp.c</td><td class="DESC">arp_response</td><td class="Q">290</td><td class="Q">1</td><td><a href="report-43e548.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-43e548.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rawsock-getroute.c</td><td class="DESC">rawsock_get_default_gateway</td><td class="Q">335</td><td class="Q">1</td><td><a href="report-4415ba.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4415ba.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-x509.c</td><td class="DESC">x509_decode</td><td class="Q">937</td><td class="Q">1</td><td><a href="report-4d1417.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4d1417.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>ranges.c</td><td class="DESC">regress_pick2</td><td class="Q">559</td><td class="Q">1</td><td><a href="report-51a238.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-51a238.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-x509.c</td><td class="DESC">x509_decode</td><td class="Q">870</td><td class="Q">1</td><td><a href="report-53ac2a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-53ac2a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-snmp.c</td><td class="DESC">snmp_parse</td><td class="Q">310</td><td class="Q">1</td><td><a href="report-557780.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-557780.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rawsock-arp.c</td><td class="DESC">arp_resolve_sync</td><td class="Q">119</td><td class="Q">1</td><td><a href="report-561298.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-561298.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>in-binary.c</td><td class="DESC">parse_status</td><td class="Q">55</td><td class="Q">1</td><td><a href="report-57ef46.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-57ef46.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rand-blackrock.c</td><td class="DESC">blackrock_verify</td><td class="Q">308</td><td class="Q">1</td><td><a href="report-5b3254.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5b3254.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rawsock-getif.c</td><td class="DESC">rawsock_get_default_interface</td><td class="Q">311</td><td class="Q">1</td><td><a href="report-5cd008.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5cd008.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>ranges.c</td><td class="DESC">rangelist_remove_all</td><td class="Q">151</td><td class="Q">1</td><td><a href="report-5ed1ef.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5ed1ef.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>smack1.c</td><td class="DESC">smack_stage4_make_final_table</td><td class="Q">976</td><td class="Q">1</td><td><a href="report-6326be.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6326be.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rawsock-pcapfile.c</td><td class="DESC">pcapfile_openread</td><td class="Q">652</td><td class="Q">1</td><td><a href="report-63980a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-63980a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rawsock.c</td><td class="DESC">rawsock_selftest_if</td><td class="Q">927</td><td class="Q">1</td><td><a href="report-69301a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-69301a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-ssl.c</td><td class="DESC">parse_server_cert</td><td class="Q">426</td><td class="Q">1</td><td><a href="report-6a11e9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6a11e9.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-tcp.c</td><td class="DESC">tcpcon_create_tcb</td><td class="Q">628</td><td class="Q">1</td><td><a href="report-6ab751.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6ab751.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>templ-pkt.c</td><td class="DESC">_template_init</td><td class="Q">850</td><td class="Q">1</td><td><a href="report-71d322.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-71d322.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>templ-pkt.c</td><td class="DESC">_template_init</td><td class="Q">851</td><td class="Q">1</td><td><a href="report-7230ad.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7230ad.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-smtp.c</td><td class="DESC">smtp_parse</td><td class="Q">141</td><td class="Q">1</td><td><a href="report-75ef2c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-75ef2c.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>main.c</td><td class="DESC">main_scan</td><td class="Q">1058</td><td class="Q">1</td><td><a href="report-763c9c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-763c9c.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>main.c</td><td class="DESC">main</td><td class="Q">1478</td><td class="Q">1</td><td><a href="report-7a8e67.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7a8e67.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-banout.c</td><td class="DESC">banout_new_proto</td><td class="Q">192</td><td class="Q">1</td><td><a href="report-7a95ca.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7a95ca.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rawsock-pfring.c</td><td class="DESC">PFRING_init</td><td class="Q">88</td><td class="Q">1</td><td><a href="report-7bcf59.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7bcf59.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>out-binary.c</td><td class="DESC">binary_out_close</td><td class="Q">41</td><td class="Q">1</td><td><a href="report-7d501f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7d501f.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>templ-pkt.c</td><td class="DESC">tcp_create_packet</td><td class="Q">498</td><td class="Q">1</td><td><a href="report-7e899b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7e899b.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>templ-pkt.c</td><td class="DESC">_template_init</td><td class="Q">877</td><td class="Q">1</td><td><a href="report-7eca5d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7eca5d.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>crypto-blackrock2.c</td><td class="DESC">verify</td><td class="Q">456</td><td class="Q">1</td><td><a href="report-8200e0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8200e0.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rawsock-pcapfile.c</td><td class="DESC">pcapfile_openwrite</td><td class="Q">702</td><td class="Q">1</td><td><a href="report-895a55.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-895a55.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-tcp.c</td><td class="DESC">tcpcon_send_FIN</td><td class="Q">830</td><td class="Q">1</td><td><a href="report-896935.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-896935.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>templ-pkt.c</td><td class="DESC">_template_init</td><td class="Q">790</td><td class="Q">1</td><td><a href="report-8a5e77.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8a5e77.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rawsock-getif.c</td><td class="DESC">rawsock_get_default_interface</td><td class="Q">275</td><td class="Q">1</td><td><a href="report-8a81c5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8a81c5.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-banner1.c</td><td class="DESC">banner1_create</td><td class="Q">238</td><td class="Q">1</td><td><a href="report-8c0617.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8c0617.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>main-dedup.c</td><td class="DESC">dedup_create</td><td class="Q">40</td><td class="Q">1</td><td><a href="report-8eb2c8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8eb2c8.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-tcp.c</td><td class="DESC">tcpcon_set_parameter</td><td class="Q">321</td><td class="Q">1</td><td><a href="report-8f1afa.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8f1afa.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-ftp.c</td><td class="DESC">ftp_parse</td><td class="Q">95</td><td class="Q">1</td><td><a href="report-8f9ddc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8f9ddc.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>in-binary.c</td><td class="DESC">parse_status2</td><td class="Q">118</td><td class="Q">1</td><td><a href="report-934c14.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-934c14.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>templ-pkt.c</td><td class="DESC">_template_init</td><td class="Q">876</td><td class="Q">1</td><td><a href="report-93ea40.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-93ea40.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>string_s.c</td><td class="DESC">gmtime_s</td><td class="Q">101</td><td class="Q">1</td><td><a href="report-99c408.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-99c408.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>smack1.c</td><td class="DESC">create_intermediate_table</td><td class="Q">393</td><td class="Q">1</td><td><a href="report-a507bf.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a507bf.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>templ-pkt.c</td><td class="DESC">template_selftest</td><td class="Q">1094</td><td class="Q">1</td><td><a href="report-ad967e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ad967e.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>ranges.c</td><td class="DESC">ranges_selftest</td><td class="Q">742</td><td class="Q">1</td><td><a href="report-ae65c6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ae65c6.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-tcp.c</td><td class="DESC">tcpcon_create_table</td><td class="Q">372</td><td class="Q">1</td><td><a href="report-b7ae07.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b7ae07.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>templ-payloads.c</td><td class="DESC">payloads_read_file</td><td class="Q">603</td><td class="Q">1</td><td><a href="report-b845b5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b845b5.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>pixie-threads.c</td><td class="DESC">pixie_cpu_set_affinity</td><td class="Q">82</td><td class="Q">1</td><td><a href="report-bb03a3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bb03a3.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-x509.c</td><td class="DESC">x509_decode_init</td><td class="Q">1069</td><td class="Q">1</td><td><a href="report-bde364.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bde364.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-ssl.c</td><td class="DESC">ssl_selftest</td><td class="Q">1288</td><td class="Q">1</td><td><a href="report-bf1a34.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bf1a34.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>smack1.c</td><td class="DESC">smack_create</td><td class="Q">368</td><td class="Q">1</td><td><a href="report-c3ec73.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c3ec73.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-ssl.c</td><td class="DESC">ssl_selftest</td><td class="Q">1343</td><td class="Q">1</td><td><a href="report-ccba13.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ccba13.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-imap4.c</td><td class="DESC">imap4_parse</td><td class="Q">155</td><td class="Q">1</td><td><a href="report-dacc17.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-dacc17.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rawsock-arp.c</td><td class="DESC">arp_resolve_sync</td><td class="Q">115</td><td class="Q">1</td><td><a href="report-e37645.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e37645.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-banner1.c</td><td class="DESC">banner1_selftest</td><td class="Q">387</td><td class="Q">1</td><td><a href="report-ea937d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ea937d.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-pop3.c</td><td class="DESC">pop3_parse</td><td class="Q">119</td><td class="Q">1</td><td><a href="report-ef82e0.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-ef82e0.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-banner1.c</td><td class="DESC">banner1_selftest</td><td class="Q">416</td><td class="Q">1</td><td><a href="report-f2e13c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f2e13c.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-tcp.c</td><td class="DESC">tcpcon_create_table</td><td class="Q">407</td><td class="Q">1</td><td><a href="report-f51132.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f51132.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rawsock-pcapfile.c</td><td class="DESC">pcapfile_openread</td><td class="Q">551</td><td class="Q">1</td><td><a href="report-f52bb5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f52bb5.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>rte-ring.c</td><td class="DESC">run_test</td><td class="Q">342</td><td class="Q">1</td><td><a href="report-f5aa2a.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f5aa2a.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>proto-zeroaccess.c</td><td class="DESC">handle_zeroaccess</td><td class="Q">212</td><td class="Q">1</td><td><a href="report-f6468e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f6468e.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>templ-pkt.c</td><td class="DESC">_template_init</td><td class="Q">882</td><td class="Q">1</td><td><a href="report-f7d002.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f7d002.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>event-timeout.c</td><td class="DESC">timeouts_create</td><td class="Q">75</td><td class="Q">1</td><td><a href="report-f8716b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f8716b.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>out-binary.c</td><td class="DESC">binary_out_open</td><td class="Q">18</td><td class="Q">1</td><td><a href="report-f8dc47.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f8dc47.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>ranges.c</td><td class="DESC">regress_pick2</td><td class="Q">575</td><td class="Q">1</td><td><a href="report-f9523e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f9523e.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>pixie-backtrace.c</td><td class="DESC">pixie_backtrace_init</td><td class="Q">87</td><td class="Q">1</td><td><a href="report-0dec3b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-0dec3b.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>out-redis.c</td><td class="DESC">redis_out_status</td><td class="Q">213</td><td class="Q">1</td><td><a href="report-118ce1.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-118ce1.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>main.c</td><td class="DESC">receive_thread</td><td class="Q">663</td><td class="Q">1</td><td><a href="report-14bf73.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-14bf73.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>proto-ssl.c</td><td class="DESC">parse_alert</td><td class="Q">827</td><td class="Q">1</td><td><a href="report-14f428.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-14f428.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>proto-ssl.c</td><td class="DESC">parse_alert</td><td class="Q">837</td><td class="Q">1</td><td><a href="report-16dcac.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-16dcac.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>masscan-app.c</td><td class="DESC">masscan_app_to_string</td><td class="Q">40</td><td class="Q">1</td><td><a href="report-23a431.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-23a431.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>output.c</td><td class="DESC">indexed_filename</td><td class="Q">363</td><td class="Q">1</td><td><a href="report-287dfb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-287dfb.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>main-conf.c</td><td class="DESC">masscan_set_parameter</td><td class="Q">1011</td><td class="Q">1</td><td><a href="report-2c4761.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2c4761.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>output.c</td><td class="DESC">reason_string</td><td class="Q">103</td><td class="Q">1</td><td><a href="report-322345.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-322345.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>proto-tcp.c</td><td class="DESC">state_to_string</td><td class="Q">892</td><td class="Q">1</td><td><a href="report-3fcedc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3fcedc.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>main.c</td><td class="DESC">receive_thread</td><td class="Q">646</td><td class="Q">1</td><td><a href="report-46d9f2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-46d9f2.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>proto-zeroaccess.c</td><td class="DESC">handle_zeroaccess</td><td class="Q">241</td><td class="Q">1</td><td><a href="report-47da60.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-47da60.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>proto-ntp.c</td><td class="DESC">ntp_modlist_parse</td><td class="Q">125</td><td class="Q">1</td><td><a href="report-4b4cdc.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4b4cdc.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>pixie-backtrace.c</td><td class="DESC">handle_segfault</td><td class="Q">44</td><td class="Q">1</td><td><a href="report-4fe4d9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4fe4d9.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>out-redis.c</td><td class="DESC">redis_out_status</td><td class="Q">249</td><td class="Q">1</td><td><a href="report-51c931.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-51c931.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>main-ptrace.c</td><td class="DESC">packet_trace</td><td class="Q">46</td><td class="Q">1</td><td><a href="report-5676b3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5676b3.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>rawsock-pcapfile.c</td><td class="DESC">pcapfile_openread</td><td class="Q">655</td><td class="Q">1</td><td><a href="report-59088c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-59088c.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>proto-tcp.c</td><td class="DESC">what_to_string</td><td class="Q">914</td><td class="Q">1</td><td><a href="report-5c16e4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5c16e4.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>proto-vnc.c</td><td class="DESC">vnc_parse</td><td class="Q">280</td><td class="Q">1</td><td><a href="report-5cead4.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-5cead4.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>main-ptrace.c</td><td class="DESC">packet_trace</td><td class="Q">51</td><td class="Q">1</td><td><a href="report-602f42.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-602f42.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>main-conf.c</td><td class="DESC">masscan_echo_nic</td><td class="Q">241</td><td class="Q">1</td><td><a href="report-65f7de.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-65f7de.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>output.c</td><td class="DESC">output_do_rotate</td><td class="Q">577</td><td class="Q">1</td><td><a href="report-6c980d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-6c980d.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>main-ptrace.c</td><td class="DESC">packet_trace</td><td class="Q">64</td><td class="Q">1</td><td><a href="report-72c60f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-72c60f.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>out-redis.c</td><td class="DESC">redis_out_status</td><td class="Q">270</td><td class="Q">1</td><td><a href="report-76a9dd.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-76a9dd.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>out-redis.c</td><td class="DESC">redis_out_status</td><td class="Q">208</td><td class="Q">1</td><td><a href="report-82240d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-82240d.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>out-binary.c</td><td class="DESC">binary_out_open</td><td class="Q">19</td><td class="Q">1</td><td><a href="report-8d4d13.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-8d4d13.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>logger.c</td><td class="DESC">vLOGip</td><td class="Q">55</td><td class="Q">1</td><td><a href="report-9ccf9c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-9ccf9c.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>proto-snmp.c</td><td class="DESC">snmp_banner</td><td class="Q">278</td><td class="Q">1</td><td><a href="report-a34efb.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a34efb.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>out-binary.c</td><td class="DESC">binary_out_close</td><td class="Q">42</td><td class="Q">1</td><td><a href="report-a69fca.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a69fca.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>out-redis.c</td><td class="DESC">redis_out_status</td><td class="Q">272</td><td class="Q">1</td><td><a href="report-a6fcaf.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a6fcaf.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>main-conf.c</td><td class="DESC">masscan_set_parameter</td><td class="Q">1396</td><td class="Q">1</td><td><a href="report-a9ae10.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a9ae10.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>proto-ssl.c</td><td class="DESC">BANNER_CIPHER</td><td class="Q">74</td><td class="Q">1</td><td><a href="report-b29282.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b29282.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>proto-vnc.c</td><td class="DESC">vnc_parse</td><td class="Q">269</td><td class="Q">1</td><td><a href="report-bac857.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-bac857.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>proto-snmp.c</td><td class="DESC">snmp_banner_oid</td><td class="Q">248</td><td class="Q">1</td><td><a href="report-c31685.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c31685.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>rawsock-pcapfile.c</td><td class="DESC">pcapfile_openappend</td><td class="Q">828</td><td class="Q">1</td><td><a href="report-c47050.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c47050.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>proto-ntp.c</td><td class="DESC">ntp_modlist_parse</td><td class="Q">148</td><td class="Q">1</td><td><a href="report-c6d614.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c6d614.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>main.c</td><td class="DESC">receive_thread</td><td class="Q">654</td><td class="Q">1</td><td><a href="report-c826c8.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c826c8.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>rawsock-pcapfile.c</td><td class="DESC">pcapfile_openwrite</td><td class="Q">704</td><td class="Q">1</td><td><a href="report-c9b1ef.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-c9b1ef.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>out-redis.c</td><td class="DESC">redis_out_status</td><td class="Q">228</td><td class="Q">1</td><td><a href="report-cf7798.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-cf7798.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>output.c</td><td class="DESC">output_do_rotate</td><td class="Q">585</td><td class="Q">1</td><td><a href="report-d0ed1f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d0ed1f.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>proto-ssl.c</td><td class="DESC">BANNER_VERSION</td><td class="Q">112</td><td class="Q">1</td><td><a href="report-d1f0da.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d1f0da.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>proto-vnc.c</td><td class="DESC">vnc_append_sectype</td><td class="Q">85</td><td class="Q">1</td><td><a href="report-d4213b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-d4213b.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>main-ptrace.c</td><td class="DESC">packet_trace</td><td class="Q">93</td><td class="Q">1</td><td><a href="report-f3308c.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f3308c.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_snprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'snprintf'</td><td>rawsock-pcapfile.c</td><td class="DESC">pcapfile_openappend</td><td class="Q">796</td><td class="Q">1</td><td><a href="report-fd419f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-fd419f.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>proto-dns.c</td><td class="DESC">handle_dns</td><td class="Q">376</td><td class="Q">6</td><td><a href="report-143a0b.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-143a0b.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>templ-payloads.c</td><td class="DESC">partial_checksum</td><td class="Q">143</td><td class="Q">24</td><td><a href="report-7239c6.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7239c6.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>crypto-base64.c</td><td class="DESC">base64_decode</td><td class="Q">118</td><td class="Q">55</td><td><a href="report-944679.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-944679.html" -->
+</tr>
+<tr class="bt_logic_error_result_of_operation_is_garbage_or_undefined"><td class="DESC">Logic error</td><td class="DESC">Result of operation is garbage or undefined</td><td>crypto-base64.c</td><td class="DESC">base64_decode</td><td class="Q">124</td><td class="Q">57</td><td><a href="report-e33367.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e33367.html" -->
+</tr>
+<tr class="bt_unix_api_undefined_allocation_of_0_bytes_cert_mem04-c;_cwe-131_"><td class="DESC">Unix API</td><td class="DESC">Undefined allocation of 0 bytes (CERT MEM04-C; CWE-131)</td><td>smack1.c</td><td class="DESC">smack_stage4_make_final_table</td><td class="Q">971</td><td class="Q">14</td><td><a href="report-3e699d.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-3e699d.html" -->
+</tr>
+<tr class="bt_logic_error_uninitialized_argument_value"><td class="DESC">Logic error</td><td class="DESC">Uninitialized argument value</td><td>proto-dns.c</td><td class="DESC">proto_dns_parse</td><td class="Q">318</td><td class="Q">10</td><td><a href="report-2cfce2.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2cfce2.html" -->
+</tr>
+</tbody>
+</table>
+
+</body></html>

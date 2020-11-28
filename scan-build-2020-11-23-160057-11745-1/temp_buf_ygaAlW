@@ -1,0 +1,7 @@
+clang version 12.0.0 (https://github.com/llvm/llvm-project.git 65936fed1490dd1ef8d9a0a88b7d305b0840eb05)
+Target: x86_64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /llvm-project/build/bin
+clang-12: warning: optimization flag '-fno-strength-reduce' is not supported [-Wignored-optimization-argument]
+ (in-process)
+ "/llvm-project/build/bin/clang-12" "-cc1" "-triple" "x86_64-unknown-linux-gnu" "-fsyntax-only" "-disable-free" "-main-file-name" "eval.c" "-mrelocation-model" "static" "-mframe-pointer=none" "-fmath-errno" "-fno-rounding-math" "-mconstructor-aliases" "-munwind-tables" "-target-cpu" "x86-64" "-fno-split-dwarf-inlining" "-debugger-tuning=gdb" "-resource-dir" "/llvm-project/build/lib/clang/12.0.0" "-I" "." "-I" "proto" "-D" "HAVE_CONFIG_H" "-U" "_FORTIFY_SOURCE" "-D" "_FORTIFY_SOURCE=1" "-internal-isystem" "/usr/local/include" "-internal-isystem" "/llvm-project/build/lib/clang/12.0.0/include" "-internal-externc-isystem" "/usr/include/x86_64-linux-gnu" "-internal-externc-isystem" "/include" "-internal-externc-isystem" "/usr/include" "-O2" "-fdebug-compilation-dir" "/tmp/sslab_clang/c_vim/vim/src" "-ferror-limit" "19" "-fgnuc-version=4.2.1" "-vectorize-loops" "-vectorize-slp" "-faddrsig" "-x" "c" "eval.c"

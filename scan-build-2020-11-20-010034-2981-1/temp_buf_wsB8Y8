@@ -1,0 +1,26 @@
+In file included from lj_debug.c:12:
+./lj_buf.h:75:18: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+  return (char *)memcpy(p, q, len) + len;
+                 ^~~~~~
+lj_debug.c:323:5: warning: Call to function 'strncpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'strncpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+    strncpy(out, src+1, LUA_IDSIZE);  /* Remove first char. */
+    ^~~~~~~
+lj_debug.c:332:5: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+    strcpy(out, src);
+    ^~~~~~
+lj_debug.c:337:5: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+    strcpy(out, line == ~(BCLine)0 ? "[builtin:" : "[string \""); out += 9;
+    ^~~~~~
+lj_debug.c:340:7: warning: Call to function 'strncpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'strncpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+      strncpy(out, src, len); out += len;
+      ^~~~~~~
+lj_debug.c:341:7: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+      strcpy(out, "..."); out += 3;
+      ^~~~~~
+lj_debug.c:343:7: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+      strcpy(out, src); out += len;
+      ^~~~~~
+lj_debug.c:345:5: warning: Call to function 'strcpy' is insecure as it does not provide bounding of the memory buffer. Replace unbounded copy functions with analogous functions that support length arguments such as 'strlcpy'. CWE-119 [security.insecureAPI.strcpy]
+    strcpy(out, line == ~(BCLine)0 ? "]" : "\"]");
+    ^~~~~~
+8 warnings generated.

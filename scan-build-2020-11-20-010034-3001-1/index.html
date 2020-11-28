@@ -1,0 +1,156 @@
+<html>
+<head>
+<title>wrk3 - scan-build results</title>
+<link type="text/css" rel="stylesheet" href="scanview.css"/>
+<script src="sorttable.js"></script>
+<script language='javascript' type="text/javascript">
+function SetDisplay(RowClass, DisplayVal)
+{
+  var Rows = document.getElementsByTagName("tr");
+  for ( var i = 0 ; i < Rows.length; ++i ) {
+    if (Rows[i].className == RowClass) {
+      Rows[i].style.display = DisplayVal;
+    }
+  }
+}
+
+function CopyCheckedStateToCheckButtons(SummaryCheckButton) {
+  var Inputs = document.getElementsByTagName("input");
+  for ( var i = 0 ; i < Inputs.length; ++i ) {
+    if (Inputs[i].type == "checkbox") {
+      if(Inputs[i] != SummaryCheckButton) {
+        Inputs[i].checked = SummaryCheckButton.checked;
+        Inputs[i].onclick();
+      }
+    }
+  }
+}
+
+function returnObjById( id ) {
+    if (document.getElementById)
+        var returnVar = document.getElementById(id);
+    else if (document.all)
+        var returnVar = document.all[id];
+    else if (document.layers)
+        var returnVar = document.layers[id];
+    return returnVar;
+}
+
+var NumUnchecked = 0;
+
+function ToggleDisplay(CheckButton, ClassName) {
+  if (CheckButton.checked) {
+    SetDisplay(ClassName, "");
+    if (--NumUnchecked == 0) {
+      returnObjById("AllBugsCheck").checked = true;
+    }
+  }
+  else {
+    SetDisplay(ClassName, "none");
+    NumUnchecked++;
+    returnObjById("AllBugsCheck").checked = false;
+  }
+}
+</script>
+<!-- SUMMARYENDHEAD -->
+</head>
+<body>
+<h1>wrk3 - scan-build results</h1>
+
+<table>
+<tr><th>User:</th><td>root@57bc4409cbaf</td></tr>
+<tr><th>Working Directory:</th><td>/tmp/real/c_wrk/wrk3</td></tr>
+<tr><th>Command Line:</th><td>make</td></tr>
+<tr><th>Clang Version:</th><td>clang version 12.0.0 (https://github.com/llvm/llvm-project.git 65936fed1490dd1ef8d9a0a88b7d305b0840eb05)
+</td></tr>
+<tr><th>Date:</th><td>Fri Nov 20 01:00:34 2020</td></tr>
+</table>
+<h2>Bug Summary</h2><table>
+<thead><tr><td>Bug Type</td><td>Quantity</td><td class="sorttable_nosort">Display?</td></tr></thead>
+<tr style="font-weight:bold"><td class="SUMM_DESC">All Bugs</td><td class="Q">13</td><td><center><input type="checkbox" id="AllBugsCheck" onClick="CopyCheckedStateToCheckButtons(this);" checked/></center></td></tr>
+<tr><th>Security</th><th colspan=2></th></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td class="Q">2</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td class="Q">3</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td class="Q">1</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td class="Q">5</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_');" checked/></center></td></tr>
+<tr><td class="SUMM_DESC">Potential insecure memory buffer bounds restriction in call 'strncpy'</td><td class="Q">2</td><td><center><input type="checkbox" onClick="ToggleDisplay(this,'bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strncpy_');" checked/></center></td></tr>
+</table>
+<h2>Reports</h2>
+
+<table class="sortable" style="table-layout:automatic">
+<thead><tr>
+  <td>Bug Group</td>
+  <td class="sorttable_sorted">Bug Type<span id="sorttable_sortfwdind">&nbsp;&#x25BE;</span></td>
+  <td>File</td>
+  <td>Function/Method</td>
+  <td class="Q">Line</td>
+  <td class="Q">Path Length</td>
+  <td class="sorttable_nosort"></td>
+  <!-- REPORTBUGCOL -->
+</tr></thead>
+<tbody>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>lj_tab.c</td><td class="DESC">lj_tab_dup</td><td class="Q">179</td><td class="Q">1</td><td><a href="report-e53fab.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-e53fab.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memcpy'</td><td>lj_str.c</td><td class="DESC">lj_str_new</td><td class="Q">152</td><td class="Q">1</td><td><a href="report-f498df.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-f498df.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>host/buildvm_fold.c</td><td class="DESC">tryhash</td><td class="Q">22</td><td class="Q">1</td><td><a href="report-280cc3.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-280cc3.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>lj_state.c</td><td class="DESC">lj_state_newstate</td><td class="Q">188</td><td class="Q">1</td><td><a href="report-4fcb1f.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-4fcb1f.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_memset_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'memset'</td><td>lj_str.c</td><td class="DESC">lj_str_resize</td><td class="Q">76</td><td class="Q">1</td><td><a href="report-7c2105.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-7c2105.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_sprintf_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'sprintf'</td><td>lj_str.c</td><td class="DESC">lj_str_bufnum</td><td class="Q">180</td><td class="Q">1</td><td><a href="report-a36eed.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a36eed.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>lj_debug.c</td><td class="DESC">lj_debug_shortname</td><td class="Q">353</td><td class="Q">1</td><td><a href="report-02bb91.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-02bb91.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>lj_debug.c</td><td class="DESC">lj_debug_shortname</td><td class="Q">349</td><td class="Q">1</td><td><a href="report-148d4e.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-148d4e.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>lj_debug.c</td><td class="DESC">lj_debug_shortname</td><td class="Q">344</td><td class="Q">1</td><td><a href="report-2698e7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-2698e7.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>lj_debug.c</td><td class="DESC">lj_debug_shortname</td><td class="Q">355</td><td class="Q">1</td><td><a href="report-37e5f5.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-37e5f5.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strcpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strcpy'</td><td>lj_debug.c</td><td class="DESC">lj_debug_shortname</td><td class="Q">357</td><td class="Q">1</td><td><a href="report-a1b3a9.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-a1b3a9.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strncpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strncpy'</td><td>lj_debug.c</td><td class="DESC">lj_debug_shortname</td><td class="Q">352</td><td class="Q">1</td><td><a href="report-b355f7.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-b355f7.html" -->
+</tr>
+<tr class="bt_security_potential_insecure_memory_buffer_bounds_restriction_in_call_strncpy_"><td class="DESC">Security</td><td class="DESC">Potential insecure memory buffer bounds restriction in call 'strncpy'</td><td>lj_debug.c</td><td class="DESC">lj_debug_shortname</td><td class="Q">335</td><td class="Q">1</td><td><a href="report-dd2864.html#EndPath">View Report</a></td>
+<!-- REPORTBUG id="report-dd2864.html" -->
+</tr>
+</tbody>
+</table>
+
+<h2>Analyzer Failures</h2>
+<p>The analyzer had problems processing the following files:</p>
+<table>
+<thead><tr><td>Problem</td><td>Source File</td><td>Preprocessed File</td><td>STDERR Output</td></tr></thead>
+<tr><td>Crash</td><td>host/buildvm_peobj.c</td><td><a href="failures/clang_crash_80npvI.i">clang_crash_80npvI.i</a></td><td><a href="failures/clang_crash_80npvI.i.stderr.txt">clang_crash_80npvI.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="host/buildvm_peobj.c" file="failures/clang_crash_80npvI.i" clangfile="failures/clang_crash_80npvI.clang.i" stderr="failures/clang_crash_80npvI.i.stderr.txt" info="failures/clang_crash_80npvI.i.info.txt" -->
+<tr><td>Crash</td><td>host/buildvm_lib.c</td><td><a href="failures/clang_crash_KlsjnA.i">clang_crash_KlsjnA.i</a></td><td><a href="failures/clang_crash_KlsjnA.i.stderr.txt">clang_crash_KlsjnA.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="host/buildvm_lib.c" file="failures/clang_crash_KlsjnA.i" clangfile="failures/clang_crash_KlsjnA.clang.i" stderr="failures/clang_crash_KlsjnA.i.stderr.txt" info="failures/clang_crash_KlsjnA.i.info.txt" -->
+<tr><td>Crash</td><td>host/buildvm_asm.c</td><td><a href="failures/clang_crash_PGvqvt.i">clang_crash_PGvqvt.i</a></td><td><a href="failures/clang_crash_PGvqvt.i.stderr.txt">clang_crash_PGvqvt.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="host/buildvm_asm.c" file="failures/clang_crash_PGvqvt.i" clangfile="failures/clang_crash_PGvqvt.clang.i" stderr="failures/clang_crash_PGvqvt.i.stderr.txt" info="failures/clang_crash_PGvqvt.i.info.txt" -->
+<tr><td>Crash</td><td>host/buildvm.c</td><td><a href="failures/clang_crash_amwEtw.i">clang_crash_amwEtw.i</a></td><td><a href="failures/clang_crash_amwEtw.i.stderr.txt">clang_crash_amwEtw.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="host/buildvm.c" file="failures/clang_crash_amwEtw.i" clangfile="failures/clang_crash_amwEtw.clang.i" stderr="failures/clang_crash_amwEtw.i.stderr.txt" info="failures/clang_crash_amwEtw.i.info.txt" -->
+<tr><td>Crash</td><td>host/minilua.c</td><td><a href="failures/clang_crash_erSovk.i">clang_crash_erSovk.i</a></td><td><a href="failures/clang_crash_erSovk.i.stderr.txt">clang_crash_erSovk.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="host/minilua.c" file="failures/clang_crash_erSovk.i" clangfile="failures/clang_crash_erSovk.clang.i" stderr="failures/clang_crash_erSovk.i.stderr.txt" info="failures/clang_crash_erSovk.i.info.txt" -->
+<tr><td>Crash</td><td>lj_gc.c</td><td><a href="failures/clang_crash_iufS08.i">clang_crash_iufS08.i</a></td><td><a href="failures/clang_crash_iufS08.i.stderr.txt">clang_crash_iufS08.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="lj_gc.c" file="failures/clang_crash_iufS08.i" clangfile="failures/clang_crash_iufS08.clang.i" stderr="failures/clang_crash_iufS08.i.stderr.txt" info="failures/clang_crash_iufS08.i.info.txt" -->
+<tr><td>Crash</td><td>lj_err.c</td><td><a href="failures/clang_crash_m5megO.i">clang_crash_m5megO.i</a></td><td><a href="failures/clang_crash_m5megO.i.stderr.txt">clang_crash_m5megO.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="lj_err.c" file="failures/clang_crash_m5megO.i" clangfile="failures/clang_crash_m5megO.clang.i" stderr="failures/clang_crash_m5megO.i.stderr.txt" info="failures/clang_crash_m5megO.i.info.txt" -->
+<tr><td>Crash</td><td>lj_meta.c</td><td><a href="failures/clang_crash_tnjcXZ.i">clang_crash_tnjcXZ.i</a></td><td><a href="failures/clang_crash_tnjcXZ.i.stderr.txt">clang_crash_tnjcXZ.i.stderr.txt</a></td></tr>
+  <!-- REPORTPROBLEM src="lj_meta.c" file="failures/clang_crash_tnjcXZ.i" clangfile="failures/clang_crash_tnjcXZ.clang.i" stderr="failures/clang_crash_tnjcXZ.i.stderr.txt" info="failures/clang_crash_tnjcXZ.i.info.txt" -->
+</table>
+<p>Please consider submitting preprocessed files as <a href="http://clang-analyzer.llvm.org/filing_bugs.html">bug reports</a>. <!-- REPORTCRASHES --> </p>
+</body></html>

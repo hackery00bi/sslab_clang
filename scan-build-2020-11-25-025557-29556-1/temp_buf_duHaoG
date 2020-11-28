@@ -1,0 +1,4 @@
+CWE467_Use_of_sizeof_on_Pointer_Type__int_04.c:33:29: warning: Result of 'malloc' is converted to a pointer of type 'int', which is incompatible with sizeof operand type 'int *' [unix.MallocSizeof]
+            badInt = (int *)malloc(sizeof(badInt));
+                      ~~~~~ ^~~~~~ ~~~~~~~~~~~~~~
+1 warning generated.

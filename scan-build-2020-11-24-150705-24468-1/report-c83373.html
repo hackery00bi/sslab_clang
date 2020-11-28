@@ -1,0 +1,461 @@
+<!doctype html>
+<html>
+<head>
+<title>printf.c</title>
+
+<style type="text/css">
+body { color:#000000; background-color:#ffffff }
+body { font-family:Helvetica, sans-serif; font-size:10pt }
+h1 { font-size:14pt }
+.FileName { margin-top: 5px; margin-bottom: 5px; display: inline; }
+.FileNav { margin-left: 5px; margin-right: 5px; display: inline; }
+.FileNav a { text-decoration:none; font-size: larger; }
+.divider { margin-top: 30px; margin-bottom: 30px; height: 15px; }
+.divider { background-color: gray; }
+.code { border-collapse:collapse; width:100%; }
+.code { font-family: "Monospace", monospace; font-size:10pt }
+.code { line-height: 1.2em }
+.comment { color: green; font-style: oblique }
+.keyword { color: blue }
+.string_literal { color: red }
+.directive { color: darkmagenta }
+
+/* Macros and variables could have pop-up notes hidden by default.
+  - Macro pop-up:    expansion of the macro
+  - Variable pop-up: value (table) of the variable */
+.macro_popup, .variable_popup { display: none; }
+
+/* Pop-up appears on mouse-hover event. */
+.macro:hover .macro_popup, .variable:hover .variable_popup {
+  display: block;
+  padding: 2px;
+  -webkit-border-radius:5px;
+  -webkit-box-shadow:1px 1px 7px #000;
+  border-radius:5px;
+  box-shadow:1px 1px 7px #000;
+  position: absolute;
+  top: -1em;
+  left:10em;
+  z-index: 1
+}
+
+.macro_popup {
+  border: 2px solid red;
+  background-color:#FFF0F0;
+  font-weight: normal;
+}
+
+.variable_popup {
+  border: 2px solid blue;
+  background-color:#F0F0FF;
+  font-weight: bold;
+  font-family: Helvetica, sans-serif;
+  font-size: 9pt;
+}
+
+/* Pop-up notes needs a relative position as a base where they pops up. */
+.macro, .variable {
+  background-color: PaleGoldenRod;
+  position: relative;
+}
+.macro { color: DarkMagenta; }
+
+#tooltiphint {
+  position: fixed;
+  width: 50em;
+  margin-left: -25em;
+  left: 50%;
+  padding: 10px;
+  border: 1px solid #b0b0b0;
+  border-radius: 2px;
+  box-shadow: 1px 1px 7px black;
+  background-color: #c0c0c0;
+  z-index: 2;
+}
+
+.num { width:2.5em; padding-right:2ex; background-color:#eeeeee }
+.num { text-align:right; font-size:8pt }
+.num { color:#444444 }
+.line { padding-left: 1ex; border-left: 3px solid #ccc }
+.line { white-space: pre }
+.msg { -webkit-box-shadow:1px 1px 7px #000 }
+.msg { box-shadow:1px 1px 7px #000 }
+.msg { -webkit-border-radius:5px }
+.msg { border-radius:5px }
+.msg { font-family:Helvetica, sans-serif; font-size:8pt }
+.msg { float:left }
+.msg { padding:0.25em 1ex 0.25em 1ex }
+.msg { margin-top:10px; margin-bottom:10px }
+.msg { font-weight:bold }
+.msg { max-width:60em; word-wrap: break-word; white-space: pre-wrap }
+.msgT { padding:0x; spacing:0x }
+.msgEvent { background-color:#fff8b4; color:#000000 }
+.msgControl { background-color:#bbbbbb; color:#000000 }
+.msgNote { background-color:#ddeeff; color:#000000 }
+.mrange { background-color:#dfddf3 }
+.mrange { border-bottom:1px solid #6F9DBE }
+.PathIndex { font-weight: bold; padding:0px 5px; margin-right:5px; }
+.PathIndex { -webkit-border-radius:8px }
+.PathIndex { border-radius:8px }
+.PathIndexEvent { background-color:#bfba87 }
+.PathIndexControl { background-color:#8c8c8c }
+.PathIndexPopUp { background-color: #879abc; }
+.PathNav a { text-decoration:none; font-size: larger }
+.CodeInsertionHint { font-weight: bold; background-color: #10dd10 }
+.CodeRemovalHint { background-color:#de1010 }
+.CodeRemovalHint { border-bottom:1px solid #6F9DBE }
+.selected{ background-color:orange !important; }
+
+table.simpletable {
+  padding: 5px;
+  font-size:12pt;
+  margin:20px;
+  border-collapse: collapse; border-spacing: 0px;
+}
+td.rowname {
+  text-align: right;
+  vertical-align: top;
+  font-weight: bold;
+  color:#444444;
+  padding-right:2ex;
+}
+
+/* Hidden text. */
+input.spoilerhider + label {
+  cursor: pointer;
+  text-decoration: underline;
+  display: block;
+}
+input.spoilerhider {
+ display: none;
+}
+input.spoilerhider ~ .spoiler {
+  overflow: hidden;
+  margin: 10px auto 0;
+  height: 0;
+  opacity: 0;
+}
+input.spoilerhider:checked + label + .spoiler{
+  height: auto;
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+<!-- BUGDESC Call to function 'memmove' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memmove_s' in case of C11 -->
+
+<!-- BUGTYPE Potential insecure memory buffer bounds restriction in call 'memmove' -->
+
+<!-- BUGCATEGORY Security -->
+
+<!-- BUGFILE /tmp/sslab_clang/c_ruby/ruby/ext/-test-/printf/printf.c -->
+
+<!-- FILENAME printf.c -->
+
+<!-- FUNCTIONNAME uint_to_str -->
+
+<!-- ISSUEHASHCONTENTOFLINEINCONTEXT d80be0489ea4ad609a920dfad2cf0aa0 -->
+
+<!-- BUGLINE 30 -->
+
+<!-- BUGCOLUMN 5 -->
+
+<!-- BUGPATHLENGTH 1 -->
+
+<!-- BUGMETAEND -->
+<!-- REPORTHEADER -->
+<h3>Bug Summary</h3>
+<table class="simpletable">
+<tr><td class="rowname">File:</td><td>sslab_clang/c_ruby/ruby/ext/-test-/printf/printf.c</td></tr>
+<tr><td class="rowname">Warning:</td><td><a href="#EndPath">line 30, column 5</a><br />Call to function 'memmove' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memmove_s' in case of C11</td></tr>
+
+</table>
+<!-- REPORTSUMMARYEXTRA -->
+<h3>Annotated Source Code</h3>
+<p>Press <a href="#" onclick="toggleHelp(); return false;">'?'</a>
+   to see keyboard shortcuts</p>
+<input type="checkbox" class="spoilerhider" id="showinvocation" />
+<label for="showinvocation" >Show analyzer invocation</label>
+<div class="spoiler">clang -cc1 -cc1 -triple x86_64-unknown-linux-gnu -analyze -disable-free -main-file-name printf.c -analyzer-store=region -analyzer-opt-analyze-nested-blocks -analyzer-checker=core -analyzer-checker=apiModeling -analyzer-checker=unix -analyzer-checker=deadcode -analyzer-checker=security.insecureAPI.UncheckedReturn -analyzer-checker=security.insecureAPI.getpw -analyzer-checker=security.insecureAPI.gets -analyzer-checker=security.insecureAPI.mktemp -analyzer-checker=security.insecureAPI.mkstemp -analyzer-checker=security.insecureAPI.vfork -analyzer-checker=nullability.NullPassedToNonnull -analyzer-checker=nullability.NullReturnedFromNonnull -analyzer-output plist -w -setup-static-analyzer -mrelocation-model pic -pic-level 2 -mframe-pointer=none -fmath-errno -fno-rounding-math -mconstructor-aliases -munwind-tables -target-cpu x86-64 -fno-split-dwarf-inlining -debugger-tuning=gdb -resource-dir /llvm-project/build/lib/clang/12.0.0 -I . -I ../../../.ext/include/x86_64-linux -I ../../.././include -I ../../.././ext/-test-/printf -D RUBY_EXTCONF_H="extconf.h" -internal-isystem /usr/local/include -internal-isystem /llvm-project/build/lib/clang/12.0.0/include -internal-externc-isystem /usr/include/x86_64-linux-gnu -internal-externc-isystem /include -internal-externc-isystem /usr/include -O3 -Wwrite-strings -Wno-cast-function-type -Wno-constant-logical-operand -Wno-long-long -Wno-missing-field-initializers -Wno-overlength-strings -Wno-packed-bitfield-compat -Wno-parentheses-equality -Wno-self-assign -Wno-tautological-compare -Wno-unused-parameter -Wno-unused-value -fconst-strings -fdebug-compilation-dir /tmp/sslab_clang/c_ruby/ruby/ext/-test-/printf -ferror-limit 19 -fgnuc-version=4.2.1 -vectorize-loops -vectorize-slp -analyzer-checker core -analyzer-checker cplusplus -analyzer-checker nullability -analyzer-checker optin -analyzer-checker security -analyzer-checker unix -analyzer-checker osx -analyzer-checker fuchsia -analyzer-checker webkit -analyzer-output=html -faddrsig -o /tmp/scan-build-2020-11-24-150705-24468-1 -x c printf.c
+</div>
+<div id='tooltiphint' hidden="true">
+  <p>Keyboard shortcuts: </p>
+  <ul>
+    <li>Use 'j/k' keys for keyboard navigation</li>
+    <li>Use 'Shift+S' to show/hide relevant lines</li>
+    <li>Use '?' to toggle this window</li>
+  </ul>
+  <a href="#" onclick="toggleHelp(); return false;">Close</a>
+</div>
+<script type='text/javascript'>
+var relevant_lines = {"1": {"30": 1}};
+
+var filterCounterexample = function (hide) {
+  var tables = document.getElementsByClassName("code");
+  for (var t=0; t<tables.length; t++) {
+    var table = tables[t];
+    var file_id = table.getAttribute("data-fileid");
+    var lines_in_fid = relevant_lines[file_id];
+    if (!lines_in_fid) {
+      lines_in_fid = {};
+    }
+    var lines = table.getElementsByClassName("codeline");
+    for (var i=0; i<lines.length; i++) {
+        var el = lines[i];
+        var lineNo = el.getAttribute("data-linenumber");
+        if (!lines_in_fid[lineNo]) {
+          if (hide) {
+            el.setAttribute("hidden", "");
+          } else {
+            el.removeAttribute("hidden");
+          }
+        }
+    }
+  }
+}
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "S") {
+    var checked = document.getElementsByName("showCounterexample")[0].checked;
+    filterCounterexample(!checked);
+    document.getElementsByName("showCounterexample")[0].checked = !checked;
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.querySelector('input[name="showCounterexample"]').onchange=
+        function (event) {
+      filterCounterexample(this.checked);
+    };
+});
+</script>
+
+<form>
+    <input type="checkbox" name="showCounterexample" id="showCounterexample" />
+    <label for="showCounterexample">
+       Show only relevant lines
+    </label>
+</form>
+
+<script type='text/javascript'>
+var digitMatcher = new RegExp("[0-9]+");
+
+var querySelectorAllArray = function(selector) {
+  return Array.prototype.slice.call(
+    document.querySelectorAll(selector));
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    querySelectorAllArray(".PathNav > a").forEach(
+        function(currentValue, currentIndex) {
+            var hrefValue = currentValue.getAttribute("href");
+            currentValue.onclick = function() {
+                scrollTo(document.querySelector(hrefValue));
+                return false;
+            };
+        });
+});
+
+var findNum = function() {
+    var s = document.querySelector(".selected");
+    if (!s || s.id == "EndPath") {
+        return 0;
+    }
+    var out = parseInt(digitMatcher.exec(s.id)[0]);
+    return out;
+};
+
+var scrollTo = function(el) {
+    querySelectorAllArray(".selected").forEach(function(s) {
+        s.classList.remove("selected");
+    });
+    el.classList.add("selected");
+    window.scrollBy(0, el.getBoundingClientRect().top -
+        (window.innerHeight / 2));
+}
+
+var move = function(num, up, numItems) {
+  if (num == 1 && up || num == numItems - 1 && !up) {
+    return 0;
+  } else if (num == 0 && up) {
+    return numItems - 1;
+  } else if (num == 0 && !up) {
+    return 1 % numItems;
+  }
+  return up ? num - 1 : num + 1;
+}
+
+var numToId = function(num) {
+  if (num == 0) {
+    return document.getElementById("EndPath")
+  }
+  return document.getElementById("Path" + num);
+};
+
+var navigateTo = function(up) {
+  var numItems = document.querySelectorAll(
+      ".line > .msgEvent, .line > .msgControl").length;
+  var currentSelected = findNum();
+  var newSelected = move(currentSelected, up, numItems);
+  var newEl = numToId(newSelected, numItems);
+
+  // Scroll element into center.
+  scrollTo(newEl);
+};
+
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "j") {
+    navigateTo(/*up=*/false);
+  } else if (event.key == "k") {
+    navigateTo(/*up=*/true);
+  } else {
+    return;
+  }
+  event.preventDefault();
+}, true);
+</script>
+  
+<script type='text/javascript'>
+
+var toggleHelp = function() {
+    var hint = document.querySelector("#tooltiphint");
+    var attributeName = "hidden";
+    if (hint.hasAttribute(attributeName)) {
+      hint.removeAttribute(attributeName);
+    } else {
+      hint.setAttribute("hidden", "true");
+    }
+};
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return;
+  }
+  if (event.key == "?") {
+    toggleHelp();
+  } else {
+    return;
+  }
+  event.preventDefault();
+});
+</script>
+<table class="code" data-fileid="1">
+<tr class="codeline" data-linenumber="1"><td class="num" id="LN1">1</td><td class="line"><span class='directive'>#include &lt;ruby.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="2"><td class="num" id="LN2">2</td><td class="line"><span class='directive'>#include &lt;ruby/encoding.h&gt;</span></td></tr>
+<tr class="codeline" data-linenumber="3"><td class="num" id="LN3">3</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="4"><td class="num" id="LN4">4</td><td class="line"><span class='keyword'>static</span> VALUE</td></tr>
+<tr class="codeline" data-linenumber="5"><td class="num" id="LN5">5</td><td class="line">printf_test_s(VALUE self, VALUE obj)</td></tr>
+<tr class="codeline" data-linenumber="6"><td class="num" id="LN6">6</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="7"><td class="num" id="LN7">7</td><td class="line">    <span class='keyword'>return</span> rb_enc_sprintf(rb_usascii_encoding(), <span class='string_literal'>"&lt;%"</span><span class='macro'>PRIsVALUE<span class='macro_popup'>"l""i" "\v"</span></span><span class='string_literal'>"&gt;"</span>, obj);</td></tr>
+<tr class="codeline" data-linenumber="8"><td class="num" id="LN8">8</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="9"><td class="num" id="LN9">9</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="10"><td class="num" id="LN10">10</td><td class="line"><span class='keyword'>static</span> VALUE</td></tr>
+<tr class="codeline" data-linenumber="11"><td class="num" id="LN11">11</td><td class="line">printf_test_v(VALUE self, VALUE obj)</td></tr>
+<tr class="codeline" data-linenumber="12"><td class="num" id="LN12">12</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="13"><td class="num" id="LN13">13</td><td class="line">    <span class='keyword'>return</span> rb_enc_sprintf(rb_usascii_encoding(), <span class='string_literal'>"{%+"</span><span class='macro'>PRIsVALUE<span class='macro_popup'>"l""i" "\v"</span></span><span class='string_literal'>"}"</span>, obj);</td></tr>
+<tr class="codeline" data-linenumber="14"><td class="num" id="LN14">14</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="15"><td class="num" id="LN15">15</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="16"><td class="num" id="LN16">16</td><td class="line"><span class='keyword'>static</span> VALUE</td></tr>
+<tr class="codeline" data-linenumber="17"><td class="num" id="LN17">17</td><td class="line">printf_test_q(VALUE self, VALUE obj)</td></tr>
+<tr class="codeline" data-linenumber="18"><td class="num" id="LN18">18</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="19"><td class="num" id="LN19">19</td><td class="line">    <span class='keyword'>return</span> rb_enc_sprintf(rb_usascii_encoding(), <span class='string_literal'>"[% "</span><span class='macro'>PRIsVALUE<span class='macro_popup'>"l""i" "\v"</span></span><span class='string_literal'>"]"</span>, obj);</td></tr>
+<tr class="codeline" data-linenumber="20"><td class="num" id="LN20">20</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="21"><td class="num" id="LN21">21</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="22"><td class="num" id="LN22">22</td><td class="line"><span class='keyword'>static</span> <span class='keyword'>char</span> *</td></tr>
+<tr class="codeline" data-linenumber="23"><td class="num" id="LN23">23</td><td class="line">uint_to_str(<span class='keyword'>char</span> *p, <span class='keyword'>char</span> *e, <span class='keyword'>unsigned</span> <span class='keyword'>int</span> x)</td></tr>
+<tr class="codeline" data-linenumber="24"><td class="num" id="LN24">24</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="25"><td class="num" id="LN25">25</td><td class="line">    <span class='keyword'>char</span> *e0 = e;</td></tr>
+<tr class="codeline" data-linenumber="26"><td class="num" id="LN26">26</td><td class="line">    <span class='keyword'>if</span> (e &lt;= p) <span class='keyword'>return</span> p;</td></tr>
+<tr class="codeline" data-linenumber="27"><td class="num" id="LN27">27</td><td class="line">    <span class='keyword'>do</span> {</td></tr>
+<tr class="codeline" data-linenumber="28"><td class="num" id="LN28">28</td><td class="line">	*--e = x % 10 + '0';</td></tr>
+<tr class="codeline" data-linenumber="29"><td class="num" id="LN29">29</td><td class="line">    } <span class='keyword'>while</span> ((x /= 10) != 0 &amp;&amp; e &gt; p);</td></tr>
+<tr class="codeline" data-linenumber="30"><td class="num" id="LN30">30</td><td class="line">    <span class="mrange">memmove</span>(p, e, e0 - e);</td></tr>
+<tr><td class="num"></td><td class="line"><div id="EndPath" class="msg msgEvent" style="margin-left:5ex; max-width:59em">Call to function 'memmove' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memmove_s' in case of C11</div></td></tr>
+<tr class="codeline" data-linenumber="31"><td class="num" id="LN31">31</td><td class="line">    <span class='keyword'>return</span> p + (e0 - e);</td></tr>
+<tr class="codeline" data-linenumber="32"><td class="num" id="LN32">32</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="33"><td class="num" id="LN33">33</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="34"><td class="num" id="LN34">34</td><td class="line"><span class='keyword'>static</span> VALUE</td></tr>
+<tr class="codeline" data-linenumber="35"><td class="num" id="LN35">35</td><td class="line">printf_test_call(<span class='keyword'>int</span> argc, VALUE *argv, VALUE self)</td></tr>
+<tr class="codeline" data-linenumber="36"><td class="num" id="LN36">36</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="37"><td class="num" id="LN37">37</td><td class="line">    VALUE opt, type, num, result;</td></tr>
+<tr class="codeline" data-linenumber="38"><td class="num" id="LN38">38</td><td class="line">    <span class='keyword'>char</span> format[<span class='keyword'>sizeof</span>(<span class='keyword'>int</span>) * 6 + 8], *p = format, cnv;</td></tr>
+<tr class="codeline" data-linenumber="39"><td class="num" id="LN39">39</td><td class="line">    <span class='keyword'>int</span> n = 0;</td></tr>
+<tr class="codeline" data-linenumber="40"><td class="num" id="LN40">40</td><td class="line">    <span class='keyword'>const</span> <span class='keyword'>char</span> *s = 0;</td></tr>
+<tr class="codeline" data-linenumber="41"><td class="num" id="LN41">41</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="42"><td class="num" id="LN42">42</td><td class="line">    <span class='macro'>rb_scan_args(argc, argv, <span class='string_literal'>"2:"</span>, &amp;type, &amp;num, &amp;opt)<span class='macro_popup'>__builtin_choose_expr(__builtin_constant_p("2:"), rb_scan_args_set<br>(argc, argv, rb_scan_args_n_lead("2:"), rb_scan_args_n_opt("2:"<br>), rb_scan_args_n_trail("2:"), rb_scan_args_f_var("2:"), rb_scan_args_f_hash<br>("2:"), rb_scan_args_f_block("2:"), ((void)0, ((VALUE*[]){&amp;<br>type, &amp;num, &amp;opt})), (char *)"2:", (sizeof((VALUE*[])<br>{&amp;type, &amp;num, &amp;opt})/sizeof(VALUE*))), rb_scan_args<br>(argc,argv,"2:", &amp;type, &amp;num, &amp;opt))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="43"><td class="num" id="LN43">43</td><td class="line">    <span class='macro'>Check_Type(type, T_STRING)<span class='macro_popup'>rb_check_type((VALUE)(type),(RUBY_T_STRING))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="44"><td class="num" id="LN44">44</td><td class="line">    <span class='keyword'>if</span> (<span class='macro'>RSTRING_LEN(type)<span class='macro_popup'>(!(((struct RBasic*)(type))-&gt;flags &amp; RSTRING_NOEMBED) ?<br> (long)((((struct RBasic*)(type))-&gt;flags &gt;&gt; RSTRING_EMBED_LEN_SHIFT<br>) &amp; (RSTRING_EMBED_LEN_MASK &gt;&gt; RSTRING_EMBED_LEN_SHIFT<br>)) : ((struct RString*)(type))-&gt;as.heap.len)</span></span> != 1) rb_raise(rb_eArgError, <span class='string_literal'>"wrong length(%ld)"</span>, <span class='macro'>RSTRING_LEN(type)<span class='macro_popup'>(!(((struct RBasic*)(type))-&gt;flags &amp; RSTRING_NOEMBED) ?<br> (long)((((struct RBasic*)(type))-&gt;flags &gt;&gt; RSTRING_EMBED_LEN_SHIFT<br>) &amp; (RSTRING_EMBED_LEN_MASK &gt;&gt; RSTRING_EMBED_LEN_SHIFT<br>)) : ((struct RString*)(type))-&gt;as.heap.len)</span></span>);</td></tr>
+<tr class="codeline" data-linenumber="45"><td class="num" id="LN45">45</td><td class="line">    <span class='keyword'>switch</span> (cnv = <span class='macro'>RSTRING_PTR(type)<span class='macro_popup'>(!(((struct RBasic*)(type))-&gt;flags &amp; RSTRING_NOEMBED) ?<br> ((struct RString*)(type))-&gt;as.ary : ((struct RString*)(type<br>))-&gt;as.heap.ptr)</span></span>[0]) {</td></tr>
+<tr class="codeline" data-linenumber="46"><td class="num" id="LN46">46</td><td class="line">      <span class='keyword'>case</span> 'd': <span class='keyword'>case</span> 'x': <span class='keyword'>case</span> 'o': <span class='keyword'>case</span> 'X':</td></tr>
+<tr class="codeline" data-linenumber="47"><td class="num" id="LN47">47</td><td class="line">	n = <span class='macro'>NUM2INT(num)<span class='macro_popup'>rb_num2int_inline(num)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="48"><td class="num" id="LN48">48</td><td class="line">	<span class='keyword'>break</span>;</td></tr>
+<tr class="codeline" data-linenumber="49"><td class="num" id="LN49">49</td><td class="line">      <span class='keyword'>case</span> 's':</td></tr>
+<tr class="codeline" data-linenumber="50"><td class="num" id="LN50">50</td><td class="line">	s = <span class='macro'>StringValueCStr(num)<span class='macro_popup'>rb_string_value_cstr(&amp;(num))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="51"><td class="num" id="LN51">51</td><td class="line">	<span class='keyword'>break</span>;</td></tr>
+<tr class="codeline" data-linenumber="52"><td class="num" id="LN52">52</td><td class="line">      <span class='keyword'>default</span>: rb_raise(rb_eArgError, <span class='string_literal'>"wrong conversion(%c)"</span>, cnv);</td></tr>
+<tr class="codeline" data-linenumber="53"><td class="num" id="LN53">53</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="54"><td class="num" id="LN54">54</td><td class="line">    *p++ = '%';</td></tr>
+<tr class="codeline" data-linenumber="55"><td class="num" id="LN55">55</td><td class="line">    <span class='keyword'>if</span> (!<span class='macro'>NIL_P(opt)<span class='macro_popup'>!((VALUE)(opt) != ((VALUE)RUBY_Qnil))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="56"><td class="num" id="LN56">56</td><td class="line">	VALUE v;</td></tr>
+<tr class="codeline" data-linenumber="57"><td class="num" id="LN57">57</td><td class="line">	<span class='macro'>Check_Type(opt, T_HASH)<span class='macro_popup'>rb_check_type((VALUE)(opt),(RUBY_T_HASH))</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="58"><td class="num" id="LN58">58</td><td class="line">	<span class='keyword'>if</span> (<span class='macro'>RTEST(rb_hash_aref(opt, ID2SYM(rb_intern(<span class='string_literal'>"space"</span>))))<span class='macro_popup'>!(((VALUE)(rb_hash_aref(opt, (rb_id2sym((__builtin_constant_p<br>("space") ? __extension__ ({ static ID rb_intern_id_cache; if<br> (!rb_intern_id_cache) rb_intern_id_cache = rb_intern2((("space"<br>)), (long)strlen(("space"))); (ID) rb_intern_id_cache; }) : rb_intern<br>("space")))))) &amp; (VALUE)~((VALUE)RUBY_Qnil)) == 0)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="59"><td class="num" id="LN59">59</td><td class="line">	    *p++ = ' ';</td></tr>
+<tr class="codeline" data-linenumber="60"><td class="num" id="LN60">60</td><td class="line">	}</td></tr>
+<tr class="codeline" data-linenumber="61"><td class="num" id="LN61">61</td><td class="line">	<span class='keyword'>if</span> (<span class='macro'>RTEST(rb_hash_aref(opt, ID2SYM(rb_intern(<span class='string_literal'>"hash"</span>))))<span class='macro_popup'>!(((VALUE)(rb_hash_aref(opt, (rb_id2sym((__builtin_constant_p<br>("hash") ? __extension__ ({ static ID rb_intern_id_cache; if (<br>!rb_intern_id_cache) rb_intern_id_cache = rb_intern2((("hash"<br>)), (long)strlen(("hash"))); (ID) rb_intern_id_cache; }) : rb_intern<br>("hash")))))) &amp; (VALUE)~((VALUE)RUBY_Qnil)) == 0)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="62"><td class="num" id="LN62">62</td><td class="line">	    *p++ = '#';</td></tr>
+<tr class="codeline" data-linenumber="63"><td class="num" id="LN63">63</td><td class="line">	}</td></tr>
+<tr class="codeline" data-linenumber="64"><td class="num" id="LN64">64</td><td class="line">	<span class='keyword'>if</span> (<span class='macro'>RTEST(rb_hash_aref(opt, ID2SYM(rb_intern(<span class='string_literal'>"plus"</span>))))<span class='macro_popup'>!(((VALUE)(rb_hash_aref(opt, (rb_id2sym((__builtin_constant_p<br>("plus") ? __extension__ ({ static ID rb_intern_id_cache; if (<br>!rb_intern_id_cache) rb_intern_id_cache = rb_intern2((("plus"<br>)), (long)strlen(("plus"))); (ID) rb_intern_id_cache; }) : rb_intern<br>("plus")))))) &amp; (VALUE)~((VALUE)RUBY_Qnil)) == 0)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="65"><td class="num" id="LN65">65</td><td class="line">	    *p++ = '+';</td></tr>
+<tr class="codeline" data-linenumber="66"><td class="num" id="LN66">66</td><td class="line">	}</td></tr>
+<tr class="codeline" data-linenumber="67"><td class="num" id="LN67">67</td><td class="line">	<span class='keyword'>if</span> (<span class='macro'>RTEST(rb_hash_aref(opt, ID2SYM(rb_intern(<span class='string_literal'>"minus"</span>))))<span class='macro_popup'>!(((VALUE)(rb_hash_aref(opt, (rb_id2sym((__builtin_constant_p<br>("minus") ? __extension__ ({ static ID rb_intern_id_cache; if<br> (!rb_intern_id_cache) rb_intern_id_cache = rb_intern2((("minus"<br>)), (long)strlen(("minus"))); (ID) rb_intern_id_cache; }) : rb_intern<br>("minus")))))) &amp; (VALUE)~((VALUE)RUBY_Qnil)) == 0)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="68"><td class="num" id="LN68">68</td><td class="line">	    *p++ = '-';</td></tr>
+<tr class="codeline" data-linenumber="69"><td class="num" id="LN69">69</td><td class="line">	}</td></tr>
+<tr class="codeline" data-linenumber="70"><td class="num" id="LN70">70</td><td class="line">	<span class='keyword'>if</span> (<span class='macro'>RTEST(rb_hash_aref(opt, ID2SYM(rb_intern(<span class='string_literal'>"zero"</span>))))<span class='macro_popup'>!(((VALUE)(rb_hash_aref(opt, (rb_id2sym((__builtin_constant_p<br>("zero") ? __extension__ ({ static ID rb_intern_id_cache; if (<br>!rb_intern_id_cache) rb_intern_id_cache = rb_intern2((("zero"<br>)), (long)strlen(("zero"))); (ID) rb_intern_id_cache; }) : rb_intern<br>("zero")))))) &amp; (VALUE)~((VALUE)RUBY_Qnil)) == 0)</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="71"><td class="num" id="LN71">71</td><td class="line">	    *p++ = '0';</td></tr>
+<tr class="codeline" data-linenumber="72"><td class="num" id="LN72">72</td><td class="line">	}</td></tr>
+<tr class="codeline" data-linenumber="73"><td class="num" id="LN73">73</td><td class="line">	<span class='keyword'>if</span> (!<span class='macro'>NIL_P(v = rb_hash_aref(opt, ID2SYM(rb_intern(<span class='string_literal'>"width"</span>))))<span class='macro_popup'>!((VALUE)(v = rb_hash_aref(opt, (rb_id2sym((__builtin_constant_p<br>("width") ? __extension__ ({ static ID rb_intern_id_cache; if<br> (!rb_intern_id_cache) rb_intern_id_cache = rb_intern2((("width"<br>)), (long)strlen(("width"))); (ID) rb_intern_id_cache; }) : rb_intern<br>("width")))))) != ((VALUE)RUBY_Qnil))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="74"><td class="num" id="LN74">74</td><td class="line">	    p = uint_to_str(p, format + <span class='keyword'>sizeof</span>(format), <span class='macro'>NUM2UINT(v)<span class='macro_popup'>((unsigned int)rb_num2uint(v))</span></span>);</td></tr>
+<tr class="codeline" data-linenumber="75"><td class="num" id="LN75">75</td><td class="line">	}</td></tr>
+<tr class="codeline" data-linenumber="76"><td class="num" id="LN76">76</td><td class="line">	<span class='keyword'>if</span> (!<span class='macro'>NIL_P(v = rb_hash_aref(opt, ID2SYM(rb_intern(<span class='string_literal'>"prec"</span>))))<span class='macro_popup'>!((VALUE)(v = rb_hash_aref(opt, (rb_id2sym((__builtin_constant_p<br>("prec") ? __extension__ ({ static ID rb_intern_id_cache; if (<br>!rb_intern_id_cache) rb_intern_id_cache = rb_intern2((("prec"<br>)), (long)strlen(("prec"))); (ID) rb_intern_id_cache; }) : rb_intern<br>("prec")))))) != ((VALUE)RUBY_Qnil))</span></span>) {</td></tr>
+<tr class="codeline" data-linenumber="77"><td class="num" id="LN77">77</td><td class="line">	    *p++ = '.';</td></tr>
+<tr class="codeline" data-linenumber="78"><td class="num" id="LN78">78</td><td class="line">	    <span class='keyword'>if</span> (<span class='macro'>FIXNUM_P(v)<span class='macro_popup'>(((int)(long)(v))&amp;RUBY_FIXNUM_FLAG)</span></span>)</td></tr>
+<tr class="codeline" data-linenumber="79"><td class="num" id="LN79">79</td><td class="line">		p = uint_to_str(p, format + <span class='keyword'>sizeof</span>(format), <span class='macro'>NUM2UINT(v)<span class='macro_popup'>((unsigned int)rb_num2uint(v))</span></span>);</td></tr>
+<tr class="codeline" data-linenumber="80"><td class="num" id="LN80">80</td><td class="line">	}</td></tr>
+<tr class="codeline" data-linenumber="81"><td class="num" id="LN81">81</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="82"><td class="num" id="LN82">82</td><td class="line">    *p++ = cnv;</td></tr>
+<tr class="codeline" data-linenumber="83"><td class="num" id="LN83">83</td><td class="line">    *p++ = '\0';</td></tr>
+<tr class="codeline" data-linenumber="84"><td class="num" id="LN84">84</td><td class="line">    <span class='keyword'>if</span> (cnv == 's') {</td></tr>
+<tr class="codeline" data-linenumber="85"><td class="num" id="LN85">85</td><td class="line">	result = rb_enc_sprintf(rb_usascii_encoding(), format, s);</td></tr>
+<tr class="codeline" data-linenumber="86"><td class="num" id="LN86">86</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="87"><td class="num" id="LN87">87</td><td class="line">    <span class='keyword'>else</span> {</td></tr>
+<tr class="codeline" data-linenumber="88"><td class="num" id="LN88">88</td><td class="line">	result = rb_enc_sprintf(rb_usascii_encoding(), format, n);</td></tr>
+<tr class="codeline" data-linenumber="89"><td class="num" id="LN89">89</td><td class="line">    }</td></tr>
+<tr class="codeline" data-linenumber="90"><td class="num" id="LN90">90</td><td class="line">    <span class='keyword'>return</span> rb_assoc_new(result, <span class='macro'>rb_usascii_str_new_cstr(format)<span class='macro_popup'>__extension__ ({ (__builtin_constant_p(format)) ? rb_usascii_str_new_static<br>((format), (long)strlen(format)) : rb_usascii_str_new_cstr(format<br>); })</span></span>);</td></tr>
+<tr class="codeline" data-linenumber="91"><td class="num" id="LN91">91</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="92"><td class="num" id="LN92">92</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="93"><td class="num" id="LN93">93</td><td class="line"><span class='keyword'>static</span> VALUE</td></tr>
+<tr class="codeline" data-linenumber="94"><td class="num" id="LN94">94</td><td class="line">snprintf_count(VALUE self, VALUE str)</td></tr>
+<tr class="codeline" data-linenumber="95"><td class="num" id="LN95">95</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="96"><td class="num" id="LN96">96</td><td class="line">    <span class='keyword'>int</span> n = ruby_snprintf(<span class='macro'>NULL<span class='macro_popup'>((void*)0)</span></span>, 0, <span class='string_literal'>"%s"</span>, <span class='macro'>StringValueCStr(str)<span class='macro_popup'>rb_string_value_cstr(&amp;(str))</span></span>);</td></tr>
+<tr class="codeline" data-linenumber="97"><td class="num" id="LN97">97</td><td class="line">    <span class='keyword'>return</span> <span class='macro'>INT2FIX(n)<span class='macro_popup'>(((VALUE)(n))&lt;&lt;1 | RUBY_FIXNUM_FLAG)</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="98"><td class="num" id="LN98">98</td><td class="line">}</td></tr>
+<tr class="codeline" data-linenumber="99"><td class="num" id="LN99">99</td><td class="line"> </td></tr>
+<tr class="codeline" data-linenumber="100"><td class="num" id="LN100">100</td><td class="line"><span class='keyword'>void</span></td></tr>
+<tr class="codeline" data-linenumber="101"><td class="num" id="LN101">101</td><td class="line">Init_printf(<span class='keyword'>void</span>)</td></tr>
+<tr class="codeline" data-linenumber="102"><td class="num" id="LN102">102</td><td class="line">{</td></tr>
+<tr class="codeline" data-linenumber="103"><td class="num" id="LN103">103</td><td class="line">    VALUE m = rb_define_module_under(rb_define_module(<span class='string_literal'>"Bug"</span>), <span class='string_literal'>"Printf"</span>);</td></tr>
+<tr class="codeline" data-linenumber="104"><td class="num" id="LN104">104</td><td class="line">    <span class='macro'>rb_define_singleton_method(m, <span class='string_literal'>"s"</span>, printf_test_s, 1)<span class='macro_popup'>__builtin_choose_expr(__builtin_choose_expr(__builtin_constant_p<br>(__builtin_types_compatible_p(__typeof__((printf_test_s)),__typeof__<br>(rb_f_notimplement))),(__builtin_types_compatible_p(__typeof__<br>((printf_test_s)),__typeof__(rb_f_notimplement))),0),(rb_define_singleton_methodm3<br>),(__builtin_choose_expr(__builtin_choose_expr(__builtin_constant_p<br>(((1))==-2),(((1))==-2),0),(rb_define_singleton_methodm2),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==-1),(((1))<br>==-1),0),(rb_define_singleton_methodm1),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 0),(((1))<br>== 0),0),(rb_define_singleton_method0),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 1),(((1))<br>== 1),0),(rb_define_singleton_method1),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 2),(((1))<br>== 2),0),(rb_define_singleton_method2),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 3),(((1))<br>== 3),0),(rb_define_singleton_method3),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 4),(((1))<br>== 4),0),(rb_define_singleton_method4),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 5),(((1))<br>== 5),0),(rb_define_singleton_method5),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 6),(((1))<br>== 6),0),(rb_define_singleton_method6),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 7),(((1))<br>== 7),0),(rb_define_singleton_method7),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 8),(((1))<br>== 8),0),(rb_define_singleton_method8),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 9),(((1))<br>== 9),0),(rb_define_singleton_method9),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==10),(((1))<br>==10),0),(rb_define_singleton_method10),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==11),(((1))<br>==11),0),(rb_define_singleton_method11),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==12),(((1))<br>==12),0),(rb_define_singleton_method12),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==13),(((1))<br>==13),0),(rb_define_singleton_method13),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==14),(((1))<br>==14),0),(rb_define_singleton_method14),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==15),(((1))<br>==15),0),(rb_define_singleton_method15),(rb_define_singleton_methodm3<br>))))))))))))))))))))))))))))))))))))))((m),("s"),(printf_test_s<br>),(1));</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="105"><td class="num" id="LN105">105</td><td class="line">    <span class='macro'>rb_define_singleton_method(m, <span class='string_literal'>"v"</span>, printf_test_v, 1)<span class='macro_popup'>__builtin_choose_expr(__builtin_choose_expr(__builtin_constant_p<br>(__builtin_types_compatible_p(__typeof__((printf_test_v)),__typeof__<br>(rb_f_notimplement))),(__builtin_types_compatible_p(__typeof__<br>((printf_test_v)),__typeof__(rb_f_notimplement))),0),(rb_define_singleton_methodm3<br>),(__builtin_choose_expr(__builtin_choose_expr(__builtin_constant_p<br>(((1))==-2),(((1))==-2),0),(rb_define_singleton_methodm2),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==-1),(((1))<br>==-1),0),(rb_define_singleton_methodm1),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 0),(((1))<br>== 0),0),(rb_define_singleton_method0),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 1),(((1))<br>== 1),0),(rb_define_singleton_method1),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 2),(((1))<br>== 2),0),(rb_define_singleton_method2),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 3),(((1))<br>== 3),0),(rb_define_singleton_method3),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 4),(((1))<br>== 4),0),(rb_define_singleton_method4),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 5),(((1))<br>== 5),0),(rb_define_singleton_method5),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 6),(((1))<br>== 6),0),(rb_define_singleton_method6),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 7),(((1))<br>== 7),0),(rb_define_singleton_method7),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 8),(((1))<br>== 8),0),(rb_define_singleton_method8),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 9),(((1))<br>== 9),0),(rb_define_singleton_method9),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==10),(((1))<br>==10),0),(rb_define_singleton_method10),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==11),(((1))<br>==11),0),(rb_define_singleton_method11),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==12),(((1))<br>==12),0),(rb_define_singleton_method12),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==13),(((1))<br>==13),0),(rb_define_singleton_method13),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==14),(((1))<br>==14),0),(rb_define_singleton_method14),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==15),(((1))<br>==15),0),(rb_define_singleton_method15),(rb_define_singleton_methodm3<br>))))))))))))))))))))))))))))))))))))))((m),("v"),(printf_test_v<br>),(1));</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="106"><td class="num" id="LN106">106</td><td class="line">    <span class='macro'>rb_define_singleton_method(m, <span class='string_literal'>"q"</span>, printf_test_q, 1)<span class='macro_popup'>__builtin_choose_expr(__builtin_choose_expr(__builtin_constant_p<br>(__builtin_types_compatible_p(__typeof__((printf_test_q)),__typeof__<br>(rb_f_notimplement))),(__builtin_types_compatible_p(__typeof__<br>((printf_test_q)),__typeof__(rb_f_notimplement))),0),(rb_define_singleton_methodm3<br>),(__builtin_choose_expr(__builtin_choose_expr(__builtin_constant_p<br>(((1))==-2),(((1))==-2),0),(rb_define_singleton_methodm2),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==-1),(((1))<br>==-1),0),(rb_define_singleton_methodm1),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 0),(((1))<br>== 0),0),(rb_define_singleton_method0),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 1),(((1))<br>== 1),0),(rb_define_singleton_method1),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 2),(((1))<br>== 2),0),(rb_define_singleton_method2),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 3),(((1))<br>== 3),0),(rb_define_singleton_method3),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 4),(((1))<br>== 4),0),(rb_define_singleton_method4),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 5),(((1))<br>== 5),0),(rb_define_singleton_method5),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 6),(((1))<br>== 6),0),(rb_define_singleton_method6),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 7),(((1))<br>== 7),0),(rb_define_singleton_method7),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 8),(((1))<br>== 8),0),(rb_define_singleton_method8),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 9),(((1))<br>== 9),0),(rb_define_singleton_method9),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==10),(((1))<br>==10),0),(rb_define_singleton_method10),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==11),(((1))<br>==11),0),(rb_define_singleton_method11),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==12),(((1))<br>==12),0),(rb_define_singleton_method12),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==13),(((1))<br>==13),0),(rb_define_singleton_method13),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==14),(((1))<br>==14),0),(rb_define_singleton_method14),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==15),(((1))<br>==15),0),(rb_define_singleton_method15),(rb_define_singleton_methodm3<br>))))))))))))))))))))))))))))))))))))))((m),("q"),(printf_test_q<br>),(1));</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="107"><td class="num" id="LN107">107</td><td class="line">    <span class='macro'>rb_define_singleton_method(m, <span class='string_literal'>"call"</span>, printf_test_call, -1)<span class='macro_popup'>__builtin_choose_expr(__builtin_choose_expr(__builtin_constant_p<br>(__builtin_types_compatible_p(__typeof__((printf_test_call)),<br>__typeof__(rb_f_notimplement))),(__builtin_types_compatible_p<br>(__typeof__((printf_test_call)),__typeof__(rb_f_notimplement)<br>)),0),(rb_define_singleton_methodm3),(__builtin_choose_expr(__builtin_choose_expr<br>(__builtin_constant_p(((-1))==-2),(((-1))==-2),0),(rb_define_singleton_methodm2<br>),(__builtin_choose_expr(__builtin_choose_expr(__builtin_constant_p<br>(((-1))==-1),(((-1))==-1),0),(rb_define_singleton_methodm1),(<br>__builtin_choose_expr(__builtin_choose_expr(__builtin_constant_p<br>(((-1))== 0),(((-1))== 0),0),(rb_define_singleton_method0),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((-1))== 1),(((-1<br>))== 1),0),(rb_define_singleton_method1),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((-1))== 2),(((-1<br>))== 2),0),(rb_define_singleton_method2),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((-1))== 3),(((-1<br>))== 3),0),(rb_define_singleton_method3),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((-1))== 4),(((-1<br>))== 4),0),(rb_define_singleton_method4),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((-1))== 5),(((-1<br>))== 5),0),(rb_define_singleton_method5),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((-1))== 6),(((-1<br>))== 6),0),(rb_define_singleton_method6),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((-1))== 7),(((-1<br>))== 7),0),(rb_define_singleton_method7),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((-1))== 8),(((-1<br>))== 8),0),(rb_define_singleton_method8),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((-1))== 9),(((-1<br>))== 9),0),(rb_define_singleton_method9),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((-1))==10),(((-1<br>))==10),0),(rb_define_singleton_method10),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((-1))==11),(((-1<br>))==11),0),(rb_define_singleton_method11),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((-1))==12),(((-1<br>))==12),0),(rb_define_singleton_method12),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((-1))==13),(((-1<br>))==13),0),(rb_define_singleton_method13),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((-1))==14),(((-1<br>))==14),0),(rb_define_singleton_method14),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((-1))==15),(((-1<br>))==15),0),(rb_define_singleton_method15),(rb_define_singleton_methodm3<br>))))))))))))))))))))))))))))))))))))))((m),("call"),(printf_test_call<br>),(-1));</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="108"><td class="num" id="LN108">108</td><td class="line">    <span class='macro'>rb_define_singleton_method(m, <span class='string_literal'>"sncount"</span>, snprintf_count, 1)<span class='macro_popup'>__builtin_choose_expr(__builtin_choose_expr(__builtin_constant_p<br>(__builtin_types_compatible_p(__typeof__((snprintf_count)),__typeof__<br>(rb_f_notimplement))),(__builtin_types_compatible_p(__typeof__<br>((snprintf_count)),__typeof__(rb_f_notimplement))),0),(rb_define_singleton_methodm3<br>),(__builtin_choose_expr(__builtin_choose_expr(__builtin_constant_p<br>(((1))==-2),(((1))==-2),0),(rb_define_singleton_methodm2),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==-1),(((1))<br>==-1),0),(rb_define_singleton_methodm1),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 0),(((1))<br>== 0),0),(rb_define_singleton_method0),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 1),(((1))<br>== 1),0),(rb_define_singleton_method1),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 2),(((1))<br>== 2),0),(rb_define_singleton_method2),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 3),(((1))<br>== 3),0),(rb_define_singleton_method3),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 4),(((1))<br>== 4),0),(rb_define_singleton_method4),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 5),(((1))<br>== 5),0),(rb_define_singleton_method5),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 6),(((1))<br>== 6),0),(rb_define_singleton_method6),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 7),(((1))<br>== 7),0),(rb_define_singleton_method7),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 8),(((1))<br>== 8),0),(rb_define_singleton_method8),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))== 9),(((1))<br>== 9),0),(rb_define_singleton_method9),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==10),(((1))<br>==10),0),(rb_define_singleton_method10),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==11),(((1))<br>==11),0),(rb_define_singleton_method11),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==12),(((1))<br>==12),0),(rb_define_singleton_method12),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==13),(((1))<br>==13),0),(rb_define_singleton_method13),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==14),(((1))<br>==14),0),(rb_define_singleton_method14),(__builtin_choose_expr<br>(__builtin_choose_expr(__builtin_constant_p(((1))==15),(((1))<br>==15),0),(rb_define_singleton_method15),(rb_define_singleton_methodm3<br>))))))))))))))))))))))))))))))))))))))((m),("sncount"),(snprintf_count<br>),(1));</span></span>;</td></tr>
+<tr class="codeline" data-linenumber="109"><td class="num" id="LN109">109</td><td class="line">}</td></tr>
+</table></body></html>

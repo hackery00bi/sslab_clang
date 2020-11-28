@@ -1,0 +1,13 @@
+sizes.c:175:17: error: GNU decimal type extension not supported
+    DEFINE_SIZE(_Decimal32);
+                ^
+sizes.c:178:17: error: GNU decimal type extension not supported
+    DEFINE_SIZE(_Decimal64);
+                ^
+sizes.c:181:17: error: GNU decimal type extension not supported
+    DEFINE_SIZE(_Decimal128);
+                ^
+sizes.c:190:17: error: use of undeclared identifier '__float80'
+    DEFINE_SIZE(__float80);
+                ^
+4 errors generated.

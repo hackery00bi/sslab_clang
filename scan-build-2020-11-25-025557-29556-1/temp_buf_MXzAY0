@@ -1,0 +1,4 @@
+CWE467_Use_of_sizeof_on_Pointer_Type__char_02.c:27:31: warning: Result of 'malloc' is converted to a pointer of type 'char', which is incompatible with sizeof operand type 'char *' [unix.MallocSizeof]
+            badChar = (char *)malloc(sizeof(badChar));
+                       ~~~~~~ ^~~~~~ ~~~~~~~~~~~~~~~
+1 warning generated.

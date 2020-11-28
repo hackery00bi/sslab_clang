@@ -1,0 +1,171 @@
+In file included from add-patch.c:1:
+In file included from ./cache.h:4:
+./git-compat-util.h:896:3: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+                memcpy(dst, src, st_mult(size, n));
+                ^~~~~~
+./git-compat-util.h:904:3: warning: Call to function 'memmove' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memmove_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+                memmove(dst, src, st_mult(size, n));
+                ^~~~~~~
+In file included from add-patch.c:1:
+In file included from ./cache.h:5:
+./strbuf.h:127:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        SWAP(*a, *b);
+        ^~~~~~~~~~~~
+./git-compat-util.h:607:2: note: expanded from macro 'SWAP'
+        memcpy(_swap_buffer, _swap_a_ptr, sizeof(a));           \
+        ^~~~~~
+In file included from add-patch.c:1:
+In file included from ./cache.h:5:
+./strbuf.h:127:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        SWAP(*a, *b);
+        ^~~~~~~~~~~~
+./git-compat-util.h:608:2: note: expanded from macro 'SWAP'
+        memcpy(_swap_a_ptr, _swap_b_ptr, sizeof(a) +            \
+        ^~~~~~
+In file included from add-patch.c:1:
+In file included from ./cache.h:5:
+./strbuf.h:127:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        SWAP(*a, *b);
+        ^~~~~~~~~~~~
+./git-compat-util.h:610:2: note: expanded from macro 'SWAP'
+        memcpy(_swap_b_ptr, _swap_buffer, sizeof(a));           \
+        ^~~~~~
+In file included from add-patch.c:1:
+In file included from ./cache.h:6:
+In file included from ./hashmap.h:4:
+./hash.h:70:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        memcpy(dst, src, sizeof(*dst));
+        ^~~~~~
+./hash.h:76:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        memcpy(dst, src, sizeof(*dst));
+        ^~~~~~
+In file included from add-patch.c:1:
+In file included from ./cache.h:6:
+./hashmap.h:138:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        memcpy(&hash, oid->hash, sizeof(hash));
+        ^~~~~~
+In file included from add-patch.c:1:
+./cache.h:223:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        memcpy(&dst->ce_stat_data, &src->ce_stat_data,
+        ^~~~~~
+./cache.h:1167:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        memcpy(sha_dst, sha_src, the_hash_algo->rawsz);
+        ^~~~~~
+./cache.h:1172:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        memcpy(dst->hash, src->hash, GIT_MAX_RAWSZ);
+        ^~~~~~
+./cache.h:1184:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        memset(hash, 0, the_hash_algo->rawsz);
+        ^~~~~~
+./cache.h:1189:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        memset(oid->hash, 0, GIT_MAX_RAWSZ);
+        ^~~~~~
+./cache.h:1194:2: warning: Call to function 'memcpy' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memcpy_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        memcpy(oid->hash, hash, the_hash_algo->rawsz);
+        ^~~~~~
+In file included from add-patch.c:8:
+In file included from ./diff.h:10:
+In file included from ./oidset.h:4:
+./khash.h:337:1: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+KHASH_INIT(oid_set, struct object_id, int, 0, oidhash_by_value, oideq_by_value)
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:237:2: note: expanded from macro 'KHASH_INIT'
+        KHASH_INIT2(name, MAYBE_UNUSED static inline, khkey_t, khval_t, kh_is_map, __hash_func, __hash_equal)
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:234:2: note: expanded from macro 'KHASH_INIT2'
+        __KHASH_IMPL(name, SCOPE, khkey_t, khval_t, kh_is_map, __hash_func, __hash_equal)
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:101:4: note: expanded from macro '__KHASH_IMPL'
+                        memset(h->flags, 0xaa, __ac_fsize(h->n_buckets) * sizeof(khint32_t)); \
+                        ^~~~~~
+./khash.h:337:1: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+KHASH_INIT(oid_set, struct object_id, int, 0, oidhash_by_value, oideq_by_value)
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:237:2: note: expanded from macro 'KHASH_INIT'
+        KHASH_INIT2(name, MAYBE_UNUSED static inline, khkey_t, khval_t, kh_is_map, __hash_func, __hash_equal)
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:234:2: note: expanded from macro 'KHASH_INIT2'
+        __KHASH_IMPL(name, SCOPE, khkey_t, khval_t, kh_is_map, __hash_func, __hash_equal)
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:130:5: note: expanded from macro '__KHASH_IMPL'
+                                memset(new_flags, 0xaa, __ac_fsize(new_n_buckets) * sizeof(khint32_t)); \
+                                ^~~~~~
+./khash.h:339:1: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+KHASH_INIT(oid_map, struct object_id, void *, 1, oidhash_by_value, oideq_by_value)
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:237:2: note: expanded from macro 'KHASH_INIT'
+        KHASH_INIT2(name, MAYBE_UNUSED static inline, khkey_t, khval_t, kh_is_map, __hash_func, __hash_equal)
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:234:2: note: expanded from macro 'KHASH_INIT2'
+        __KHASH_IMPL(name, SCOPE, khkey_t, khval_t, kh_is_map, __hash_func, __hash_equal)
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:101:4: note: expanded from macro '__KHASH_IMPL'
+                        memset(h->flags, 0xaa, __ac_fsize(h->n_buckets) * sizeof(khint32_t)); \
+                        ^~~~~~
+./khash.h:339:1: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+KHASH_INIT(oid_map, struct object_id, void *, 1, oidhash_by_value, oideq_by_value)
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:237:2: note: expanded from macro 'KHASH_INIT'
+        KHASH_INIT2(name, MAYBE_UNUSED static inline, khkey_t, khval_t, kh_is_map, __hash_func, __hash_equal)
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:234:2: note: expanded from macro 'KHASH_INIT2'
+        __KHASH_IMPL(name, SCOPE, khkey_t, khval_t, kh_is_map, __hash_func, __hash_equal)
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:130:5: note: expanded from macro '__KHASH_IMPL'
+                                memset(new_flags, 0xaa, __ac_fsize(new_n_buckets) * sizeof(khint32_t)); \
+                                ^~~~~~
+./khash.h:341:1: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+KHASH_INIT(oid_pos, struct object_id, int, 1, oidhash_by_value, oideq_by_value)
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:237:2: note: expanded from macro 'KHASH_INIT'
+        KHASH_INIT2(name, MAYBE_UNUSED static inline, khkey_t, khval_t, kh_is_map, __hash_func, __hash_equal)
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:234:2: note: expanded from macro 'KHASH_INIT2'
+        __KHASH_IMPL(name, SCOPE, khkey_t, khval_t, kh_is_map, __hash_func, __hash_equal)
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:101:4: note: expanded from macro '__KHASH_IMPL'
+                        memset(h->flags, 0xaa, __ac_fsize(h->n_buckets) * sizeof(khint32_t)); \
+                        ^~~~~~
+./khash.h:341:1: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+KHASH_INIT(oid_pos, struct object_id, int, 1, oidhash_by_value, oideq_by_value)
+^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:237:2: note: expanded from macro 'KHASH_INIT'
+        KHASH_INIT2(name, MAYBE_UNUSED static inline, khkey_t, khval_t, kh_is_map, __hash_func, __hash_equal)
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:234:2: note: expanded from macro 'KHASH_INIT2'
+        __KHASH_IMPL(name, SCOPE, khkey_t, khval_t, kh_is_map, __hash_func, __hash_equal)
+        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./khash.h:130:5: note: expanded from macro '__KHASH_IMPL'
+                                memset(new_flags, 0xaa, __ac_fsize(new_n_buckets) * sizeof(khint32_t)); \
+                                ^~~~~~
+add-patch.c:474:4: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+                        ALLOC_GROW_BY(s->file_diff, s->file_diff_nr, 1,
+                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./cache.h:707:4: note: expanded from macro 'ALLOC_GROW_BY'
+                        memset((x) + nr, 0, sizeof(*(x)) * (increase)); \
+                        ^~~~~~
+add-patch.c:497:4: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+                        ALLOC_GROW_BY(file_diff->hunk, file_diff->hunk_nr, 1,
+                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./cache.h:707:4: note: expanded from macro 'ALLOC_GROW_BY'
+                        memset((x) + nr, 0, sizeof(*(x)) * (increase)); \
+                        ^~~~~~
+add-patch.c:533:4: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+                        ALLOC_GROW_BY(file_diff->hunk, file_diff->hunk_nr, 1,
+                        ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./cache.h:707:4: note: expanded from macro 'ALLOC_GROW_BY'
+                        memset((x) + nr, 0, sizeof(*(x)) * (increase)); \
+                        ^~~~~~
+add-patch.c:577:24: warning: Null pointer passed to 1st parameter expecting 'nonnull' [core.NonNullParamChecker]
+                        char *colored_eol = memchr(colored_p, '\n',
+                                            ^~~~~~~~~~~~~~~~~~~~~~~
+add-patch.c:906:3: warning: Call to function 'memmove' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memmove_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+                memmove(file_diff->hunk + hunk_index + splittable_into,
+                ^~~~~~~
+add-patch.c:912:2: warning: Call to function 'memset' is insecure as it does not provide security checks introduced in the C11 standard. Replace with analogous functions that support length arguments or provides boundary checks such as 'memset_s' in case of C11 [security.insecureAPI.DeprecatedOrUnsafeBufferHandling]
+        memset(hunk + 1, 0, (splittable_into - 1) * sizeof(*hunk));
+        ^~~~~~
+add-patch.c:1628:46: warning: Value stored to 'eol' during its initialization is never read [deadcode.DeadStores]
+                        const char *p = _(help_patch_remainder), *eol = p;
+                                                                  ^~~   ~
+27 warnings generated.
