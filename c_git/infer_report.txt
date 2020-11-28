@@ -1,0 +1,3625 @@
+#0
+builtin/credential.c:21: error: Null Dereference
+  pointer `&c->helpers.items` last assigned on line 11 could be null and is dereferenced by call to `credential_fill()` at line 21, column 3.
+  19. 
+  20. 	if (!strcmp(op, "fill")) {
+  21. 		credential_fill(&c);
+        ^
+  22. 		credential_write(&c, stdout);
+  23. 	} else if (!strcmp(op, "approve")) {
+
+#1
+t/helper/test-xml-encode.c:24: error: Uninitialized Value
+  The value read from buf[_] was never initialized.
+  22. 			cur = 0;
+  23. 		}
+  24. 		ch = buf[cur];
+        ^
+  25. 
+  26. 		if (tmp2) {
+
+#2
+builtin/show-index.c:26: error: Dead Store
+  The value written to &argc (type int) is never used.
+  24. 	};
+  25. 
+  26. 	argc = parse_options(argc, argv, prefix, show_index_options, show_index_usage, 0);
+       ^
+  27. 
+  28. 	if (hash_name) {
+
+#3
+t/helper/test-serve-v2.c:25: error: Dead Store
+  The value written to &argc (type int) is never used.
+  23. 
+  24. 	/* ignore all unknown cmdline switches for now */
+  25. 	argc = parse_options(argc, argv, prefix, options, serve_usage,
+       ^
+  26. 			     PARSE_OPT_KEEP_DASHDASH |
+  27. 			     PARSE_OPT_KEEP_UNKNOWN);
+
+#4
+builtin/archive.c:20: error: Resource Leak
+  resource acquired by call to `open()` at line 15, column 18 is not released after line 20, column 14.
+  18. 	if (output_fd != 1) {
+  19. 		if (dup2(output_fd, 1) < 0)
+  20. 			die_errno(_("could not redirect output"));
+                   ^
+  21. 		else
+  22. 			close(output_fd);
+
+#5
+builtin/write-tree.c:38: error: Dead Store
+  The value written to &argc (type int) is never used.
+  36. 
+  37. 	git_config(git_default_config, NULL);
+  38. 	argc = parse_options(argc, argv, cmd_prefix, write_tree_options,
+       ^
+  39. 			     write_tree_usage, 0);
+  40. 
+
+#6
+t/helper/test-delta.c:32: error: Resource Leak
+  resource acquired to `fd` by call to `open()` at line 31, column 7 is not released after line 32, column 16.
+  30. 
+  31. 	fd = open(argv[2], O_RDONLY);
+  32. 	if (fd < 0 || fstat(fd, &st)) {
+                     ^
+  33. 		perror(argv[2]);
+  34. 		return 1;
+
+#7
+t/helper/test-delta.c:46: error: Resource Leak
+  resource acquired to `fd` by call to `open()` at line 45, column 7 is not released after line 46, column 16.
+  44. 
+  45. 	fd = open(argv[3], O_RDONLY);
+  46. 	if (fd < 0 || fstat(fd, &st)) {
+                     ^
+  47. 		perror(argv[3]);
+  48. 		return 1;
+
+#8
+builtin/merge-recursive.c:71: error: Dead Store
+  The value written to &i (type int) is never used.
+  69. 
+  70. 	o.branch1 = argv[++i];
+  71. 	o.branch2 = argv[++i];
+                        ^
+  72. 
+  73. 	if (get_oid(o.branch1, &h1))
+
+#9
+delta-islands.c:23: error: Uninitialized Value
+  The value read from val was never initialized.
+  21. #include "config.h"
+  22. 
+  23. KHASH_INIT(str, const char *, void *, 1, kh_str_hash_func, kh_str_hash_equal)
+      ^
+  24. 
+  25. static kh_oid_map_t *island_marks;
+
+#10
+refspec.c:51: error: Null Dereference
+  pointer `rhs` last assigned on line 41 could be null and is dereferenced at line 51, column 30.
+  49. 	 * for pushing matching refs.
+  50. 	 */
+  51. 	if (!fetch && rhs == lhs && rhs[1] == '\0') {
+                                   ^
+  52. 		item->matching = 1;
+  53. 		return 1;
+
+#11
+sub-process.c:51: error: Uninitialized Value
+  The value read from len was never initialized.
+  49. 	}
+  50. 
+  51. 	return (len < 0) ? len : 0;
+              ^
+  52. }
+  53. 
+
+#12
+sub-process.c:51: error: Uninitialized Value
+  The value read from len was never initialized.
+  49. 	}
+  50. 
+  51. 	return (len < 0) ? len : 0;
+               ^
+  52. }
+  53. 
+
+#13
+url.c:45: error: Dead Store
+  The value written to &len (type int) is never used.
+  43. 		if (stop_at && strchr(stop_at, c)) {
+  44. 			q++;
+  45. 			len--;
+         ^
+  46. 			break;
+  47. 		}
+
+#14
+builtin/prune.c:47: error: Null Dereference
+  pointer `&progress` last assigned on line 39 could be null and is dereferenced by call to `stop_progress()` at line 47, column 2.
+  45. 		progress = start_delayed_progress(_("Checking connectivity"), 0);
+  46. 	mark_reachable_objects(revs, 1, expire, progress);
+  47. 	stop_progress(&progress);
+       ^
+  48. 	initialized = 1;
+  49. }
+
+#15
+http-fetch.c:62: error: Uninitialized Value
+  The value read from results.curl_result was never initialized.
+  60. 	if (start_active_slot(preq->slot)) {
+  61. 		run_active_slot(preq->slot);
+  62. 		if (results.curl_result != CURLE_OK) {
+            ^
+  63. 			die("Unable to get pack file %s\n%s", preq->url,
+  64. 			    curl_errorstr);
+
+#16
+builtin/hash-object.c:59: error: Resource Leak
+  resource acquired by call to `open()` at line 56, column 7 is not released after line 59, column 2.
+  57. 	if (fd < 0)
+  58. 		die_errno("Cannot open '%s'", path);
+  59. 	hash_fd(fd, type, vpath, flags, literally);
+       ^
+  60. }
+  61. 
+
+#17
+builtin/sparse-checkout.c:63: error: Dead Store
+  The value written to &argc (type int) is never used.
+  61. 	int res;
+  62. 
+  63. 	argc = parse_options(argc, argv, NULL,
+       ^
+  64. 			     builtin_sparse_checkout_list_options,
+  65. 			     builtin_sparse_checkout_list_usage, 0);
+
+#18
+midx.c:193: error: Uninitialized Value
+  The value read from midx_size was never initialized.
+  191. 	free(midx_name);
+  192. 	if (midx_map)
+  193. 		munmap(midx_map, midx_size);
+         ^
+  194. 	if (0 <= fd)
+  195. 		close(fd);
+
+#19
+builtin/remote-fd.c:58: error: Dead Store
+  The value written to &input_fd (type int) is never used.
+  56. int cmd_remote_fd(int argc, const char **argv, const char *prefix)
+  57. {
+  58. 	int input_fd = -1;
+       ^
+  59. 	int output_fd = -1;
+  60. 	char *end;
+
+#20
+builtin/remote-fd.c:59: error: Dead Store
+  The value written to &output_fd (type int) is never used.
+  57. {
+  58. 	int input_fd = -1;
+  59. 	int output_fd = -1;
+       ^
+  60. 	char *end;
+  61. 
+
+#21
+sha256/block/sha256.c:82: error: Uninitialized Value
+  The value read from S[_] was never initialized.
+  80. 	h  = t0 + t1;
+  81. 
+  82. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],0,0x428a2f98);
+       ^
+  83. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],1,0x71374491);
+  84. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],2,0xb5c0fbcf);
+
+#22
+sha256/block/sha256.c:74: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  72. 	/* fill W[16..63] */
+  73. 	for (i = 16; i < 64; i++)
+  74. 		W[i] = gamma1(W[i - 2]) + W[i - 7] + gamma0(W[i - 15]) + W[i - 16];
+        ^
+  75. 
+  76. #define RND(a,b,c,d,e,f,g,h,i,ki)                    \
+
+#23
+sha256/block/sha256.c:74: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  72. 	/* fill W[16..63] */
+  73. 	for (i = 16; i < 64; i++)
+  74. 		W[i] = gamma1(W[i - 2]) + W[i - 7] + gamma0(W[i - 15]) + W[i - 16];
+               ^
+  75. 
+  76. #define RND(a,b,c,d,e,f,g,h,i,ki)                    \
+
+#24
+sha256/block/sha256.c:74: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  72. 	/* fill W[16..63] */
+  73. 	for (i = 16; i < 64; i++)
+  74. 		W[i] = gamma1(W[i - 2]) + W[i - 7] + gamma0(W[i - 15]) + W[i - 16];
+                                             ^
+  75. 
+  76. #define RND(a,b,c,d,e,f,g,h,i,ki)                    \
+
+#25
+sha256/block/sha256.c:82: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  80. 	h  = t0 + t1;
+  81. 
+  82. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],0,0x428a2f98);
+       ^
+  83. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],1,0x71374491);
+  84. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],2,0xb5c0fbcf);
+
+#26
+sha256/block/sha256.c:83: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  81. 
+  82. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],0,0x428a2f98);
+  83. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],1,0x71374491);
+       ^
+  84. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],2,0xb5c0fbcf);
+  85. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],3,0xe9b5dba5);
+
+#27
+sha256/block/sha256.c:84: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  82. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],0,0x428a2f98);
+  83. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],1,0x71374491);
+  84. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],2,0xb5c0fbcf);
+       ^
+  85. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],3,0xe9b5dba5);
+  86. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],4,0x3956c25b);
+
+#28
+sha256/block/sha256.c:85: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  83. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],1,0x71374491);
+  84. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],2,0xb5c0fbcf);
+  85. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],3,0xe9b5dba5);
+       ^
+  86. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],4,0x3956c25b);
+  87. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],5,0x59f111f1);
+
+#29
+sha256/block/sha256.c:86: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  84. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],2,0xb5c0fbcf);
+  85. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],3,0xe9b5dba5);
+  86. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],4,0x3956c25b);
+       ^
+  87. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],5,0x59f111f1);
+  88. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],6,0x923f82a4);
+
+#30
+sha256/block/sha256.c:87: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  85. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],3,0xe9b5dba5);
+  86. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],4,0x3956c25b);
+  87. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],5,0x59f111f1);
+       ^
+  88. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],6,0x923f82a4);
+  89. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],7,0xab1c5ed5);
+
+#31
+sha256/block/sha256.c:88: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  86. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],4,0x3956c25b);
+  87. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],5,0x59f111f1);
+  88. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],6,0x923f82a4);
+       ^
+  89. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],7,0xab1c5ed5);
+  90. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],8,0xd807aa98);
+
+#32
+sha256/block/sha256.c:89: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  87. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],5,0x59f111f1);
+  88. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],6,0x923f82a4);
+  89. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],7,0xab1c5ed5);
+       ^
+  90. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],8,0xd807aa98);
+  91. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],9,0x12835b01);
+
+#33
+sha256/block/sha256.c:90: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  88. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],6,0x923f82a4);
+  89. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],7,0xab1c5ed5);
+  90. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],8,0xd807aa98);
+       ^
+  91. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],9,0x12835b01);
+  92. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],10,0x243185be);
+
+#34
+sha256/block/sha256.c:91: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  89. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],7,0xab1c5ed5);
+  90. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],8,0xd807aa98);
+  91. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],9,0x12835b01);
+       ^
+  92. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],10,0x243185be);
+  93. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],11,0x550c7dc3);
+
+#35
+sha256/block/sha256.c:92: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  90. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],8,0xd807aa98);
+  91. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],9,0x12835b01);
+  92. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],10,0x243185be);
+       ^
+  93. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],11,0x550c7dc3);
+  94. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],12,0x72be5d74);
+
+#36
+sha256/block/sha256.c:93: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  91. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],9,0x12835b01);
+  92. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],10,0x243185be);
+  93. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],11,0x550c7dc3);
+       ^
+  94. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],12,0x72be5d74);
+  95. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],13,0x80deb1fe);
+
+#37
+sha256/block/sha256.c:94: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  92. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],10,0x243185be);
+  93. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],11,0x550c7dc3);
+  94. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],12,0x72be5d74);
+       ^
+  95. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],13,0x80deb1fe);
+  96. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],14,0x9bdc06a7);
+
+#38
+sha256/block/sha256.c:95: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  93. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],11,0x550c7dc3);
+  94. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],12,0x72be5d74);
+  95. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],13,0x80deb1fe);
+       ^
+  96. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],14,0x9bdc06a7);
+  97. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],15,0xc19bf174);
+
+#39
+sha256/block/sha256.c:96: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  94. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],12,0x72be5d74);
+  95. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],13,0x80deb1fe);
+  96. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],14,0x9bdc06a7);
+       ^
+  97. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],15,0xc19bf174);
+  98. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],16,0xe49b69c1);
+
+#40
+sha256/block/sha256.c:97: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  95. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],13,0x80deb1fe);
+  96. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],14,0x9bdc06a7);
+  97. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],15,0xc19bf174);
+       ^
+  98. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],16,0xe49b69c1);
+  99. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],17,0xefbe4786);
+
+#41
+sha256/block/sha256.c:98: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+   96. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],14,0x9bdc06a7);
+   97. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],15,0xc19bf174);
+   98. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],16,0xe49b69c1);
+        ^
+   99. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],17,0xefbe4786);
+  100. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],18,0x0fc19dc6);
+
+#42
+sha256/block/sha256.c:99: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+   97. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],15,0xc19bf174);
+   98. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],16,0xe49b69c1);
+   99. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],17,0xefbe4786);
+        ^
+  100. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],18,0x0fc19dc6);
+  101. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],19,0x240ca1cc);
+
+#43
+sha256/block/sha256.c:100: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+   98. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],16,0xe49b69c1);
+   99. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],17,0xefbe4786);
+  100. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],18,0x0fc19dc6);
+        ^
+  101. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],19,0x240ca1cc);
+  102. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],20,0x2de92c6f);
+
+#44
+sha256/block/sha256.c:101: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+   99. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],17,0xefbe4786);
+  100. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],18,0x0fc19dc6);
+  101. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],19,0x240ca1cc);
+        ^
+  102. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],20,0x2de92c6f);
+  103. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],21,0x4a7484aa);
+
+#45
+sha256/block/sha256.c:102: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  100. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],18,0x0fc19dc6);
+  101. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],19,0x240ca1cc);
+  102. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],20,0x2de92c6f);
+        ^
+  103. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],21,0x4a7484aa);
+  104. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],22,0x5cb0a9dc);
+
+#46
+sha256/block/sha256.c:103: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  101. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],19,0x240ca1cc);
+  102. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],20,0x2de92c6f);
+  103. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],21,0x4a7484aa);
+        ^
+  104. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],22,0x5cb0a9dc);
+  105. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],23,0x76f988da);
+
+#47
+sha256/block/sha256.c:104: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  102. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],20,0x2de92c6f);
+  103. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],21,0x4a7484aa);
+  104. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],22,0x5cb0a9dc);
+        ^
+  105. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],23,0x76f988da);
+  106. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],24,0x983e5152);
+
+#48
+sha256/block/sha256.c:105: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  103. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],21,0x4a7484aa);
+  104. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],22,0x5cb0a9dc);
+  105. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],23,0x76f988da);
+        ^
+  106. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],24,0x983e5152);
+  107. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],25,0xa831c66d);
+
+#49
+sha256/block/sha256.c:106: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  104. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],22,0x5cb0a9dc);
+  105. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],23,0x76f988da);
+  106. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],24,0x983e5152);
+        ^
+  107. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],25,0xa831c66d);
+  108. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],26,0xb00327c8);
+
+#50
+sha256/block/sha256.c:107: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  105. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],23,0x76f988da);
+  106. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],24,0x983e5152);
+  107. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],25,0xa831c66d);
+        ^
+  108. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],26,0xb00327c8);
+  109. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],27,0xbf597fc7);
+
+#51
+sha256/block/sha256.c:108: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  106. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],24,0x983e5152);
+  107. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],25,0xa831c66d);
+  108. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],26,0xb00327c8);
+        ^
+  109. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],27,0xbf597fc7);
+  110. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],28,0xc6e00bf3);
+
+#52
+sha256/block/sha256.c:109: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  107. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],25,0xa831c66d);
+  108. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],26,0xb00327c8);
+  109. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],27,0xbf597fc7);
+        ^
+  110. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],28,0xc6e00bf3);
+  111. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],29,0xd5a79147);
+
+#53
+sha256/block/sha256.c:110: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  108. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],26,0xb00327c8);
+  109. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],27,0xbf597fc7);
+  110. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],28,0xc6e00bf3);
+        ^
+  111. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],29,0xd5a79147);
+  112. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],30,0x06ca6351);
+
+#54
+sha256/block/sha256.c:111: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  109. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],27,0xbf597fc7);
+  110. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],28,0xc6e00bf3);
+  111. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],29,0xd5a79147);
+        ^
+  112. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],30,0x06ca6351);
+  113. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],31,0x14292967);
+
+#55
+sha256/block/sha256.c:112: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  110. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],28,0xc6e00bf3);
+  111. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],29,0xd5a79147);
+  112. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],30,0x06ca6351);
+        ^
+  113. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],31,0x14292967);
+  114. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],32,0x27b70a85);
+
+#56
+sha256/block/sha256.c:113: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  111. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],29,0xd5a79147);
+  112. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],30,0x06ca6351);
+  113. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],31,0x14292967);
+        ^
+  114. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],32,0x27b70a85);
+  115. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],33,0x2e1b2138);
+
+#57
+sha256/block/sha256.c:114: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  112. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],30,0x06ca6351);
+  113. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],31,0x14292967);
+  114. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],32,0x27b70a85);
+        ^
+  115. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],33,0x2e1b2138);
+  116. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],34,0x4d2c6dfc);
+
+#58
+sha256/block/sha256.c:115: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  113. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],31,0x14292967);
+  114. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],32,0x27b70a85);
+  115. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],33,0x2e1b2138);
+        ^
+  116. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],34,0x4d2c6dfc);
+  117. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],35,0x53380d13);
+
+#59
+sha256/block/sha256.c:116: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  114. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],32,0x27b70a85);
+  115. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],33,0x2e1b2138);
+  116. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],34,0x4d2c6dfc);
+        ^
+  117. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],35,0x53380d13);
+  118. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],36,0x650a7354);
+
+#60
+sha256/block/sha256.c:117: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  115. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],33,0x2e1b2138);
+  116. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],34,0x4d2c6dfc);
+  117. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],35,0x53380d13);
+        ^
+  118. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],36,0x650a7354);
+  119. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],37,0x766a0abb);
+
+#61
+sha256/block/sha256.c:118: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  116. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],34,0x4d2c6dfc);
+  117. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],35,0x53380d13);
+  118. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],36,0x650a7354);
+        ^
+  119. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],37,0x766a0abb);
+  120. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],38,0x81c2c92e);
+
+#62
+sha256/block/sha256.c:119: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  117. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],35,0x53380d13);
+  118. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],36,0x650a7354);
+  119. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],37,0x766a0abb);
+        ^
+  120. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],38,0x81c2c92e);
+  121. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],39,0x92722c85);
+
+#63
+sha256/block/sha256.c:120: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  118. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],36,0x650a7354);
+  119. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],37,0x766a0abb);
+  120. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],38,0x81c2c92e);
+        ^
+  121. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],39,0x92722c85);
+  122. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],40,0xa2bfe8a1);
+
+#64
+sha256/block/sha256.c:121: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  119. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],37,0x766a0abb);
+  120. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],38,0x81c2c92e);
+  121. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],39,0x92722c85);
+        ^
+  122. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],40,0xa2bfe8a1);
+  123. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],41,0xa81a664b);
+
+#65
+sha256/block/sha256.c:122: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  120. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],38,0x81c2c92e);
+  121. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],39,0x92722c85);
+  122. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],40,0xa2bfe8a1);
+        ^
+  123. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],41,0xa81a664b);
+  124. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],42,0xc24b8b70);
+
+#66
+sha256/block/sha256.c:123: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  121. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],39,0x92722c85);
+  122. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],40,0xa2bfe8a1);
+  123. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],41,0xa81a664b);
+        ^
+  124. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],42,0xc24b8b70);
+  125. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],43,0xc76c51a3);
+
+#67
+sha256/block/sha256.c:124: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  122. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],40,0xa2bfe8a1);
+  123. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],41,0xa81a664b);
+  124. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],42,0xc24b8b70);
+        ^
+  125. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],43,0xc76c51a3);
+  126. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],44,0xd192e819);
+
+#68
+sha256/block/sha256.c:125: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  123. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],41,0xa81a664b);
+  124. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],42,0xc24b8b70);
+  125. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],43,0xc76c51a3);
+        ^
+  126. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],44,0xd192e819);
+  127. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],45,0xd6990624);
+
+#69
+sha256/block/sha256.c:126: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  124. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],42,0xc24b8b70);
+  125. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],43,0xc76c51a3);
+  126. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],44,0xd192e819);
+        ^
+  127. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],45,0xd6990624);
+  128. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],46,0xf40e3585);
+
+#70
+sha256/block/sha256.c:127: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  125. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],43,0xc76c51a3);
+  126. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],44,0xd192e819);
+  127. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],45,0xd6990624);
+        ^
+  128. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],46,0xf40e3585);
+  129. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],47,0x106aa070);
+
+#71
+sha256/block/sha256.c:128: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  126. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],44,0xd192e819);
+  127. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],45,0xd6990624);
+  128. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],46,0xf40e3585);
+        ^
+  129. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],47,0x106aa070);
+  130. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],48,0x19a4c116);
+
+#72
+sha256/block/sha256.c:129: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  127. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],45,0xd6990624);
+  128. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],46,0xf40e3585);
+  129. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],47,0x106aa070);
+        ^
+  130. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],48,0x19a4c116);
+  131. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],49,0x1e376c08);
+
+#73
+sha256/block/sha256.c:130: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  128. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],46,0xf40e3585);
+  129. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],47,0x106aa070);
+  130. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],48,0x19a4c116);
+        ^
+  131. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],49,0x1e376c08);
+  132. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],50,0x2748774c);
+
+#74
+sha256/block/sha256.c:131: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  129. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],47,0x106aa070);
+  130. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],48,0x19a4c116);
+  131. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],49,0x1e376c08);
+        ^
+  132. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],50,0x2748774c);
+  133. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],51,0x34b0bcb5);
+
+#75
+sha256/block/sha256.c:132: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  130. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],48,0x19a4c116);
+  131. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],49,0x1e376c08);
+  132. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],50,0x2748774c);
+        ^
+  133. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],51,0x34b0bcb5);
+  134. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],52,0x391c0cb3);
+
+#76
+sha256/block/sha256.c:133: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  131. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],49,0x1e376c08);
+  132. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],50,0x2748774c);
+  133. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],51,0x34b0bcb5);
+        ^
+  134. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],52,0x391c0cb3);
+  135. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],53,0x4ed8aa4a);
+
+#77
+sha256/block/sha256.c:134: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  132. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],50,0x2748774c);
+  133. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],51,0x34b0bcb5);
+  134. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],52,0x391c0cb3);
+        ^
+  135. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],53,0x4ed8aa4a);
+  136. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],54,0x5b9cca4f);
+
+#78
+sha256/block/sha256.c:135: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  133. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],51,0x34b0bcb5);
+  134. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],52,0x391c0cb3);
+  135. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],53,0x4ed8aa4a);
+        ^
+  136. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],54,0x5b9cca4f);
+  137. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],55,0x682e6ff3);
+
+#79
+sha256/block/sha256.c:136: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  134. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],52,0x391c0cb3);
+  135. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],53,0x4ed8aa4a);
+  136. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],54,0x5b9cca4f);
+        ^
+  137. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],55,0x682e6ff3);
+  138. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],56,0x748f82ee);
+
+#80
+sha256/block/sha256.c:137: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  135. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],53,0x4ed8aa4a);
+  136. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],54,0x5b9cca4f);
+  137. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],55,0x682e6ff3);
+        ^
+  138. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],56,0x748f82ee);
+  139. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],57,0x78a5636f);
+
+#81
+sha256/block/sha256.c:138: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  136. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],54,0x5b9cca4f);
+  137. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],55,0x682e6ff3);
+  138. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],56,0x748f82ee);
+        ^
+  139. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],57,0x78a5636f);
+  140. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],58,0x84c87814);
+
+#82
+sha256/block/sha256.c:139: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  137. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],55,0x682e6ff3);
+  138. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],56,0x748f82ee);
+  139. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],57,0x78a5636f);
+        ^
+  140. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],58,0x84c87814);
+  141. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],59,0x8cc70208);
+
+#83
+sha256/block/sha256.c:140: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  138. 	RND(S[0],S[1],S[2],S[3],S[4],S[5],S[6],S[7],56,0x748f82ee);
+  139. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],57,0x78a5636f);
+  140. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],58,0x84c87814);
+        ^
+  141. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],59,0x8cc70208);
+  142. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],60,0x90befffa);
+
+#84
+sha256/block/sha256.c:141: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  139. 	RND(S[7],S[0],S[1],S[2],S[3],S[4],S[5],S[6],57,0x78a5636f);
+  140. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],58,0x84c87814);
+  141. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],59,0x8cc70208);
+        ^
+  142. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],60,0x90befffa);
+  143. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],61,0xa4506ceb);
+
+#85
+sha256/block/sha256.c:142: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  140. 	RND(S[6],S[7],S[0],S[1],S[2],S[3],S[4],S[5],58,0x84c87814);
+  141. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],59,0x8cc70208);
+  142. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],60,0x90befffa);
+        ^
+  143. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],61,0xa4506ceb);
+  144. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],62,0xbef9a3f7);
+
+#86
+sha256/block/sha256.c:143: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  141. 	RND(S[5],S[6],S[7],S[0],S[1],S[2],S[3],S[4],59,0x8cc70208);
+  142. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],60,0x90befffa);
+  143. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],61,0xa4506ceb);
+        ^
+  144. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],62,0xbef9a3f7);
+  145. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],63,0xc67178f2);
+
+#87
+sha256/block/sha256.c:144: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  142. 	RND(S[4],S[5],S[6],S[7],S[0],S[1],S[2],S[3],60,0x90befffa);
+  143. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],61,0xa4506ceb);
+  144. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],62,0xbef9a3f7);
+        ^
+  145. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],63,0xc67178f2);
+  146. 
+
+#88
+sha256/block/sha256.c:145: error: Uninitialized Value
+  The value read from W[_] was never initialized.
+  143. 	RND(S[3],S[4],S[5],S[6],S[7],S[0],S[1],S[2],61,0xa4506ceb);
+  144. 	RND(S[2],S[3],S[4],S[5],S[6],S[7],S[0],S[1],62,0xbef9a3f7);
+  145. 	RND(S[1],S[2],S[3],S[4],S[5],S[6],S[7],S[0],63,0xc67178f2);
+        ^
+  146. 
+  147. 	for (i = 0; i < 8; i++)
+
+#89
+builtin/push.c:91: error: Null Dereference
+  pointer `branch` last assigned on line 90 could be null and is dereferenced at line 91, column 7.
+  89. 	    skip_prefix(matched->name, "refs/heads/", &branch_name)) {
+  90. 		struct branch *branch = branch_get(branch_name);
+  91. 		if (branch->merge_nr == 1 && branch->merge[0]->src) {
+            ^
+  92. 			refspec_appendf(refspec, "%s:%s",
+  93. 					ref, branch->merge[0]->src);
+
+#90
+builtin/cat-file.c:108: error: Uninitialized Value
+  The value read from size was never initialized.
+  106. 		if (oid_object_info_extended(the_repository, &oid, &oi, flags) < 0)
+  107. 			die("git cat-file: could not get object info");
+  108. 		printf("%"PRIuMAX"\n", (uintmax_t)size);
+         ^
+  109. 		return 0;
+  110. 
+
+#91
+builtin/cat-file.c:190: error: Uninitialized Value
+  The value read from size was never initialized.
+  188. 		die("git cat-file %s: bad file", obj_name);
+  189. 
+  190. 	write_or_die(1, buf, size);
+        ^
+  191. 	free(buf);
+  192. 	free(obj_context.path);
+
+#92
+server-info.c:73: error: Dead Store
+  The value written to &fd (type int) is never used.
+  71. 	char *tmp = mkpathdup("%s_XXXXXX", path);
+  72. 	int ret = -1;
+  73. 	int fd = -1;
+       ^
+  74. 	FILE *to_close;
+  75. 	struct update_info_ctx uic = {
+
+#93
+server-info.c:100: error: Resource Leak
+  resource of type `_IO_FILE` acquired by call to `fdopen()` at line 86, column 26 is not released after line 100, column 6.
+   98. 	 */
+   99. 	ret = generate(&uic);
+  100. 	if (ret)
+            ^
+  101. 		goto out;
+  102. 
+
+#94
+server-info.c:110: error: Resource Leak
+  resource of type `_IO_FILE` acquired to `ret` by call to `fdopen()` at line 86, column 26 is not released after line 110, column 4.
+  108. 
+  109. 		if (new_len < 0) {
+  110. 			ret = -1;
+          ^
+  111. 			goto out;
+  112. 		}
+
+#95
+builtin/commit-graph.c:91: error: Dead Store
+  The value written to &argc (type int) is never used.
+  89. 
+  90. 	opts.progress = isatty(2);
+  91. 	argc = parse_options(argc, argv, NULL,
+       ^
+  92. 			     builtin_commit_graph_verify_options,
+  93. 			     builtin_commit_graph_verify_usage, 0);
+
+#96
+t/helper/test-ref-store.c:70: error: Dead Store
+  The value written to &argv (type char const **) is never used.
+  68. static int cmd_pack_refs(struct ref_store *refs, const char **argv)
+  69. {
+  70. 	unsigned int flags = arg_flags(*argv++, "flags");
+                                       ^
+  71. 
+  72. 	return refs_pack_refs(refs, flags);
+
+#97
+builtin/mktree.c:99: error: Dead Store
+  The value written to &ntr (type char*) is never used.
+   97. 
+   98. 
+   99. 	*ntr++ = 0; /* now at the beginning of SHA1 */
+         ^
+  100. 
+  101. 	path = (char *)p + 1;  /* at the beginning of name */
+
+#98
+t/helper/test-ref-store.c:77: error: Dead Store
+  The value written to &argv (type char const **) is never used.
+  75. static int cmd_peel_ref(struct ref_store *refs, const char **argv)
+  76. {
+  77. 	const char *refname = notnull(*argv++, "refname");
+                                      ^
+  78. 	struct object_id oid;
+  79. 	int ret;
+
+#99
+builtin/name-rev.c:105: error: Null Dereference
+  pointer `name` last assigned on line 88 could be null and is dereferenced at line 105, column 2.
+  103. 	}
+  104. 
+  105. 	name->taggerdate = taggerdate;
+        ^
+  106. 	name->generation = generation;
+  107. 	name->distance = distance;
+
+#100
+t/helper/test-ref-store.c:91: error: Dead Store
+  The value written to &argv (type char const **) is never used.
+  89. 	const char *refname = notnull(*argv++, "refname");
+  90. 	const char *target = notnull(*argv++, "target");
+  91. 	const char *logmsg = *argv++;
+                             ^
+  92. 
+  93. 	return refs_create_symref(refs, refname, target, logmsg);
+
+#101
+ewah/ewah_io.c:131: error: Dead Store
+  The value written to &len (type unsigned long) is never used.
+  129. 	self->rlw = self->buffer + get_be32(ptr);
+  130. 	ptr += sizeof(uint32_t);
+  131. 	len -= sizeof(uint32_t);
+        ^
+  132. 
+  133. 	return ptr - (const uint8_t *)map;
+
+#102
+builtin/bundle.c:112: error: Dead Store
+  The value written to &argc (type int) is never used.
+  110. 	const char* bundle_file;
+  111. 
+  112. 	argc = parse_options_cmd_bundle(argc, argv, prefix,
+        ^
+  113. 			builtin_bundle_verify_usage, options, &bundle_file);
+  114. 	/* bundle internals use argv[1] as further parameters */
+
+#103
+builtin/bundle.c:102: error: Dead Store
+  The value written to &bundle_fd (type int) is never used.
+  100. static int cmd_bundle_verify(int argc, const char **argv, const char *prefix) {
+  101. 	struct bundle_header header;
+  102. 	int bundle_fd = -1;
+        ^
+  103. 	int quiet = 0;
+  104. 
+
+#104
+t/helper/test-ref-store.c:112: error: Dead Store
+  The value written to &argv (type char const **) is never used.
+  110. 	const char *oldref = notnull(*argv++, "oldref");
+  111. 	const char *newref = notnull(*argv++, "newref");
+  112. 	const char *logmsg = *argv++;
+                              ^
+  113. 
+  114. 	return refs_rename_ref(refs, oldref, newref, logmsg);
+
+#105
+fetch-pack.c:121: error: Uninitialized Value
+  The value read from type was never initialized.
+  119. 					     OBJECT_INFO_SKIP_FETCH_OBJECT | OBJECT_INFO_QUICK))
+  120. 			return NULL;
+  121. 		if (type == OBJ_TAG) {
+             ^
+  122. 			struct tag *tag = (struct tag *)
+  123. 				parse_object(the_repository, oid);
+
+#106
+fetch-pack.c:134: error: Uninitialized Value
+  The value read from type was never initialized.
+  132. 		}
+  133. 	}
+  134. 	if (type == OBJ_COMMIT)
+            ^
+  135. 		return (struct commit *) parse_object(the_repository, oid);
+  136. 	return NULL;
+
+#107
+zlib.c:137: error: Uninitialized Value
+  The value read from status was never initialized.
+  135. 	switch (status) {
+  136. 	/* Z_BUF_ERROR: normal, needs more space in the output buffer */
+  137. 	case Z_BUF_ERROR:
+        ^
+  138. 	case Z_OK:
+  139. 	case Z_STREAM_END:
+
+#108
+zlib.c:138: error: Uninitialized Value
+  The value read from status was never initialized.
+  136. 	/* Z_BUF_ERROR: normal, needs more space in the output buffer */
+  137. 	case Z_BUF_ERROR:
+  138. 	case Z_OK:
+        ^
+  139. 	case Z_STREAM_END:
+  140. 		return status;
+
+#109
+zlib.c:139: error: Uninitialized Value
+  The value read from status was never initialized.
+  137. 	case Z_BUF_ERROR:
+  138. 	case Z_OK:
+  139. 	case Z_STREAM_END:
+        ^
+  140. 		return status;
+  141. 	default:
+
+#110
+zlib.c:140: error: Uninitialized Value
+  The value read from status was never initialized.
+  138. 	case Z_OK:
+  139. 	case Z_STREAM_END:
+  140. 		return status;
+         ^
+  141. 	default:
+  142. 		break;
+
+#111
+zlib.c:144: error: Uninitialized Value
+  The value read from status was never initialized.
+  142. 		break;
+  143. 	}
+  144. 	error("inflate: %s (%s)", zerr_to_string(status),
+        ^
+  145. 	      strm->z.msg ? strm->z.msg : "no message");
+  146. 	return status;
+
+#112
+zlib.c:146: error: Uninitialized Value
+  The value read from status was never initialized.
+  144. 	error("inflate: %s (%s)", zerr_to_string(status),
+  145. 	      strm->z.msg ? strm->z.msg : "no message");
+  146. 	return status;
+        ^
+  147. }
+  148. 
+
+#113
+streaming.c:130: error: Uninitialized Value
+  The value read from size was never initialized.
+  128. 		return loose;
+  129. 	case OI_PACKED:
+  130. 		if (!oi->u.packed.is_delta && big_file_threshold < size)
+                                       ^
+  131. 			return pack_non_delta;
+  132. 		/* fallthru */
+
+#114
+archive-tar.c:133: error: Uninitialized Value
+  The value read from readlen was never initialized.
+  131. 	}
+  132. 	close_istream(st);
+  133. 	if (!readlen)
+             ^
+  134. 		finish_record();
+  135. 	return readlen;
+
+#115
+archive-tar.c:135: error: Uninitialized Value
+  The value read from readlen was never initialized.
+  133. 	if (!readlen)
+  134. 		finish_record();
+  135. 	return readlen;
+        ^
+  136. }
+  137. 
+
+#116
+resolve-undo.c:154: error: Null Dereference
+  pointer `nce` last assigned on line 149 could be null and is dereferenced at line 154, column 4.
+  152. 				       name, i + 1, 0);
+  153. 		if (matched)
+  154. 			nce->ce_flags |= CE_MATCHED;
+          ^
+  155. 		if (add_index_entry(istate, nce, ADD_CACHE_OK_TO_ADD)) {
+  156. 			err = 1;
+
+#117
+reflog-walk.c:123: error: Dead Store
+  The value written to &recno (type int) is never used.
+  121. {
+  122. 	timestamp_t timestamp = 0;
+  123. 	int recno = -1;
+        ^
+  124. 	struct string_list_item *item;
+  125. 	struct complete_reflogs *reflogs;
+
+#118
+builtin/bugreport.c:140: error: Dead Store
+  The value written to &argc (type int) is never used.
+  138. 	};
+  139. 
+  140. 	argc = parse_options(argc, argv, prefix, bugreport_options,
+        ^
+  141. 			     bugreport_usage, 0);
+  142. 
+
+#119
+builtin/bugreport.c:126: error: Dead Store
+  The value written to &report (type int) is never used.
+  124. 	struct strbuf buffer = STRBUF_INIT;
+  125. 	struct strbuf report_path = STRBUF_INIT;
+  126. 	int report = -1;
+        ^
+  127. 	time_t now = time(NULL);
+  128. 	char *option_output = NULL;
+
+#120
+t/helper/test-ref-store.c:126: error: Dead Store
+  The value written to &argv (type char const **) is never used.
+  124. static int cmd_for_each_ref(struct ref_store *refs, const char **argv)
+  125. {
+  126. 	const char *prefix = notnull(*argv++, "prefix");
+                                      ^
+  127. 
+  128. 	return refs_for_each_ref_in(refs, prefix, each_ref, NULL);
+
+#121
+builtin/bundle.c:128: error: Dead Store
+  The value written to &bundle_fd (type int) is never used.
+  126. static int cmd_bundle_list_heads(int argc, const char **argv, const char *prefix) {
+  127. 	struct bundle_header header;
+  128. 	int bundle_fd = -1;
+        ^
+  129. 
+  130. 	struct option options[] = {
+
+#122
+bundle.c:137: error: Resource Leak
+  resource acquired by call to `open()` at line 133, column 11 is not released after line 137, column 9.
+  135. 	if (fd < 0)
+  136. 		return error(_("could not open '%s'"), path);
+  137. 	return parse_bundle_header(fd, header, path);
+               ^
+  138. }
+  139. 
+
+#123
+t/helper/test-ref-store.c:135: error: Dead Store
+  The value written to &argv (type char const **) is never used.
+  133. 	struct object_id oid;
+  134. 	const char *refname = notnull(*argv++, "refname");
+  135. 	int resolve_flags = arg_flags(*argv++, "resolve-flags");
+                                       ^
+  136. 	int flags;
+  137. 	const char *ref;
+
+#124
+bundle.c:148: error: Resource Leak
+  resource acquired by call to `open()` at line 143, column 11 is not released after line 148, column 2.
+  146. 		return 0;
+  147. 	memset(&header, 0, sizeof(header));
+  148. 	fd = parse_bundle_header(fd, &header, quiet ? NULL : path);
+        ^
+  149. 	if (fd >= 0)
+  150. 		close(fd);
+
+#125
+builtin/mktree.c:160: error: Dead Store
+  The value written to &ac (type int) is never used.
+  158. 	};
+  159. 
+  160. 	ac = parse_options(ac, av, prefix, option, mktree_usage, 0);
+        ^
+  161. 	getline_fn = nul_term_line ? strbuf_getline_nul : strbuf_getline_lf;
+  162. 
+
+#126
+t/helper/test-ref-store.c:147: error: Dead Store
+  The value written to &argv (type char const **) is never used.
+  145. static int cmd_verify_ref(struct ref_store *refs, const char **argv)
+  146. {
+  147. 	const char *refname = notnull(*argv++, "refname");
+                                       ^
+  148. 	struct strbuf err = STRBUF_INIT;
+  149. 	int ret;
+
+#127
+builtin/bundle.c:148: error: Dead Store
+  The value written to &bundle_fd (type int) is never used.
+  146. static int cmd_bundle_unbundle(int argc, const char **argv, const char *prefix) {
+  147. 	struct bundle_header header;
+  148. 	int bundle_fd = -1;
+        ^
+  149. 
+  150. 	struct option options[] = {
+
+#128
+mailmap.c:159: error: Dead Store
+  The value written to &len (type int) is never used.
+  157. 
+  158. 		if (len && buffer[len - 1] == '\n')
+  159. 			buffer[--len] = 0;
+                 ^
+  160. 		if (!strncmp(buffer, abbrev, abblen)) {
+  161. 			char *cp;
+
+#129
+walker.c:185: error: Null Dereference
+  pointer `&progress` last assigned on line 166 could be null and is dereferenced by call to `stop_progress()` at line 185, column 5.
+  183. 		if (! (obj->flags & TO_SCAN)) {
+  184. 			if (walker->fetch(walker, obj->oid.hash)) {
+  185. 				stop_progress(&progress);
+           ^
+  186. 				report_missing(obj);
+  187. 				return -1;
+
+#130
+t/helper/test-ref-store.c:174: error: Dead Store
+  The value written to &argv (type char const **) is never used.
+  172. static int cmd_for_each_reflog_ent(struct ref_store *refs, const char **argv)
+  173. {
+  174. 	const char *refname = notnull(*argv++, "refname");
+                                       ^
+  175. 
+  176. 	return refs_for_each_reflog_ent(refs, refname, each_reflog, refs);
+
+#131
+fsmonitor.c:178: error: Dead Store
+  The value written to &hook_version (type int) is never used.
+  176. {
+  177. 	struct strbuf query_result = STRBUF_INIT;
+  178. 	int query_success = 0, hook_version = -1;
+        ^
+  179. 	size_t bol = 0; /* beginning of line */
+  180. 	uint64_t last_update;
+
+#132
+t/helper/test-ref-store.c:181: error: Dead Store
+  The value written to &argv (type char const **) is never used.
+  179. static int cmd_for_each_reflog_ent_reverse(struct ref_store *refs, const char **argv)
+  180. {
+  181. 	const char *refname = notnull(*argv++, "refname");
+                                       ^
+  182. 
+  183. 	return refs_for_each_reflog_ent_reverse(refs, refname, each_reflog, refs);
+
+#133
+builtin/show-ref.c:188: error: Dead Store
+  The value written to &argc (type int) is never used.
+  186. 	git_config(git_default_config, NULL);
+  187. 
+  188. 	argc = parse_options(argc, argv, prefix, show_ref_options,
+        ^
+  189. 			     show_ref_usage, 0);
+  190. 
+
+#134
+t/helper/test-lazy-init-name-hash.c:209: error: Dead Store
+  The value written to &argc (type int) is never used.
+  207. 	prefix = setup_git_directory();
+  208. 
+  209. 	argc = parse_options(argc, argv, prefix, options, usage, 0);
+        ^
+  210. 
+  211. 	/*
+
+#135
+t/helper/test-ref-store.c:188: error: Dead Store
+  The value written to &argv (type char const **) is never used.
+  186. static int cmd_reflog_exists(struct ref_store *refs, const char **argv)
+  187. {
+  188. 	const char *refname = notnull(*argv++, "refname");
+                                       ^
+  189. 
+  190. 	return !refs_reflog_exists(refs, refname);
+
+#136
+builtin/diff.c:205: error: Null Dereference
+  pointer `&parents->oid` last assigned on line 196 could be null and is dereferenced by call to `oid_array_append()` at line 205, column 3.
+  203. 		revs->dense_combined_merges = revs->combine_merges = 1;
+  204. 	for (i = 1; i < ents; i++)
+  205. 		oid_array_append(&parents, &ent[i].item->oid);
+         ^
+  206. 	diff_tree_combined(&ent[0].item->oid, &parents, revs);
+  207. 	oid_array_clear(&parents);
+
+#137
+t/helper/test-ref-store.c:196: error: Dead Store
+  The value written to &argv (type char const **) is never used.
+  194. {
+  195. 	const char *refname = notnull(*argv++, "refname");
+  196. 	int force_create = arg_flags(*argv++, "force-create");
+                                      ^
+  197. 	struct strbuf err = STRBUF_INIT;
+  198. 	int ret;
+
+#138
+builtin/commit-graph.c:250: error: Dead Store
+  The value written to &argc (type int) is never used.
+  248. 	git_config(git_commit_graph_write_config, &opts);
+  249. 
+  250. 	argc = parse_options(argc, argv, NULL,
+        ^
+  251. 			     builtin_commit_graph_write_options,
+  252. 			     builtin_commit_graph_write_usage, 0);
+
+#139
+rerere.c:219: error: Null Dereference
+  pointer `buf.buf` last assigned on line 208 could be null and is dereferenced at line 219, column 7.
+  217. 			die(_("corrupt MERGE_RR"));
+  218. 
+  219. 		if (buf.buf[hexsz] != '.') {
+             ^
+  220. 			variant = 0;
+  221. 			path = buf.buf + hexsz;
+
+#140
+builtin/fsck.c:214: error: Null Dereference
+  pointer `&progress` last assigned on line 205 could be null and is dereferenced by call to `stop_progress()` at line 214, column 2.
+  212. 		display_progress(progress, ++nr);
+  213. 	}
+  214. 	stop_progress(&progress);
+        ^
+  215. 	return !!result;
+  216. }
+
+#141
+t/helper/test-ref-store.c:208: error: Dead Store
+  The value written to &argv (type char const **) is never used.
+  206. static int cmd_delete_reflog(struct ref_store *refs, const char **argv)
+  207. {
+  208. 	const char *refname = notnull(*argv++, "refname");
+                                       ^
+  209. 
+  210. 	return refs_delete_reflog(refs, refname);
+
+#142
+t/helper/test-run-command.c:267: error: Uninitialized Value
+  The value read from special[_] was never initialized.
+  265. 
+  266. 				for (k = 0; k < arg_len; k++)
+  267. 					buf[k] = special[my_random() %
+            ^
+  268. 						ARRAY_SIZE(special)];
+  269. 				buf[arg_len] = '\0';
+
+#143
+read-cache.c:222: error: Resource Leak
+  resource acquired by call to `git_open_cloexec()` at line 218, column 11 is not released after line 222, column 8.
+  220. 	if (fd >= 0) {
+  221. 		struct object_id oid;
+  222. 		if (!index_fd(istate, &oid, fd, st, OBJ_BLOB, ce->name, 0))
+              ^
+  223. 			match = !oideq(&oid, &ce->oid);
+  224. 		/* index_fd() closed the file descriptor already */
+
+#144
+t/helper/test-ref-store.c:223: error: Dead Store
+  The value written to &argv (type char const **) is never used.
+  221. 	const char *refname = notnull(*argv++, "refname");
+  222. 	const char *sha1_buf = notnull(*argv++, "old-sha1");
+  223. 	unsigned int flags = arg_flags(*argv++, "flags");
+                                        ^
+  224. 	struct object_id old_oid;
+  225. 
+
+#145
+trace2/tr2_dst.c:290: error: Uninitialized Value
+  The value read from e was never initialized.
+  288. 		warning("trace2: could not connect to socket '%s' for '%s' tracing: %s",
+  289. 			path, tr2_sysenv_display_name(dst->sysenv_var),
+  290. 			strerror(e));
+          ^
+  291. 
+  292. 	tr2_dst_trace_disable(dst);
+
+#146
+color.c:320: error: Dead Store
+  The value written to &sep (type int) is never used.
+  318. 		}
+  319. 		if (!color_empty(&bg)) {
+  320. 			if (sep++)
+              ^
+  321. 				OUT(';');
+  322. 			dst = color_output(dst, end - dst, &bg, 1);
+
+#147
+t/helper/test-ref-store.c:238: error: Dead Store
+  The value written to &argv (type char const **) is never used.
+  236. 	const char *new_sha1_buf = notnull(*argv++, "new-sha1");
+  237. 	const char *old_sha1_buf = notnull(*argv++, "old-sha1");
+  238. 	unsigned int flags = arg_flags(*argv++, "flags");
+                                        ^
+  239. 	struct object_id old_oid;
+  240. 	struct object_id new_oid;
+
+#148
+zlib.c:263: error: Uninitialized Value
+  The value read from status was never initialized.
+  261. 	switch (status) {
+  262. 	/* Z_BUF_ERROR: normal, needs more space in the output buffer */
+  263. 	case Z_BUF_ERROR:
+        ^
+  264. 	case Z_OK:
+  265. 	case Z_STREAM_END:
+
+#149
+zlib.c:264: error: Uninitialized Value
+  The value read from status was never initialized.
+  262. 	/* Z_BUF_ERROR: normal, needs more space in the output buffer */
+  263. 	case Z_BUF_ERROR:
+  264. 	case Z_OK:
+        ^
+  265. 	case Z_STREAM_END:
+  266. 		return status;
+
+#150
+zlib.c:265: error: Uninitialized Value
+  The value read from status was never initialized.
+  263. 	case Z_BUF_ERROR:
+  264. 	case Z_OK:
+  265. 	case Z_STREAM_END:
+        ^
+  266. 		return status;
+  267. 	default:
+
+#151
+zlib.c:266: error: Uninitialized Value
+  The value read from status was never initialized.
+  264. 	case Z_OK:
+  265. 	case Z_STREAM_END:
+  266. 		return status;
+         ^
+  267. 	default:
+  268. 		break;
+
+#152
+zlib.c:270: error: Uninitialized Value
+  The value read from status was never initialized.
+  268. 		break;
+  269. 	}
+  270. 	error("deflate: %s (%s)", zerr_to_string(status),
+        ^
+  271. 	      strm->z.msg ? strm->z.msg : "no message");
+  272. 	return status;
+
+#153
+zlib.c:272: error: Uninitialized Value
+  The value read from status was never initialized.
+  270. 	error("deflate: %s (%s)", zerr_to_string(status),
+  271. 	      strm->z.msg ? strm->z.msg : "no message");
+  272. 	return status;
+        ^
+  273. }
+
+#154
+sequencer.c:264: error: Uninitialized Value
+  The value read from saved_char was never initialized.
+  262. 
+  263. 	if (ignore_footer)
+  264. 		sb->buf[sb->len - ignore_footer] = saved_char;
+         ^
+  265. 
+  266. 	if (info.trailer_start == info.trailer_end)
+
+#155
+builtin/replace.c:281: error: Resource Leak
+  resource acquired by call to `open()` at line 256, column 7 is not released after line 281, column 9.
+  279. 			return -1;
+  280. 		}
+  281. 		close(cmd.out);
+               ^
+  282. 
+  283. 		if (finish_command(&cmd)) {
+
+#156
+builtin/replace.c:302: error: Resource Leak
+  resource acquired by call to `open()` at line 256, column 7 is not released after line 302, column 7.
+  300. 			return -1;
+  301. 		}
+  302. 		if (index_fd(the_repository->index, oid, fd, &st, type, NULL, flags) < 0)
+             ^
+  303. 			return error(_("unable to write object to database"));
+  304. 		/* index_fd close()s fd for us */
+
+#157
+builtin/rm.c:263: error: Dead Store
+  The value written to &argc (type int) is never used.
+  261. 	git_config(git_default_config, NULL);
+  262. 
+  263. 	argc = parse_options(argc, argv, prefix, builtin_rm_options,
+        ^
+  264. 			     builtin_rm_usage, 0);
+  265. 
+
+#158
+builtin/add.c:277: error: Dead Store
+  The value written to &argc (type int) is never used.
+  275. 	rev.diffopt.context = 7;
+  276. 
+  277. 	argc = setup_revisions(argc, argv, &rev, NULL);
+        ^
+  278. 	rev.diffopt.output_format = DIFF_FORMAT_PATCH;
+  279. 	rev.diffopt.use_color = 0;
+
+#159
+quote.c:304: error: Uninitialized Value
+  The value read from len was never initialized.
+  302. 	}
+  303. 
+  304. 	EMITBUF(p, len);
+        ^
+  305. 	if (p == name)   /* no ending quote needed */
+  306. 		return 0;
+
+#160
+builtin/credential-cache--daemon.c:281: error: Dead Store
+  The value written to &argc (type int) is never used.
+  279. 	git_config_get_bool("credentialcache.ignoresighup", &ignore_sighup);
+  280. 
+  281. 	argc = parse_options(argc, argv, prefix, options, usage, 0);
+        ^
+  282. 	socket_path = argv[0];
+  283. 
+
+#161
+compat/terminal.c:280: error: Dead Store
+  The value written to &eol (type char*) is never used.
+  278. 			strbuf_setlen(&buf, 0);
+  279. 
+  280. 		for (eol = p = buf.buf; *p; p = eol + 1) {
+              ^
+  281. 			p = strchr(p, '=');
+  282. 			if (!p)
+
+#162
+builtin/repack.c:339: error: Dead Store
+  The value written to &argc (type int) is never used.
+  337. 	git_config(repack_config, NULL);
+  338. 
+  339. 	argc = parse_options(argc, argv, prefix, builtin_repack_options,
+        ^
+  340. 				git_repack_usage, 0);
+  341. 
+
+#163
+config.c:283: error: Uninitialized Value
+  The value read from flags was never initialized.
+  281. 	const char *shortname;
+  282. 
+  283. 	if (!refname || !(flags & REF_ISSYMREF)	||
+                          ^
+  284. 			!skip_prefix(refname, "refs/heads/", &shortname))
+  285. 		return 0;
+
+#164
+archive-zip.c:434: error: Uninitialized Value
+  The value read from readlen was never initialized.
+  432. 		}
+  433. 		close_istream(stream);
+  434. 		if (readlen)
+             ^
+  435. 			return readlen;
+  436. 
+
+#165
+archive-zip.c:435: error: Uninitialized Value
+  The value read from readlen was never initialized.
+  433. 		close_istream(stream);
+  434. 		if (readlen)
+  435. 			return readlen;
+          ^
+  436. 
+  437. 		compressed_size = size;
+
+#166
+archive-zip.c:481: error: Uninitialized Value
+  The value read from readlen was never initialized.
+  479. 		}
+  480. 		close_istream(stream);
+  481. 		if (readlen)
+             ^
+  482. 			return readlen;
+  483. 
+
+#167
+archive-zip.c:482: error: Uninitialized Value
+  The value read from readlen was never initialized.
+  480. 		close_istream(stream);
+  481. 		if (readlen)
+  482. 			return readlen;
+          ^
+  483. 
+  484. 		zstream.next_in = buf;
+
+#168
+builtin/reset.c:319: error: Dead Store
+  The value written to &argc (type int) is never used.
+  317. 	git_config_get_bool("reset.quiet", &quiet);
+  318. 
+  319. 	argc = parse_options(argc, argv, prefix, options, git_reset_usage,
+        ^
+  320. 						PARSE_OPT_KEEP_DASHDASH);
+  321. 	parse_args(&pathspec, argv, prefix, patch_mode, &rev);
+
+#169
+mailinfo.c:311: error: Dead Store
+  The value written to &at (type unsigned long) is never used.
+  309. 				continue;
+  310. 			}
+  311. 			at++;
+          ^
+  312. 			break;
+  313. 		case ' ': case '\t': case ':':
+
+#170
+builtin/sparse-checkout.c:313: error: Dead Store
+  The value written to &argc (type int) is never used.
+  311. 	repo_read_index(the_repository);
+  312. 
+  313. 	argc = parse_options(argc, argv, NULL,
+        ^
+  314. 			     builtin_sparse_checkout_init_options,
+  315. 			     builtin_sparse_checkout_init_usage, 0);
+
+#171
+builtin/config.c:311: error: Dead Store
+  The value written to &ret (type int) is never used.
+  309. static int get_value(const char *key_, const char *regex_)
+  310. {
+  311. 	int ret = CONFIG_GENERIC_ERROR;
+        ^
+  312. 	struct strbuf_list values = {NULL};
+  313. 	int i;
+
+#172
+connect.c:352: error: Null Dereference
+  pointer `reader->line` last assigned on line 336 could be null and is dereferenced by call to `process_capabilities()` at line 352, column 4.
+  350. 		switch (state) {
+  351. 		case EXPECTING_FIRST_REF:
+  352. 			process_capabilities(reader, &len);
+          ^
+  353. 			if (process_dummy_ref(reader)) {
+  354. 				state = EXPECTING_SHALLOW;
+
+#173
+object.c:355: error: Dead Store
+  The value written to &nr (type unsigned int) is never used.
+  353. 	else
+  354. 		entry->path = NULL;
+  355. 	array->nr = ++nr;
+                    ^
+  356. }
+  357. 
+
+#174
+khash.h:337: error: Uninitialized Value
+  The value read from val was never initialized.
+  335. }
+  336. 
+  337. KHASH_INIT(oid_set, struct object_id, int, 0, oidhash_by_value, oideq_by_value)
+       ^
+  338. 
+  339. KHASH_INIT(oid_map, struct object_id, void *, 1, oidhash_by_value, oideq_by_value)
+
+#175
+khash.h:339: error: Uninitialized Value
+  The value read from val was never initialized.
+  337. KHASH_INIT(oid_set, struct object_id, int, 0, oidhash_by_value, oideq_by_value)
+  338. 
+  339. KHASH_INIT(oid_map, struct object_id, void *, 1, oidhash_by_value, oideq_by_value)
+       ^
+  340. 
+  341. KHASH_INIT(oid_pos, struct object_id, int, 1, oidhash_by_value, oideq_by_value)
+
+#176
+khash.h:341: error: Uninitialized Value
+  The value read from val was never initialized.
+  339. KHASH_INIT(oid_map, struct object_id, void *, 1, oidhash_by_value, oideq_by_value)
+  340. 
+  341. KHASH_INIT(oid_pos, struct object_id, int, 1, oidhash_by_value, oideq_by_value)
+       ^
+  342. 
+  343. #endif /* __AC_KHASH_H */
+
+#177
+commit-reach.c:363: error: Dead Store
+  The value written to &next (type commit_list**) is never used.
+  361. 	struct commit_list **next = &list;
+  362. 
+  363. 	next = commit_list_append(commit, next);
+        ^
+  364. 	res = repo_is_descendant_of(r, reference, list);
+  365. 	free_commit_list(list);
+
+#178
+builtin/notes.c:366: error: Dead Store
+  The value written to &retval (type int) is never used.
+  364. 	struct object_id object;
+  365. 	const struct object_id *note;
+  366. 	int retval = -1;
+        ^
+  367. 	struct option options[] = {
+  368. 		OPT_END()
+
+#179
+http-backend.c:417: error: Dead Store
+  The value written to &n (type long) is never used.
+  415. 				die("zlib error inflating request, result %d", ret);
+  416. 
+  417. 			n = stream.total_out - cnt;
+          ^
+  418. 			write_to_child(out, out_buf, stream.total_out - cnt, prog_name);
+  419. 			cnt = stream.total_out;
+
+#180
+diff-lib.c:413: error: Null Dereference
+  pointer `pair` last assigned on line 411 could be null and is dereferenced at line 413, column 18.
+  411. 		pair = diff_unmerge(&revs->diffopt, idx->name);
+  412. 		if (tree)
+  413. 			fill_filespec(pair->one, &tree->oid, 1,
+                        ^
+  414. 				      tree->ce_mode);
+  415. 		return;
+
+#181
+builtin/update-ref.c:400: error: Null Dereference
+  pointer `input.buf` last assigned on line 397 could be null and is dereferenced at line 400, column 7.
+  398. 		const struct parse_cmd *cmd = NULL;
+  399. 
+  400. 		if (*input.buf == line_termination)
+             ^
+  401. 			die("empty command in input");
+  402. 		else if (isspace(*input.buf))
+
+#182
+builtin/gc.c:443: error: Uninitialized Value
+  The value read from pid was never initialized.
+  441. 			if (fd >= 0)
+  442. 				rollback_lock_file(&lock);
+  443. 			*ret_pid = pid;
+          ^
+  444. 			free(pidfile_path);
+  445. 			return locking_host;
+
+#183
+t/helper/test-json-writer.c:404: error: Null Dereference
+  pointer `s` last assigned on line 402 could be null and is dereferenced by call to `strtol()` at line 404, column 10.
+  402. 	get_s(line_nr, &s);
+  403. 
+  404. 	*s_in = strtol(s, &endptr, 10);
+                ^
+  405. 	if (*endptr || errno == ERANGE)
+  406. 		die("line[%d]: invalid integer value", line_nr);
+
+#184
+builtin/rev-parse.c:520: error: Dead Store
+  The value written to &argc (type int) is never used.
+  518. 	ALLOC_GROW(opts, onb + 1, osz);
+  519. 	memset(opts + onb, 0, sizeof(opts[onb]));
+  520. 	argc = parse_options(argc, argv, prefix, opts, usage,
+        ^
+  521. 			(keep_dashdash ? PARSE_OPT_KEEP_DASHDASH : 0) |
+  522. 			(stop_at_non_option ? PARSE_OPT_STOP_AT_NON_OPTION : 0) |
+
+#185
+t/helper/test-json-writer.c:416: error: Null Dereference
+  pointer `s` last assigned on line 414 could be null and is dereferenced by call to `strtod()` at line 416, column 10.
+  414. 	get_s(line_nr, &s);
+  415. 
+  416. 	*s_in = strtod(s, &endptr);
+                ^
+  417. 	if (*endptr || errno == ERANGE)
+  418. 		die("line[%d]: invalid float value", line_nr);
+
+#186
+send-pack.c:635: error: Uninitialized Value
+  The value read from demux.out was never initialized.
+  633. 
+  634. 			if (use_sideband) {
+  635. 				close(demux.out);
+           ^
+  636. 				finish_async(&demux);
+  637. 			}
+
+#187
+send-pack.c:656: error: Uninitialized Value
+  The value read from demux.out was never initialized.
+  654. 
+  655. 	if (use_sideband && cmds_sent) {
+  656. 		close(demux.out);
+         ^
+  657. 		if (finish_async(&demux)) {
+  658. 			error("error in sideband demultiplexer");
+
+#188
+pkt-line.c:446: error: Uninitialized Value
+  The value read from packet_len was never initialized.
+  444. 	}
+  445. 
+  446. 	if (packet_len < 0) {
+            ^
+  447. 		if (orig_alloc == 0)
+  448. 			strbuf_release(sb_out);
+
+#189
+pkt-line.c:451: error: Uninitialized Value
+  The value read from packet_len was never initialized.
+  449. 		else
+  450. 			strbuf_setlen(sb_out, orig_len);
+  451. 		return packet_len;
+         ^
+  452. 	}
+  453. 	return sb_out->len - orig_len;
+
+#190
+http-walker.c:458: error: Uninitialized Value
+  The value read from results.curl_result was never initialized.
+  456. 	if (start_active_slot(preq->slot)) {
+  457. 		run_active_slot(preq->slot);
+  458. 		if (results.curl_result != CURLE_OK) {
+             ^
+  459. 			error("Unable to get pack file %s\n%s", preq->url,
+  460. 			      curl_errorstr);
+
+#191
+builtin/add.c:473: error: Dead Store
+  The value written to &argc (type int) is never used.
+  471. 		return(edit_patch(argc, argv, prefix));
+  472. 	}
+  473. 	argc--;
+        ^
+  474. 	argv++;
+  475. 
+
+#192
+builtin/fetch.c:539: error: Dead Store
+  The value written to &tail (type ref**) is never used.
+  537. 	for (rm = orefs; rm; rm = rm->next) {
+  538. 		rm->fetch_head_status = FETCH_HEAD_IGNORE;
+  539. 		tail = &rm->next;
+         ^
+  540. 	}
+  541. 
+
+#193
+http-push.c:462: error: Uninitialized Value
+  The value read from results.curl_result was never initialized.
+  460. 	if (start_active_slot(slot)) {
+  461. 		run_active_slot(slot);
+  462. 		if (results.curl_result != CURLE_OK) {
+             ^
+  463. 			fprintf(stderr, "LOCK HTTP error %ld\n",
+  464. 				results.http_code);
+
+#194
+http-push.c:463: error: Uninitialized Value
+  The value read from results.http_code was never initialized.
+  461. 		run_active_slot(slot);
+  462. 		if (results.curl_result != CURLE_OK) {
+  463. 			fprintf(stderr, "LOCK HTTP error %ld\n",
+          ^
+  464. 				results.http_code);
+  465. 		} else {
+
+#195
+diff-lib.c:470: error: Null Dereference
+  pointer `tree` last assigned on line 468 could be null and is dereferenced by call to `ce_path_match()` at line 470, column 6.
+  468. 		tree = NULL;
+  469. 
+  470. 	if (ce_path_match(revs->diffopt.repo->index,
+            ^
+  471. 			  idx ? idx : tree,
+  472. 			  &revs->prune_data, NULL)) {
+
+#196
+bundle.c:481: error: Dead Store
+  The value written to &bundle_fd (type int) is never used.
+  479. {
+  480. 	struct lock_file lock = LOCK_INIT;
+  481. 	int bundle_fd = -1;
+        ^
+  482. 	int bundle_to_stdout;
+  483. 	int ref_count = 0;
+
+#197
+builtin/rebase.c:552: error: Dead Store
+  The value written to &argc (type int) is never used.
+  550. 		usage_with_options(builtin_rebase_interactive_usage, options);
+  551. 
+  552. 	argc = parse_options(argc, argv, prefix, options,
+        ^
+  553. 			builtin_rebase_interactive_usage, PARSE_OPT_KEEP_ARGV0);
+  554. 
+
+#198
+apply.c:505: error: Dead Store
+  The value written to &p (type char const *) is never used.
+  503. 	p = tz + 2;
+  504. 	if (!isdigit(*p++) || !isdigit(*p++) || *p++ != ':' ||
+  505. 	    !isdigit(*p++) || !isdigit(*p++))
+                               ^
+  506. 		return 0;
+  507. 
+
+#199
+diffcore-rename.c:641: error: Dead Store
+  The value written to &rename_count (type int) is never used.
+  639. 	rename_count += find_renames(mx, dst_cnt, minimum_score, 0);
+  640. 	if (detect_rename == DIFF_DETECT_COPY)
+  641. 		rename_count += find_renames(mx, dst_cnt, minimum_score, 1);
+         ^
+  642. 	free(mx);
+  643. 
+
+#200
+trailer.c:535: error: Uninitialized Value
+  The value read from type was never initialized.
+  533. 
+  534. 	switch (type) {
+  535. 	case TRAILER_KEY:
+        ^
+  536. 		if (conf->key)
+  537. 			warning(_("more than one %s"), conf_key);
+
+#201
+trailer.c:540: error: Uninitialized Value
+  The value read from type was never initialized.
+  538. 		conf->key = xstrdup(value);
+  539. 		break;
+  540. 	case TRAILER_COMMAND:
+        ^
+  541. 		if (conf->command)
+  542. 			warning(_("more than one %s"), conf_key);
+
+#202
+trailer.c:545: error: Uninitialized Value
+  The value read from type was never initialized.
+  543. 		conf->command = xstrdup(value);
+  544. 		break;
+  545. 	case TRAILER_WHERE:
+        ^
+  546. 		if (trailer_set_where(&conf->where, value))
+  547. 			warning(_("unknown value '%s' for key '%s'"), value, conf_key);
+
+#203
+trailer.c:549: error: Uninitialized Value
+  The value read from type was never initialized.
+  547. 			warning(_("unknown value '%s' for key '%s'"), value, conf_key);
+  548. 		break;
+  549. 	case TRAILER_IF_EXISTS:
+        ^
+  550. 		if (trailer_set_if_exists(&conf->if_exists, value))
+  551. 			warning(_("unknown value '%s' for key '%s'"), value, conf_key);
+
+#204
+trailer.c:553: error: Uninitialized Value
+  The value read from type was never initialized.
+  551. 			warning(_("unknown value '%s' for key '%s'"), value, conf_key);
+  552. 		break;
+  553. 	case TRAILER_IF_MISSING:
+        ^
+  554. 		if (trailer_set_if_missing(&conf->if_missing, value))
+  555. 			warning(_("unknown value '%s' for key '%s'"), value, conf_key);
+
+#205
+trailer.c:558: error: Uninitialized Value
+  The value read from type was never initialized.
+  556. 		break;
+  557. 	default:
+  558. 		BUG("trailer.c: unhandled type %d", type);
+         ^
+  559. 	}
+  560. 	return 0;
+
+#206
+commit-reach.c:525: error: Null Dereference
+  pointer `&contains_stack->contains_stack` last assigned on line 507 could be null and is dereferenced by call to `push_to_contains_stack()` at line 525, column 2.
+  523. 		return result;
+  524. 
+  525. 	push_to_contains_stack(candidate, &contains_stack);
+        ^
+  526. 	while (contains_stack.nr) {
+  527. 		struct contains_stack_entry *entry = &contains_stack.contains_stack[contains_stack.nr - 1];
+
+#207
+builtin/pull.c:514: error: Dead Store
+  The value written to &argc (type int) is never used.
+  512. 	if (argc > 0) {
+  513. 		*repo = *argv++;
+  514. 		argc--;
+         ^
+  515. 	} else
+  516. 		*repo = NULL;
+
+#208
+apply.c:521: error: Dead Store
+  The value written to &p (type char const *) is never used.
+  519. 	if (!isdigit(*p++) || !isdigit(*p++) || *p++ != '-' ||
+  520. 	    !isdigit(*p++) || !isdigit(*p++) || *p++ != '-' ||
+  521. 	    !isdigit(*p++) || !isdigit(*p++))	/* Not a date. */
+                               ^
+  522. 		return 0;
+  523. 
+
+#209
+builtin/ls-files.c:596: error: Dead Store
+  The value written to &argc (type int) is never used.
+  594. 		die("index file corrupt");
+  595. 
+  596. 	argc = parse_options(argc, argv, prefix, builtin_ls_files_options,
+        ^
+  597. 			ls_files_usage, 0);
+  598. 	pl = add_pattern_list(&dir, EXC_CMDL, "--exclude option");
+
+#210
+commit-graph.c:531: error: Dead Store
+  The value written to &valid (type int) is never used.
+  529. 	struct stat st;
+  530. 	struct object_id *oids;
+  531. 	int i = 0, valid = 1, count;
+        ^
+  532. 	char *chain_name = get_commit_graph_chain_filename(odb);
+  533. 	FILE *fp;
+
+#211
+apply.c:543: error: Dead Store
+  The value written to &p (type char const *) is never used.
+  541. 	    !isdigit(*p++) || !isdigit(*p++) || *p++ != ':' ||
+  542. 	    !isdigit(*p++) || !isdigit(*p++) || *p++ != ':' ||
+  543. 	    !isdigit(*p++) || !isdigit(*p++))	/* Not a time. */
+                               ^
+  544. 		return 0;
+  545. 
+
+#212
+builtin/help.c:552: error: Dead Store
+  The value written to &argc (type int) is never used.
+  550. 	enum help_format parsed_help_format;
+  551. 
+  552. 	argc = parse_options(argc, argv, prefix, builtin_help_options,
+        ^
+  553. 			builtin_help_usage, 0);
+  554. 	parsed_help_format = help_format;
+
+#213
+builtin/sparse-checkout.c:586: error: Dead Store
+  The value written to &argc (type int) is never used.
+  584. 	};
+  585. 
+  586. 	argc = parse_options(argc, argv, NULL,
+        ^
+  587. 			     builtin_sparse_checkout_reapply_options,
+  588. 			     builtin_sparse_checkout_reapply_usage, 0);
+
+#214
+builtin/sparse-checkout.c:607: error: Dead Store
+  The value written to &argc (type int) is never used.
+  605. 	struct strbuf match_all = STRBUF_INIT;
+  606. 
+  607. 	argc = parse_options(argc, argv, NULL,
+        ^
+  608. 			     builtin_sparse_checkout_disable_options,
+  609. 			     builtin_sparse_checkout_disable_usage, 0);
+
+#215
+commit.c:616: error: Null Dereference
+  pointer `ret` last assigned on line 615 could be null and is dereferenced at line 616, column 32.
+  614. {
+  615. 	struct commit *ret = pop_commit(list);
+  616. 	struct commit_list *parents = ret->parents;
+                                      ^
+  617. 
+  618. 	while (parents) {
+
+#216
+config.c:628: error: Uninitialized Value
+  The value read from c was never initialized.
+  626. 	}
+  627. 
+  628. 	while (c == ' ' || c == '\t')
+               ^
+  629. 		c = get_next_char();
+  630. 
+
+#217
+config.c:628: error: Uninitialized Value
+  The value read from c was never initialized.
+  626. 	}
+  627. 
+  628. 	while (c == ' ' || c == '\t')
+                           ^
+  629. 		c = get_next_char();
+  630. 
+
+#218
+config.c:632: error: Uninitialized Value
+  The value read from c was never initialized.
+  630. 
+  631. 	value = NULL;
+  632. 	if (c != '\n') {
+            ^
+  633. 		if (c != '=')
+  634. 			return -1;
+
+#219
+config.c:633: error: Uninitialized Value
+  The value read from c was never initialized.
+  631. 	value = NULL;
+  632. 	if (c != '\n') {
+  633. 		if (c != '=')
+             ^
+  634. 			return -1;
+  635. 		value = parse_value();
+
+#220
+builtin/receive-pack.c:619: error: Dead Store
+  The value written to &retval (type char const *) is never used.
+  617. 	timestamp_t stamp, ostamp;
+  618. 	char *bohmac, *expect = NULL;
+  619. 	const char *retval = NONCE_BAD;
+        ^
+  620. 	size_t noncelen;
+  621. 
+
+#221
+archive.c:649: error: Dead Store
+  The value written to &argc (type int) is never used.
+  647. 	args.prefix = prefix;
+  648. 	string_list_init(&args.extra_files, 1);
+  649. 	argc = parse_archive_args(argc, argv, &ar, &args, name_hint, remote);
+        ^
+  650. 	if (!startup_info->have_repository) {
+  651. 		/*
+
+#222
+diff.c:689: error: Dead Store
+  The value written to &needs_reset (type int) is never used.
+  687. 			fputs(reset, file);
+  688. 		fputs(set, file);
+  689. 		needs_reset = 1;
+         ^
+  690. 	}
+  691. 	fwrite(line, len, 1, file);
+
+#223
+help.c:665: error: Dead Store
+  The value written to &argc (type int) is never used.
+  663. 	};
+  664. 
+  665. 	argc = parse_options(argc, argv, prefix, options, usage, 0);
+        ^
+  666. 
+  667. 	get_version_info(&buf, build_options);
+
+#224
+builtin/commit.c:660: error: Uninitialized Value
+  The value read from candidates[_] was never initialized.
+  658. 	const char *p;
+  659. 
+  660. 	comment_line_char = candidates[0];
+        ^
+  661. 	if (!memchr(sb->buf, comment_line_char, sb->len))
+  662. 		return;
+
+#225
+run-command.c:808: error: Uninitialized Value
+  The value read from fderr[_] was never initialized.
+  806. 			child_dup2(null_fd, 2);
+  807. 		else if (need_err) {
+  808. 			child_dup2(fderr[1], 2);
+          ^
+  809. 			child_close_pair(fderr);
+  810. 		} else if (cmd->err > 1) {
+
+#226
+run-command.c:980: error: Uninitialized Value
+  The value read from fderr[_] was never initialized.
+  978. 
+  979. 	if (need_err)
+  980. 		close(fderr[1]);
+         ^
+  981. 	else if (cmd->err)
+  982. 		close(cmd->err);
+
+#227
+run-command.c:798: error: Uninitialized Value
+  The value read from fdin[_] was never initialized.
+  796. 			child_dup2(null_fd, 0);
+  797. 		else if (need_in) {
+  798. 			child_dup2(fdin[0], 0);
+          ^
+  799. 			child_close_pair(fdin);
+  800. 		} else if (cmd->in) {
+
+#228
+run-command.c:970: error: Uninitialized Value
+  The value read from fdin[_] was never initialized.
+  968. 
+  969. 	if (need_in)
+  970. 		close(fdin[0]);
+         ^
+  971. 	else if (cmd->in)
+  972. 		close(cmd->in);
+
+#229
+run-command.c:820: error: Uninitialized Value
+  The value read from fdout[_] was never initialized.
+  818. 			child_dup2(2, 1);
+  819. 		else if (need_out) {
+  820. 			child_dup2(fdout[1], 1);
+          ^
+  821. 			child_close_pair(fdout);
+  822. 		} else if (cmd->out > 1) {
+
+#230
+run-command.c:975: error: Uninitialized Value
+  The value read from fdout[_] was never initialized.
+  973. 
+  974. 	if (need_out)
+  975. 		close(fdout[1]);
+         ^
+  976. 	else if (cmd->out)
+  977. 		close(cmd->out);
+
+#231
+builtin/stash.c:687: error: Dead Store
+  The value written to &argc (type int) is never used.
+  685. 	};
+  686. 
+  687. 	argc = parse_options(argc, argv, prefix, options,
+        ^
+  688. 			     git_stash_list_usage,
+  689. 			     PARSE_OPT_KEEP_UNKNOWN);
+
+#232
+builtin/commit.c:910: error: Dead Store
+  The value written to &ident_shown (type int) is never used.
+  908. 				_("%s"
+  909. 				"Committer: %.*s <%.*s>"),
+  910. 				ident_shown++ ? "" : "\n",
+           ^
+  911. 				(int)(ci.name_end - ci.name_begin), ci.name_begin,
+  912. 				(int)(ci.mail_end - ci.mail_begin), ci.mail_begin);
+
+#233
+strbuf.c:708: error: Null Dereference
+  pointer `sb->buf` last assigned on line 706 could be null and is dereferenced at line 708, column 6.
+  706. 	if (strbuf_getwholeline(sb, fp, term))
+  707. 		return EOF;
+  708. 	if (sb->buf[sb->len - 1] == term)
+            ^
+  709. 		strbuf_setlen(sb, sb->len - 1);
+  710. 	return 0;
+
+#234
+strbuf.c:717: error: Null Dereference
+  pointer `sb->buf` last assigned on line 715 could be null and is dereferenced at line 717, column 6.
+  715. 	if (strbuf_getwholeline(sb, fp, '\n'))
+  716. 		return EOF;
+  717. 	if (sb->buf[sb->len - 1] == '\n') {
+            ^
+  718. 		strbuf_setlen(sb, sb->len - 1);
+  719. 		if (sb->len && sb->buf[sb->len - 1] == '\r')
+
+#235
+commit-graph.c:818: error: Dead Store
+  The value written to &pptr (type commit_list**) is never used.
+  816. 		return 1;
+  817. 	if (!(edge_value & GRAPH_EXTRA_EDGES_NEEDED)) {
+  818. 		pptr = insert_parent_or_die(r, g, edge_value, pptr);
+         ^
+  819. 		return 1;
+  820. 	}
+
+#236
+strbuf.c:774: error: Null Dereference
+  pointer `null` is dereferenced by call to `add_lines()` at line 774, column 2.
+  772. 		      const char *buf, size_t size)
+  773. {
+  774. 	add_lines(out, prefix, NULL, buf, size);
+        ^
+  775. }
+  776. 
+
+#237
+notes.c:814: error: Uninitialized Value
+  The value read from cur_len was never initialized.
+  812. 	if (!is_null_oid(cur_oid))
+  813. 		cur_msg = read_object_file(cur_oid, &cur_type, &cur_len);
+  814. 	if (!cur_msg || !cur_len || cur_type != OBJ_BLOB) {
+                         ^
+  815. 		free(cur_msg);
+  816. 		free(new_msg);
+
+#238
+notes.c:823: error: Uninitialized Value
+  The value read from cur_len was never initialized.
+  821. 	/* we will separate the notes by two newlines anyway */
+  822. 	if (cur_msg[cur_len - 1] == '\n')
+  823. 		cur_len--;
+         ^
+  824. 
+  825. 	/* concatenate cur_msg and new_msg into buf */
+
+#239
+notes.c:826: error: Uninitialized Value
+  The value read from cur_len was never initialized.
+  824. 
+  825. 	/* concatenate cur_msg and new_msg into buf */
+  826. 	buf_len = cur_len + 2 + new_len;
+        ^
+  827. 	buf = (char *) xmalloc(buf_len);
+  828. 	memcpy(buf, cur_msg, cur_len);
+
+#240
+notes.c:828: error: Uninitialized Value
+  The value read from cur_len was never initialized.
+  826. 	buf_len = cur_len + 2 + new_len;
+  827. 	buf = (char *) xmalloc(buf_len);
+  828. 	memcpy(buf, cur_msg, cur_len);
+        ^
+  829. 	buf[cur_len] = '\n';
+  830. 	buf[cur_len + 1] = '\n';
+
+#241
+notes.c:814: error: Uninitialized Value
+  The value read from cur_type was never initialized.
+  812. 	if (!is_null_oid(cur_oid))
+  813. 		cur_msg = read_object_file(cur_oid, &cur_type, &cur_len);
+  814. 	if (!cur_msg || !cur_len || cur_type != OBJ_BLOB) {
+                                    ^
+  815. 		free(cur_msg);
+  816. 		free(new_msg);
+
+#242
+notes.c:808: error: Uninitialized Value
+  The value read from new_len was never initialized.
+  806. 	if (!is_null_oid(new_oid))
+  807. 		new_msg = read_object_file(new_oid, &new_type, &new_len);
+  808. 	if (!new_msg || !new_len || new_type != OBJ_BLOB) {
+                         ^
+  809. 		free(new_msg);
+  810. 		return 0;
+
+#243
+notes.c:826: error: Uninitialized Value
+  The value read from new_len was never initialized.
+  824. 
+  825. 	/* concatenate cur_msg and new_msg into buf */
+  826. 	buf_len = cur_len + 2 + new_len;
+        ^
+  827. 	buf = (char *) xmalloc(buf_len);
+  828. 	memcpy(buf, cur_msg, cur_len);
+
+#244
+notes.c:831: error: Uninitialized Value
+  The value read from new_len was never initialized.
+  829. 	buf[cur_len] = '\n';
+  830. 	buf[cur_len + 1] = '\n';
+  831. 	memcpy(buf + cur_len + 2, new_msg, new_len);
+        ^
+  832. 	free(cur_msg);
+  833. 	free(new_msg);
+
+#245
+notes.c:808: error: Uninitialized Value
+  The value read from new_type was never initialized.
+  806. 	if (!is_null_oid(new_oid))
+  807. 		new_msg = read_object_file(new_oid, &new_type, &new_len);
+  808. 	if (!new_msg || !new_len || new_type != OBJ_BLOB) {
+                                    ^
+  809. 		free(new_msg);
+  810. 		return 0;
+
+#246
+fetch-pack.c:895: error: Uninitialized Value
+  The value read from header.hdr_entries was never initialized.
+  893. 		strvec_pushf(&cmd.args, "--pack_header=%"PRIu32",%"PRIu32,
+  894. 			     ntohl(header.hdr_version),
+  895. 				 ntohl(header.hdr_entries));
+            ^
+  896. 	if (fetch_fsck_objects >= 0
+  897. 	    ? fetch_fsck_objects
+
+#247
+fetch-pack.c:894: error: Uninitialized Value
+  The value read from header.hdr_version was never initialized.
+  892. 	if (pass_header)
+  893. 		strvec_pushf(&cmd.args, "--pack_header=%"PRIu32",%"PRIu32,
+  894. 			     ntohl(header.hdr_version),
+               ^
+  895. 				 ntohl(header.hdr_entries));
+  896. 	if (fetch_fsck_objects >= 0
+
+#248
+pack-bitmap.c:824: error: Uninitialized Value
+  The value read from size was never initialized.
+  822. 	}
+  823. 
+  824. 	return size;
+        ^
+  825. }
+  826. 
+
+#249
+fsck.c:850: error: Dead Store
+  The value written to &p (type char const *) is never used.
+  848. 	    (p[5] != '\n'))
+  849. 		return report(options, oid, type, FSCK_MSG_BAD_TIMEZONE, "invalid author/committer line - bad time zone");
+  850. 	p += 6;
+        ^
+  851. 	return 0;
+  852. }
+
+#250
+commit-graph.c:849: error: Uninitialized Value
+  The value read from lex_index was never initialized.
+  847. 
+  848. 		if (cur_g) {
+  849. 			*pos = lex_index + cur_g->num_commits_in_base;
+          ^
+  850. 			return 1;
+  851. 		}
+
+#251
+http-push.c:868: error: Uninitialized Value
+  The value read from results.curl_result was never initialized.
+  866. 		if (start_active_slot(slot)) {
+  867. 			run_active_slot(slot);
+  868. 			if (results.curl_result != CURLE_OK &&
+              ^
+  869. 			    results.http_code != 405) {
+  870. 				fprintf(stderr,
+
+#252
+http-push.c:904: error: Uninitialized Value
+  The value read from results.curl_result was never initialized.
+  902. 	if (start_active_slot(slot)) {
+  903. 		run_active_slot(slot);
+  904. 		if (results.curl_result == CURLE_OK) {
+             ^
+  905. 			XML_Parser parser = XML_ParserCreate(NULL);
+  906. 			enum XML_Status result;
+
+#253
+http-push.c:927: error: Uninitialized Value
+  The value read from results.curl_result was never initialized.
+  925. 			XML_ParserFree(parser);
+  926. 		} else {
+  927. 			fprintf(stderr,
+          ^
+  928. 				"error: curl result=%d, HTTP code=%ld\n",
+  929. 				results.curl_result, results.http_code);
+
+#254
+http-push.c:869: error: Uninitialized Value
+  The value read from results.http_code was never initialized.
+  867. 			run_active_slot(slot);
+  868. 			if (results.curl_result != CURLE_OK &&
+  869. 			    results.http_code != 405) {
+              ^
+  870. 				fprintf(stderr,
+  871. 					"Unable to create branch path %s\n",
+
+#255
+http-push.c:927: error: Uninitialized Value
+  The value read from results.http_code was never initialized.
+  925. 			XML_ParserFree(parser);
+  926. 		} else {
+  927. 			fprintf(stderr,
+          ^
+  928. 				"error: curl result=%d, HTTP code=%ld\n",
+  929. 				results.curl_result, results.http_code);
+
+#256
+fsck.c:894: error: Uninitialized Value
+  The value read from err was never initialized.
+  892. 	else if (author_count > 1)
+  893. 		err = report(options, oid, OBJ_COMMIT, FSCK_MSG_MULTIPLE_AUTHORS, "invalid format - multiple 'author' lines");
+  894. 	if (err)
+            ^
+  895. 		return err;
+  896. 	if (!skip_prefix(buffer, "committer ", &buffer))
+
+#257
+fsck.c:895: error: Uninitialized Value
+  The value read from err was never initialized.
+  893. 		err = report(options, oid, OBJ_COMMIT, FSCK_MSG_MULTIPLE_AUTHORS, "invalid format - multiple 'author' lines");
+  894. 	if (err)
+  895. 		return err;
+         ^
+  896. 	if (!skip_prefix(buffer, "committer ", &buffer))
+  897. 		return report(options, oid, OBJ_COMMIT, FSCK_MSG_MISSING_COMMITTER, "invalid format - expected 'committer' line");
+
+#258
+builtin/merge.c:886: error: Dead Store
+  The value written to &pptr (type commit_list**) is never used.
+  884. 	printf(_("Wonderful.\n"));
+  885. 	pptr = commit_list_append(head, pptr);
+  886. 	pptr = commit_list_append(remoteheads->item, pptr);
+        ^
+  887. 	prepare_to_commit(remoteheads);
+  888. 	if (commit_tree(merge_msg.buf, merge_msg.len, &result_tree, parents,
+
+#259
+connect.c:881: error: Dead Store
+  The value written to &matchlen (type int) is never used.
+  879. 	if (!strcmp(var, "core.gitproxy")) {
+  880. 		const char *for_pos;
+  881. 		int matchlen = -1;
+         ^
+  882. 		int hostlen;
+  883. 		const char *rhost_name = cb;
+
+#260
+builtin/fast-import.c:973: error: Uninitialized Value
+  The value read from deltalen was never initialized.
+  971. 	if (delta) {
+  972. 		s.next_in = delta;
+  973. 		s.avail_in = deltalen;
+         ^
+  974. 	} else {
+  975. 		s.next_in = (void *)dat->buf;
+
+#261
+builtin/fast-import.c:1023: error: Uninitialized Value
+  The value read from deltalen was never initialized.
+  1021. 		e->depth = last->depth + 1;
+  1022. 
+  1023. 		hdrlen = encode_in_pack_object_header(hdr, sizeof(hdr),
+                   ^
+  1024. 						      OBJ_OFS_DELTA, deltalen);
+  1025. 		hashwrite(pack_file, hdr, hdrlen);
+
+#262
+grep.c:969: error: Uninitialized Value
+  The value read from header_group[_] was never initialized.
+  967. 		if (!h || pp != p->next)
+  968. 			BUG("malformed header expr");
+  969. 		if (!header_group[p->field]) {
+              ^
+  970. 			header_group[p->field] = h;
+  971. 			continue;
+
+#263
+grep.c:979: error: Uninitialized Value
+  The value read from header_group[_] was never initialized.
+  977. 
+  978. 	for (fld = 0; fld < GREP_HEADER_FIELD_MAX; fld++) {
+  979. 		if (!header_group[fld])
+              ^
+  980. 			continue;
+  981. 		if (!header_expr)
+
+#264
+builtin/update-index.c:1133: error: Dead Store
+  The value written to &argc (type int) is never used.
+  1131. 		}
+  1132. 	}
+  1133. 	argc = parse_options_end(&ctx);
+         ^
+  1134. 
+  1135. 	getline_fn = nul_term_line ? strbuf_getline_nul : strbuf_getline_lf;
+
+#265
+http-push.c:971: error: Uninitialized Value
+  The value read from results.curl_result was never initialized.
+  969. 	if (start_active_slot(slot)) {
+  970. 		run_active_slot(slot);
+  971. 		if (results.curl_result == CURLE_OK)
+             ^
+  972. 			rc = 1;
+  973. 		else
+
+#266
+http-push.c:974: error: Uninitialized Value
+  The value read from results.http_code was never initialized.
+  972. 			rc = 1;
+  973. 		else
+  974. 			fprintf(stderr, "UNLOCK HTTP error %ld\n",
+          ^
+  975. 				results.http_code);
+  976. 	} else {
+
+#267
+builtin/remote.c:992: error: Dead Store
+  The value written to &arg (type char*) is never used.
+  990. 	if (states->queried) {
+  991. 		const char *fmt = "%s";
+  992. 		const char *arg = "";
+         ^
+  993. 		if (string_list_has_string(&states->new_refs, name)) {
+  994. 			fmt = _(" new (next fetch will store in remotes/%s)");
+
+#268
+builtin/notes.c:1034: error: Dead Store
+  The value written to &result (type int) is never used.
+  1032. 		result = get_ref(argc, argv, prefix);
+  1033. 	else {
+  1034. 		result = error(_("unknown subcommand: %s"), argv[0]);
+          ^
+  1035. 		usage_with_options(git_notes_usage, options);
+  1036. 	}
+
+#269
+commit.c:1022: error: Dead Store
+  The value written to &saw_signature (type int) is never used.
+  1020. 	unsigned long size;
+  1021. 	const char *buffer = get_commit_buffer(commit, &size);
+  1022. 	int in_signature, saw_signature = -1;
+         ^
+  1023. 	const char *line, *tail;
+  1024. 	const char *gpg_sig_header = gpg_sig_headers[hash_algo_by_ptr(the_hash_algo)];
+
+#270
+builtin/submodule--helper.c:1053: error: Resource Leak
+  resource acquired by call to `open()` at line 1050, column 13 is not released after line 1053, column 8.
+  1051. 
+  1052. 			if (fd < 0 || fstat(fd, &st) < 0 ||
+  1053. 			    index_fd(&the_index, &p->oid_dst, fd, &st, OBJ_BLOB,
+               ^
+  1054. 				     p->sm_path, 0))
+  1055. 				error(_("couldn't hash object from '%s'"), p->sm_path);
+
+#271
+builtin/submodule--helper.c:1052: error: Resource Leak
+  resource acquired to `fd` by call to `open()` at line 1050, column 13 is not released after line 1052, column 18.
+  1050. 			int fd = open(p->sm_path, O_RDONLY);
+  1051. 
+  1052. 			if (fd < 0 || fstat(fd, &st) < 0 ||
+                         ^
+  1053. 			    index_fd(&the_index, &p->oid_dst, fd, &st, OBJ_BLOB,
+  1054. 				     p->sm_path, 0))
+
+#272
+setup.c:1060: error: Dead Store
+  The value written to &one_filesystem (type int) is never used.
+  1058. 	int ceil_offset = -1, min_offset = offset_1st_component(dir->buf);
+  1059. 	dev_t current_device = 0;
+  1060. 	int one_filesystem = 1;
+         ^
+  1061. 
+  1062. 	/*
+
+#273
+read-cache.c:1147: error: Uninitialized Value
+  The value read from len_eq_last was never initialized.
+  1145. 			 */
+  1146. 
+  1147. 			if (len + 1 <= len_eq_last) {
+               ^
+  1148. 				/*
+  1149. 				 * The directory prefix (including the trailing
+
+#274
+read-cache.c:1163: error: Uninitialized Value
+  The value read from len_eq_last was never initialized.
+  1161. 			}
+  1162. 
+  1163. 			if (len > len_eq_last) {
+               ^
+  1164. 				/*
+  1165. 				 * This part of the directory prefix (excluding
+
+#275
+refs.c:1097: error: Null Dereference
+  pointer `null` is dereferenced by call to `ref_transaction_update()` at line 1097, column 9.
+  1095. 	if (!old_oid)
+  1096. 		BUG("verify called with old_oid set to NULL");
+  1097. 	return ref_transaction_update(transaction, refname,
+                ^
+  1098. 				      NULL, old_oid,
+  1099. 				      flags, NULL, err);
+
+#276
+http-push.c:1158: error: Uninitialized Value
+  The value read from results.curl_result was never initialized.
+  1156. 	if (start_active_slot(slot)) {
+  1157. 		run_active_slot(slot);
+  1158. 		if (results.curl_result == CURLE_OK) {
+              ^
+  1159. 			XML_Parser parser = XML_ParserCreate(NULL);
+  1160. 			enum XML_Status result;
+
+#277
+diff.c:1180: error: Dead Store
+  The value written to &last_symbol (type int) is never used.
+  1178. 			block_length = 0;
+  1179. 			flipped_block = 0;
+  1180. 			last_symbol = l->s;
+           ^
+  1181. 			continue;
+  1182. 		}
+
+#278
+diff.c:1185: error: Dead Store
+  The value written to &last_symbol (type int) is never used.
+  1183. 
+  1184. 		if (o->color_moved == COLOR_MOVED_PLAIN) {
+  1185. 			last_symbol = l->s;
+           ^
+  1186. 			l->flags |= DIFF_SYMBOL_MOVED_LINE;
+  1187. 			continue;
+
+#279
+diff.c:1231: error: Dead Store
+  The value written to &last_symbol (type int) is never used.
+  1229. 				l->flags |= DIFF_SYMBOL_MOVED_LINE_ALT;
+  1230. 		}
+  1231. 		last_symbol = l->s;
+          ^
+  1232. 	}
+  1233. 	adjust_last_block(o, n, block_length);
+
+#280
+mailinfo.c:1199: error: Resource Leak
+  resource of type `_IO_FILE` acquired by call to `git_fopen()` at line 1176, column 18 is not released after line 1199, column 2.
+  1197. 		check_header(mi, &line, mi->p_hdr_data, 1);
+  1198. 
+  1199. 	handle_body(mi, &line);
+         ^
+  1200. 	fwrite(mi->log_message.buf, 1, mi->log_message.len, cmitmsg);
+  1201. 	fclose(cmitmsg);
+
+#281
+builtin/checkout.c:1319: error: Dead Store
+  The value written to &argc (type int) is never used.
+  1317. 		argcount++;
+  1318. 		argv++;
+  1319. 		argc--;
+          ^
+  1320. 	}
+  1321. 
+
+#282
+builtin/checkout.c:1318: error: Dead Store
+  The value written to &argv (type char const **) is never used.
+  1316. 	} else if (opts->accept_pathspec) {
+  1317. 		argcount++;
+  1318. 		argv++;
+          ^
+  1319. 		argc--;
+  1320. 	}
+
+#283
+run-command.c:1204: error: Uninitialized Value
+  The value read from fdin[_] was never initialized.
+  1202. 
+  1203. 	if (need_in)
+  1204. 		proc_in = fdin[0];
+          ^
+  1205. 	else if (async->in)
+  1206. 		proc_in = async->in;
+
+#284
+run-command.c:1211: error: Uninitialized Value
+  The value read from fdout[_] was never initialized.
+  1209. 
+  1210. 	if (need_out)
+  1211. 		proc_out = fdout[1];
+          ^
+  1212. 	else if (async->out)
+  1213. 		proc_out = async->out;
+
+#285
+builtin/submodule--helper.c:1218: error: Null Dereference
+  pointer `temp` last assigned on line 1217 could be null and is dereferenced at line 1218, column 3.
+  1216. 			continue;
+  1217. 		temp = (struct module_cb*)malloc(sizeof(struct module_cb));
+  1218. 		temp->mod_src = p->one->mode;
+          ^
+  1219. 		temp->mod_dst = p->two->mode;
+  1220. 		temp->oid_src = p->one->oid;
+
+#286
+http-push.c:1232: error: Uninitialized Value
+  The value read from results.curl_result was never initialized.
+  1230. 	if (start_active_slot(slot)) {
+  1231. 		run_active_slot(slot);
+  1232. 		if (results.curl_result == CURLE_OK) {
+              ^
+  1233. 			XML_Parser parser = XML_ParserCreate(NULL);
+  1234. 			enum XML_Status result;
+
+#287
+http-push.c:1259: error: Uninitialized Value
+  The value read from results.curl_result was never initialized.
+  1257. 
+  1258. 		} else {
+  1259. 			error("Cannot access URL %s, return code %d",
+           ^
+  1260. 			      repo->url, results.curl_result);
+  1261. 			lock_flags = 0;
+
+#288
+remote.c:1263: error: Uninitialized Value
+  The value read from name was never initialized.
+  1261. 	if (ret_pat)
+  1262. 		*ret_pat = pat;
+  1263. 	return name;
+         ^
+  1264. }
+  1265. 
+
+#289
+builtin/stash.c:1248: error: Dead Store
+  The value written to &argv (type char const **) is never used.
+  1246. 
+  1247. 	/* Starting with argv[1], since argv[0] is "create" */
+  1248. 	strbuf_join_argv(&stash_msg_buf, argc - 1, ++argv, ' ');
+                                                    ^
+  1249. 
+  1250. 	memset(&ps, 0, sizeof(ps));
+
+#290
+commit-graph.c:1267: error: Uninitialized Value
+  The value read from type was never initialized.
+  1265. 		die(_("unable to get type of object %s"), oid_to_hex(oid));
+  1266. 
+  1267. 	if (type != OBJ_COMMIT)
+             ^
+  1268. 		return 0;
+  1269. 
+
+#291
+builtin/commit.c:1404: error: Dead Store
+  The value written to &argc (type int) is never used.
+  1402. 
+  1403. 	status_init_config(&s, git_status_config);
+  1404. 	argc = parse_options(argc, argv, prefix,
+         ^
+  1405. 			     builtin_status_options,
+  1406. 			     builtin_status_usage, 0);
+
+#292
+http-push.c:1401: error: Uninitialized Value
+  The value read from results.curl_result was never initialized.
+  1399. 		run_active_slot(slot);
+  1400. 		strbuf_release(&out_buffer.buf);
+  1401. 		if (results.curl_result != CURLE_OK) {
+              ^
+  1402. 			fprintf(stderr,
+  1403. 				"PUT error: curl result=%d, HTTP code=%ld\n",
+
+#293
+http-push.c:1402: error: Uninitialized Value
+  The value read from results.curl_result was never initialized.
+  1400. 		strbuf_release(&out_buffer.buf);
+  1401. 		if (results.curl_result != CURLE_OK) {
+  1402. 			fprintf(stderr,
+           ^
+  1403. 				"PUT error: curl result=%d, HTTP code=%ld\n",
+  1404. 				results.curl_result, results.http_code);
+
+#294
+http-push.c:1402: error: Uninitialized Value
+  The value read from results.http_code was never initialized.
+  1400. 		strbuf_release(&out_buffer.buf);
+  1401. 		if (results.curl_result != CURLE_OK) {
+  1402. 			fprintf(stderr,
+           ^
+  1403. 				"PUT error: curl result=%d, HTTP code=%ld\n",
+  1404. 				results.curl_result, results.http_code);
+
+#295
+revision.c:1420: error: Null Dereference
+  pointer `commit` last assigned on line 1413 could be null and is dereferenced at line 1420, column 31.
+  1418. 			interesting_cache = NULL;
+  1419. 
+  1420. 		if (revs->max_age != -1 && (commit->date < revs->max_age))
+                                      ^
+  1421. 			obj->flags |= UNINTERESTING;
+  1422. 		if (process_parents(revs, commit, &list, NULL) < 0)
+
+#296
+builtin/stash.c:1487: error: Dead Store
+  The value written to &argc (type int) is never used.
+  1485. 	if (argc) {
+  1486. 		if (!strcmp(argv[0], "--")) {
+  1487. 			argc--;
+           ^
+  1488. 			argv++;
+  1489. 		} else if (push_assumed && !force_assume) {
+
+#297
+sha1-file.c:1541: error: Uninitialized Value
+  The value read from e.offset was never initialized.
+  1539. 		 */
+  1540. 		return 0;
+  1541. 	rtype = packed_object_info(r, e.p, e.offset, oi);
+                 ^
+  1542. 	if (rtype < 0) {
+  1543. 		mark_bad_packed_object(e.p, real->hash);
+
+#298
+sha1-file.c:1546: error: Uninitialized Value
+  The value read from e.offset was never initialized.
+  1544. 		return do_oid_object_info_extended(r, real, oi, 0);
+  1545. 	} else if (oi->whence == OI_PACKED) {
+  1546. 		oi->u.packed.offset = e.offset;
+          ^
+  1547. 		oi->u.packed.pack = e.p;
+  1548. 		oi->u.packed.is_delta = (rtype == OBJ_REF_DELTA ||
+
+#299
+builtin/commit.c:1580: error: Dead Store
+  The value written to &argc (type int) is never used.
+  1578. 	}
+  1579. 	verbose = -1; /* unspecified */
+  1580. 	argc = parse_and_validate_options(argc, argv, builtin_commit_options,
+         ^
+  1581. 					  builtin_commit_usage,
+  1582. 					  prefix, current_head, &s);
+
+#300
+http-push.c:1513: error: Uninitialized Value
+  The value read from results.curl_result was never initialized.
+  1511. 		if (start_active_slot(slot)) {
+  1512. 			run_active_slot(slot);
+  1513. 			if (results.curl_result != CURLE_OK) {
+               ^
+  1514. 				fprintf(stderr,
+  1515. 					"PUT error: curl result=%d, HTTP code=%ld\n",
+
+#301
+http-push.c:1514: error: Uninitialized Value
+  The value read from results.curl_result was never initialized.
+  1512. 			run_active_slot(slot);
+  1513. 			if (results.curl_result != CURLE_OK) {
+  1514. 				fprintf(stderr,
+            ^
+  1515. 					"PUT error: curl result=%d, HTTP code=%ld\n",
+  1516. 					results.curl_result, results.http_code);
+
+#302
+http-push.c:1514: error: Uninitialized Value
+  The value read from results.http_code was never initialized.
+  1512. 			run_active_slot(slot);
+  1513. 			if (results.curl_result != CURLE_OK) {
+  1514. 				fprintf(stderr,
+            ^
+  1515. 					"PUT error: curl result=%d, HTTP code=%ld\n",
+  1516. 					results.curl_result, results.http_code);
+
+#303
+packfile.c:1557: error: Null Dereference
+  pointer `revidx` last assigned on line 1556 could be null and is dereferenced at line 1557, column 21.
+  1555. 	if (oi->disk_sizep) {
+  1556. 		struct revindex_entry *revidx = find_pack_revindex(p, obj_offset);
+  1557. 		*oi->disk_sizep = revidx[1].offset - obj_offset;
+                            ^
+  1558. 	}
+  1559. 
+
+#304
+packfile.c:1551: error: Uninitialized Value
+  The value read from size was never initialized.
+  1549. 			}
+  1550. 		} else {
+  1551. 			*oi->sizep = size;
+           ^
+  1552. 		}
+  1553. 	}
+
+#305
+sha1-file.c:1579: error: Uninitialized Value
+  The value read from type was never initialized.
+  1577. 				      OBJECT_INFO_LOOKUP_REPLACE) < 0)
+  1578. 		return -1;
+  1579. 	return type;
+         ^
+  1580. }
+  1581. 
+
+#306
+sha1-file.c:1594: error: Uninitialized Value
+  The value read from content was never initialized.
+  1592. 	if (oid_object_info_extended(r, oid, &oi, 0) < 0)
+  1593. 		return NULL;
+  1594. 	return content;
+         ^
+  1595. }
+  1596. 
+
+#307
+http-push.c:1670: error: Uninitialized Value
+  The value read from results.curl_result was never initialized.
+  1668. 		run_active_slot(slot);
+  1669. 		free(url);
+  1670. 		if (results.curl_result != CURLE_OK)
+              ^
+  1671. 			return error("DELETE request failed (%d/%ld)",
+  1672. 				     results.curl_result, results.http_code);
+
+#308
+http-push.c:1671: error: Uninitialized Value
+  The value read from results.curl_result was never initialized.
+  1669. 		free(url);
+  1670. 		if (results.curl_result != CURLE_OK)
+  1671. 			return error("DELETE request failed (%d/%ld)",
+                  ^
+  1672. 				     results.curl_result, results.http_code);
+  1673. 	} else {
+
+#309
+http-push.c:1671: error: Uninitialized Value
+  The value read from results.http_code was never initialized.
+  1669. 		free(url);
+  1670. 		if (results.curl_result != CURLE_OK)
+  1671. 			return error("DELETE request failed (%d/%ld)",
+                  ^
+  1672. 				     results.curl_result, results.http_code);
+  1673. 	} else {
+
+#310
+combine-diff.c:1646: error: Null Dereference
+  pointer `&parents->oid` last assigned on line 1643 could be null and is dereferenced by call to `oid_array_append()` at line 1646, column 3.
+  1644. 
+  1645. 	while (parent) {
+  1646. 		oid_array_append(&parents, &parent->item->object.oid);
+          ^
+  1647. 		parent = parent->next;
+  1648. 	}
+
+#311
+builtin/index-pack.c:1664: error: Null Dereference
+  pointer `chain_histogram` last assigned on line 1655 could be null and is dereferenced at line 1664, column 4.
+  1662. 
+  1663. 		if (is_delta_type(obj->type))
+  1664. 			chain_histogram[obj_stat[i].delta_depth - 1]++;
+           ^
+  1665. 		if (stat_only)
+  1666. 			continue;
+
+#312
+packfile.c:1671: error: Uninitialized Value
+  The value read from content was never initialized.
+  1669. 	if (oid_object_info_extended(r, oid, &oi, 0) < 0)
+  1670. 		return NULL;
+  1671. 	return content;
+         ^
+  1672. }
+  1673. 
+
+#313
+revision.c:1667: error: Null Dereference
+  pointer `tree` last assigned on line 1666 could be null and is dereferenced at line 1667, column 3.
+  1665. 	if (it->entry_count >= 0) {
+  1666. 		struct tree *tree = lookup_tree(revs->repo, &it->oid);
+  1667. 		tree->object.flags |= flags;
+          ^
+  1668. 		add_pending_object_with_path(revs, &tree->object, "",
+  1669. 					     040000, path->buf);
+
+#314
+sha1-file.c:1674: error: Dead Store
+  The value written to &ref_length (type int) is never used.
+  1672. 	oidcpy(&actual_oid, oid);
+  1673. 	while (1) {
+  1674. 		int ref_length = -1;
+          ^
+  1675. 		const char *ref_type = NULL;
+  1676. 
+
+#315
+packfile.c:1763: error: Uninitialized Value
+  The value read from size was never initialized.
+  1761. 	case OBJ_TAG:
+  1762. 		if (!base_from_cache)
+  1763. 			data = unpack_compressed_entry(p, &w_curs, curpos, size);
+                  ^
+  1764. 		break;
+  1765. 	default:
+
+#316
+packfile.c:1780: error: Uninitialized Value
+  The value read from size was never initialized.
+  1778. 		void *base = data;
+  1779. 		void *external_base = NULL;
+  1780. 		unsigned long delta_size, base_size = size;
+          ^
+  1781. 		int i;
+  1782. 		off_t base_obj_offset = obj_offset;
+
+#317
+packfile.c:1858: error: Uninitialized Value
+  The value read from size was never initialized.
+  1856. 		*final_type = type;
+  1857. 	if (final_size)
+  1858. 		*final_size = size;
+          ^
+  1859. 
+  1860. out:
+
+#318
+packfile.c:1753: error: Uninitialized Value
+  The value read from type was never initialized.
+  1751. 	/* PHASE 2: handle the base */
+  1752. 	switch (type) {
+  1753. 	case OBJ_OFS_DELTA:
+         ^
+  1754. 	case OBJ_REF_DELTA:
+  1755. 		if (data)
+
+#319
+packfile.c:1754: error: Uninitialized Value
+  The value read from type was never initialized.
+  1752. 	switch (type) {
+  1753. 	case OBJ_OFS_DELTA:
+  1754. 	case OBJ_REF_DELTA:
+         ^
+  1755. 		if (data)
+  1756. 			BUG("unpack_entry: left loop at a valid delta");
+
+#320
+packfile.c:1758: error: Uninitialized Value
+  The value read from type was never initialized.
+  1756. 			BUG("unpack_entry: left loop at a valid delta");
+  1757. 		break;
+  1758. 	case OBJ_COMMIT:
+         ^
+  1759. 	case OBJ_TREE:
+  1760. 	case OBJ_BLOB:
+
+#321
+packfile.c:1759: error: Uninitialized Value
+  The value read from type was never initialized.
+  1757. 		break;
+  1758. 	case OBJ_COMMIT:
+  1759. 	case OBJ_TREE:
+         ^
+  1760. 	case OBJ_BLOB:
+  1761. 	case OBJ_TAG:
+
+#322
+packfile.c:1760: error: Uninitialized Value
+  The value read from type was never initialized.
+  1758. 	case OBJ_COMMIT:
+  1759. 	case OBJ_TREE:
+  1760. 	case OBJ_BLOB:
+         ^
+  1761. 	case OBJ_TAG:
+  1762. 		if (!base_from_cache)
+
+#323
+packfile.c:1761: error: Uninitialized Value
+  The value read from type was never initialized.
+  1759. 	case OBJ_TREE:
+  1760. 	case OBJ_BLOB:
+  1761. 	case OBJ_TAG:
+         ^
+  1762. 		if (!base_from_cache)
+  1763. 			data = unpack_compressed_entry(p, &w_curs, curpos, size);
+
+#324
+packfile.c:1767: error: Uninitialized Value
+  The value read from type was never initialized.
+  1765. 	default:
+  1766. 		data = NULL;
+  1767. 		error("unknown object type %i at offset %"PRIuMAX" in %s",
+          ^
+  1768. 		      type, (uintmax_t)obj_offset, p->pack_name);
+  1769. 	}
+
+#325
+packfile.c:1849: error: Uninitialized Value
+  The value read from type was never initialized.
+  1847. 		 */
+  1848. 		if (!external_base)
+  1849. 			add_delta_base_cache(p, base_obj_offset, base, base_size, type);
+           ^
+  1850. 
+  1851. 		free(delta_data);
+
+#326
+packfile.c:1856: error: Uninitialized Value
+  The value read from type was never initialized.
+  1854. 
+  1855. 	if (final_type)
+  1856. 		*final_type = type;
+          ^
+  1857. 	if (final_size)
+  1858. 		*final_size = size;
+
+#327
+builtin/pack-objects.c:1878: error: Uninitialized Value
+  The value read from canonical_size was never initialized.
+  1876. 	oe_set_type(entry, type);
+  1877. 	if (entry->type_valid) {
+  1878. 		SET_SIZE(entry, canonical_size);
+          ^
+  1879. 	} else {
+  1880. 		/*
+
+#328
+builtin/pack-objects.c:1876: error: Uninitialized Value
+  The value read from type was never initialized.
+  1874. 		}
+  1875. 	}
+  1876. 	oe_set_type(entry, type);
+         ^
+  1877. 	if (entry->type_valid) {
+  1878. 		SET_SIZE(entry, canonical_size);
+
+#329
+revision.c:1782: error: Null Dereference
+  pointer `it` last assigned on line 1779 could be null and is dereferenced at line 1782, column 7.
+  1780. 		if (!it && revs->ignore_missing)
+  1781. 			return 0;
+  1782. 		if (it->type != OBJ_TAG)
+              ^
+  1783. 			break;
+  1784. 		if (!((struct tag*)it)->tagged)
+
+#330
+revision.c:1790: error: Uninitialized Value
+  The value read from it was never initialized.
+  1788. 	if (it->type != OBJ_COMMIT)
+  1789. 		return 0;
+  1790. 	commit = (struct commit *)it;
+         ^
+  1791. 	if (exclude_parent &&
+  1792. 	    exclude_parent > commit_list_count(commit->parents))
+
+#331
+refs/files-backend.c:1787: error: Dead Store
+  The value written to &ret (type int) is never used.
+  1785. static int create_ref_symlink(struct ref_lock *lock, const char *target)
+  1786. {
+  1787. 	int ret = -1;
+         ^
+  1788. #ifndef NO_SYMLINK_HEAD
+  1789. 	char *ref_path = get_locked_file_path(&lock->lk);
+
+#332
+sequencer.c:1909: error: Dead Store
+  The value written to &reword (type int) is never used.
+  1907. 		if (res || command != TODO_REWORD)
+  1908. 			goto leave;
+  1909. 		reword = 1;
+          ^
+  1910. 		msg_file = NULL;
+  1911. 		goto fast_forward_edit;
+
+#333
+builtin/fast-import.c:1909: error: Dead Store
+  The value written to &num (type unsigned long) is never used.
+  1907. 	errno = 0;
+  1908. 
+  1909. 	num = strtoul(src, &endp, 10);
+         ^
+  1910. 	/*
+  1911. 	 * NEEDSWORK: perhaps check for reasonable values? For example, we
+
+#334
+builtin/pack-objects.c:1953: error: Uninitialized Value
+  The value read from size was never initialized.
+  1951. 		oe_set_type(entry, type);
+  1952. 	}
+  1953. 	SET_SIZE(entry, size);
+         ^
+  1954. }
+  1955. 
+
+#335
+builtin/pack-objects.c:1951: error: Uninitialized Value
+  The value read from type was never initialized.
+  1949. 			    oid_object_info(the_repository, &entry->idx.oid, &size));
+  1950. 	} else {
+  1951. 		oe_set_type(entry, type);
+          ^
+  1952. 	}
+  1953. 	SET_SIZE(entry, size);
+
+#336
+merge-recursive.c:2022: error: Dead Store
+  The value written to &end_of_new (type char*) is never used.
+  2020. 	 */
+  2021. 	end_of_old = strchr(++end_of_old, '/');
+  2022. 	end_of_new = strchr(++end_of_new, '/');
+                             ^
+  2023. 
+  2024. 	/* Copy the old and new directories into *old_dir and *new_dir. */
+
+#337
+merge-recursive.c:1998: error: Dead Store
+  The value written to &end_of_old (type char*) is never used.
+  1996. 	if (end_of_new == new_path &&
+  1997. 	    end_of_old != old_path && end_of_old[-1] == '/') {
+  1998. 		*old_dir = xstrndup(old_path, --end_of_old - old_path);
+                                        ^
+  1999. 		*new_dir = xstrdup("");
+  2000. 		return;
+
+#338
+merge-recursive.c:2021: error: Dead Store
+  The value written to &end_of_old (type char*) is never used.
+  2019. 	 * a/b/.
+  2020. 	 */
+  2021. 	end_of_old = strchr(++end_of_old, '/');
+                             ^
+  2022. 	end_of_new = strchr(++end_of_new, '/');
+  2023. 
+
+#339
+ref-filter.c:2028: error: Uninitialized Value
+  The value read from ret was never initialized.
+  2026. 
+  2027. 	string_list_clear(&prefixes, 0);
+  2028. 	return ret;
+         ^
+  2029. }
+  2030. 
+
+#340
+grep.c:2066: error: Null Dereference
+  pointer `null` is dereferenced by call to `grep_source_init()` at line 2066, column 2.
+  2064. 	int r;
+  2065. 
+  2066. 	grep_source_init(&gs, GREP_SOURCE_BUF, NULL, NULL, NULL);
+         ^
+  2067. 	gs.buf = buf;
+  2068. 	gs.size = size;
+
+#341
+config.c:2142: error: Null Dereference
+  pointer `repo->config->list.items` last assigned on line 2141 could be null and is dereferenced by call to `configset_iter()` at line 2142, column 2.
+  2140. {
+  2141. 	git_config_check_init(repo);
+  2142. 	configset_iter(repo->config, fn, data);
+         ^
+  2143. }
+  2144. 
+
+#342
+read-cache.c:2240: error: Uninitialized Value
+  The value read from p.pthread was never initialized.
+  2238. 	/* if we created a thread, join it otherwise load the extensions on the primary thread */
+  2239. 	if (extension_offset) {
+  2240. 		int ret = pthread_join(p.pthread, NULL);
+                    ^
+  2241. 		if (ret)
+  2242. 			die(_("unable to join load_index_extensions thread: %s"), strerror(ret));
+
+#343
+sha1-file.c:2218: error: Resource Leak
+  resource acquired by call to `open()` at line 2215, column 8 is not released after line 2218, column 7.
+  2216. 		if (fd < 0)
+  2217. 			return error_errno("open(\"%s\")", path);
+  2218. 		if (index_fd(istate, oid, fd, st, OBJ_BLOB, path, flags) < 0)
+              ^
+  2219. 			return error(_("%s: failed to insert into database"),
+  2220. 				     path);
+
+#344
+commit-graph.c:2360: error: Resource Leak
+  resource acquired by call to `open()` at line 2358, column 12 is not released after line 2360, column 2.
+  2358. 	devnull = open("/dev/null", O_WRONLY);
+  2359. 	f = hashfd(devnull, NULL);
+  2360. 	hashwrite(f, g->data, g->data_len - g->hash_len);
+         ^
+  2361. 	finalize_hashfile(f, checksum.hash, CSUM_CLOSE);
+  2362. 	if (!hasheq(checksum.hash, g->data + g->data_len - g->hash_len)) {
+
+#345
+builtin/fast-import.c:2493: error: Dead Store
+  The value written to &p (type char const *) is never used.
+  2491. 		if (p != uq.buf) {
+  2492. 			strbuf_addstr(&uq, p);
+  2493. 			p = uq.buf;
+           ^
+  2494. 		}
+  2495. 		read_next_command();
+
+#346
+read-cache.c:2652: error: Uninitialized Value
+  The value read from saved_namelen was never initialized.
+  2650. 	}
+  2651. 	if (stripped_name) {
+  2652. 		ce->ce_namelen = saved_namelen;
+          ^
+  2653. 		ce->ce_flags &= ~CE_STRIP_NAME;
+  2654. 	}
+
+#347
+blame.c:2704: error: Null Dereference
+  pointer `obj` last assigned on line 2703 could be null and is dereferenced at line 2704, column 6.
+  2702. 	obj = revs->pending.objects[0].item;
+  2703. 	obj = deref_tag(revs->repo, obj, NULL, 0);
+  2704. 	if (obj->type != OBJ_COMMIT)
+             ^
+  2705. 		return NULL;
+  2706. 
+
+#348
+config.c:2757: error: Dead Store
+  The value written to &fd (type int) is never used.
+  2755. 					   int multi_replace)
+  2756. {
+  2757. 	int fd = -1, in_fd = -1;
+         ^
+  2758. 	int ret;
+  2759. 	struct lock_file lock = LOCK_INIT;
+
+#349
+config.c:2986: error: Uninitialized Value
+  The value read from contents_sz was never initialized.
+  2984. 	free(filename_buf);
+  2985. 	if (contents)
+  2986. 		munmap(contents, contents_sz);
+          ^
+  2987. 	if (in_fd >= 0)
+  2988. 		close(in_fd);
+
+#350
+apply.c:3030: error: Uninitialized Value
+  The value read from applied_pos was never initialized.
+  3028. 	}
+  3029. 
+  3030. 	if (applied_pos >= 0) {
+             ^
+  3031. 		if (new_blank_lines_at_end &&
+  3032. 		    preimage.nr + applied_pos >= img->nr &&
+
+#351
+apply.c:3032: error: Uninitialized Value
+  The value read from applied_pos was never initialized.
+  3030. 	if (applied_pos >= 0) {
+  3031. 		if (new_blank_lines_at_end &&
+  3032. 		    preimage.nr + applied_pos >= img->nr &&
+              ^
+  3033. 		    (ws_rule & WS_BLANK_AT_EOF) &&
+  3034. 		    state->ws_error_action != nowarn_ws_error) {
+
+#352
+apply.c:3052: error: Uninitialized Value
+  The value read from applied_pos was never initialized.
+  3050. 		}
+  3051. 
+  3052. 		if (state->apply_verbosity > verbosity_normal && applied_pos != pos) {
+                                                           ^
+  3053. 			int offset = applied_pos - pos;
+  3054. 			if (state->apply_in_reverse)
+
+#353
+apply.c:3053: error: Uninitialized Value
+  The value read from applied_pos was never initialized.
+  3051. 
+  3052. 		if (state->apply_verbosity > verbosity_normal && applied_pos != pos) {
+  3053. 			int offset = applied_pos - pos;
+           ^
+  3054. 			if (state->apply_in_reverse)
+  3055. 				offset = 0 - offset;
+
+#354
+apply.c:3072: error: Uninitialized Value
+  The value read from applied_pos was never initialized.
+  3070. 					     " to apply fragment at %d"),
+  3071. 				   leading, trailing, applied_pos+1);
+  3072. 		update_image(state, img, applied_pos, &preimage, &postimage);
+          ^
+  3073. 	} else {
+  3074. 		if (state->apply_verbosity > verbosity_normal)
+
+#355
+apply.c:3085: error: Uninitialized Value
+  The value read from applied_pos was never initialized.
+  3083. 	free(postimage.line_allocated);
+  3084. 
+  3085. 	return (applied_pos < 0);
+                 ^
+  3086. }
+  3087. 
+
+#356
+config.c:3243: error: Null Dereference
+  pointer `null` is dereferenced by call to `git_config_rename_section_in_file()` at line 3243, column 9.
+  3241. int git_config_rename_section(const char *old_name, const char *new_name)
+  3242. {
+  3243. 	return git_config_rename_section_in_file(NULL, old_name, new_name);
+                ^
+  3244. }
+  3245. 
+
+#357
+config.c:3255: error: Null Dereference
+  pointer `null` is dereferenced by call to `git_config_copy_section_in_file()` at line 3255, column 9.
+  3253. int git_config_copy_section(const char *old_name, const char *new_name)
+  3254. {
+  3255. 	return git_config_copy_section_in_file(NULL, old_name, new_name);
+                ^
+  3256. }
+  3257. 
+
+#358
+diff.c:3303: error: Uninitialized Value
+  The value read from delta_size was never initialized.
+  3301. 	}
+  3302. 
+  3303. 	if (delta && delta_size < deflate_size) {
+                      ^
+  3304. 		char *s = xstrfmt("%"PRIuMAX , (uintmax_t)orig_size);
+  3305. 		emit_diff_symbol(o, DIFF_SYMBOL_BINARY_DIFF_HEADER_DELTA,
+
+#359
+diff.c:3310: error: Uninitialized Value
+  The value read from delta_size was never initialized.
+  3308. 		free(deflated);
+  3309. 		data = delta;
+  3310. 		data_size = delta_size;
+          ^
+  3311. 	} else {
+  3312. 		char *s = xstrfmt("%lu", two->size);
+
+#360
+diff.c:3304: error: Uninitialized Value
+  The value read from orig_size was never initialized.
+  3302. 
+  3303. 	if (delta && delta_size < deflate_size) {
+  3304. 		char *s = xstrfmt("%"PRIuMAX , (uintmax_t)orig_size);
+                    ^
+  3305. 		emit_diff_symbol(o, DIFF_SYMBOL_BINARY_DIFF_HEADER_DELTA,
+  3306. 				 s, strlen(s), 0);
+
+#361
+read-cache.c:3599: error: Uninitialized Value
+  The value read from extsize was never initialized.
+  3597. 
+  3598. 	/* extension size - version bytes / bytes per entry */
+  3599. 	nr = (extsize - sizeof(uint32_t)) / (sizeof(uint32_t) + sizeof(uint32_t));
+         ^
+  3600. 	if (!nr) {
+  3601. 		error("invalid number of IEOT entries %d", nr);
+
+Found 362 issues
+                Issue Type(ISSUED_TYPE_ID): #
+  Uninitialized Value(UNINITIALIZED_VALUE): 211
+                    Dead Store(DEAD_STORE): 101
+        Null Dereference(NULL_DEREFERENCE): 34
+              Resource Leak(RESOURCE_LEAK): 16
